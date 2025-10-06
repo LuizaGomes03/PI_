@@ -1,4 +1,3 @@
-
 /* HOMEPAGE */
 :root{
   --green:#b2c26b;
@@ -107,7 +106,8 @@ nav.primary a:hover{color:var(--green-600);text-decoration:underline}
   overflow:hidden;flex:1;max-width:900px;
 }
 .posts-row{
-  display:flex;gap:24px;transition:transform .35s ease;
+  display:flex;gap:30px;transition:transform .35s ease; font-family:'Amatic SC', cursive; font-size:44px;
+  color: #7a8b3b;            /* verde */
 }
 .post{
   background:#fff;border:1px solid #e9e9e9;border-radius:10px;overflow:hidden;width:280px;flex:0 0 auto;
@@ -124,8 +124,8 @@ nav.primary a:hover{color:var(--green-600);text-decoration:underline}
   max-width:var(--maxw);margin:0 auto;padding:26px 28px;
   display:flex;gap:32px;align-items:flex-start
 }
-.footer-col{min-width:250px}
-.footer-col strong{display:block;margin-bottom:8px}
+.footer-col{min-width:250px;font-family:'Amatic SC', cursive;}
+.footer-col strong{display:block;margin-bottom:8px;font-family:'Amatic SC', cursive;}
 .footer a{color:inherit}
 .login-btn{
   margin-top:12px;padding:6px 18px;border-radius:8px;border:none;background:#f8f8f8;
