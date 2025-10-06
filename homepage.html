@@ -2,101 +2,35 @@
 <html lang="pt-BR">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <<<<<<< HEAD <title>ROKUZEN - Header</title>
-    <link rel="stylesheet" href="../assets/css/styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
-    =======
-    <title>ROKUZEN - massagem terapêutica | um momento dedicado a você</title>
-    <style>
-      nav {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 10px 30px;
-        background-color: #ffffff;
-        border-bottom: 2px solid #eee;
-      }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ROKUZEN - massagem terapêutica | um momento dedicado a você</title>
 
-      /* Logo */
-      .logo {
-        display: flex;
-        align-items: start;
-      }
+  <!-- Fonts + Ícones -->
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-      .logo img {
-        height: 50px;
-        margin-right: 10px;
-      }
-
-      /* Redes sociais */
-      .social-icons {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        margin-left: 20px;
-      }
-
-      .social-icons i {
-        color: #555;
-        font-size: 16px;
-        cursor: pointer;
-      }
-
-      /* Links de navegação */
-      .nav-links {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-      }
-
-      .nav-links a {
-        text-decoration: none;
-        color: #333;
-        font-size: 14px;
-      }
-
-      .nav-links a.agende {
-        color: #7e9b3e;
-        font-weight: bold;
-      }
-
-      /* Botão verde de busca/menu */
-      .barra-busca {
-        background-color: #a5bd6a;
-        padding: 10px 20px;
-        border-radius: 30px;
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        cursor: pointer;
-      }
-
-      .barra-busca i {
-        color: #333;
-      }
-
-      /* Responsivo opcional: esconde links em telas pequenas */
-      @media (max-width: 768px) {
-        .nav-links {
-          display: none;
-        }
-
-        .social-icons {
-          display: none;
-        }
-      }
-    </style>
-
-    >>>>>>> 77076ca5b1d008e409551d384796c37980dc1ee0
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-  <<<<<<< HEAD <header class="header">
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="header-top">
+      <a href="mailto:contato@rokuzen.com"><i class="fa-regular fa-envelope"></i></a>
+      <a href="#"><i class="fab fa-facebook-f"></i></a>
+      <a href="#"><i class="fab fa-instagram"></i></a>
+      <a href="#"><i class="fab fa-linkedin-in"></i></a>
+    </div>
+
     <div class="header-container">
-      <img src="imagens/logo.png" alt="Logo Rokuzen" class="logo">
-      <nav>
+      <img class="logo" src="imagens/logo.png" alt="Logo Rokuzen" />
+
+      <nav class="primary">
         <a href="agendeoseuhorario.html">Agenda o seu horário</a>
         <a href="giftcard.html">Gift Card</a>
         <a href="quemsomos.html">Quem somos</a>
@@ -104,284 +38,129 @@
         <a href="oquefazemos.html">O que fazemos</a>
         <a href="faleconosco.html">Fale Conosco</a>
       </nav>
-      <form class="search-bar" action="#" method="get">
-        <input type="text" placeholder="Pesquisar..." name="q">
-        <button type="submit">🔍</button>
+
+      <form class="search" action="#" method="get">
+        <input type="text" name="q" placeholder="Pesquisar..." aria-label="Pesquisar">
+        <button type="submit" aria-label="Buscar">
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
       </form>
     </div>
-    </header>
-    <!-- Carrossel de imagens circulares -->
-    <div class="carousel">
-      <button class="carousel-btn prev" aria-label="Anterior">&#8592;</button>
-      <div class="carousel-track">
-        <a href="nossoatendimento.html" class="carousel-item">
-          <img src="imagens/img1.jpg">
-          <span class="carousel-label">Nosso Atendimento</span>
-        </a>
-        <a href="agendamentoonline.html" class="carousel-item">
-          <img src="imagens/img2.jpg">
-          <span class="carousel-label">Agendamento Online</span>
-        </a>
-        <a href="giftcard.html" class="carousel-item">
-          <img src="imagens/img3.jpg">
-          <span class="carousel-label">Gift Card</span>
-        </a>
+  </header>
+
+  <!-- SEÇÃO FEATURES (bolas redondas) -->
+  <section class="features">
+    <a class="feature" href="nossoatendimento.html">
+      <img src="imagens/img1.jpg" alt="Nosso atendimento">
+      <b>Nosso Atendimento</b>
+      <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
+    </a>
+
+    <a class="feature" href="agendamentoonline.html">
+      <img src="imagens/img2.jpg" alt="Agendamento online">
+      <b>Agendamento Online</b>
+      <small>Agende agora mesmo com poucos cliques!</small>
+    </a>
+
+    <a class="feature" href="giftcard.html">
+      <img src="imagens/img3.jpg" alt="Gift Card">
+      <b>Gift Card</b>
+      <small>Dê um presente especial.</small>
+    </a>
+  </section>
+
+  <!-- SEÇÃO POSTS -->
+  <section class="posts-wrap">
+    <h2 class="section-title">Nossos Posts</h2>
+
+    <div class="posts">
+      <button class="posts-btn" id="postsPrev" aria-label="Anterior">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
+
+      <div class="posts-track">
+        <div class="posts-row" id="postsRow">
+          <article class="post">
+            <img src="imagens/Rectangle 16.png" alt="Post 1">
+            <div class="post-body">
+              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?</p>
+            </div>
+          </article>
+
+          <article class="post">
+            <img src="imagens/Rectangle 21.png" alt="Post 2">
+            <div class="post-body">
+              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
+            </div>
+          </article>
+
+          <article class="post">
+            <img src="imagens/Rectangle 22.png" alt="Post 3">
+            <div class="post-body">
+              <p class="post-title"> Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
+            </div>
+          </article>
+        </div>
       </div>
-      <button class="carousel-btn next" aria-label="Próximo">&#8594;</button>
+
+      <button class="posts-btn" id="postsNext" aria-label="Próximo">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
-    <footer class="footer">
-      <div class="footer-container">
-        <div class="footer-logo">
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-col">
+        <strong>Unidades:</strong>
+        Golden Square Shopping<br>
+        Whatsapp: <a href="https://wa.me/551197493506" target="_blank" rel="noopener">+55 11 9 7493 506</a><br><br>
+        Mooca Plaza Shopping<br>
+        Whatsapp: <a href="https://wa.me/551198081087" target="_blank" rel="noopener">+55 11 9 8081 1087</a><br><br>
+        Grand Plaza Shopping<br>
+        Whatsapp: <a href="https://wa.me/551196657900" target="_blank" rel="noopener">+55 11 9 1665 7900</a><br><br>
+        Shopping West Plaza<br>
+        Whatsapp: <a href="https://wa.me/551191927901" target="_blank" rel="noopener">+55 11 9 1927 901</a><br><br>
+        <button class="login-btn">Login</button>
+      </div>
+
+      <div class="footer-col" style="flex:1">
+        <strong>Tags:</strong>
+        <div style="max-width:740px">
+          Bem-estar e relaxamento: ambiente, antistress, bem-estar, momento zen, relaxamento, massagem, quick-massage,
+          música oriental, música relaxante, jardim zen, tatame, outono, ganhar.<br><br>
+          Campanhas de saúde e doação de sangue: doação, prevenção, novembro azul, outubro rosa, câncer de mama, saúde
+          do homem, próstata, check-up.<br><br>
+          Cultura e referências orientais: chá oriental, cultura oriental, Japão, koto, juninoyememulo.<br><br>
+          Marketing e presença online: cartão fidelidade, projeto, Facebook, Instagram.<br><br>
+          Locais e instituições: Golden Square Shopping, Inca, Gov BR, Rokuzen, Rokuzenmoda, Shopping.
         </div>
-        <div class="footer-info">
-          <div class="footer-unidades">
-            <strong>Unidades:</strong><br>
-            Golden Square Shopping<br>
-            Whatsapp: <a href="https://wa.me/551197493506" target="_blank">+55 11 9 7493 506</a><br><br>
-            Mooca Plaza Shopping<br>
-            Whatsapp: <a href="https://wa.me/551198081087" target="_blank">+55 11 9 8081 1087</a><br><br>
-            Grand Plaza Shopping<br>
-            Whatsapp: <a href="https://wa.me/551196657900" target="_blank">+55 11 9 1665 7900</a><br><br>
-            Shopping West Plaza<br>
-            Whatsapp: <a href="https://wa.me/551191927901" target="_blank">+55 11 9 1927 901</a>
-            <br><br>
-            <button class="login-btn">Login</button>
-          </div>
-          <div class="footer-tags">
-            <strong>Tags:</strong><br>
-            Bem-estar e relaxamento: ambiente, antistress, bem-estar, momento zen, relaxamento, massagem, quick-massage,
-            música oriental, música relaxante, jardim zen, tatame, outono, ganhar.<br><br>
-            Campanhas de saúde e doação de sangue: doação, prevenção, novembro azul, outubro rosa, câncer de mama, saúde
-            do homem, próstata, check-up.<br><br>
-            Cultura e referências orientais: chá oriental, cultura oriental, Japão, koto, juninoyememulo.<br><br>
-            Marketing e presença online: cartão fidelidade, projeto, Facebook, Instagram.<br><br>
-            Locais e instituições: Golden Square Shopping, Inca, Gov BR, Rokuzen, Rokuzenmoda, Shopping.
-          </div>
-        </div>
       </div>
-      <div class="footer-copy">
-        © 2025 Rokuzen – Trabalho Acadêmico
-      </div>
-    </footer>
-    <style>
-      .footer {
-        background: #b2c26b;
-        padding: 30px 0 0 0;
-        font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    </div>
+
+    <div class="footer-copy">© 2025 Rokuzen – Trabalho Acadêmico</div>
+  </footer>
+
+  <!-- SCRIPT DO SLIDER -->
+  <script>
+    (function () {
+      const row = document.getElementById('postsRow');
+      const prev = document.getElementById('postsPrev');
+      const next = document.getElementById('postsNext');
+
+      let index = 0;
+      const cardW = 304; // largura aproximada do card + gap
+      const maxIndex = Math.max(0, row.children.length - 3);
+
+      function update() {
+        row.style.transform = `translateX(${-index * cardW}px)`;
       }
+      prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
+      next.addEventListener('click', () => { index = Math.min(maxIndex, index + 1); update(); });
+    })();
+  </script>
 
-      .footer-container {
-        display: flex;
-        align-items: flex-start;
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 0 40px;
-      }
-
-      .footer-info {
-        display: flex;
-        flex: 1;
-        justify-content: space-between;
-        width: 100%;
-      }
-
-      .footer-unidades,
-      .footer-tags {
-        font-size: 1.1rem;
-        color: #222;
-        margin-right: 40px;
-        min-width: 250px;
-      }
-
-      .footer-copy {
-        text-align: center;
-        font-size: 1rem;
-        color: #222;
-        padding: 10px 0;
-        background: #fff;
-        margin-top: 10px;
-        border-top: 1px solid #b2c26b;
-        font-family: 'Amatic SC', cursive, Arial, sans-serif;
-      }
-
-      .login-btn {
-        margin-top: 10px;
-        padding: 6px 18px;
-        border-radius: 8px;
-        border: none;
-        background: #f8f8f8;
-        color: #7a8b3b;
-        font-size: 1.1rem;
-        cursor: pointer;
-        font-family: inherit;
-      }
-
-      .login-btn:hover {
-        background: #e1e1e1;
-      }
-
-      .logo {
-        width: 120px;
-        height: auto;
-      }
-
-      .header nav {
-        display: flex;
-        gap: 40px;
-      }
-
-      .header nav a {
-        font-family: 'Inter', Arial, sans-serif;
-        font-size: 2rem;
-        color: #222;
-        text-decoration: none;
-        transition: color 0.2s;
-      }
-
-      .header nav a:hover {
-        color: #7a8b3b;
-        text-decoration: underline;
-      }
-
-      .search-bar {
-        display: flex;
-        align-items: center;
-        margin-left: auto;
-      }
-
-      .search-bar input[type="text"] {
-        padding: 8px;
-        border: 1px solid #ccc;
-        border-radius: 4px;
-        font-size: 1rem;
-        margin-right: 8px;
-      }
-
-      .search-bar button {
-        padding: 8px 12px;
-        border: none;
-        border-radius: 4px;
-        background: #7a8b3b;
-        color: #fff;
-        font-size: 1rem;
-        cursor: pointer;
-      }
-
-      .search-bar button:hover {
-        background: #6a7a2b;
-      }
-
-      .carousel {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 40px 0;
-        position: relative;
-        min-height: 220px;
-        /* Garante espaço vertical para centralizar as setas */
-      }
-
-      .carousel-btn {
-        background: #b2c26b;
-        color: #fff;
-        border: none;
-        border-radius: 50%;
-        width: 50px;
-        height: 50px;
-        font-size: 2rem;
-        cursor: pointer;
-        margin: 0 30px;
-        transition: background 0.2s;
-        align-self: center;
-        /* Centraliza verticalmente */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .carousel-track {
-        display: flex;
-        gap: 80px;
-        /* Aumenta o espaço entre as imagens */
-        overflow: hidden;
-        width: 500px;
-        /* Ajuste conforme o número de imagens visíveis */
-        transition: transform 0.4s;
-      }
-
-      .carousel-item {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        text-align: center;
-        text-decoration: none;
-      }
-
-      .carousel-item img {
-        width: 160px;
-        height: 160px;
-        object-fit: cover;
-        border-radius: 50%;
-        border: 6px solid #b2c26b;
-        transition: box-shadow 0.2s;
-        background: #fff;
-      }
-
-      .carousel-label {
-        margin-top: 16px;
-        font-family: 'Amatic SC', cursive, Arial, sans-serif;
-        font-size: 1.6rem;
-        color: #222;
-        text-decoration: none;
-        display: block;
-      }
-
-      .carousel-item:hover .carousel-label {
-        color: #7a8b3b;
-        text-decoration: underline;
-      }
-
-      .footer,
-      .footer-copy,
-      .footer-unidades,
-      .footer-tags,
-      .carousel-label,
-      body {
-        font-family: 'Inter', Arial, sans-serif;
-      }
-    </style>
-    =======
-    <nav>
-      <!-- Logo -->
-      <div class="logo">
-        <img src="logo-rokuzen.png" alt="Logo ROKUZEN" width="700px" height="300px">
-      </div>
-
-      <!-- Ícones sociais -->
-      <div class="social-icons">
-        <i class="fas fa-envelope"></i>
-        <i class="fab fa-facebook-f"></i>
-        <i class="fab fa-instagram"></i>
-        <i class="fab fa-linkedin-in"></i>
-      </div>
-
-      <!-- Links de navegação -->
-      <div class="nav-links">
-        <a href="#" class="agende">Agende seu horário</a>
-        <a href="#">Gift Card</a>
-        <a href="#">Quem somos</a>
-        <a href="#">Onde estamos</a>
-        <a href="#">O que fazemos</a>
-        <a href="#">Fale Conosco</a>
-      </div>
-
-      <!-- Botão de menu e pesquisa -->
-      <div class="barra-pesquisa">
-        <input type="text" class="search-input" placeholder="Digite sua pesquisa...">
-        <button class="search-button">Pesquisar</button>
-      </div>
-    </nav>
-    >>>>>>> 77076ca5b1d008e409551d384796c37980dc1ee0
 </body>
 
 </html>
