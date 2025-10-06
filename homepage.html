@@ -1,11 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ROKUZEN - massagem terapêutica | um momento dedicado a você</title>
+    <style>
+
+        nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 30px;
+      background-color: #ffffff;
+      border-bottom: 2px solid #eee;
+    }
+
+    /* Logo */
+    .logo {
+      display: flex;
+      align-items: start;
+    }
+
+    .logo img {
+      height: 50px;
+      margin-right: 10px;
+    }
+
+    /* Redes sociais */
+    .social-icons {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-left: 20px;
+    }
+
+    .social-icons i {
+      color: #555;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    /* Links de navegação */
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .nav-links a {
+      text-decoration: none;
+      color: #333;
+      font-size: 14px;
+    }
+
+    .nav-links a.agende {
+      color: #7e9b3e;
+      font-weight: bold;
+    }
+
+    /* Botão verde de busca/menu */
+    .barra-busca {
+      background-color: #a5bd6a;
+      padding: 10px 20px;
+      border-radius: 30px;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      cursor: pointer;
+    }
+
+    .barra-busca i {
+      color: #333;
+    }
+
+    /* Responsivo opcional: esconde links em telas pequenas */
+    @media (max-width: 768px) {
+      .nav-links {
+        display: none;
+      }
+
+      .social-icons {
+        display: none;
+      }
+    }
+  </style>
+
 </head>
+
 <body>
-    
+    <nav>
+        <!-- Logo -->
+        <div class="logo">
+            <img src="logo-rokuzen.png" alt="Logo ROKUZEN" width="700px" height="300px">
+        </div>
+
+        <!-- Ícones sociais -->
+        <div class="social-icons">
+            <i class="fas fa-envelope"></i>
+            <i class="fab fa-facebook-f"></i>
+            <i class="fab fa-instagram"></i>
+            <i class="fab fa-linkedin-in"></i>
+        </div>
+
+        <!-- Links de navegação -->
+        <div class="nav-links">
+            <a href="#" class="agende">Agende seu horário</a>
+            <a href="#">Gift Card</a>
+            <a href="#">Quem somos</a>
+            <a href="#">Onde estamos</a>
+            <a href="#">O que fazemos</a>
+            <a href="#">Fale Conosco</a>
+        </div>
+
+        <!-- Botão de menu e pesquisa -->
+        <div class="barra-pesquisa">
+            <input type="text" class="search-input" placeholder="Digite sua pesquisa...">
+            <button class="search-button">Pesquisar</button>
+        </div>
+    </nav>
 </body>
+
 </html>
