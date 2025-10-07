@@ -18,13 +18,15 @@ body{font-family:Inter,system-ui,Arial,sans-serif;line-height:1.35}
 .header{
   border-bottom:1px solid #e7e7e7;
   background:#fff;
+  display: flex;
+  flex-direction: column;
 }
 .header-top{
   max-width:var(--maxw);
-  margin:0 auto;
+  margin:0 auto 10px auto; 
   padding:8px 20px 0;
-  display:flex;align-items:center;justify-content:flex-end;
-  gap:12px;
+  display:flex;align-items:center;justify-content:flex-start;
+  gap:10px;
   font-size:12px;color:#666;
 }
 .header-top a{color:#666;text-decoration:none}
@@ -32,20 +34,105 @@ body{font-family:Inter,system-ui,Arial,sans-serif;line-height:1.35}
 
 .header-container{
   max-width:var(--maxw);
-  margin:4px auto 0;
+  margin: 0 auto;
   padding:12px 20px;
   display:flex;align-items:center;gap:18px;
 }
-.logo{width:120px;height:auto;flex:0 0 auto}
+.logo{width: 200px;height:auto;flex:0 0 auto}
 
 /* Menu principal */
+/* Reset básico */
+body, ul, li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background-color: white;
+  padding: 10px 20px;
+  display: flex;
+  align-items: center;
+}
+
+/* Menu principal */
+nav ul.menu {
+  display: flex;
+  gap: 40px;
+
+}
+
+nav ul.menu > li {
+  position: relative;
+}
+
+nav ul.menu > li > a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 5px;
+  display: block;
+  white-space: nowrap; 
+}
+
+nav ul.menu > li > a:hover {
+  color: #7a9d48; /* verde do menu */
+}
+
+/* Submenu */
+nav ul.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  border-radius: 3px;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+nav ul.submenu li a {
+  padding: 8px 15px;
+  display: block;
+  color: #333;
+  font-weight: normal;
+}
+
+nav ul.submenu li a:hover {
+  background-color: #f0f0f0;
+  color: #7a9d48;
+}
+
+/* Mostrar submenu ao passar o mouse */
+nav ul.menu > li:hover > ul.submenu {
+  display: block;
+}
+
+/* Ícone do menu hambúrguer e busca */
+.menu-search-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-hamburger {
+  cursor: pointer;
+  font-size: 20px;
+}
+
 nav.primary{
   display:flex;gap:22px;justify-content:center;flex:1;
 }
 nav.primary a{
   font-weight:500;font-size:13px;text-decoration:none;color:var(--ink);
 }
-nav.primary a:hover{color:var(--green-600);text-decoration:underline}
+
 
 /* Busca */
 .search{
