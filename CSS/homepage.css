@@ -1,0 +1,589 @@
+/* HOMEPAGE */
+
+/* Reset básico */
+* {
+  box-sizing: border-box
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--ink)
+}
+
+body {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  line-height: 1.35
+}
+
+/* ===== Header ===== */
+/* ===== LINHA VERDE NO TOPO ===== */
+
+.header::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 6px;
+  /* altura da faixa */
+  background: var(--green);
+  /* usa o mesmo tom verde do site */
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.header {
+  position: relative;
+  border-bottom: 3px solid #d0d0d0;
+  /* linha cinza */
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  /* garante que o header ocupe a tela toda */
+}
+
+
+.header-top a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header-top a:hover {
+  color: var(--green);
+  /* muda pra verde no hover */
+}
+
+.header-top {
+  width: 100%;
+  padding: 30px 16px 0;
+  /* para deixar o menu mais alto ou baixo */
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 10px;
+  font-size: 19px;
+  color: #666;
+  margin-left: 450px;
+  /* empurra pra direita */
+}
+
+.header-top a {
+  color: #666;
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.header-top a:hover {
+  color: var(--green);
+  /* muda pra verde no hover */
+}
+
+
+.header-container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 6px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  justify-content: flex-start;
+  padding-left: 0;
+}
+
+.logo {
+  width: 20px;
+  height: auto;
+  flex: 0 0 auto;
+  /* gruda na esquerda */
+  display: block;
+  /* garante que o alinhamento funcione certinho */
+  justify-content: flex-start;
+}
+
+.logo-fixed {
+  position: absolute;
+  top: 23px;
+  /* ajusta vertical como preferir */
+  left: 60px;
+  /* encostadinho à esquerda */
+  display: block;
+  line-height: 0;
+  z-index: 20;
+}
+
+.logo-fixed img {
+  width: 220px;
+  /* ajuste o tamanho do logo aqui */
+  height: auto;
+  display: block;
+}
+
+
+body,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+body {
+  font-family: Arial, sans-serif;
+}
+
+nav {
+  background-color: white;
+  padding: 0 10px;
+  display: flex;
+  align-items: center;
+}
+
+
+nav ul.menu {
+  display: flex;
+  gap: 40px;
+
+}
+
+nav ul.menu>li {
+  position: relative;
+}
+
+nav ul.menu>li>a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  padding: 8px 5px;
+  display: block;
+  white-space: nowrap;
+}
+
+nav ul.menu>li>a:hover {
+  color: #7a9d48;
+  /* verde do menu */
+}
+
+/* Submenu */
+nav ul.submenu {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+  min-width: 180px;
+  z-index: 1000;
+}
+
+nav ul.submenu li a {
+  padding: 8px 15px;
+  display: block;
+  color: #333;
+  font-weight: normal;
+  text-decoration: none;
+}
+
+
+nav ul.submenu li a:hover {
+  background-color: #f0f0f0;
+  color: #7a9d48;
+}
+
+/* Mostrar submenu ao passar o mouse */
+nav ul.menu>li:hover>ul.submenu {
+  display: block;
+}
+
+/* Ícone do menu hambúrguer e busca */
+.menu-search-container {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.menu-hamburger {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+nav.primary {
+  display: flex;
+  gap: 22px;
+  justify-content: center;
+  flex: 1;
+}
+
+nav.primary a {
+  font-weight: 500;
+  font-size: 13px;
+  text-decoration: none;
+  color: var(--ink);
+}
+
+
+/* Busca */
+.search {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  border: 1px solid var(--green);
+  border-radius: 999px;
+  overflow: hidden;
+  height: 36px;
+  margin-left: 200px;
+  right: 10px;/* distância da borda direita */
+  top: 70px;
+}
+
+
+.search input {
+  border: 0;
+  padding: 0 12px;
+  height: 100%;
+  outline: none;
+  font-family: 'Amatic SC', cursive, Arial, sans-serif;
+  font-size: 18px;
+  min-width: 160px;
+}
+
+.search button {
+  border: 0;
+  background: var(--green);
+  color: #fff;
+  height: 100%;
+  padding: 0 14px;
+  cursor: pointer;
+  font-size: 16px
+}
+
+.search button:hover {
+  background: var(--green-600)
+}
+
+/* ===== “Bolas” (features) ===== */
+.features {
+  max-width: var(--maxw);
+  margin: 36px auto;
+  padding: 0 20px;
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  flex-wrap: wrap;
+  text-align: center;
+}
+
+.feature {
+  width: 190px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-decoration: none;
+  color: inherit;
+}
+
+.feature img {
+  width: 160px;
+  height: 160px;
+  object-fit: cover;
+  border-radius: 50%;
+  border: 6px solid var(--green);
+  background: #fff;
+  transition: box-shadow .2s;
+}
+
+.feature:hover img {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12)
+}
+
+.feature b {
+  margin-top: 12px;
+  font-family: 'Amatic SC', cursive;
+  font-size: 28px;
+  letter-spacing: .3px
+}
+
+.feature small {
+  display: block;
+  margin-top: 6px;
+  color: #666;
+  font-size: 12px;
+  max-width: 220px
+}
+
+/* ===== Nossos Posts ===== */
+.posts-wrap {
+  max-width: var(--maxw);
+  margin: 32px auto 6px;
+  padding: 0 20px
+}
+
+
+.section-title {
+  text-align: center;
+  font-family: 'Amatic SC', cursive;
+  font-size: 44px;
+  margin: 6px 0 20px;
+}
+
+:root {
+  --green: #7a9d48;
+  --green-600: #5e7a36;
+}
+
+/* CARD */
+.post {
+  background: #fff;
+  border: none;
+  border-radius: 10px;
+  overflow: hidden;
+  width: 280px;
+  flex: 0 0 auto;
+  box-shadow: 0 4px 0 var(--green);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.post:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 6px 0 var(--green-600);
+}
+
+.post img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+  display: block;
+  /* <-- sem vírgula */
+}
+
+/* ===== seção e título ===== */
+.posts-section {
+  max-width: 1200px;
+  /* limita a largura */
+  margin: 60px auto;
+  /* centraliza horizontalmente */
+  padding: 0 16px;
+  text-align: center;
+  /* centraliza texto e título */
+}
+
+/* título "Nossos Posts" */
+.posts-section h2 {
+  font-family: 'Amatic SC', cursive;
+  /* fonte estilosa */
+  font-size: 48px;
+  color: #333;
+  margin-bottom: 20px;
+}
+
+.posts-title {
+  text-align: center;
+  font-family: 'Amatic SC', cursive;
+  /* só o título usa Amatic */
+  font-size: 48px;
+  margin-bottom: 16px;
+}
+
+/* WRAPPER */
+.posts-container {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* centra o track entre as setas */
+  gap: 10px;
+  width: 100%;
+}
+
+
+.posts-track {
+  flex: 1;
+  /* ocupa o espaço entre as setas */
+  overflow: hidden;
+  max-width: 1000px;
+  /* opcional: limita a largura visível */
+  margin: 0 auto;
+}
+
+.posts-row {
+  display: flex;
+  gap: 30px;
+  /* usado no JS p/ calcular passo */
+  transition: transform .35s ease;
+  font-family: 'Amatic SC', cursive;
+  font-size: 44px;
+}
+
+/* BOTÕES */
+.posts-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: transparent;
+  border: none;
+  color: var(--green-600);
+  font-size: 40px;
+  line-height: 1;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, color 0.2s ease, opacity .2s ease;
+}
+
+.posts-btn:hover {
+  transform: translateY(-50%) scale(1.2);
+  color: var(--green);
+}
+
+.posts-btn.prev {
+  left: -6px;
+}
+
+/* ajusta conforme teu layout */
+.posts-btn.next {
+  right: -6px;
+}
+
+.posts-btn.is-disabled {
+  pointer-events: none;
+  opacity: .35;
+  transform: translateY(-50%) scale(1);
+  /* sem zoom quando desabilitado */
+}
+
+/* seta esquerda */
+#postsPrev {
+  left: 8px;
+}
+
+/* seta direita */
+#postsNext {
+  right: 8px;
+}
+
+/* hover suave */
+.posts-btn:hover {
+  transform: translateY(-50%) scale(1.2);
+  color: var(--green);
+}
+
+.post .post-title {
+  font-size: 14px;
+  font-family: 'Amatic SC', cursive;
+  color: var(--green-600) !important;
+  /* forçamos a cor verde */
+  line-height: 1.3;
+  text-align: center;
+  margin: 0;
+}
+
+/* ===== Footer ===== */
+
+:root {
+  --green: #b2c26b;
+  --green-600: #7a8b3b;
+  --ink: #222;
+  --bg: #fff;
+  --muted: #f5f5f5;
+  --radius: 14px;
+  --maxw: 1200px;
+}
+
+.footer {
+  margin-top: 28px;
+  background: var(--green);
+  color: var(--ink);
+}
+
+.footer-container {
+  max-width: var(--maxw);
+  margin: 0 auto;
+  padding: 26px 28px;
+  display: flex;
+  gap: 32px;
+  align-items: flex-start
+}
+
+.footer-col {
+  min-width: 250px;
+  font-family: 'Amatic SC', cursive;
+}
+
+.footer-col strong {
+  display: block;
+  margin-bottom: 8px;
+  font-family: 'Amatic SC', cursive;
+}
+
+.footer a {
+  color: inherit
+}
+
+.login-btn {
+  margin-top: 12px;
+  padding: 6px 18px;
+  border-radius: 8px;
+  border: none;
+  background: #f8f8f8;
+  color: var(--green-600);
+  font-size: 14px;
+  cursor: pointer
+}
+
+.login-btn:hover {
+  background: #e9e9e9
+}
+
+.footer-copy {
+  text-align: center;
+  font-size: 13px;
+  color: var(--ink);
+  padding: 10px 0;
+  background: #fff;
+  border-top: 1px solid var(--green)
+}
+
+/* ===== Responsivo ===== */
+@media (max-width:1024px) {
+  nav.primary {
+    gap: 14px
+  }
+
+  .features {
+    gap: 42px;
+    transform: scale(1.9);
+  }
+
+  .posts-track {
+    max-width: 100%
+  }
+}
+
+@media (max-width:768px) {
+  .header-container {
+    flex-wrap: wrap;
+    gap: 12px
+  }
+
+  nav.primary {
+    order: 3;
+    flex-wrap: wrap;
+    justify-content: flex-start
+  }
+
+  .search {
+    margin-left: auto
+  }
+
+  .feature {
+    width: 160px
+  }
+}
+

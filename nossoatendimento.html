@@ -11,7 +11,7 @@
     rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
 
-  <link rel="stylesheet" href="CSS/homepage.css">
+  <link rel="stylesheet" href="CSS/nossoatendimento.css">
 </head>
 
 <body>
@@ -28,9 +28,7 @@
     </div>
 
     <div class="header-container">
-      <a href="homepage.html" class="logo-fixed" aria-label="Rokuzen - Homepage">
-        <img src="imagens/logo.png" alt="Logo Rokuzen">
-      </a>
+      <img class="logo" src="imagens/logo.png" alt="Logo Rokuzen" />
       <nav>
         <ul class="menu">
           <li><a href="agendamento.html">Agende seu horário</a></li>
@@ -72,79 +70,71 @@
         </form>
     </div>
   </header>
-  <section class="features">
-    <a class="feature" href="nossoatendimento.html">
-      <img src="imagens/massagem5.jpeg" alt="Nosso Atendimento">
-      <b>Nosso Atendimento</b>
-      <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
-    </a>
 
-    <a class="feature" href="agendamento.html">
-      <img src="imagens/agendamento.jpg" alt="Agendamento online">
-      <b>Agendamento Online</b>
-      <small>Agende agora mesmo com poucos cliques!</small>
-    </a>
+  <!-- CONTEÚDO -->
+  <main class="att-wrap">
+    <h1 class="att-title">Nosso Atendimento</h1>
 
-    <a class="feature" href="giftcard.html">
-      <img src="imagens/gift.jpg" alt="Gift Card">
-      <b>Gift Card</b>
-      <small>Dê um presente especial.</small>
-    </a>
-  </section>
+    <section class="att-hero">
+      <div class="att-text">
+        <p>
+          De acordo com a nossa missão — <em>“Proporcionar um momento terapêutico dedicado e adequado aos seus
+            sentimentos”</em> —
+          cuidamos para que cada atendimento seja acolhedor, técnico e personalizado.
+        </p>
 
+        <p>Pensando nisso, implantamos um procedimento base, resumido abaixo:</p>
 
-  <section class="posts-section">
-    <h2>Nossos Posts</h2>
+        <ol class="att-steps">
+          <li>Você agenda sua sessão pelo site, WhatsApp, telefone ou presencialmente.</li>
+          <li>Se já for cliente, consultamos seu prontuário para entender histórico e técnicas usadas.</li>
+          <li>Antes de iniciar, conversamos sobre seu objetivo nesta sessão.</li>
+          <li>Ao final, coletamos seu feedback sobre o atendimento e técnicas aplicadas.</li>
+          <li>Atualizamos seu prontuário para otimizar as próximas sessões.</li>
+        </ol>
 
-    <div class="posts-container">
-      <button class="posts-btn" id="postsPrev" aria-label="Anterior">
-        <i class="fa-solid fa-arrow-left"></i>
-      </button>
+        <p class="att-sub">
+          Abaixo, listamos as <strong>técnicas</strong> que costumamos aplicar e uma <strong>tabela</strong> mostrando
+          como elas se relacionam com cada serviço.
+        </p>
 
-      <div class="posts-track">
-        <div class="posts-row" id="postsRow">
-          <article class="post">
-            <img src="imagens/Rectangle 16.png" alt="Post 1">
-            <div class="post-body">
-              <p class="post-title">
-                Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
-              </p>
-            </div>
-          </article>
-
-          <article class="post">
-            <img src="imagens/Rectangle 21.png" alt="Post 2">
-            <div class="post-body">
-              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
-            </div>
-          </article>
-
-          <article class="post">
-            <img src="imagens/Rectangle 22.png" alt="Post 3">
-            <div class="post-body">
-              <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
-            </div>
-          </article>
-
-     
-          <article class="post">
-            <img src="imagens/MassagemN.jpg" alt="Post 4">
-            <div class="post-body">
-              <p class="post-title">Massagem não é sacanagem</p>
-            </div>
-          </article>
-
-        </div>
+        <!-- tópicos com bolinha + chip -->
+        <ul class="techs">
+          <li><a href="#">Anmá</a></li>
+          <li><a href="#">Shiatsu</a></li>
+          <li><a href="#">Relaxante clássica</a></li>
+          <li><a href="#">Ventosaterapia</a></li>
+          <li><a href="#">Bambuterapia</a></li>
+          <li><a href="#">Liberação Miofascial</a></li>
+          <li><a href="#">Thailandesa</a></li>
+          <li><a href="#">Alongamento</a></li>
+          <li><a href="#">Auriculoterapia</a></li>
+          <li><a href="#">Reflexologia Podal</a></li>
+        </ul>
       </div>
 
-      <button class="posts-btn" id="postsNext" aria-label="Próximo">
-        <i class="fa-solid fa-arrow-right"></i>
-      </button>
-    </div>
-  </section>
+      <figure class="att-figure">
+        <img src="imagens/image 16.png" alt="Atendimento de massagem terapêutica">
+      </figure>
+    </section>
+
+    <!-- Tabela/Imagem da tabela -->
+    <section class="table-wrap">
+      <h2 class="table-title">Serviço × Técnicas</h2>
+
+      <!-- Se for imagem da tabela -->
+      <div class="table-img">
+        <img src="imagens/Nossoatendimento.png" alt="Tabela de relação entre serviços e técnicas">
+      </div>
+
+      <!-- Se for <table> de verdade, dá pra usar o mesmo .table-wrap e estilizar depois -->
+      <p class="table-note">* A tabela é ilustrativa e pode variar conforme objetivo, avaliação do(a) terapeuta e suas
+        preferências.</p>
+    </section>
+  </main>
 
 
-
+  <!-- FOOTER (mesmo da home) -->
   <footer class="footer">
     <div class="footer-container">
       <div class="footer-col">
@@ -176,26 +166,6 @@
 
     <div class="footer-copy">© 2025 Rokuzen – Trabalho Acadêmico</div>
   </footer>
-
-
-  <script>
-    (function () {
-      const row = document.getElementById('postsRow');
-      const prev = document.getElementById('postsPrev');
-      const next = document.getElementById('postsNext');
-
-      let index = 0;
-      const cardW = 304;
-      const maxIndex = Math.max(0, row.children.length - 3);
-
-      function update() {
-        row.style.transform = `translateX(${-index * cardW}px)`;
-      }
-      prev.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
-      next.addEventListener('click', () => { index = Math.min(maxIndex, index + 1); update(); });
-    })();
-  </script>
-
 </body>
 
 </html>

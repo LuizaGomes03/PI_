@@ -1,0 +1,190 @@
+/* =======================================================
+   HEADER (barra verde, ícones sociais, logo, menu e busca)
+   ======================================================= */
+
+/* linha verde no topo */
+.header {
+    position: relative;
+    border-bottom: 3px solid #d0d0d0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--green);
+}
+
+/* faixa dos ícones sociais (email, fb, ig, in) */
+.header-top {
+    max-width: var(--maxw);
+    margin: 6px auto 4px;
+    padding: 4px 16px 0;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font: 12px/1 Inter, system-ui, Arial, sans-serif;
+    color: #666;
+}
+
+.header-top a {
+    color: #666;
+    text-decoration: none;
+    transition: color .2s;
+}
+
+.header-top a:hover {
+    color: var(--green);
+}
+
+/* linha principal: LOGO | MENU | BUSCA */
+.header-container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 8px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* logo à esquerda */
+.logo {
+    width: 190px;
+    /* ajusta se quiser maior/menor */
+    height: auto;
+    display: block;
+    flex: 0 0 auto;
+    /* não deixa o flex encolher */
+}
+
+/* menu central */
+.header-container nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    /* ocupa o meio */
+}
+
+nav ul.menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav ul.menu>li {
+    position: relative;
+}
+
+nav ul.menu>li>a {
+    text-decoration: none;
+    color: #333;
+    font: 500 13px/1.2 Inter, system-ui, Arial, sans-serif;
+    padding: 8px 4px;
+    display: block;
+    white-space: nowrap;
+}
+
+nav ul.menu>li>a:hover {
+    color: var(--green);
+}
+
+/* submenu dropdown */
+nav ul.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+    padding: 6px 0;
+    z-index: 1000;
+    list-style: none;
+}
+
+nav ul.menu>li:hover>ul.submenu {
+    display: block;
+}
+
+nav ul.submenu li a {
+    display: block;
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+    font: 400 13px/1.2 Inter, system-ui, Arial, sans-serif;
+}
+
+nav ul.submenu li a:hover {
+    background: #f7f7f7;
+    color: var(--green);
+}
+
+/* busca colada na direita */
+form.search {
+    margin-left: auto;
+    /* empurra pra direita */
+    display: flex;
+    align-items: center;
+    gap: 0;
+    height: 36px;
+    border: 1px solid var(--green);
+    border-radius: 999px;
+    overflow: hidden;
+}
+
+.search input {
+    border: 0;
+    padding: 0 12px;
+    height: 100%;
+    outline: none;
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 16px;
+    min-width: 170px;
+}
+
+.search button {
+    border: 0;
+    background: var(--green);
+    color: #fff;
+    height: 100%;
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search button:hover {
+    background: var(--green-600);
+}
+
+/* responsivo: quebra o menu e solta a busca */
+@media (max-width: 768px) {
+    .header-container {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    nav {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    nav ul.menu {
+        flex-wrap: wrap;
+    }
+
+    form.search {
+        margin-left: 0;
+    }
+}

@@ -1,0 +1,389 @@
+/* ============ VARS GERAIS (mantém uma só) ============ */
+:root {
+    --green: #7a9d48;
+    --green-600: #5e7a36;
+    --ink: #222;
+    --bg: #fff;
+    --maxw: 1200px;
+}
+
+/* ============ HEADER / MENU ============ */
+.header {
+    position: relative;
+    border-bottom: 3px solid #d0d0d0;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+}
+
+.header::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 6px;
+    background: var(--green);
+}
+
+/* faixa social superior */
+/* Container dos ícones */
+.header-top {
+  max-width: var(--maxw);
+  margin: 6px auto 4px;
+  padding: 4px 16px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font: 12px/1 Inter, system-ui, Arial, sans-serif;
+  color: #666;
+
+  /* ajuste livre: mude esses valores como quiser */
+  --shift-x: -340px;   /* + direita / - esquerda */
+  --shift-y: 20px;   /* + baixo / - cima */
+  transform: translate(var(--shift-x), var(--shift-y));
+}
+
+.header-top a {
+  color: #666;
+  text-decoration: none;
+  transition: color .2s;
+  /* volta pro fluxo normal */
+  position: static;
+}
+
+.header-top a:hover { color: var(--green); }
+
+/* linha principal: logo | menu | busca */
+.header-container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 8px 16px 12px;
+    display: flex;
+    align-items: center;
+    gap: 24px;
+}
+
+/* LOGO — <img class="logo"> */
+.logo {
+    width: 190px;
+    /* ajuste fino conforme o mock */
+    height: auto;
+    display: block;
+    flex: 0 0 auto;
+    /* não encolhe no flex */
+}
+
+/* NAV + MENU */
+.header-container nav {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    flex: 1;
+    /* ocupa o meio */
+}
+
+nav ul.menu {
+    display: flex;
+    align-items: center;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+nav ul.menu>li {
+    position: relative;
+}
+
+nav ul.menu>li>a {
+    text-decoration: none;
+    color: #333;
+    font: 500 13px/1.2 Inter, system-ui, Arial, sans-serif;
+    padding: 8px 4px;
+    display: block;
+    white-space: nowrap;
+}
+
+nav ul.menu>li>a:hover {
+    color: var(--green);
+}
+
+/* SUBMENU */
+nav ul.submenu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 180px;
+    background: #fff;
+    border: 1px solid #e6e6e6;
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, .08);
+    padding: 6px 0;
+    z-index: 1000;
+    list-style: none;
+}
+
+nav ul.menu>li:hover>ul.submenu {
+    display: block;
+}
+
+nav ul.submenu li a {
+    display: block;
+    padding: 10px 14px;
+    color: #333;
+    text-decoration: none;
+    font: 400 13px/1.2 Inter, system-ui, Arial, sans-serif;
+}
+
+nav ul.submenu li a:hover {
+    background: #f7f7f7;
+    color: var(--green);
+}
+
+/* BUSCA colada na direita */
+form.search {
+    margin-left: auto;
+    /* empurra pra direita */
+    display: flex;
+    align-items: center;
+    gap: 0;
+    border: 1px solid var(--green);
+    border-radius: 999px;
+    overflow: hidden;
+    height: 36px;
+}
+
+.search input {
+    border: 0;
+    padding: 0 12px;
+    height: 100%;
+    outline: none;
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 16px;
+    min-width: 170px;
+}
+
+.search button {
+    border: 0;
+    background: var(--green);
+    color: #fff;
+    height: 100%;
+    padding: 0 14px;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+.search button:hover {
+    background: var(--green-600);
+}
+
+/* ============ CONTEÚDO (igual ao mock) ============ */
+.att-wrap {
+    max-width: 920px;
+    margin: 18px auto 40px;
+    padding: 0 12px;
+}
+
+.att-title {
+    font-family: "Amatic SC", cursive;
+    font-size: 32px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: #2c2c2c;
+    margin: 8px 0 14px;
+}
+
+.att-hero {
+    display: grid;
+    grid-template-columns: minmax(520px, 1fr) 300px;
+    gap: 22px;
+    align-items: start;
+}
+
+.att-text {
+    font-family: Inter, system-ui, Arial, sans-serif;
+    font-size: 13px;
+    line-height: 1.55;
+    color: #222;
+    max-width: 720px;
+}
+
+.att-steps {
+    list-style: disc;
+    margin: 8px 0 14px 22px;
+    padding-left: 0;
+    font-size: 13px;
+}
+
+.att-steps li {
+    margin: 6px 0;
+}
+
+.att-figure {
+    margin: 0;
+    justify-self: end;
+}
+
+.att-figure img {
+    width: 280px;
+    height: 280px;
+    object-fit: cover;
+    border-radius: 8px;
+    box-shadow: 0 3px 0 var(--green);
+    display: block;
+}
+
+/* chips das técnicas */
+.techs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 14px;
+    list-style: none;
+    padding: 0;
+    margin: 10px 0 0;
+}
+
+.techs a {
+    display: inline-block;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #eef6e4;
+    border: 1px solid #cfe1a9;
+    color: #173814;
+    text-decoration: none;
+    font: 500 12px/1 Inter, system-ui, Arial, sans-serif;
+}
+
+/* hover neutro (sem mudar cor) */
+.techs a:hover {
+    background: #eef6e4;
+    /* mantém igual */
+    box-shadow: none;
+    /* tira o sombreamento */
+    cursor: pointer;
+    /* mantém o ponteiro bonitinho */
+}
+
+/* tabela imagem */
+.table-title {
+    font-family: "Amatic SC", cursive;
+    font-size: 24px;
+    margin: 10px 0 8px;
+}
+
+.table-img {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+.table-img img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 4px;
+}
+
+.table-note {
+    font: 12px/1.4 Inter, system-ui, Arial, sans-serif;
+    color: #666;
+    margin-top: 6px;
+}
+
+/* ============ FOOTER compacto ============ */
+.footer {
+    margin-top: 28px;
+    background: var(--green);
+    color: var(--ink);
+}
+
+.footer-container {
+    max-width: var(--maxw);
+    margin: 0 auto;
+    padding: 22px 24px;
+    display: flex;
+    gap: 28px;
+    align-items: flex-start;
+}
+
+.footer-col {
+    min-width: 240px;
+}
+
+.footer-col strong {
+    display: block;
+    margin-bottom: 6px;
+    font-family: "Amatic SC", cursive;
+    font-size: 20px;
+}
+
+.footer a {
+    color: inherit;
+    text-decoration: underline;
+}
+
+.login-btn {
+    margin-top: 12px;
+    padding: 6px 18px;
+    border-radius: 8px;
+    border: none;
+    background: #f8f8f8;
+    color: var(--green-600);
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.footer-copy {
+    text-align: center;
+    font: 12px/1.2 Inter, system-ui, Arial, sans-serif;
+    color: #1f1f1f;
+    padding: 10px 0;
+    background: #fff;
+    border-top: 1px solid var(--green);
+}
+
+/* ============ RESPONSIVO ============ */
+@media (max-width:1024px) {
+    .header-container {
+        gap: 16px;
+    }
+
+    nav ul.menu {
+        gap: 18px;
+    }
+}
+
+@media (max-width:980px) {
+    .att-hero {
+        grid-template-columns: 1fr;
+    }
+
+    .att-figure {
+        justify-self: start;
+    }
+
+    .logo {
+        width: 160px;
+    }
+}
+
+@media (max-width:768px) {
+    .header-container {
+        flex-wrap: wrap;
+        row-gap: 8px;
+    }
+
+    nav {
+        order: 3;
+        flex-basis: 100%;
+    }
+
+    nav ul.menu {
+        flex-wrap: wrap;
+    }
+
+    form.search {
+        margin-left: 0;
+    }
+}
