@@ -1,0 +1,145 @@
+/* ===== Fundo com vídeo animado ===== */
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Inter', system-ui, sans-serif;
+    color: #fff;
+    overflow: hidden;
+    position: relative;
+}
+
+/* Vídeo de fundo */
+video#bg-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    filter: brightness(0.5) blur(2px);
+}
+
+/* ===== Caixa de login ===== */
+.login-box {
+    position: relative;
+    z-index: 1;
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 18px;
+    padding: 60px 50px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+    width: 100%;
+    max-width: 420px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Logo */
+.logo {
+    width: 300px;
+    height: auto;
+    margin-bottom: 25px;
+    filter: drop-shadow(0 3px 6px rgba(0, 0, 0, 0.4));
+}
+
+/* Título e texto */
+h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 45px;
+    margin-bottom: 10px;
+    color: #fff;
+}
+
+p {
+    font-size: 15px;
+    color: #e2e2e2;
+    margin-bottom: 28px;
+}
+
+/* Campos de login */
+.input-group {
+    text-align: left;
+    width: 100%;
+    margin-bottom: 16px;
+}
+
+label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 6px;
+    color: #fff;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px 22px;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.15);
+    color: #fff;
+    font-size: 14px;
+    outline: none;
+    transition: all 0.2s;
+}
+
+input:focus {
+    border-color: #a2c06a;
+    box-shadow: 0 0 0 2px rgba(157, 182, 104, 0.3);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Botão de login centralizado */
+.btn-login {
+    width: 60%;
+    padding: 12px;
+    margin-top: 10px;
+    background: linear-gradient(135deg, #9DB668 0%, #7D9950 100%);
+    border: none;
+    border-radius: 10px;
+    color: white;
+    font-weight: 600;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.btn-login:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(125, 153, 80, 0.4);
+}
+
+/* Aviso */
+.notice {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #d0d0d0;
+}
+
+.notice i {
+    color: #9DB668;
+    margin-right: 5px;
+}
+
+/* Rodapé */
+footer {
+    position: absolute;
+    bottom: 14px;
+    font-size: 12px;
+    color: #cfcfcf;
+    text-align: center;
+    width: 100%;
+    z-index: 1;
+}

@@ -13,6 +13,17 @@
 
   <link rel="stylesheet" href="CSS/homepage.css">
 </head>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const btn = document.querySelector('.login-btn');
+    if (btn) {
+      btn.type = 'button'; // evita enviar algum form sem querer
+      btn.addEventListener('click', () => {
+        window.location.href = 'login.html';
+      });
+    }
+  });
+</script>
 
 <body>
 
@@ -126,7 +137,7 @@
             </div>
           </article>
 
-     
+
           <article class="post">
             <img src="imagens/MassagemN.jpg" alt="Post 4">
             <div class="post-body">
