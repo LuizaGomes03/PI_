@@ -139,7 +139,7 @@ nav ul li ul.dropdown li a:hover {
     opacity: 0.8;
 }
 
-/* Responsividade simple */
+/* Responsividade simples */
 @media (max-width: 768px) {
 
     nav {
@@ -234,166 +234,76 @@ header::after {
     box-sizing: border-box;
 }
 
-
-/* ----- Conteúdo principal ----- */
-.page-container {
-    max-width: 1200px;
-    margin: 30px auto 0;
+/* --- Seção Quick Massage --- */
+.massage-section {
+    max-width: 1100px;
+    margin: 50px auto;
     padding: 0 20px;
-}
-
-/* Introdução / sessão principal */
-.gift-intro {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 40px;
-    align-items: start;
-    margin-top: 40px;
-    /* distância do menu */
-}
-
-/* ----- Coluna esquerda ----- */
-.intro-left h1 {
-    font-family: 'Amatic SC', 'Raleway', sans-serif;
-    font-size: 36px;
-    color: #4a4a4a;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin-bottom: 30px;
-    /* espaço entre o título e a linha */
-}
-
-.decor-hr {
-    border: none;
-    height: 1px;
-    background: #e0e0e0;
-    margin: 12px 0 28px;
-    /* espaço após o título e antes do texto */
-}
-
-.lead {
-    color: #555;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    /* espaço após o parágrafo principal */
-}
-
-.gift-intro p {
-    color: #555;
-    margin-bottom: 14px;
-}
-
-.step {
-    font-family: 'Amatic SC', 'Raleway', sans-serif;
-    font-size: 28px;
-    color: #4a4a4a;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin: 36px 0 30px;
-    /* ↑ espaço acima e abaixo do step */
-}
-
-.intro-left p {
-    color: #666;
-    font-size: 17px;
-    line-height: 1.7;
-    margin-bottom: 14px;
-    /* espaço entre parágrafos */
-}
-
-/* Mantém o espaçamento maior antes do step */
-.intro-left p:last-of-type {
-    margin-bottom: 28px;
-}
-
-/* Pequeno ajuste responsivo */
-@media (max-width: 600px) {
-    .step-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-    }
-
-    .step-line {
-        width: 100%;
-        margin-left: 0;
-    }
-}
-
-/* Grid de serviços - 4 colunas com imagens */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    align-items: start;
-    margin-bottom: 18px;
-}
-
-.service {
-    text-align: left;
-}
-
-.service img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    display: block;
-    border: 6px solid transparent;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, border-color 0.2s ease;
-}
-
-.service img:hover {
-    transform: translateY(-6px);
-    border-color: rgba(165, 180, 65, 0.15);
-}
-
-.service-title {
-    margin-top: 10px;
-    font-family: 'Amatic SC', cursive;
-    font-size: 28px;
-    text-transform: none;
-    color: #2f2f2f;
-    line-height: 1.1;
-    letter-spacing: 1px;
-}
-
-/* Pontinhos de paginação */
-.pagination-dots {
-    display: flex;
-    gap: 12px;
-    justify-content: flex-start;
-    align-items: center;
-    margin-top: 8px;
-}
-
-.dot {
-    width: 16px;
-    height: 16px;
-    border-radius: 50%;
-    background: #d2d2d2;
-    display: inline-block;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
-}
-
-.dot.active {
-    background: #9DB668;
-}
-
-/* Coluna direita (foto) */
-.intro-right {
     text-align: center;
 }
 
-.side-photo {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border: 6px solid white;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    display: inline-block;
+.massage-section h2 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 28px;
+    margin-bottom: 40px;
+}
+
+.massage-options {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    flex-wrap: wrap;
+}
+
+.massage-card {
+    background-color: #f7f9f0;
+    border: 1px solid #d9e1c2;
+    border-radius: 12px;
+    width: 180px;
+    padding: 25px 20px;
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.massage-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.1);
+}
+
+.massage-card .time {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #4a5a2a;
+}
+
+.massage-card .price {
+    font-size: 18px;
+    font-weight: 700;
+    color: #9DB668;
+}
+
+/* Dots indicativos */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    margin-top: 50px;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #ccc;
+}
+
+.dot.active {
+    background-color: #9DB668;
 }
 
 /* ----- Footer ----- */
@@ -512,63 +422,4 @@ header::after {
 .login-btn--filled:hover {
     transform: translateY(-3px);
     filter: brightness(.98);
-}
-
-/* ----- Responsividade ----- */
-@media (max-width: 1024px) {
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .gift-intro {
-        grid-template-columns: 1fr 280px;
-    }
-}
-
-@media (max-width: 780px) {
-    .gift-intro {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .intro-right {
-        order: 2;
-    }
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .service img {
-        height: 140px;
-    }
-
-    .footer-inner {
-        grid-template-columns: 1fr;
-        text-align: left;
-    }
-
-    nav {
-        padding: 12px 18px;
-    }
-}
-
-@media (max-width: 420px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .service img {
-        height: 200px;
-    }
-
-    .intro-left h1 {
-        font-size: 28px;
-    }
-
-    .side-photo {
-        max-width: 100%;
-    }
 }

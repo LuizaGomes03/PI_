@@ -1,0 +1,117 @@
+/* ----- Footer ----- */
+.site-footer {
+    margin-top: 40px;
+    background: #9FB86B;
+    /* tom verde parecido com a imagem */
+    color: #123214;
+    padding: 20px 0;
+}
+
+.footer-inner {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    align-items: start;
+}
+
+.footer-col h3 {
+    font-family: 'Amatic SC', 'Raleway', sans-serif;
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.footer-col ul {
+    list-style: none;
+    line-height: 1.6;
+    font-size: 14px;
+    color: #0f2d10;
+}
+
+.footer-col .tag-list {
+    font-size: 12px;
+    line-height: 1.5;
+    color: #123214;
+    max-width: 520px;
+}
+
+.footer-col strong {
+    display: inline-block;
+    margin-bottom: 6px;
+}
+
+.footer-copy {
+    background: #fff;
+    /* ou transparent se quiser sem fundo */
+    text-align: center;
+    padding: 10px 0 18px;
+    font-size: 13px;
+    color: #555;
+    border-top: 1px solid #e0e0e0;
+}
+
+
+.footer-col.unidades a {
+    color: inherit;
+    /* Usa a cor do texto pai, igual ao normal */
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+/* Botão Login — estilo melhorado para footer */
+.login-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 12px;
+    padding: 8px 18px;
+    /* ligeiramente maior para toque */
+    border-radius: 10px;
+    border: 2px solid rgba(255, 255, 255, 0.18);
+    /* leve borda para contraste */
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.98), rgba(250, 250, 250, 0.95));
+    color: var(--text-dark);
+    font-size: 15px;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+    transition: transform .18s ease, box-shadow .18s ease, filter .18s ease;
+    text-decoration: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+/* Hover / focus / active */
+.login-btn:hover,
+.login-btn:focus {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.12);
+    border-color: rgba(255, 255, 255, 0.28);
+    outline: none;
+}
+
+/* foco acessível (visível por teclado) */
+.login-btn:focus-visible {
+    outline: 3px solid color-mix(in srgb, var(--green-600) 40%, transparent);
+    outline-offset: 3px;
+}
+
+/* Estado pressionado */
+.login-btn:active {
+    transform: translateY(0);
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+}
+
+/* Variante alternativa (ghost/invert) caso prefira fundo verde no botão */
+.login-btn--filled {
+    background: linear-gradient(135deg, var(--green-600), var(--green-700));
+    color: var(--white);
+    border: none;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.12);
+}
+
+.login-btn--filled:hover {
+    transform: translateY(-3px);
+    filter: brightness(.98);
+}
