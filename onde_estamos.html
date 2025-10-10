@@ -1,133 +1,136 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Unidades</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: #f4f4f9;
-        }
-        header {
-            background-color: #9db668;
-            color: white;
-            padding: 20px;
-            text-align: center;
-        }
-        header nav a {
-            font-family: 'Inter', Arial, sans-serif;
-            font-size: 2rem; 
-            color: #222;
-            text-decoration: none;
-            transition: color 0.2s;
-        }
-        main {
-            padding: 20px;
-        }
-        .unit {
-            background-color: white;
-            border: 1px solid #ddd;
-            border-radius: 5px;
-            margin-bottom: 20px;
-            padding: 15px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        .unit img {
-            width: 100%;
-            max-width: 300px;
-            height: auto;
-            border-radius: 5px;
-            margin-bottom: 10px;
-        }
-        .unit h2 {
-            margin: 0 0 10px;
-            color: #9db668;
-        }
-        .unit p {
-            margin: 5px 0;
-        }
-        footer {
-            text-align: center;
-            padding: 10px;
-            background-color: #9db668(104 0% 0%);
-            color: white;
-            position: fixed;
-            bottom: 0;
-            width: 100%;
-        }
-    </style>
+
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Amantic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="CSS/menu.css">
+    <link rel="stylesheet" href="CSS/onde_estamos.css">
 </head>
+
 <body>
+    <!-- MENU -->
     <header>
-        <h1>Unidades</h1>
-        <p>Confira nossas unidades e entre em contato!</p>
+        <nav>
+            <img src="imagens/logo.png" alt="Logo ROKUZEN" class="logo">
+            <ul>
+                <li><a href="#">Agende seu horário</a></li>
+                <li><a href="#">Gift Card</a></li>
+                <li><a href="#">Quem somos</a></li>
+                <li><a href="#">Onde estamos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Unidades</a></li>
+                        <li><a href="#">Nossos clientes</a></li>
+                        <li><a href="#">Nossos parceiros</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">O que fazemos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Serviços</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Fale Conosco &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Trabalhe conosco</a></li>
+                        <li><a href="#">Seja um franqueado</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar..." />
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" stroke="#A5B441" stroke-width="2" fill="none"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#A5B441" stroke-width="2"></line>
+                </svg>
+            </div>
+        </nav>
     </header>
+
+    <!-- CONTEÚDO PRINCIPAL -->
     <main>
-        <!-- Unidade 1 -->
-        <div class="unit">
-            <img src="https://rokuzen.com.br/atendentes/fachada_mooca.jpg" alt="Unidade São Paulo">
-            <h2>Unidade São Paulo</h2>
-            <p>
-                <strong>Endereço:</strong> 
-                <a href="https://maps.app.goo.gl/joz6xkYDRGNd8BHG8" target="_blank">
-                    Rua Capitão Pacheco e Chaves, 313 |Mooca São Paulo | SP | CEP: 03126-000
-                </a>
-            </p>
-            <a href="https://wa.me/+5511950841087" class="whatsapp-button" target="_blank">
-                WhatsApp +5511950841087
-            </a>
+        <!-- Título e subtítulo -->
+        <div class="titulo-unidades">
+            <h1>Unidades</h1>
+            <p>Confira nossas unidades e entre em contato!</p>
         </div>
 
-        <!-- Unidade 2 -->
-        <div class="unit">
-            <img src="https://rokuzen.com.br/wp-content/uploads/2023/11/WestPlaza-fachada.jpg" alt="Unidade São Paulo">
-            <h2>Unidade São Paulo</h2>
-            <p>
-                <strong>Endereço:</strong> 
-                <a href="https://maps.app.goo.gl/ZPBejZ4qqghdREQF7" target="_blank">
-                    Praça Sousa Aranha, 65 - Água Branca, São Paulo - SP, 05002-010
+        <!-- Container das unidades -->
+        <section class="unidades-section">
+            <!-- Unidade 1 -->
+            <div class="unit">
+                <img src="https://rokuzen.com.br/atendentes/fachada_mooca.jpg" alt="Unidade Mooca São Paulo">
+                <h2>Unidade Mooca São Paulo</h2>
+                <p>
+                    <strong>Endereço:</strong>
+                    <a href="https://maps.app.goo.gl/joz6xkYDRGNd8BHG8" target="_blank">
+                        Rua Capitão Pacheco e Chaves, 313 | Mooca, São Paulo | SP | CEP: 03126-000
+                    </a>
+                </p>
+                <a href="https://wa.me/+5511950841087" class="whatsapp-button" target="_blank">
+                    WhatsApp +5511950841087
                 </a>
-            </p>
-            <a href="https://wa.me/+5511919427901" class="whatsapp-button" target="_blank">
-                WhatsApp +5511919427901
-            </a>
-        </div>
+            </div>
 
-        <!-- Unidade 3 -->
-        <div class="unit">
-            <img src="https://rokuzen.com.br/wp-content/uploads/2023/08/fachada_gps2@2x.jpg" alt="Unidade Santo André">
-            <h2>Unidade Santo André</h2>
-            <p>
-                <strong>Endereço:</strong> 
-                <a href="https://maps.app.goo.gl/q5VdvKZGAQA4aoen6" target="_blank">
-                    Av. Industrial, 600 - Jardim, Santo André - SP, 09080-510
+            <!-- Unidade 2 -->
+            <div class="unit">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2023/11/WestPlaza-fachada.jpg" alt="Unidade West São Paulo">
+                <h2>Unidade West São Paulo</h2>
+                <p>
+                    <strong>Endereço:</strong>
+                    <a href="https://maps.app.goo.gl/ZPBejZ4qqghdREQF7" target="_blank">
+                        Praça Sousa Aranha, 65 - Água Branca, São Paulo - SP, 05002-010
+                    </a>
+                </p>
+                <a href="https://wa.me/+5511919427901" class="whatsapp-button" target="_blank">
+                    WhatsApp +5511919427901
                 </a>
-            </p>
-            <a href="https://wa.me/+5511916657900" class="whatsapp-button" target="_blank">
-                WhatsApp +5511916657900
-            </a>
-        </div>
+            </div>
 
-        <!-- Unidade 4 -->
-        <div class="unit">
-            <img src="https://rokuzen.com.br/atendentes/fachada_golden.jpg" alt="Unidade São Bernardo do Campo">
-            <h2>Unidade São Bernardo do Campo</h2>
-            <p>
-                <strong>Endereço:</strong> 
-                <a href="https://maps.app.goo.gl/CTMF5MPRFkpFWpoZ7" target="_blank">
-                    Av. Kennedy, 700 - Jardim do Mar, São Bernardo do Campo - SP, 09726-253
+            <!-- Unidade 3 -->
+            <div class="unit">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2023/08/fachada_gps2@2x.jpg" alt="Unidade Santo André">
+                <h2>Unidade Santo André</h2>
+                <p>
+                    <strong>Endereço:</strong>
+                    <a href="https://maps.app.goo.gl/q5VdvKZGAQA4aoen6" target="_blank">
+                        Av. Industrial, 600 - Jardim, Santo André - SP, 09080-510
+                    </a>
+                </p>
+                <a href="https://wa.me/+5511916657900" class="whatsapp-button" target="_blank">
+                    WhatsApp +5511916657900
                 </a>
-            </p>
-            <a href="https://wa.me/+5511947495306" class="whatsapp-button" target="_blank">
-                WhatsApp +5511947495306
-            </a>
-        </div>
+            </div>
+
+            <!-- Unidade 4 -->
+            <div class="unit">
+                <img src="https://rokuzen.com.br/atendentes/fachada_golden.jpg" alt="Unidade São Bernardo do Campo">
+                <h2>Unidade São Bernardo</h2>
+                <p>
+                    <strong>Endereço:</strong>
+                    <a href="https://maps.app.goo.gl/CTMF5MPRFkpFWpoZ7" target="_blank">
+                        Av. Kennedy, 700 - Jardim do Mar, São Bernardo do Campo - SP, 09726-253
+                    </a>
+                </p>
+                <a href="https://wa.me/+5511947495306" class="whatsapp-button" target="_blank">
+                    WhatsApp +5511947495306
+                </a>
+            </div>
+        </section>
     </main>
+
+    <!-- RODAPÉ -->
     <footer>
         &copy; 2025 - Todas as Unidades
     </footer>
 </body>
+
 </html>

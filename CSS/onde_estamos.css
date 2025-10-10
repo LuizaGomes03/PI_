@@ -1,0 +1,151 @@
+/* ====== Corpo ====== */
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* ====== Animação suave ====== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ====== Título e subtítulo ====== */
+.titulo-unidades {
+    text-align: center;
+    margin-bottom: 40px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.titulo-unidades h1,
+.titulo-unidades p {
+    font-family: 'Amatic SC', cursive;
+}
+
+.titulo-unidades h1 {
+    font-size: 3rem;
+    color: #9db668;
+    margin-bottom: 10px;
+}
+
+.titulo-unidades p {
+    font-size: 1.2rem;
+    color: #333;
+}
+
+/* ====== Container das unidades ====== */
+.unidades-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
+}
+
+/* ====== Bloco de unidade ====== */
+.unit {
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.unit:nth-child(1) { animation-delay: 0.2s; }
+.unit:nth-child(2) { animation-delay: 0.4s; }
+.unit:nth-child(3) { animation-delay: 0.6s; }
+.unit:nth-child(4) { animation-delay: 0.8s; }
+
+/* ====== Animação ao passar o mouse ====== */
+.unit:hover {
+    transform: translateY(-10px) scale(1.05);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ====== Imagem da unidade ====== */
+.unit img {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+/* ====== Nome da unidade ====== */
+.unit h2 {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 1.8rem;
+    color: #9db668;
+    margin: 10px 0;
+}
+
+/* ====== Texto e links ====== */
+.unit p {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    margin: 5px 0;
+    color: #444;
+}
+
+.unit a {
+    color: #333;
+    text-decoration: none;
+}
+
+.unit a:hover {
+    text-decoration: underline;
+}
+
+/* ====== Botão WhatsApp ====== */
+.whatsapp-button {
+    display: inline-block;
+    margin-top: 10px;
+    padding: 10px 15px;
+    background-color: #ffffff;
+    color: white;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+.whatsapp-button:hover {
+    background-color: #ffffff;
+    transform: scale(1.05);
+}
+
+/* ====== Rodapé ====== */
+footer {
+    text-align: center;
+    padding: 15px;
+    background-color: #9db668;
+    color: white;
+    font-size: 0.9rem;
+    margin-top: 40px;
+}
+
+/* ====== Responsividade ====== */
+@media (max-width: 768px) {
+    .unidades-section {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .unit {
+        width: 90%;
+    }
+
+    .titulo-unidades h1 {
+        font-size: 2.5rem;
+    }
+}
