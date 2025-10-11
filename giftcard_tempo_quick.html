@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gift Card | ROKUZEN</title>
+    <title>Quick Massage | ROKUZEN</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="CSS/giftcard_tempo.css">
+    <link rel="stylesheet" href="CSS/giftcard_tempo_quick.css">
 </head>
 
 <body>
@@ -50,23 +50,28 @@
         </nav>
     </header>
 
-    <!-- ===== Seção Quick Massage ===== -->
     <main class="massage-section">
         <h2>2. Selecione o tempo da Quick Massage:</h2>
-        <div class="massage-options">
-            <div class="massage-card">
-                <div class="time">🕒 15 minutos</div>
-                <div class="price">R$ 52,00</div>
+
+        <!-- grid 3 cards centralizados -->
+        <div class="reflex-grid">
+            <div class="massage-card" role="button" tabindex="0" data-value="20">
+                <div class="time">🕒 20 minutos</div>
+                <div class="price">R$ 83,00</div>
             </div>
-            <div class="massage-card">
-                <div class="time">🕒 25 minutos</div>
-                <div class="price">R$ 73,00</div>
+
+            <div class="massage-card" role="button" tabindex="0" data-value="30">
+                <div class="time">🕒 30 minutos</div>
+                <div class="price">R$ 99,00</div>
             </div>
-            <div class="massage-card">
-                <div class="time">🕒 35 minutos</div>
-                <div class="price">R$ 92,00</div>
+
+            <div class="massage-card" role="button" tabindex="0" data-value="40">
+                <div class="time">🕒 40 minutos</div>
+                <div class="price">R$ 118,00</div>
             </div>
         </div>
+
+        <!-- dots -->
         <div class="dots">
             <div class="dot"></div>
             <div class="dot active"></div>
@@ -80,26 +85,14 @@
             <div class="footer-col unidades">
                 <h3>Unidades:</h3>
                 <ul>
-                    <li>
-                        <strong>Golden Square Shopping</strong><br>
-                        Whatsapp:<a href="https://wa.me/551197495306" target="_blank" rel="noopener noreferrer">+55 11
-                            9749 5306</a>
-                    </li><br>
-                    <li>
-                        <strong>Mooca Plaza Shopping</strong><br>
-                        Whatsapp:<a href="https://wa.me/5511950841087" target="_blank" rel="noopener noreferrer">+55 11
-                            95084 1087</a>
-                    </li><br>
-                    <li>
-                        <strong>Grand Plaza Shopping</strong><br>
-                        Whatsapp:<a href="https://wa.me/5511916657900" target="_blank" rel="noopener noreferrer">+55 11
-                            91665 7900</a>
-                    </li><br>
-                    <li>
-                        <strong>Shopping West Plaza</strong><br>
-                        Whatsapp:<a href="https://wa.me/5511919427901" target="_blank" rel="noopener noreferrer">+55 11
-                            91942 7901</a>
-                    </li>
+                    <li><strong>Golden Square Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/551197495306" target="_blank">+55 11 9749 5306</a></li><br>
+                    <li><strong>Mooca Plaza Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511950841087" target="_blank">+55 11 95084 1087</a></li><br>
+                    <li><strong>Grand Plaza Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511916657900" target="_blank">+55 11 91665 7900</a></li><br>
+                    <li><strong>Shopping West Plaza</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511919427901" target="_blank">+55 11 91942 7901</a></li>
                 </ul><br>
                 <button class="login-btn">Login</button>
             </div>
@@ -113,6 +106,34 @@
     <div class="footer-copy">
         © 2025 Rokuzen – Trabalho Acadêmico
     </div>
+    <!-- ===== JS: seleção única + acessibilidade ===== -->
+    <script>
+        (function () {
+            const cards = document.querySelectorAll('.massage-card');
+
+            function clearSelected() {
+                cards.forEach(c => c.classList.remove('selected'));
+            }
+
+            cards.forEach(card => {
+                // clique com mouse
+                card.addEventListener('click', () => {
+                    clearSelected();
+                    card.classList.add('selected');
+                });
+
+                // teclado: Enter ou Espaço
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        clearSelected();
+                        card.classList.add('selected');
+                    }
+                });
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

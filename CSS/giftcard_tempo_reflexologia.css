@@ -139,7 +139,7 @@ nav ul li ul.dropdown li a:hover {
     opacity: 0.8;
 }
 
-/* Responsividade simple */
+/* Responsividade simples */
 @media (max-width: 768px) {
 
     nav {
@@ -234,164 +234,106 @@ header::after {
     box-sizing: border-box;
 }
 
-
-/* ----- Conteúdo principal ----- */
-.page-container {
-    max-width: 1200px;
-    margin: 30px auto 0;
+/* Main section */
+.massage-section {
+    max-width: 1100px;
+    margin: 44px auto;
     padding: 0 20px;
-}
-
-/* Introdução / sessão principal */
-.gift-intro {
-    display: grid;
-    grid-template-columns: 1fr 320px;
-    gap: 40px;
-    align-items: start;
-    margin-top: 40px;
-    /* distância do menu */
-}
-
-/* ----- Coluna esquerda ----- */
-.intro-left h1 {
-    font-family: 'Amatic SC', 'Raleway', sans-serif;
-    font-size: 36px;
-    color: #4a4a4a;
-    font-weight: 400;
-    letter-spacing: 0.5px;
-    margin-bottom: 30px;
-    /* espaço entre o título e a linha */
-}
-
-.decor-hr {
-    border: none;
-    height: 1px;
-    background: #e0e0e0;
-    margin: 12px 0 28px;
-    /* espaço após o título e antes do texto */
-}
-
-.lead {
-    color: #555;
-    font-size: 20px;
-    font-weight: 400;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    /* espaço após o parágrafo principal */
-}
-
-.gift-intro p {
-    color: #555;
-    margin-bottom: 14px;
-}
-
-.step {
-    font-family: 'Amatic SC', cursive;
-    font-size: 28px;
-    color: #222;
-    margin-bottom: 34px;
-    font-weight: normal; /* opcional, para padronizar */
-}
-
-.intro-left p {
-    color: #666;
-    font-size: 17px;
-    line-height: 1.7;
-    margin-bottom: 14px;
-    /* espaço entre parágrafos */
-}
-
-/* Mantém o espaçamento maior antes do step */
-.intro-left p:last-of-type {
-    margin-bottom: 28px;
-}
-
-/* Pequeno ajuste responsivo */
-@media (max-width: 600px) {
-    .step-wrapper {
-        flex-direction: column;
-        align-items: flex-start;
-        gap: 4px;
-    }
-
-    .step-line {
-        width: 100%;
-        margin-left: 0;
-    }
-}
-
-/* Grid de serviços - 4 colunas com imagens */
-.services-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 24px;
-    align-items: start;
-    margin-bottom: 18px;
-}
-
-.service {
     text-align: left;
 }
 
-.service img {
-    width: 100%;
-    height: 150px;
-    object-fit: cover;
-    display: block;
-    border: 6px solid transparent;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, border-color 0.2s ease;
-}
-
-.service img:hover {
-    transform: translateY(-6px);
-    border-color: rgba(165, 180, 65, 0.15);
-}
-
-.service-title {
-    margin-top: 10px;
+.massage-section h2 {
     font-family: 'Amatic SC', cursive;
-    font-size: 28px;
-    text-transform: none;
-    color: #2f2f2f;
-    line-height: 1.1;
-    letter-spacing: 1px;
+    font-size: 26px;
+    margin-bottom: 34px;
+    color: #222;
 }
 
-/* Pontinhos de paginação */
-.pagination-dots {
+/* Grid 2x2 centralizado */
+.reflex-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    justify-content: center;
+    align-items: start;
+    max-width: 520px; /* controla a largura do bloco central */
+    margin: 0 auto 8px;
+    padding-bottom: 10px;
+}
+
+/* Card base */
+.massage-card {
+    width: 190px;
+    background-color: #f7f9f0;
+    border-radius: 12px;
+    border: 1px solid #e6ecd9;
+    padding: 20px 16px;
+    box-shadow: 0 8px 0 rgba(157, 182, 104, 0.07);
+    text-align: center;
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    user-select: none;
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+
+/* internal */
+.massage-card .time {
     display: flex;
-    gap: 12px;
-    justify-content: flex-start;
     align-items: center;
-    margin-top: 8px;
+    justify-content: center;
+    gap: 8px;
+    font-weight: 600;
+    color: #475537;
+    margin-bottom: 12px;
+}
+
+.massage-card .price {
+    font-size: 18px;
+    font-weight: 800;
+    color: #9DB668;
+}
+
+/* hover / active / selected */
+.massage-card:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+}
+
+.massage-card:active {
+    transform: translateY(-2px) scale(.997);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+}
+
+.massage-card.selected {
+    border-color: #9DB668;
+    box-shadow: 0 18px 30px rgba(157, 182, 104, 0.14);
+    transform: translateY(-8px);
+}
+
+.massage-card:focus {
+    outline: 3px solid rgba(157, 182, 104, 0.18);
+    outline-offset: 4px;
+}
+
+/* Dots */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin-top: 18px;
+    margin-bottom: 36px;
 }
 
 .dot {
-    width: 16px;
-    height: 16px;
+    width: 12px;
+    height: 12px;
     border-radius: 50%;
-    background: #d2d2d2;
-    display: inline-block;
-    box-shadow: inset 0 -2px 0 rgba(0, 0, 0, 0.05);
+    background: #bfbfbf;
 }
 
 .dot.active {
-    background: #9DB668;
-}
-
-/* Coluna direita (foto) */
-.intro-right {
-    text-align: center;
-}
-
-.side-photo {
-    width: 100%;
-    max-width: 300px;
-    height: auto;
-    border: 6px solid white;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
-    display: inline-block;
+    background: #bfd48b;
 }
 
 /* ----- Footer ----- */
@@ -510,63 +452,4 @@ header::after {
 .login-btn--filled:hover {
     transform: translateY(-3px);
     filter: brightness(.98);
-}
-
-/* ----- Responsividade ----- */
-@media (max-width: 1024px) {
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .gift-intro {
-        grid-template-columns: 1fr 280px;
-    }
-}
-
-@media (max-width: 780px) {
-    .gift-intro {
-        grid-template-columns: 1fr;
-        gap: 20px;
-    }
-
-    .intro-right {
-        order: 2;
-    }
-
-    .services-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 16px;
-    }
-
-    .service img {
-        height: 140px;
-    }
-
-    .footer-inner {
-        grid-template-columns: 1fr;
-        text-align: left;
-    }
-
-    nav {
-        padding: 12px 18px;
-    }
-}
-
-@media (max-width: 420px) {
-    .services-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .service img {
-        height: 200px;
-    }
-
-    .intro-left h1 {
-        font-size: 28px;
-    }
-
-    .side-photo {
-        max-width: 100%;
-    }
 }
