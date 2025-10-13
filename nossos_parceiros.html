@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Nossos Parceiros</title>
+
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="CSS/nossos_parceiros.css">
+    <link rel="stylesheet" href="CSS/menu.css">
+</head>
+<body>
+    <header>
+        <nav>
+          <img src="imagens/logo.png" alt="Logo ROKUZEN" class="logo">
+          <ul>
+            <li><a href="#">Agende seu horário</a></li>
+            <li><a href="#">Gift Card</a></li>
+            <li><a href="#">Quem somos</a></li>
+            <li>
+              <a href="#">Onde estamos ▾</a>
+              <ul class="dropdown">
+                <li><a href="#">Unidades</a></li>
+                <li><a href="#">Nossos clientes</a></li>
+                <li><a href="#">Nossos parceiros</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">O que fazemos ▾</a>
+              <ul class="dropdown">
+                <li><a href="#">Eventos</a></li>
+                <li><a href="#">Serviços</a></li>
+              </ul>
+            </li>
+            <li>
+              <a href="#">Fale Conosco ▾</a>
+              <ul class="dropdown">
+                <li><a href="#">Contato</a></li>
+                <li><a href="#">Trabalhe conosco</a></li>
+                <li><a href="#">Seja um franqueado</a></li>
+              </ul>
+            </li>
+          </ul>
+
+          <div class="search-container">
+            <input type="text" placeholder="Buscar..." />
+            <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+              <circle cx="11" cy="11" r="8" stroke="#A5B441" stroke-width="2" fill="none"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#A5B441" stroke-width="2"></line>
+            </svg>
+          </div>
+        </nav>
+    </header>
+
+    <!-- ====== Título ====== -->
+    <section class="titulo-parceiros">
+        <h2>Nossos Parceiros</h2>
+        <p>Conheça quem caminha junto conosco para transformar experiências.</p>
+    </section>
+
+    <!-- ====== Parceiros (cards) ====== -->
+    <section class="parceiros-section">
+        <div class="parceiro">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.9CCJ_m8yVopJ_kvHOWHT0QHaEL?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="T-systems">
+            <h3>T-systems</h3>
+            <p>Parceria voltada para sustentabilidade e responsabilidade ambiental.</p>
+            <a href="https://www.t-systems.com/br/pt" target="_blank" rel="noopener">Saiba mais</a>
+        </div>
+
+        <div class="parceiro">
+            <img src="https://www.t-systems.com/resource/image/116680/ratio3x2/1440/960/fc37e72301e47e9fe320104648addffd/83B7DFDA95A55D1C99B83666C4030CB7/im-profile-northerneuropemap-tsystemsuk.png" alt="Natura">
+            <h3>BENEFÍCIOS</h3>
+            <p>Oferecemos descontos, pacotes e a incrível “Relaxing Time” para os colaboradores da T-Systems.</p>
+        </div>
+    </section>
+
+    <section>
+        <p>No Brasil, a T-Systems tem mais 1.600 clientes, cerca de 2 mil funcionários e possui 11 filiais instaladas em 8 cidades,
+             aptas a ofertar serviços de Consultoria, Infraestrutura de TI e Telecom, Desenvolvimento e Manutenção de Aplicativos e Soluções por Indústria. 
+             Além disso, tem um portfolio inovador para oferta de Soluções SAP (inclusive SAP as a Service),
+              SAP HANA, Soluções para Big Data, M2M (Machine to Machine) e Soluções específicas para Smart Grid, 
+              para área de Saúde e soluções para otimizar processos logísticos</p>
+    </section>
+
+    <!-- ====== Formulário de Contato (igual à imagem) ====== -->
+    <section class="contato-parceria">
+        <h2>ENTRE EM CONTATO</h2>
+
+        <form action="#" method="POST" id="form-parceria">
+            <label for="nome">Seu nome (obrigatório)</label>
+            <input id="nome" name="nome" type="text" placeholder="Seu nome" required>
+
+            <label for="email">Seu e-mail (obrigatório)</label>
+            <input id="email" name="email" type="email" placeholder="seu@exemplo.com" required>
+
+            <label for="assunto">Assunto</label>
+            <input id="assunto" name="assunto" type="text" value="PARCERIA" readonly>
+
+            <label for="mensagem">Sua mensagem</label>
+            <textarea id="mensagem" name="mensagem" rows="8" placeholder="Escreva sua mensagem aqui..."></textarea>
+
+            <div class="form-actions">
+                <!-- botão alinhado à direita -->
+                <button type="submit" class="btn-enviar">ENVIAR</button>
+            </div>
+        </form>
+    </section>
+
+    <!-- ====== Rodapé ====== -->
+    <footer>
+        &copy; 2025 ROKUZEN — Todos os direitos reservados.
+    </footer>
+
+    <!-- (opcional) script para demo: evita envio real -->
+    <script>
+      document.getElementById('form-parceria').addEventListener('submit', function(e){
+        e.preventDefault();
+        alert('Formulário enviado (demo).');
+        this.reset();
+      });
+    </script>
+</body>
+</html>

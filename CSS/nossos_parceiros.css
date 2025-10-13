@@ -1,0 +1,163 @@
+/* ====== Estilo Global ====== */
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+}
+
+/* ====== Animação ====== */
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ====== Cabeçalho (sua menu.css deve conter regras próprias da barra) ====== */
+/* assume que menu.css já define layout do nav, logo, dropdown etc */
+
+/* ====== Título ====== */
+.titulo-parceiros {
+    text-align: center;
+    margin: 40px 0 24px;
+    animation: fadeInUp 1s ease-out;
+}
+
+.titulo-parceiros h2 {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 3rem;
+    color: #9db668;
+    margin-bottom: 6px;
+}
+
+.titulo-parceiros p {
+    font-size: 1.05rem;
+    color: #444;
+}
+
+/* ====== Parceiros (cards) ====== */
+.parceiros-section {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 24px;
+    padding: 0 20px 40px;
+}
+
+.parceiro {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    width: 300px;
+    padding: 18px;
+    text-align: center;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: transform .28s ease, box-shadow .28s ease;
+    opacity: 0;
+    animation: fadeInUp 1s ease forwards;
+}
+
+.parceiro:nth-child(1){ animation-delay: .15s; }
+.parceiro:nth-child(2){ animation-delay: .3s; }
+
+.parceiro img{ width:100%; height:auto; border-radius:6px; margin-bottom:12px; }
+.parceiro h3{
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    color:#9db668; font-size:1.8rem; margin:8px 0;
+}
+.parceiro p{ color:#555; margin-bottom:12px; }
+.parceiro a{
+    display:inline-block; padding:8px 14px; background:#9db668; color:#fff; border-radius:6px; text-decoration:none; font-weight:600;
+}
+.parceiro:hover{ transform: translateY(-8px) scale(1.03); box-shadow:0 10px 26px rgba(0,0,0,0.16); }
+
+/* ====== Formulário de Parceria (estilo inspirado na sua imagem) ====== */
+.contato-parceria{
+    width: 92%;
+    max-width: 1000px;
+    margin: 28px auto 60px;
+    background: #fff;
+    border-radius: 6px;
+    padding: 28px;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.06);
+    animation: fadeInUp 1s ease-out;
+}
+
+/* Título do formulário (alinhado como na imagem) */
+.contato-parceria h2{
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 1.6rem;
+    color: #111;
+    margin: 0 0 18px;
+}
+
+/* labels maiores e alinhamento por bloco */
+.contato-parceria label{
+    display:block;
+    font-weight:700;
+    margin-top:12px;
+    color:#111;
+}
+
+/* inputs com fundo cinza claro como na imagem */
+.contato-parceria input[type="text"],
+.contato-parceria input[type="email"],
+.contato-parceria textarea{
+    width:100%;
+    padding:14px;
+    margin-top:8px;
+    border: none;
+    border-radius:4px;
+    background:#e3e3e3; /* fundo cinza claro */
+    resize:vertical;
+    font-size:1rem;
+    box-sizing:border-box;
+}
+
+/* assunto pré-preenchido e readonly (visual leve) */
+.contato-parceria input[readonly]{
+    opacity:0.9;
+}
+
+/* area da mensagem maior */
+.contato-parceria textarea{ min-height:200px; }
+
+/* container das ações para alinhar botão à direita */
+.form-actions{
+    display:flex;
+    justify-content:flex-end;
+    margin-top:18px;
+}
+
+/* botão ENVIAR — destaque verde e tamanho como na imagem */
+.btn-enviar{
+    background:#9db668;
+    color:#06140a;
+    border:none;
+    padding:12px 22px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    border-radius:4px;
+    cursor:pointer;
+    box-shadow:0 4px 10px rgba(0,0,0,0.08);
+    transition: transform .18s ease, background .18s ease;
+}
+
+/* hover/ativo */
+.btn-enviar:hover{ transform:translateY(-3px); background:#89a55d; }
+
+/* ====== Rodapé ====== */
+footer{ text-align:center; padding:16px; background:#9db668; color:#fff; }
+
+/* ====== Responsividade ====== */
+@media (max-width: 880px){
+    .parceiros-section{ gap:18px; }
+    .contato-parceria{ padding:20px; }
+}
+
+@media (max-width: 640px){
+    .parceiros-section{ flex-direction:column; align-items:center; }
+    .parceiro{ width:92%; }
+    .contato-parceria{ width:95%; padding:18px; }
+    .contato-parceria textarea{ min-height:160px; }
+    .titulo-parceiros h2{ font-size:2.2rem; }
+}
