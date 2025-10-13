@@ -1,4 +1,4 @@
-/* ====== Corpo ====== */
+/* ====== Estilo Global ====== */
 body {
     font-family: 'Raleway', sans-serif;
     margin: 0;
@@ -6,7 +6,7 @@ body {
     background-color: #f4f4f9;
 }
 
-/* ====== Animação suave ====== */
+/* ====== Animação ====== */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -19,108 +19,93 @@ body {
 }
 
 /* ====== Título e subtítulo ====== */
-.titulo-unidades {
+.titulo-clientes {
     text-align: center;
-    margin-bottom: 40px;
+    margin: 50px 0 40px;
     animation: fadeInUp 1s ease-out;
 }
 
-.titulo-unidades h1,
-.titulo-unidades p {
+.titulo-clientes h2 {
     font-family: 'Amatic SC', cursive, Arial, sans-serif;
-}
-
-.titulo-unidades h1 {
     font-size: 3rem;
     color: #9db668;
     margin-bottom: 10px;
 }
 
-.titulo-unidades p {
+.titulo-clientes p {
     font-size: 1.2rem;
-    color: #333;
+    color: #444;
 }
 
-/* ====== Container das unidades ====== */
-.unidades-section {
+/* ====== Container dos Clientes ====== */
+.clientes-section {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
     gap: 30px;
+    padding: 0 20px;
 }
 
-/* ====== Bloco de unidade ====== */
-.unit {
+/* ====== Cartão de Cliente ====== */
+.cliente {
     background-color: white;
     border: 1px solid #ddd;
-    border-radius: 10px;
+    border-radius: 12px;
     width: 300px;
-    padding: 15px;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
     text-align: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease, box-shadow 0.3s ease;
-    opacity: 0;
     animation: fadeInUp 1s ease forwards;
+    opacity: 0;
 }
 
-.unit:nth-child(1) { animation-delay: 0.2s; }
-.unit:nth-child(2) { animation-delay: 0.4s; }
-.unit:nth-child(3) { animation-delay: 0.6s; }
-.unit:nth-child(4) { animation-delay: 0.8s; }
+.cliente:nth-child(1) { animation-delay: 0.2s; }
+.cliente:nth-child(2) { animation-delay: 0.4s; }
+.cliente:nth-child(3) { animation-delay: 0.6s; }
+.cliente:nth-child(4) { animation-delay: 0.8s; }
 
-/* ====== Animação ao passar o mouse ====== */
-.unit:hover {
+.cliente:hover {
     transform: translateY(-10px) scale(1.05);
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
 }
 
-/* ====== Imagem da unidade ====== */
-.unit img {
+/* ====== Imagem ====== */
+.cliente img {
     width: 100%;
     height: auto;
     border-radius: 8px;
+    margin-bottom: 15px;
+}
+
+/* ====== Nome e Texto ====== */
+.cliente h3 {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 2rem;
+    color: #9db668;
     margin-bottom: 10px;
 }
 
-/* ====== Nome da unidade ====== */
-.unit h2 {
-    font-family: 'Amatic SC', cursive, Arial, sans-serif;
-    font-size: 1.8rem;
-    color: #9db668;
-    margin: 10px 0;
+.cliente p {
+    color: #555;
+    font-size: 1rem;
+    margin-bottom: 10px;
 }
 
-/* ====== Texto e links ====== */
-.unit p {
-    font-family: 'Amatic SC', cursive, Arial, sans-serif;
-    margin: 5px 0;
-    color: #444;
-}
-
-.unit a {
-    color: #333;
-    text-decoration: none;
-}
-
-.unit a:hover {
-    text-decoration: underline;
-}
-
-/* ====== Botão WhatsApp ====== */
-.whatsapp-button {
+/* ====== Botão Saiba Mais ====== */
+.cliente a {
     display: inline-block;
-    margin-top: 10px;
-    padding: 10px 15px;
-    background-color: #ffffff;
+    padding: 8px 15px;
+    background-color: #9db668;
     color: white;
-    border-radius: 5px;
+    border-radius: 6px;
     text-decoration: none;
     font-weight: bold;
     transition: background-color 0.3s, transform 0.3s;
 }
 
-.whatsapp-button:hover {
-    background-color: #ffffff;
+.cliente a:hover {
+    background-color: #89a55d;
     transform: scale(1.05);
 }
 
@@ -130,22 +115,26 @@ footer {
     padding: 15px;
     background-color: #9db668;
     color: white;
-    font-size: 0.9rem;
-    margin-top: 40px;
+    font-size: 1rem;
+    margin-top: 50px;
 }
 
 /* ====== Responsividade ====== */
 @media (max-width: 768px) {
-    .unidades-section {
+    header h1 {
+        font-size: 2.5rem;
+    }
+
+    .clientes-section {
         flex-direction: column;
         align-items: center;
     }
 
-    .unit {
+    .cliente {
         width: 90%;
     }
 
-    .titulo-unidades h1 {
+    .titulo-clientes h2 {
         font-size: 2.5rem;
     }
 }
