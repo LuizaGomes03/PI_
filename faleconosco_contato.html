@@ -1,226 +1,61 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
+
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contato</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contato</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Fontes -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Amatic SC', cursive;
-      background: #fff;
-      color: #222;
-      letter-spacing: 0.5px;
-    }
-
-    header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 15px 50px;
-      border-bottom: 2px solid #ccc;
-      background: #fff;
-    }
-
-    header img {
-      height: 60px;
-      filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
-    }
-
-    nav {
-      display: flex;
-      gap: 25px;
-      font-size: 22px;
-      text-transform: uppercase;
-    }
-
-    nav a {
-      text-decoration: none;
-      color: #444;
-      font-weight: 700;
-      transition: color 0.3s;
-    }
-
-    nav a:hover {
-      color: #6a9547;
-    }
-
-    .search-bar {
-      display: flex;
-      align-items: center;
-      background: #a8c76f;
-      border-radius: 20px;
-      padding: 5px 10px;
-      box-shadow: inset 0 0 5px rgba(0,0,0,0.15);
-    }
-
-    .search-bar input {
-      border: none;
-      outline: none;
-      background: transparent;
-      color: #333;
-      font-size: 18px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    .search-bar button {
-      background: none;
-      border: none;
-      cursor: pointer;
-      font-size: 18px;
-      color: #333;
-    }
-
-    .container {
-      padding: 40px 70px;
-    }
-
-    h2 {
-      font-size: 36px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
-
-    .contato {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-    }
-
-    .contato-left {
-      width: 55%;
-      font-size: 22px;
-    }
-
-    .contato-left p {
-      margin: 18px 0;
-      line-height: 1.5;
-    }
-
-    .contato-left a {
-      color: #1a8f2c;
-      text-decoration: none;
-      font-weight: 700;
-    }
-
-    .contato-left a:hover {
-      text-decoration: underline;
-    }
-
-    .contato-left i {
-      color: #6a9547;
-      margin-right: 6px;
-    }
-
-    .contato-right {
-      width: 40%;
-      font-size: 22px;
-    }
-
-    .contato-right a {
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .form-contato input, 
-    .form-contato textarea {
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 10px;
-      border: 1px solid #bbb;
-      border-radius: 4px;
-      background: #f7f7f7;
-      font-size: 20px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    .form-contato textarea {
-      height: 120px;
-      resize: none;
-    }
-
-    .form-contato button {
-      background: #6a9547;
-      color: #fff;
-      font-weight: bold;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 22px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    .form-contato button:hover {
-      background: #4a7135;
-    }
-
-    footer {
-      background: #a8c76f;
-      color: #222;
-      padding: 30px 70px;
-      font-size: 20px;
-      margin-top: 50px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    footer .unidades {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 80px;
-      margin-bottom: 25px;
-      font-weight: 700;
-      font-size: 22px;
-    }
-
-    footer a {
-      color: #1a5f2b;
-      text-decoration: none;
-    }
-
-    footer a:hover {
-      text-decoration: underline;
-    }
-
-    footer .tags {
-      font-size: 18px;
-      line-height: 1.6;
-      color: #333;
-    }
-
-    footer .copy {
-      margin-top: 25px;
-      font-size: 18px;
-      text-align: center;
-      color: #333;
-    }
-  </style>
+    <!-- CSS externo -->
+    <link rel="stylesheet" href="CSS/menu.css">
+    <link rel="stylesheet" href="CSS/faleconosco_contato.css">
 </head>
-<body>
-  <header>
-    <img src="imagens/logo.png" alt="Rokuzen">
-    <nav>
-      <a href="#">Agende seu horário</a>
-      <a href="#">Gift Card</a>
-      <a href="#">Quem somos</a>
-      <a href="#">Onde estamos</a>
-      <a href="#">O que fazemos</a>
-      <a href="#">Fale Conosco</a>
-    </nav>
-    <div class="search-bar">
-      <input type="text" placeholder="Hinted search text">
-      <button><i class="fa fa-search"></i></button>
-    </div>
-  </header>
 
+<body>
+    <!-- MENU -->
+    <header>
+        <nav>
+            <img src="imagens/logo.png" alt="Logo ROKUZEN" class="logo">
+            <ul>
+                <li><a href="#">Agende seu horário</a></li>
+                <li><a href="#">Gift Card</a></li>
+                <li><a href="#">Quem somos</a></li>
+                <li><a href="#">Onde estamos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Unidades</a></li>
+                        <li><a href="#">Nossos clientes</a></li>
+                        <li><a href="#">Nossos parceiros</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">O que fazemos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Serviços</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Fale Conosco &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Trabalhe conosco</a></li>
+                        <li><a href="#">Seja um franqueado</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar..." />
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" stroke="#A5B441" stroke-width="2" fill="none"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#A5B441" stroke-width="2"></line>
+                </svg>
+            </div>
+        </nav>
+    </header>
+
+  <!-- CONTEÚDO PRINCIPAL -->
   <div class="container">
     <h2>Contato:</h2>
     <div class="contato">
