@@ -4,35 +4,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O que fazemos - Quick-Massage</title>
+    <title>O que fazemos - Quick-Massage</title> <!-- CSS do menu e da página -->
+    <link rel="stylesheet" href="CSS/menu.css">
+    <link rel="stylesheet" href="CSS/rodape.css">
+    <link rel="stylesheet" href="CSS/o_que_fazemos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 </head>
 
-<body>
+<body> <!-- Aqui o menu será carregado automaticamente -->
+    <div id="menu"></div>
+    <script> // Carrega o menu da página menu.html 
+        fetch("menu.html").then(response => response.text()).then(data => { document.getElementById("menu").innerHTML = data; }); </script>
     <main>
         <article>
             <header>
                 <h1>Quick-Massage</h1>
             </header>
-
-            <body>
-                <h2>O que é?</h2>
-                <p>É uma massagem terapêutica realizada a partir da união e composição das técnicas orientais: Shiatsu e
-                    Anmá, as manobras aplicadas com toques suaves e firmes principalmente nas costas, ombros, braços,
-                    mãos, cabeça e pescoço, servem para proporcionar a melhoria na circulação sanguínea e energética,
-                    alívio de tensão, dores musculares e stress psicológico.</p>
-
-                <h2>Como funciona o atendimento?</h2>
-                <p>A massagem é realizada em uma cadeira projetada ergonomicamente para esta finalidade, a mesma é
+            <section aria-labelledby="o-que-e">
+                <h2 id="o-que-e">O que é?</h2>
+                <p> É uma massagem terapêutica realizada a partir da união e composição das técnicas orientais: Shiatsu
+                    e Anmá. As manobras aplicadas com toques suaves e firmes principalmente nas costas, ombros, braços,
+                    mãos, cabeça e pescoço servem para proporcionar a melhoria na circulação sanguínea e energética,
+                    alívio de tensão, dores musculares e stress psicológico. </p>
+            </section>
+            <section aria-labelledby="como-funciona">
+                <h2 id="como-funciona">Como funciona o atendimento?</h2>
+                <p> A massagem é realizada em uma cadeira projetada ergonomicamente para esta finalidade, a mesma é
                     devidamente higienizada. O cliente fica sentado e possui a opção de escutar música relaxante durante
-                    a sessão, a qual tem duração entre 15 a 35 minutos, tempo suficiente para que o corpo sinta os
-                    benefícios da massagem.</p>
-                <p>Os massoterapeutas utilizam movimentos realizados com pressão dos polegares, mãos, cotovelos e
+                    a sessão, a qual tem duração entre 15 a 35 minutos — tempo suficiente para que o corpo sinta os
+                    benefícios da massagem. </p>
+                <p> Os massoterapeutas utilizam movimentos realizados com pressão dos polegares, mãos, cotovelos e
                     antebraços. A massagem proporciona uma sensação de bem-estar e relaxamento, pois age sobre os pontos
                     centrais da musculatura das costas, ombros e pescoço, que costumam apresentar maiores contrações e
-                    tensões musculares ao longo do dia.</p>
-                <a href="">VENHA EXPERIMENTAR EM UMA DE NOSSAS UNIDADES! (clique aqui)</a>
-
-                <h2>Para que é indicada?</h2>
+                    tensões musculares ao longo do dia. </p>
+                <p> <a href="#">VENHA EXPERIMENTAR EM UMA DE NOSSAS UNIDADES! (clique aqui)</a> </p>
+            </section>
+            <section aria-labelledby="indicacoes">
+                <h2 id="indicacoes">Para que é indicada?</h2>
                 <ul>
                     <li>Diminuir o stress</li>
                     <li>Liberar endorfina no organismo</li>
@@ -41,47 +52,46 @@
                     <li>Combater a insônia</li>
                     <li>Combater estados depressivos</li>
                     <li>Proporcionar alívio muscular</li>
-                    <li>Proporciar alívio em quadros de dores de cabeça e enxaqueca</li>
+                    <li>Proporcionar alívio em quadros de dores de cabeça e enxaqueca</li>
                 </ul>
-
-                <h2>Quais as contraindicações?</h2>
-                <p>Recomenda-se que pessoas com casos de <strong> pressão alta ou baixa, não receba a massagem antes de
-                        40 minutos após ter feito uma refeição.</strong></p>
+            </section>
+            <section aria-labelledby="contraindicacoes">
+                <h2 id="contraindicacoes">Quais as contraindicações?</h2>
+                <p> Recomenda-se que pessoas com casos de <strong>pressão alta ou baixa</strong> não recebam a massagem
+                    antes de 40 minutos após ter feito uma refeição. </p>
                 <ol>
-                    <li><strong>Doenças infectocontagiosas</strong> - Não receber a massagem devido ao risco de acelerar a expansão da
-                        moléstia via circulação sanguínea. Na fase de recuperação, após a alta médica, a massagem poderá
-                        ser aplicada.</li>
-                    <li><strong>Reumatismo/Artrite aguda </strong>- Não receber massagem, pois pode ocorrer inflamação do sistema
-                        circulatório e consequente formação de tromboses. Usar compressas quentes nas articulações após
-                        saída da fase aguda. Na fase aguda da artrite, as articulações devem estar em repouso.</li>
-                    <li><strong>Paciente em repouso absoluto </strong>- É contraindicado, pois pacientes nessas condições podem
-                        apresentar problemas cardíacos e pulmonares, podendo a massagem agravar este quadro clínico.
+                    <li><strong>Doenças infectocontagiosas</strong> — Não receber a massagem devido ao risco de acelerar
+                        a expansão da moléstia via circulação sanguínea. Na fase de recuperação, após a alta médica, a
+                        massagem poderá ser aplicada.</li>
+                    <li><strong>Reumatismo/Artrite aguda</strong> — Não receber massagem, pois pode ocorrer inflamação
+                        do sistema circulatório e consequente formação de tromboses.</li>
+                    <li><strong>Paciente em repouso absoluto</strong> — É contraindicado, pois esses pacientes podem
+                        apresentar problemas cardíacos e pulmonares.</li>
+                    <li><strong>Hemofilia</strong> — A massagem pode provocar hemorragia devido à baixa resistência dos
+                        vasos.</li>
+                    <li><strong>Ferimentos graves</strong> — Evitar a massagem em casos de fratura, distensão,
+                        hemorragia ou lesões internas.</li>
+                    <li><strong>Estado febril</strong> — Evitar massagear durante febre alta.</li>
+                    <li><strong>Tuberculose/Sífilis</strong> — Contraindicado, além de apresentar riscos ao terapeuta.
                     </li>
-                    <li><strong>Hemofilia </strong>- Pacientes com hemofilia apresentam vasos com baixa resistência, podendo a massagem
-                        provocar uma hemorragia, uma vez que nestes pacientes o sistema de fibrilação sanguínea é
-                        deficiente.</li>
-                    <li><strong>Ferimentos graves</strong> - Se o ferimento for externo, a massagem será aplicada somente com
-                        deslizamento suave ao redor da lesão. Se o ferimento for interno, como fratura, distensão
-                        muscular, hemorragia interna, lesão muscular e tendínea, evitar receber a massagem.</li>
-                    <li><strong>Estado febril</strong> - Quando a febre for alta, evitar massagear. Pessoas resfriadas podem receber
-                        massagem.</li>
-                    <li><strong>Tuberculose/Sífilis</strong> - Idem item 1, além de apresentar riscos ao terapeuta.</li>
-                    <li><strong>Câncer - A massagem pode acelerar a expansão das células afetadas, através da circulação, para
-                        outras regiões.</li>
-                    <li><strong>Cicatrizes/Queimaduras recentes</strong> - A massagem será plicada com deslizamento suave ao redor da
-                        lesão.</li>
-                    <li><strong>Eczema</strong> - Contraindicado apenas na região afetada.</li>
-                    <li><strong>Gestante</strong> - Até o terceiro mês de gravidez a massagem não deve ser feita na região lombar e nas
-                        regiões mediais dos membros inferiores. Após este período a massagem pode ser aplicada,
-                        cuidadosamente, evitando-se regiões como tendão calcâneo e regiões mediais dos membros
-                        inferiores.</li>
-                    <li><strong>Pressão arterial alta ou baixa</strong> - Pode-se receber a massagem, mesmo quando tender à alta,
-                        com movimentos profundos e lentos, objetivando-se assim a sedação. Quando a pressão tender à
-                        baixa, movimentos superficiais e rápidos, objetivando-se assim a tonificação.</li>
+                    <li><strong>Câncer</strong> — A massagem pode acelerar a expansão das células cancerígenas via
+                        circulação.</li>
+                    <li><strong>Cicatrizes/Queimaduras recentes</strong> — A massagem deve ser aplicada suavemente ao
+                        redor da lesão.</li>
+                    <li><strong>Eczema</strong> — Contraindicado apenas na região afetada.</li>
+                    <li><strong>Gestante</strong> — Evitar massagem na lombar e membros inferiores até o terceiro mês de
+                        gravidez.</li>
+                    <li><strong>Pressão arterial alta ou baixa</strong> — Pode-se receber a massagem, com variações na
+                        técnica para sedação ou tonificação.</li>
                 </ol>
-            </body>
+            </section>
         </article>
     </main>
 </body>
+<footer>
+    <div id="rodape"></div>
+    <script> // Carrega o rodape da página rodape.html 
+        fetch("rodape.html").then(response => response.text()).then(data => { document.getElementById("rodape").innerHTML = data; }); </script>
+</footer>
 
 </html>
