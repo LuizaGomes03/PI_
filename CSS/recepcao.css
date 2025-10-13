@@ -1,4 +1,4 @@
-:root{
+:root {
   --green:#9DB668; --green-600:#7D9950;
   --ink:#222; --glass:rgba(255,255,255,.12); --glass-b:#ffffff30;
   --line:#e6edd7; --muted:#f6f8f2; --shadow:0 24px 60px rgba(0,0,0,.25);
@@ -28,7 +28,6 @@ body::before{
   z-index:-1;
 }
 
-
 .sidebar {
   position: fixed;
   top: 0;
@@ -42,19 +41,10 @@ body::before{
   z-index: 9999;
   overflow-y: auto;
   overflow-x: hidden;
+  scrollbar-width: none;
 }
-
-
-.sidebar {
-  scrollbar-width: none; 
-}
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
-
-.sidebar:hover {
-  width: 280px;
-}
+.sidebar::-webkit-scrollbar { display:none; }
+.sidebar:hover { width:280px; }
 
 .sb-inner{display:flex; flex-direction:column; height:100%}
 .sb-user{
@@ -98,20 +88,24 @@ body::before{
 .sb-link span{opacity:0; transition:.3s; pointer-events:none;}
 .sidebar:hover .sb-link span{opacity:1; pointer-events:auto;}
 
-.sb-contacts .group{margin-top:8px}
+.sb-contacts{
+  padding-top:4px;
+  padding-bottom:6px;
+}
+.sb-contacts .group{margin-top:2px}
+.sb-contacts .sb-link{padding:8px 12px}
 .sb-contacts .small{
   font-size:12px; color:#cfe5b1;
-  margin-left:34px; opacity:0; transition:.3s;
+  margin-left:34px; opacity:0; transition:.3s; margin-bottom:2px;
 }
 .sidebar:hover .sb-contacts .small{opacity:1;}
 
 .sb-foot{
-  margin-top:auto; padding:12px;
+  margin-top:auto; padding:6px;
   font-size:12px; color:#b9d3a1;
   opacity:0; transition:.3s;
 }
 .sidebar:hover .sb-foot{opacity:1;}
-
 
 .main {
   margin-left: 76px;
@@ -135,7 +129,6 @@ body::before{
 .logo{width:160px; height:auto; filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
 .head h1{font:700 44px/1 'Amatic SC', cursive; margin:0; text-align:center;}
 .head p{margin:4px 0 0; color:#e7f0db}
-
 
 .services{
   display:grid;
@@ -167,7 +160,6 @@ body::before{
 .btn-primary{ background:linear-gradient(135deg,var(--green),var(--green-600)); color:#fff }
 .btn-muted{ background:rgba(251, 250, 250, 0.22); color:#f4ffef; border:1px solid rgba(255,255,255,.35) }
 
-
 .form-card{
   margin-top:22px;
   border:1px solid var(--glass-b);
@@ -194,7 +186,6 @@ input:focus,select:focus,textarea:focus{ border-color:#cfe5a2; box-shadow:0 0 0 
 .resume{margin-top:14px; color:#e7f1dc; font-size:13px}
 footer{margin-top:16px; text-align:center; color:#e9f2dc; font-size:12px}
 .hidden { display: none !important; }
-
 
 .calendar-card.big{
   margin-top:22px;
