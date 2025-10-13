@@ -69,9 +69,9 @@ body::before{
 }
 
 /* head */
-.head{ display:flex; align-items:center; gap:16px; margin-bottom:12px;}
+
 .logo{width:160px; height:auto; filter:drop-shadow(0 3px 6px rgba(0,0,0,.4))}
-.head h1{font:700 44px/1 'Amatic SC', cursive; margin:0}
+.head h1{font:700 44px/1 'Amatic SC', cursive; margin:0; text-align: center;}
 .head p{margin:4px 0 0; color:#e7f0db}
 
 /* filtros */
@@ -84,7 +84,7 @@ body::before{
 
 /* catálogo */
 .services{
-  display:grid; grid-template-columns: repeat(3, minmax(240px,1fr)); gap:16px;
+  display:grid; grid-template-columns: repeat(2, minmax(240px,1fr)); gap:16px;
 }
 @media (max-width:1100px){ .services{ grid-template-columns: repeat(2,1fr);} }
 @media (max-width:720px){ .services{ grid-template-columns: 1fr; } }
@@ -117,7 +117,7 @@ body::before{
 label{display:block; font-size:12px; color:#f2f6ea; margin:6px 0 6px}
 input,select,textarea{
   width:100%; border:1px solid var(--line); border-radius:12px;
-  padding:12px 14px; background:rgba(255,255,255,.18); color:#fff; outline:none;
+  padding:12px 14px; background:rgba(255, 255, 255, 0.51); color:#7D9950; outline:none;
 }
 input:focus,select:focus,textarea:focus{ border-color:#cfe5a2; box-shadow:0 0 0 2px rgba(157,182,104,.25) }
 .actions-right{display:flex; gap:8px; justify-content:flex-end; margin-top:6px}

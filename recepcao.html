@@ -6,8 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Recepção • Serviços & Agendamento</title>
 
-  <link
-    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="CSS/recepcao.css">
@@ -25,8 +24,7 @@
     <div class="sb-inner">
       <div class="sb-user">
         <img class="avatar"
-          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop"
-          alt="user">
+          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="user">
         <div>
           <div class="name">Olá, Luly</div>
           <div class="pts">Pontos: <strong id="pts">1280</strong></div>
@@ -80,7 +78,7 @@
   <div class="main">
     <div class="shell">
       <header class="head">
-        <img src="imagens/logo.png" class="logo" alt="Rokuzen">
+        <img src="imagens/logo.png" class="logo" alt="Rokuzen" id ="logo">
         <div>
           <h1>Serviços & Agendamento</h1>
           <p>Escolha um serviço e depois selecione o dia e horário no calendário.</p>
@@ -136,13 +134,11 @@
       <!-- Formulário -->
       <section id="formAgendar" class="form-card">
         <h2>Novo Agendamento</h2>
-
-        <!-- 💚 Exibe data e hora selecionadas -->
         <div class="chosen-inline" id="chosenInline">
-  <span class="chip-min" id="chipDate"></span>
-  <span class="chip-min" id="chipTime"></span>
-  <span class="chip-min" id="chipPro"  style="display:none"></span>
-</div>
+          <span class="chip-min" id="chipDate"></span>
+          <span class="chip-min" id="chipTime"></span>
+          <span class="chip-min" id="chipPro" style="display:none"></span>
+        </div>
 
 
         <form id="bookingForm">
@@ -206,8 +202,7 @@
           <div class="row row-1">
             <div>
               <label>Observações</label>
-              <textarea id="bkNotes" rows="2"
-                placeholder="Ex.: prefere sala 2, gestante etc."></textarea>
+              <textarea id="bkNotes" rows="2" placeholder="Ex.: prefere sala 2, gestante etc."></textarea>
             </div>
           </div>
 

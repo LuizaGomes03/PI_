@@ -32,25 +32,25 @@ const calGo        = $('#calGo');
 const SERVICES = [
   {
     name:'Quick Massage',
-    img:'imagens/Rectangle 16.png',
+    img:'imagens/v_quick1.jpg',
     about:'Massagem rápida para aliviar tensões no pescoço e ombros.',
     options:[ {min:15,price:52}, {min:25,price:73}, {min:35,price:92} ],
   },
   {
     name:'Massagem na Maca (Shiatsu / Anmá / Ventosa / Relaxante)',
-    img:'imagens/Rectangle 22.png',
+    img:'imagens/v_maca.jpg',
     about:'Sessão completa de técnicas corporais para equilíbrio e relaxamento.',
     options:[ {min:30,price:114},{min:45,price:160},{min:60,price:198},{min:90,price:292},{min:120,price:379} ],
   },
   {
     name:'Reflexologia Podal',
-    img:'imagens/MassagemN.jpg',
+    img:'imagens/v_reflexologia.jpg',
     about:'Estimulação de pontos nos pés que refletem órgãos do corpo.',
     options:[ {min:20,price:83},{min:30,price:99},{min:40,price:118},{min:60,price:159} ],
   },
   {
     name:'Auriculoterapia',
-    img:'imagens/gift.jpg',
+    img:'imagens/v_auriculoterapia.jpg',
     about:'Terapia na orelha para relaxamento e controle de sintomas.',
     options:[ {min:10,price:69},{min:25,price:89} ],
   },
