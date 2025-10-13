@@ -1,188 +1,228 @@
-/* ======== GERAL ======== */
+/* Força a fonte correta do WhatsApp FA Brands só para o ícone no conteúdo principal */
+.container i.fa-brands.fa-whatsapp,
+.contato-left i.fa-brands.fa-whatsapp,
+.contato i.fa-brands.fa-whatsapp {
+  font-family: "Font Awesome 6 Brands" !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Forçar a fonte correta do Font Awesome para todos os ícones */
+i.fa-brands, i.fa, i.fab, i.fas, i.far, i.fal, i.fad, i.fa-solid, i.fa-regular, i.fa-light, i.fa-thin, i.fa-duotone, i.fa-sharp {
+  font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", "FontAwesome", sans-serif !important;
+  font-weight: 400 !important;
+  font-style: normal !important;
+  font-variant: normal !important;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+/* Garantir que ícones Font Awesome usem a fonte correta mesmo dentro do conteúdo Amatic SC */
+.container i, .contato i, .contato-left i, .contato-right i, .form-contato i, footer i {
+  font-family: var(--fa-style-family, "Font Awesome 6 Free") !important;
+  font-weight: var(--fa-style, 900) !important;
+}
+
 body {
   margin: 0;
   background: #fff;
   color: #222;
   letter-spacing: 0.5px;
+}
+
+/* Fonte Amatic SC apenas no conteúdo principal e rodapé */
+.container, .container *, .contato, .contato *, .contato-left, .contato-left *, .contato-right, .contato-right *, .form-contato, .form-contato *, footer, footer *, .copy {
   font-family: 'Amatic SC', cursive;
 }
 
-/* ======== MENU (usa Raleway) ======== */
-header, nav, nav a, .search-container input, .search-container button {
-  font-family: 'Raleway', sans-serif !important;
-}
+    header, nav, nav *, .search-container input, .search-container button {
+      font-family: 'Raleway', sans-serif;
+    }
 
-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 15px 50px;
-  border-bottom: 2px solid #ccc;
-  background: #fff;
-}
+    header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 15px 50px;
+      border-bottom: 2px solid #ccc;
+      background: #fff;
+    }
 
-header img {
-  height: 60px;
-  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
-}
+    header img {
+      height: 60px;
+      filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+    }
 
-nav {
-  display: flex;
-  gap: 25px;
-  font-size: 22px;
-  text-transform: uppercase;
-}
+    nav {
+      display: flex;
+      gap: 25px;
+      font-size: 22px;
+      text-transform: uppercase;
+    }
 
-nav a {
-  text-decoration: none;
-  color: #444;
-  font-weight: 700;
-  transition: color 0.3s;
-}
+    nav a {
+      text-decoration: none;
+      color: #444;
+      font-weight: 700;
+      transition: color 0.3s;
+    }
 
-nav a:hover {
-  color: #6a9547;
-}
+    nav a:hover {
+      color: #6a9547;
+    }
 
-/* ======== BARRA DE BUSCA ======== */
-.search-container {
-  display: flex;
-  align-items: center;
-  background: #a8c76f;
-  border-radius: 20px;
-  padding: 5px 10px;
-  box-shadow: inset 0 0 5px rgba(0,0,0,0.15);
-}
+    .search-bar {
+      display: flex;
+      align-items: center;
+      background: #a8c76f;
+      border-radius: 20px;
+      padding: 5px 10px;
+      box-shadow: inset 0 0 5px rgba(0,0,0,0.15);
+    }
 
-.search-container input {
-  border: none;
-  outline: none;
-  background: transparent;
-  color: #333;
-  font-size: 18px;
-}
+    .search-bar input {
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #333;
+      font-size: 18px;
+      font-family: 'Amatic SC', cursive;
+    }
 
-.search-container button {
-  background: none;
-  border: none;
-  cursor: pointer;
-  font-size: 18px;
-  color: #333;
-}
+    .search-bar button {
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 18px;
+      color: #333;
+    }
 
-/* ======== CONTEÚDO PRINCIPAL (Amatic SC) ======== */
-.container {
-  padding: 40px 70px;
-  font-family: 'Amatic SC', cursive;
-}
+    .container {
+      padding: 40px 70px;
+    }
 
-h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-  font-weight: 700;
-  text-transform: uppercase;
-}
+    h2 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
 
-.contato {
-  display: flex;
-  justify-content: space-between;
-  gap: 40px;
-}
+    .contato {
+      display: flex;
+      justify-content: space-between;
+      gap: 40px;
+    }
 
-.contato-left, .contato-right {
-  font-size: 22px;
-}
+    .contato-left {
+      width: 55%;
+      font-size: 22px;
+    }
 
-.contato-left a {
-  color: #1a8f2c;
-  text-decoration: none;
-  font-weight: 700;
-}
+    .contato-left p {
+      margin: 18px 0;
+      line-height: 1.5;
+    }
 
-.contato-left a:hover {
-  text-decoration: underline;
-}
+    .contato-left a {
+      color: #1a8f2c;
+      text-decoration: none;
+      font-weight: 700;
+    }
 
-.form-contato input,
-.form-contato textarea,
-.form-contato button {
-  width: 100%;
-  margin-bottom: 12px;
-  padding: 10px;
-  border: 1px solid #bbb;
-  border-radius: 4px;
-  background: #f7f7f7;
-  font-size: 20px;
-  font-family: 'Amatic SC', cursive;
-}
+    .contato-left a:hover {
+      text-decoration: underline;
+    }
 
-.form-contato textarea {
-  height: 120px;
-  resize: none;
-}
+    .contato-left i {
+      color: #6a9547;
+      margin-right: 6px;
+    }
 
-.form-contato button {
-  background: #6a9547;
-  color: #fff;
-  font-weight: bold;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background 0.3s;
-  font-size: 22px;
-}
+    .contato-right {
+      width: 40%;
+      font-size: 22px;
+    }
 
-.form-contato button:hover {
-  background: #4a7135;
-}
+    .contato-right a {
+      color: #000;
+      text-decoration: none;
+      font-weight: bold;
+    }
 
-/* ======== RODAPÉ ======== */
-footer {
-  background: #a8c76f;
-  color: #222;
-  padding: 30px 70px;
-  font-size: 20px;
-  margin-top: 50px;
-  font-family: 'Amatic SC', cursive;
-}
+    .form-contato input, 
+    .form-contato textarea {
+      width: 100%;
+      margin-bottom: 12px;
+      padding: 10px;
+      border: 1px solid #bbb;
+      border-radius: 4px;
+      background: #f7f7f7;
+      font-size: 20px;
+      font-family: 'Amatic SC', cursive;
+    }
 
-footer .unidades {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 80px;
-  margin-bottom: 25px;
-  font-weight: 700;
-  font-size: 22px;
-}
+    .form-contato textarea {
+      height: 120px;
+      resize: none;
+    }
 
-footer a {
-  color: #1a5f2b;
-  text-decoration: none;
-}
+    .form-contato button {
+      background: #6a9547;
+      color: #fff;
+      font-weight: bold;
+      padding: 12px 22px;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: background 0.3s;
+      font-size: 22px;
+      font-family: 'Amatic SC', cursive;
+    }
 
-footer a:hover {
-  text-decoration: underline;
-}
+    .form-contato button:hover {
+      background: #4a7135;
+    }
 
-footer .tags {
-  font-size: 18px;
-  line-height: 1.6;
-  color: #333;
-}
+    footer {
+      background: #a8c76f;
+      color: #222;
+      padding: 30px 70px;
+      font-size: 20px;
+      margin-top: 50px;
+      font-family: 'Amatic SC', cursive;
+    }
 
-.copy {
-  margin-top: 25px;
-  font-size: 18px;
-  text-align: center;
-  color: #333;
-  font-family: 'Amatic SC', cursive;
-}
+    footer .unidades {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 80px;
+      margin-bottom: 25px;
+      font-weight: 700;
+      font-size: 22px;
+    }
 
-/* ======== RESPONSIVO ======== */
-@media (max-width: 980px) {
-  nav { display: none; }
-  header { padding: 15px 20px; }
-  .container { padding: 32px 24px; }
-  footer { padding: 28px 24px; }
-  .copy { padding: 12px 24px 26px; }
-}
+    footer a {
+      color: #1a5f2b;
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    footer .tags {
+      font-size: 18px;
+      line-height: 1.6;
+      color: #333;
+    }
+
+    footer .copy {
+      margin-top: 25px;
+      font-size: 18px;
+      text-align: center;
+      color: #333;
+    }
