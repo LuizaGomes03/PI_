@@ -4,69 +4,89 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="CSS/o_que_fazemos.css">
+    <link rel="stylesheet" href="CSS/menu.css">
+    <link rel="stylesheet" href="CSS/rodape.css">
     <title>O que fazemos - In-Company Massage</title>
 </head>
 
 <body>
+    <div id="menu"></div>
+    <script>
+        fetch("menu.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("menu").innerHTML = data;
+            });
+    </script>
+
     <main>
         <article>
             <header>
                 <h1>In-Company Massage</h1>
             </header>
-            <img src="imagens\incompany_massage.png" alt="incompany_massage">
-            <body>
-                <h2>Tenha os massoterapeutas da ROKUZEN em sua empresa!</h2>
-                <p>Visando a prevenção de doenças ocupacionais, tais como Distúrbio Osteomuscular Relacionado ao
-                    Trabalho (D.O.R.T.) e a Lesão por Esforços Repetitivos (L.E.R.), bem como aliviar o stress de seus
-                    colaboradores, a ROKUZEN disponibiliza seus profissionais durante o período e dias escolhidos para
-                    atender e tratar exclusivamente de sua equipe, favorecendo o bem-estar, produtividade, motivação e
-                    principalmente evitar possíveis afastamentos por motivo de saúde.</p>
-                <p>Os membros de sua equipe beneficiados pelas sessões de terapia, serão acompanhados periodicamente a
-                    respeito dos motivos que os levaram ao tratamento e as percepções de melhoria durante e após o
-                    tratamento. As informações coletadas por meio de questionários serão compiladas e um resumo será
-                    apresentado mensalmente para a sua empresa.</p>
-                <p>Os profissionais da ROKUZEN possuem formação técnica em massoterapia e são experientes e qualificados
-                    para atenderem seus colaboradores. As técnicas usualmente aplicadas nas empresas são
-                    a Quick-Massage, Auriculoterapia, Reflexologia Podal e Reiki, são sessões individuais para cada
-                    membro de sua equipe, com duração entre 15 a 30 minutos.</p>
 
+            <section class="imagem-direita">
+                <div class="texto">
+                    <h2>Tenha os massoterapeutas da ROKUZEN em sua empresa!</h2>
+                    <p>Visando a prevenção de doenças ocupacionais, tais como Distúrbio Osteomuscular Relacionado ao
+                        Trabalho (D.O.R.T.) e a Lesão por Esforços Repetitivos (L.E.R.), bem como aliviar o stress de
+                        seus colaboradores, a ROKUZEN disponibiliza seus profissionais durante o período e dias
+                        escolhidos para atender e tratar exclusivamente de sua equipe, favorecendo o bem-estar,
+                        produtividade, motivação e principalmente evitar possíveis afastamentos por motivo de saúde.</p>
+                    <p>Os membros de sua equipe beneficiados pelas sessões de terapia serão acompanhados periodicamente
+                        a respeito dos motivos que os levaram ao tratamento e as percepções de melhoria durante e após o
+                        tratamento. As informações coletadas por meio de questionários serão compiladas e um resumo será
+                        apresentado mensalmente para a sua empresa.</p>
+                    <p>Os profissionais da ROKUZEN possuem formação técnica em massoterapia e são experientes e
+                        qualificados para atenderem seus colaboradores. As técnicas usualmente aplicadas nas empresas
+                        são a Quick-Massage, Auriculoterapia, Reflexologia Podal e Reiki, em sessões individuais com
+                        duração entre 15 a 30 minutos.</p>
+                </div>
+                <figure>
+                    <img src="imagens/incompany_massage.png" alt="Massagem em ambiente corporativo">
+                </figure>
+            </section>
+
+            <section>
                 <h2>Solicite o seu orçamento</h2>
-                <p>
-                    <label for="nome">
-                        Nome completo (obrigatório): <br>
-                        <input type="text" id="nome">
-                    </label>
-                </p>
-                <p>
-                    <label for="email">
-                        Email (obrigatório): <br>
-                        <input type="email" id="email">
-                    </label>
-                </p>
-                <p>
-                    <label for="tel">
-                        Telefone (obrigatório): <br>
-                        <input type="phone" id="tel">
-                    </label>
-                </p>
-                <p>
-                    <label for="assunto">
-                        Assunto: <br>
-                        <textarea name="assunto" cols="50" rows="1"></textarea>
-                    </label>
-                </p>
-                <p>
-                    <label for="mensagem">
-                        Sua mensagem: <br>
-                        <textarea name="mensagem" cols="50" rows="5"></textarea>
-                    </label>
-                </p>
-                <p>
-                    <input type="submit" value="Enviar">
-                </p>
-            </body>
+                <form action="#" method="post">
+                    <p>
+                        <label for="nome">Nome completo (obrigatório):</label><br>
+                        <input type="text" id="nome" name="nome" required>
+                    </p>
+                    <p>
+                        <label for="email">Email (obrigatório):</label><br>
+                        <input type="email" id="email" name="email" required>
+                    </p>
+                    <p>
+                        <label for="tel">Telefone (obrigatório):</label><br>
+                        <input type="tel" id="tel" name="telefone" required>
+                    </p>
+                    <p>
+                        <label for="assunto">Assunto:</label><br>
+                        <input type="text" id="assunto" name="assunto">
+                    </p>
+                    <p>
+                        <label for="mensagem">Sua mensagem:</label><br>
+                        <textarea id="mensagem" name="mensagem" rows="5"></textarea>
+                    </p>
+                    <p>
+                        <input type="submit" value="Enviar">
+                    </p>
+                </form>
+            </section>
         </article>
     </main>
+
+    <div id="rodape"></div>
+    <script>
+        fetch("rodape.html")
+            .then(response => response.text())
+            .then(data => {
+                document.getElementById("rodape").innerHTML = data;
+            });
+    </script>
 </body>
 
 </html>
