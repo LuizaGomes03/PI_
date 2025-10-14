@@ -18,6 +18,12 @@ nav {
     gap: 20px;
 }
 
+.no-click {
+    pointer-events: none;
+    cursor: default;
+    text-decoration: none;
+}
+
 /* Logo */
 nav .logo {
     height: 60px;
