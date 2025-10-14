@@ -293,3 +293,50 @@ footer{margin-top:16px; text-align:center; color:#e9f2dc; font-size:12px}
 }
 .time-btn:hover{ transform:translateY(-1px); box-shadow:0 6px 14px rgba(0,0,0,.06); }
 .time-btn[disabled]{ opacity:.45; cursor:not-allowed; text-decoration:line-through; }
+
+#bkCondition[multiple] {
+  height: 120px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.51);
+  color: #7D9950;
+  outline: none;
+  overflow-y: auto;
+  resize: none;
+}
+
+#bkCondition[multiple]:focus {
+  border-color: #cfe5a2;
+  box-shadow: 0 0 0 2px rgba(157, 182, 104, 0.25);
+}
+
+.checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.checkbox-group .chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.35);
+  background: rgba(255,255,255,.18);
+  color: #84ad41;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.checkbox-group .chip input[type="checkbox"] {
+  display: none;
+}
+
+.checkbox-group .chip.checked {
+  background: var(--green);
+  color: #fff;
+  border-color: var(--green-600);
+}
