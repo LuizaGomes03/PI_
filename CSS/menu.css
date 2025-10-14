@@ -27,10 +27,22 @@ nav::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 6px; /* altura da faixa verde */
+    height: 3px; /* altura da faixa verde */
     background-color: #9DB668;
     z-index: 10000;
 }
+
+nav::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 100%; /* posiciona a faixa logo abaixo do nav */
+    height: 3px; /* altura da faixa cinza */
+    background-color: #D9D9D9; /* cor cinza */
+    z-index: 10000;
+}
+
 
 /* Logo */
 nav .logo {
