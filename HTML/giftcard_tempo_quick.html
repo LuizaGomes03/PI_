@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quick Massage | ROKUZEN</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="CSS/giftcard_tempo_quick.css">
+</head>
+
+<body>
+    <!-- ===== Menu ===== -->
+    <header>
+        <nav>
+            <img src="imagens/logo.png" alt="Logo ROKUZEN" class="logo">
+            <ul>
+                <li><a href="#">Agende seu horário</a></li>
+                <li><a href="#">Gift Card</a></li>
+                <li><a href="#">Quem somos</a></li>
+                <li><a href="#">Onde estamos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Unidades</a></li>
+                        <li><a href="#">Nossos clientes</a></li>
+                        <li><a href="#">Nossos parceiros</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">O que fazemos &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Eventos</a></li>
+                        <li><a href="#">Serviços</a></li>
+                    </ul>
+                </li>
+                <li><a href="#">Fale Conosco &#9662;</a>
+                    <ul class="dropdown">
+                        <li><a href="#">Contato</a></li>
+                        <li><a href="#">Trabalhe conosco</a></li>
+                        <li><a href="#">Seja um franqueado</a></li>
+                    </ul>
+                </li>
+            </ul>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar..." />
+                <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                    <circle cx="11" cy="11" r="8" stroke="#A5B441" stroke-width="2" fill="none"></circle>
+                    <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#A5B441" stroke-width="2"></line>
+                </svg>
+            </div>
+        </nav>
+    </header>
+
+    <main class="massage-section">
+        <h2>2. Selecione o tempo da Quick Massage:</h2>
+
+        <!-- grid 3 cards centralizados -->
+        <div class="reflex-grid">
+            <div class="massage-card" role="button" tabindex="0" data-value="20">
+                <div class="time">🕒 20 minutos</div>
+                <div class="price">R$ 83,00</div>
+            </div>
+
+            <div class="massage-card" role="button" tabindex="0" data-value="30">
+                <div class="time">🕒 30 minutos</div>
+                <div class="price">R$ 99,00</div>
+            </div>
+
+            <div class="massage-card" role="button" tabindex="0" data-value="40">
+                <div class="time">🕒 40 minutos</div>
+                <div class="price">R$ 118,00</div>
+            </div>
+        </div>
+
+        <!-- dots -->
+        <div class="dots">
+            <div class="dot"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+        </div>
+    </main>
+
+    <!-- ===== Rodapé ===== -->
+    <footer class="site-footer">
+        <div class="footer-inner">
+            <div class="footer-col unidades">
+                <h3>Unidades:</h3>
+                <ul>
+                    <li><strong>Golden Square Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/551197495306" target="_blank">+55 11 9749 5306</a></li><br>
+                    <li><strong>Mooca Plaza Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511950841087" target="_blank">+55 11 95084 1087</a></li><br>
+                    <li><strong>Grand Plaza Shopping</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511916657900" target="_blank">+55 11 91665 7900</a></li><br>
+                    <li><strong>Shopping West Plaza</strong><br>
+                        Whatsapp:<a href="https://wa.me/5511919427901" target="_blank">+55 11 91942 7901</a></li>
+                </ul><br>
+                <button class="login-btn">Login</button>
+            </div>
+            <div class="footer-col tags">
+                <h3>Tags:</h3>
+                <p class="tag-list">bem-estar, relaxamento, massagem, quick massage, auriculoterapia, reflexologia,
+                    shiatsu, ventosa, presente, gift card, momento zen</p>
+            </div>
+        </div>
+    </footer>
+    <div class="footer-copy">
+        © 2025 Rokuzen – Trabalho Acadêmico
+    </div>
+    <!-- ===== JS: seleção única + acessibilidade ===== -->
+    <script>
+        (function () {
+            const cards = document.querySelectorAll('.massage-card');
+
+            function clearSelected() {
+                cards.forEach(c => c.classList.remove('selected'));
+            }
+
+            cards.forEach(card => {
+                // clique com mouse
+                card.addEventListener('click', () => {
+                    clearSelected();
+                    card.classList.add('selected');
+                });
+
+                // teclado: Enter ou Espaço
+                card.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        clearSelected();
+                        card.classList.add('selected');
+                    }
+                });
+            });
+        })();
+    </script>
+
+</body>
+
+</html>

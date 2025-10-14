@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>O que fazemos - Quick-Massage</title> <!-- CSS do menu e da página -->
+    <link rel="stylesheet" href="CSS/menu.css">
+    <link rel="stylesheet" href="CSS/rodape.css">
+    <link rel="stylesheet" href="CSS/o_que_fazemos.css">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+</head>
+
+<body> <!-- Aqui o menu será carregado automaticamente -->
+    <div id="menu"></div>
+    <script> // Carrega o menu da página menu.html 
+        fetch("menu.html").then(response => response.text()).then(data => { document.getElementById("menu").innerHTML = data; }); </script>
+    <main>
+        <article>
+            <header>
+                <h1>Quick-Massage</h1>
+            </header>
+            <section aria-labelledby="o-que-e">
+                <h2 id="o-que-e">O que é?</h2>
+                <p> É uma <strong>massagem terapêutica</strong> realizada a partir da união e composição das técnicas orientais: Shiatsu
+                    e Anmá. As manobras aplicadas com toques suaves e firmes principalmente nas costas, ombros, braços,
+                    mãos, cabeça e pescoço servem para proporcionar a <strong>melhoria na circulação sanguínea e energética,
+                    alívio de tensão, dores musculares e stress psicológico</strong>. </p>
+            </section>
+            <section aria-labelledby="como-funciona">
+                <h2 id="como-funciona">Como funciona o atendimento?</h2>
+                <p> A massagem é realizada em uma cadeira projetada ergonomicamente para esta finalidade, a mesma é
+                    devidamente higienizada. O cliente fica sentado e possui a opção de escutar música relaxante durante
+                    a sessão, a qual tem duração entre 15 a 35 minutos — tempo suficiente para que o corpo sinta os
+                    benefícios da massagem. </p>
+                <p> Os massoterapeutas utilizam movimentos realizados com pressão dos polegares, mãos, cotovelos e
+                    antebraços. A massagem proporciona uma sensação de bem-estar e relaxamento, pois age sobre os pontos
+                    centrais da musculatura das costas, ombros e pescoço, que costumam apresentar maiores contrações e
+                    tensões musculares ao longo do dia. </p>
+                <p> <a href="onde_estamos.html">VENHA EXPERIMENTAR EM UMA DE NOSSAS UNIDADES! (clique aqui)</a> </p>
+            </section>
+            <section aria-labelledby="indicacoes">
+                <h2 id="indicacoes">Para que é indicada?</h2>
+                <ul>
+                    <li>Diminuir o stress</li>
+                    <li>Liberar endorfina no organismo</li>
+                    <li>Pausa e relaxamento durante a jornada de trabalho</li>
+                    <li>Diminuir a fadiga e melhorar a disposição</li>
+                    <li>Combater a insônia</li>
+                    <li>Combater estados depressivos</li>
+                    <li>Proporcionar alívio muscular</li>
+                    <li>Proporcionar alívio em quadros de dores de cabeça e enxaqueca</li>
+                </ul>
+            </section>
+            <section aria-labelledby="contraindicacoes">
+                <h2 id="contraindicacoes">Quais as contraindicações?</h2>
+                <p> Recomenda-se que pessoas com casos de <strong>pressão alta ou baixa</strong> não recebam a massagem
+                    antes de 40 minutos após ter feito uma refeição. </p>
+                <ol>
+                    <li><strong>Doenças infectocontagiosas</strong> — Não receber a massagem devido ao risco de acelerar
+                        a expansão da moléstia via circulação sanguínea. Na fase de recuperação, após a alta médica, a
+                        massagem poderá ser aplicada.</li>
+                    <li><strong>Reumatismo/Artrite aguda</strong> — Não receber massagem, pois pode ocorrer inflamação
+                        do sistema circulatório e consequente formação de tromboses.</li>
+                    <li><strong>Paciente em repouso absoluto</strong> — É contraindicado, pois esses pacientes podem
+                        apresentar problemas cardíacos e pulmonares.</li>
+                    <li><strong>Hemofilia</strong> — A massagem pode provocar hemorragia devido à baixa resistência dos
+                        vasos.</li>
+                    <li><strong>Ferimentos graves</strong> — Evitar a massagem em casos de fratura, distensão,
+                        hemorragia ou lesões internas.</li>
+                    <li><strong>Estado febril</strong> — Evitar massagear durante febre alta.</li>
+                    <li><strong>Tuberculose/Sífilis</strong> — Contraindicado, além de apresentar riscos ao terapeuta.
+                    </li>
+                    <li><strong>Câncer</strong> — A massagem pode acelerar a expansão das células cancerígenas via
+                        circulação.</li>
+                    <li><strong>Cicatrizes/Queimaduras recentes</strong> — A massagem deve ser aplicada suavemente ao
+                        redor da lesão.</li>
+                    <li><strong>Eczema</strong> — Contraindicado apenas na região afetada.</li>
+                    <li><strong>Gestante</strong> — Evitar massagem na lombar e membros inferiores até o terceiro mês de
+                        gravidez.</li>
+                    <li><strong>Pressão arterial alta ou baixa</strong> — Pode-se receber a massagem, com variações na
+                        técnica para sedação ou tonificação.</li>
+                </ol>
+            </section>
+        </article>
+    </main>
+</body>
+<footer>
+    <div id="rodape"></div>
+    <script> // Carrega o rodape da página rodape.html 
+        fetch("rodape.html").then(response => response.text()).then(data => { document.getElementById("rodape").innerHTML = data; }); </script>
+</footer>
+
+</html>
