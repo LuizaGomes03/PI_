@@ -309,3 +309,55 @@ document.querySelector('#bookingForm')?.addEventListener('submit', e=>{
   slotList.innerHTML = '';
   slotInfo.textContent = 'Selecione uma data no calendário.';
 });
+
+// checkbox chips - múltipla seleção
+const chipElements = document.querySelectorAll('#bkConditionWrapper .chip');
+
+chipElements.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const input = chip.querySelector('input[type="checkbox"]');
+    input.checked = !input.checked;
+    chip.classList.toggle('checked', input.checked);
+  });
+});
+
+// coletar valores selecionados antes do submit
+document.querySelector('#bookingForm').addEventListener('submit', e => {
+  e.preventDefault();
+
+  // pega as condições médicas selecionadas
+  const selectedConditions = Array.from(document.querySelectorAll('input[name="bkCondition"]:checked'))
+                                  .map(cb => cb.value);
+
+  if(!bkService.value){ alert('Selecione um serviço.'); return; }
+  if(!bkTherapist.value){ alert('Informe a preferência de terapeuta.'); return; }
+  if(!bkClient.value){ alert('Informe o nome do cliente.'); return; }
+  if(!bkDate.value || !bkTime.value){
+    alert('Escolha a data e o horário no calendário.');
+    calendario.scrollIntoView({behavior:'smooth', block:'start'});
+    return;
+  }
+
+  resumeEl.textContent =
+    `Agendamento criado: ${bkClient.value} – ${bkService.value} • ` +
+    `${formatBr(bkDate.value)} às ${bkTime.value} • ` +
+    `${bkDuration.value} min • R$ ${bkPrice.value} • Condições: ${selectedConditions.join(', ')}`;
+
+  alert('Agendado com sucesso!');
+
+  // reset parcial
+  const keepService  = bkService.value;
+  const keepDuration = bkDuration.value;
+  const keepPrice    = bkPrice.value;
+
+  e.target.reset();
+  bkService.value  = keepService;
+  bkDuration.value = keepDuration;
+  bkPrice.value    = keepPrice;
+  bkDate.value = ''; bkTime.value = ''; btnSubmit.disabled = true;
+  slotList.innerHTML = '';
+  slotInfo.textContent = 'Selecione uma data no calendário.';
+
+  // limpa seleção de chips visualmente
+  chipElements.forEach(c => c.classList.remove('checked'));
+});
