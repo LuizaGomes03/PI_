@@ -1,0 +1,156 @@
+/* ======== GERAL ======== */
+body {
+  margin: 0;
+  background: #fff;
+  color: #222;
+  letter-spacing: 0.5px;
+  font-family: 'Amatic SC', cursive;
+}
+
+/* ======== MENU (usa Raleway) ======== */
+header, nav, nav a, .search-container input, .search-container button {
+  font-family: 'Raleway', sans-serif !important;
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 50px;
+  border-bottom: 2px solid #ccc;
+  background: #fff;
+}
+
+header img {
+  height: 60px;
+  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.3));
+}
+
+nav {
+  display: flex;
+  gap: 25px;
+  font-size: 22px;
+  text-transform: uppercase;
+}
+
+nav a {
+  text-decoration: none;
+  color: #444;
+  font-weight: 700;
+  transition: color 0.3s;
+}
+
+nav a:hover {
+  color: #6a9547;
+}
+
+/* ======== BARRA DE BUSCA ======== */
+.search-container {
+  display: flex;
+  align-items: center;
+  background: #a8c76f;
+  border-radius: 20px;
+  padding: 5px 10px;
+  box-shadow: inset 0 0 5px rgba(0,0,0,0.15);
+}
+
+.search-container input {
+  border: none;
+  outline: none;
+  background: transparent;
+  color: #333;
+  font-size: 18px;
+}
+
+.search-container button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-size: 18px;
+  color: #333;
+}
+
+/* ======== CONTEÚDO PRINCIPAL (Amatic SC) ======== */
+.container {
+  padding: 40px 70px;
+  font-family: 'Amatic SC', cursive;
+}
+
+h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.texto-trabalho {
+  max-width: 920px;
+  font-size: 22px;
+  line-height: 1.6;
+}
+
+.texto-trabalho p {
+  margin: 12px 0 22px;
+}
+
+.texto-trabalho a {
+  color: #1a8f2c;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.texto-trabalho a:hover {
+  text-decoration: underline;
+}
+
+/* ======== RODAPÉ ======== */
+footer {
+  background: #a8c76f;
+  color: #222;
+  padding: 30px 70px;
+  font-size: 20px;
+  margin-top: 50px;
+  font-family: 'Amatic SC', cursive;
+}
+
+footer .unidades {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 80px;
+  margin-bottom: 25px;
+  font-weight: 700;
+  font-size: 22px;
+}
+
+footer a {
+  color: #1a5f2b;
+  text-decoration: none;
+}
+
+footer a:hover {
+  text-decoration: underline;
+}
+
+footer .tags {
+  font-size: 18px;
+  line-height: 1.6;
+  color: #333;
+}
+
+.copy {
+  padding: 12px 70px 30px;
+  font-size: 18px;
+  text-align: center;
+  color: #333;
+  font-family: 'Amatic SC', cursive;
+}
+
+/* ======== RESPONSIVO ======== */
+@media (max-width: 980px) {
+  nav { display: none; }
+  header { padding: 15px 20px; }
+  .container { padding: 32px 24px; }
+  footer { padding: 28px 24px; }
+  .copy { padding: 12px 24px 26px; }
+}
+  
