@@ -124,16 +124,6 @@ body {
     transform: scale(1.05);
 }
 
-/* ====== Rodapé ====== */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #9db668;
-    color: white;
-    font-size: 0.9rem;
-    margin-top: 40px;
-}
-
 /* ====== Responsividade ====== */
 @media (max-width: 768px) {
     .unidades-section {

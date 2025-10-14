@@ -15,14 +15,15 @@
 </head>
 
 <body>
-    <div id="menu"></div>
-    <script>
-        fetch("menu.html")
-            .then(response => response.text())
-            .then(data => {
-                document.getElementById("menu").innerHTML = data;
-            });
-    </script>
+    <div id="menu" style="position:initial; z-index: 1000;">
+        <script>
+            fetch("menu.html")
+                .then(response => response.text())
+                .then(data => {
+                    document.getElementById("menu").innerHTML = data;
+                });
+        </script>
+    </div>
 
     <main>
         <article>
