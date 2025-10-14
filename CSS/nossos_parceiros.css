@@ -161,3 +161,60 @@ footer{ text-align:center; padding:16px; background:#9db668; color:#fff; }
     .contato-parceria textarea{ min-height:160px; }
     .titulo-parceiros h2{ font-size:2.2rem; }
 }
+
+/* Estilo para o parágrafo da seção */
+section > p {
+    max-width: 720px;           /* largura máxima confortável */
+    margin: 0 auto 20px;        /* centraliza horizontalmente e espaça abaixo */
+    font-size: 1.15rem;         /* tamanho de fonte maior para leitura */
+    line-height: 1.65;          /* espaçamento entre linhas para conforto */
+    color: #4a4a4a;             /* tom cinza escuro suave */
+    font-family: 'Georgia', serif; /* fonte elegante para texto corrido */
+    text-align: justify;        /* texto justificado para alinhamento limpo */
+    padding: 0 15px;            /* respiro nas laterais em telas pequenas */
+}
+
+/* Botão Saiba Mais com estilo do botão Enviar, mas centralizado */
+.btn-saiba-mais {
+    display: block;
+    margin: 20px auto 40px;
+    max-width: 220px;       /* largura máxima do botão */
+    width: 100%;            /* largura 100% até 220px */
+    background: #9db668;
+    color: #06140a;
+    font-weight: 800;
+    letter-spacing: 0.5px;
+    border-radius: 4px;
+    padding: 12px 22px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    font-size: 1rem;
+    text-decoration: none;
+    text-align: center;
+    transition: transform 0.18s ease, background 0.18s ease;
+}
+
+}
+
+.btn-saiba-mais:hover,
+.btn-saiba-mais:focus {
+    background: #9db668;
+    transform: translateY(-3px);
+    outline: none;
+}
+
+section > p,
+.parceiro-convite {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    max-width: 720px;
+    margin: 0 auto 40px;
+    font-size: 1.4rem; /* fonte maior e mais visível para Amatic SC */
+    line-height: 1.4;
+    color: #3a3a3a;
+    text-align: center;
+    padding: 0 15px;
+    font-weight: 700;
+}
+
+
