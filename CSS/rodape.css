@@ -91,38 +91,65 @@
 }
 
 /* Imagens das formas de pagamento */
-.pagamentos img,
-.social-icons img {
+.pagamentos img {
     width: 32px;
     height: 32px;
+    cursor: pointer;
+    transition: transform 0.3s ease, filter 0.3s ease;
 }
 
-/* Ícones das redes sociais com Bootstrap Icons */
+.pagamentos img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
 .social-icons li a {
-    color: #9DB668;
-    /* cor padrão (cinza escuro) */
     text-decoration: none;
     font-size: 28px;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, filter 0.3s ease;
 }
 
-.social-icons li a:hover {
-    color: #007bff;
-    /* cor azul no hover */
+/* Facebook - azul oficial */
+.social-icons li a.facebook {
+    color: #1877F2;
 }
 
-.social-icons li a:visited {
-    color: #333;
-    /* evita cor roxa em links visitados */
+/* Instagram - gradiente vibrante */
+.social-icons li a.instagram {
+    color: transparent;
+    position: relative;
+    background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
-/* Faz o ícone herdar a cor do link para o hover funcionar */
+.social-icons li a.instagram:hover {
+    filter: brightness(1.3);
+}
+
+/* LinkedIn - azul oficial */
+.social-icons li a.linkedin {
+    color: #0A66C2;
+}
+
+/* Email - vermelho estilo Gmail */
+.social-icons li a.email {
+    color: #D44638;
+}
+
+/* Hover geral clareia a cor */
+.social-icons li a:hover:not(.instagram) {
+    filter: brightness(1.2);
+}
+
+/* Ícones herdam a cor dos links para o efeito funcionar */
 .social-icons li a i {
     color: inherit;
-    transition: color 0.3s ease;
+    transition: color 0.3s ease, filter 0.3s ease;
 }
 
 /* Rodapé inferior */
