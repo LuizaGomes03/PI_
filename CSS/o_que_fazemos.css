@@ -74,12 +74,6 @@ section:last-child {
     border-bottom: none;
 }
 
-header::before {
-    content: none !important;
-    background: none !important;
-    border: none !important;
-}
-
 /* ------------------ FORMULÁRIO ------------------ */
 label {
     font-size: 16px;
