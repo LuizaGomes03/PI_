@@ -1,13 +1,16 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Recepção • Serviços & Agendamento</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="CSS/recepcao.css">
 </head>
+
 <body>
   <video id="bg-video" autoplay muted loop playsinline>
     <source src="video/3140104-hd_1920_1080_30fps.mp4" type="video/mp4">
@@ -16,7 +19,8 @@
   <aside class="sidebar">
     <div class="sb-inner">
       <div class="sb-user">
-        <img class="avatar" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="user">
+        <img class="avatar"
+          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="user">
         <div>
           <div class="name">Olá, Luly</div>
           <div class="pts">Pontos: <strong id="pts">1280</strong></div>
@@ -34,15 +38,18 @@
       <div class="sb-contacts">
         <div class="sb-title">Contatos</div>
         <div class="group">
-          <a class="sb-link" href="mailto:suporte@rokuzen.com"><i class="fa-solid fa-headset"></i><span> Suporte TI</span></a>
+          <a class="sb-link" href="mailto:suporte@rokuzen.com"><i class="fa-solid fa-headset"></i><span> Suporte
+              TI</span></a>
           <div class="small">whatsapp: (11) 90000-0000</div>
         </div>
         <div class="group">
-          <a class="sb-link" href="mailto:juridico@rokuzen.com"><i class="fa-solid fa-scale-balanced"></i><span> Jurídico</span></a>
+          <a class="sb-link" href="mailto:juridico@rokuzen.com"><i class="fa-solid fa-scale-balanced"></i><span>
+              Jurídico</span></a>
           <div class="small">orientações contratuais</div>
         </div>
         <div class="group">
-          <a class="sb-link" href="mailto:facilities@rokuzen.com"><i class="fa-solid fa-screwdriver-wrench"></i><span> Facilities</span></a>
+          <a class="sb-link" href="mailto:facilities@rokuzen.com"><i class="fa-solid fa-screwdriver-wrench"></i><span>
+              Facilities</span></a>
           <div class="small">equipamentos e salas</div>
         </div>
         <div class="group">
@@ -50,11 +57,13 @@
           <div class="small">escala, benefícios e ponto</div>
         </div>
         <div class="group">
-          <a class="sb-link" href="mailto:seguranca@rokuzen.com"><i class="fa-solid fa-shield-heart"></i><span> Segurança</span></a>
+          <a class="sb-link" href="mailto:seguranca@rokuzen.com"><i class="fa-solid fa-shield-heart"></i><span>
+              Segurança</span></a>
           <div class="small">ocorrências e achados</div>
         </div>
         <div class="group">
-          <a class="sb-link" href="mailto:imprensa@rokuzen.com"><i class="fa-regular fa-newspaper"></i><span> Imprensa</span></a>
+          <a class="sb-link" href="mailto:imprensa@rokuzen.com"><i class="fa-regular fa-newspaper"></i><span>
+              Imprensa</span></a>
           <div class="small">parcerias e mídia</div>
         </div>
       </div>
@@ -163,19 +172,39 @@
           <div class="row row-1">
             <div>
               <label>Condição médica</label>
-              <select id="bkCondition" required>
-                <option value="" disabled selected>Selecione…</option>
-                <option>Gravidez</option>
-                <option>Gripe</option>
-                <option>Câncer</option>
-                <option>Alterações de pressão arterial</option>
-                <option>Trombose</option>
-                <option>Fraturas / Hérnias</option>
-                <option>Alergias</option>
-                <option>Osteoporose / Osteopenia</option>
-                <option>Cirurgias recentes</option>
-                <option>Nenhuma das opções acima</option>
-              </select>
+              <div id="bkConditionWrapper" class="checkbox-group">
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Gravidez"> Gravidez
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Gripe"> Gripe
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Câncer"> Câncer
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Alterações de pressão arterial"> Alterações de
+                  pressão arterial
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Trombose"> Trombose
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Fraturas / Hérnias"> Fraturas / Hérnias
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Alergias"> Alergias
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Osteoporose / Osteopenia"> Osteoporose / Osteopenia
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Cirurgias recentes"> Cirurgias recentes
+                </label>
+                <label class="chip">
+                  <input type="checkbox" name="bkCondition" value="Nenhuma das opções acima"> Nenhuma das opções acima
+                </label>
+              </div>
             </div>
           </div>
 
@@ -204,4 +233,5 @@
 
   <script src="JS/recepcao.js"></script>
 </body>
+
 </html>
