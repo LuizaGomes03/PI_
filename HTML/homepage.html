@@ -111,7 +111,26 @@
     </script>
 </footer>
 
-
+<!-- VLibras Widget -->
+<div vw class="enabled">
+  <div vw-access-button class="active"></div>
+  <div vw-plugin-wrapper>
+    <div class="vw-plugin-top-wrapper"></div>
+  </div>
+</div>
+<script src="../JS/vlibras.js"></script>
+<script>
+  new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+<div id="vlibras"></div>
+<script>
+    // Carregar VLibras
+    fetch("vlibras.html")
+      .then((response) => response.text())
+      .then((data) => {
+        document.getElementById("vlibras").innerHTML = data;
+      });
+  </script>
 </body>
 
 </html>
