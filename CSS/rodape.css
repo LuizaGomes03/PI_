@@ -2,7 +2,7 @@
     background-color: #D9D9D9;
     color: #333;
     padding-top: 40px;
-    font-family: Arial, sans-serif;
+    font-family: 'Raleway', sans-serif;
 }
 
 /* Container principal do rodapé */
@@ -34,7 +34,7 @@
 }
 
 .footer-section.redes {
-    text-align: center;
+    text-align: right;
     flex: 1;
 }
 
@@ -43,6 +43,7 @@
     margin-bottom: 15px;
     color: #6b4f4f;
     font-size: 18px;
+    text-align: center;
 }
 
 /* Grade de unidades (2 colunas) */
@@ -81,7 +82,7 @@
 .social-icons {
     display: flex;
     justify-content: center;
-    gap: 10px;
+    gap: 15px;
     padding: 0;
 }
 
@@ -92,8 +93,8 @@
 
 /* Imagens das formas de pagamento */
 .pagamentos img {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     cursor: pointer;
     transition: transform 0.3s ease, filter 0.3s ease;
 }
@@ -155,7 +156,7 @@
 /* Rodapé inferior */
 .footer-bottom {
     text-align: center;
-    padding: 20px 10px;
+    padding: 15px 10px;
     background-color: #fff;
     font-size: 14px;
     color: #555;
