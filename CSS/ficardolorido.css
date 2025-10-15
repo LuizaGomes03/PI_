@@ -1,0 +1,39 @@
+:root{
+  --rk-green:#9DB668;
+  --rk-green-600:#7D9950;
+  --rk-bg:#f9f9f6;
+  --rk-text:#333;
+}
+
+html, body{
+  background:var(--rk-bg);
+  color:var(--rk-text);
+  font-family:Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  line-height:1.8;
+}
+
+/* títulos estilo Rokuzen */
+.rk-title{
+  font-family:"Amatic SC", cursive;
+  color:var(--rk-green-600);
+  letter-spacing:.5px;
+}
+
+/* cards arredondados */
+.rk-card{
+  border:0;
+  border-radius:1rem;
+}
+.rk-card .card-body{
+  padding:2rem;
+}
+
+/* texto mais suave */
+.rk-muted{ color:#555; }
+
+/* Bootstrap não tem text-justify por padrão */
+.text-justify{ text-align:justify; }
+
+@media (max-width: 768px){
+  .rk-card .card-body{ padding:1.25rem; }
+}

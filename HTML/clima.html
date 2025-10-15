@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Os Impactos da Mudança Climática na Imunidade • Rokuzen</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../CSS/clima.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- MENU -->
+    <header class="sticky-top w-100 shadow-sm" id="topbar">
+        <div id="menu"></div>
+    </header>
+
+    <main class="container my-4">
+        <!-- Título principal -->
+        <section class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Os Impactos da Mudança Climática na Imunidade</h1>
+            <p class="text-muted">Estudos científicos e o papel da massagem na promoção da saúde</p>
+        </section>
+
+        <!-- Bloco 1 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Mudança Climática e Doenças Infecciosas</h2>
+                <p class="rk-muted text-justify">
+                    Estudos científicos têm apontado para a relação entre a mudança climática e o aumento da incidência
+                    de doenças infecciosas. O aumento das temperaturas pode favorecer a proliferação de vetores
+                    transmissores de doenças, como mosquitos, que carregam doenças como malária e dengue. Além disso,
+                    eventos climáticos extremos, como ondas de calor e enchentes, podem prejudicar infraestruturas de
+                    saúde e saneamento, facilitando a disseminação de infecções.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 2 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Mecanismos Imunológicos Afetados</h2>
+                <p class="rk-muted text-justify">
+                    A exposição prolongada a altas temperaturas e mudanças climáticas pode levar ao estresse térmico,
+                    afetando negativamente a função imunológica. O estresse térmico pode influenciar a produção de
+                    citocinas inflamatórias e aumentar a vulnerabilidade a infecções. Além disso, a exposição a
+                    poluentes atmosféricos, que também é agravada pela mudança climática, pode comprometer a saúde
+                    respiratória e a resposta imunológica pulmonar.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 3 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">O Papel da Massagem na Promoção da Saúde</h2>
+                <p class="rk-muted text-justify">
+                    A massagem, com suas técnicas terapêuticas, tem sido associada a diversos benefícios para a saúde,
+                    incluindo o fortalecimento do sistema imunológico. Estudos sugerem que a massagem pode ajudar a
+                    reduzir os níveis de cortisol, o hormônio do estresse, e aumentar a atividade das células natural
+                    killer, que desempenham um papel importante na defesa contra infecções.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 4 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Benefícios da Massagem em Tempos de Mudança Climática</h2>
+                <p class="rk-muted text-justify">
+                    Considerando os efeitos adversos da mudança climática na imunidade, a massagem pode oferecer alívio.
+                    A massagem pode ajudar a reduzir os níveis de estresse, melhorar a circulação sanguínea e linfática,
+                    e promover o relaxamento geral. Isso, por sua vez, pode contribuir para a melhoria da função
+                    imunológica, permitindo que o corpo esteja mais preparado para combater infecções.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 5 -->
+        <section class="card rk-card shadow-sm mb-5">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Conclusão</h2>
+                <p class="rk-muted text-justify">
+                    A mudança climática representa um desafio significativo para a saúde humana, incluindo a imunidade.
+                    A exposição a temperaturas extremas e eventos climáticos adversos pode comprometer nossa resposta
+                    imunológica. Nesse contexto, a massagem emerge como uma abordagem terapêutica potencialmente
+                    benéfica para atenuar os impactos negativos da mudança climática em nossa imunidade, promovendo
+                    relaxamento e bem-estar geral. É importante lembrar que a combinação de práticas saudáveis, como uma
+                    dieta equilibrada, exercícios e cuidados médicos adequados, também é essencial para fortalecer nosso
+                    sistema imunológico diante desses desafios climáticos.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="mt-5 w-100 border-top" id="footerbar">
+        <div id="rodape"></div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <!-- Includes -->
+    <script>
+        fetch("menu.html").then(r => r.text()).then(t => { document.getElementById("menu").innerHTML = t; });
+        fetch("rodape.html").then(r => r.text()).then(t => { document.getElementById("rodape").innerHTML = t; });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Descubra o Novo Conceito Terapêutico • Rokuzen</title>
+
+    <!-- Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="../CSS/novoconceito.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        crossorigin="anonymous">
+</head>
+
+<body>
+    <!-- MENU -->
+    <header class="sticky-top w-100 shadow-sm" id="topbar">
+        <div id="menu"></div>
+    </header>
+
+    <main class="container my-4">
+        <!-- Título principal -->
+        <section class="text-center mb-5">
+            <h1 class="display-5 fw-bold">Descubra o Novo Conceito Terapêutico da Rokuzen Massagem</h1>
+            <p class="text-muted">Na sombra do Allianz Parque </p>
+            <p class="text-muted">31 de agosto de 2023 • em Informativo por Rokuzen</p>
+        </section>
+
+        <!-- Bloco 1 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Um Conceito Terapêutico Inovador</h2>
+                <p class="rk-muted text-justify">
+                    A Rokuzen Massagem sempre se destacou por oferecer terapias corporais de excelência, mas a nova
+                    unidade no West Plaza Shopping leva esse compromisso a outro patamar. Aqui, o foco é o equilíbrio
+                    integral — corpo e mente em harmonia — como chave para uma vida mais leve, saudável e duradouramente
+                    equilibrada.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 2 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Massagens Terapêuticas Que Vão Além do Relaxamento</h2>
+                <p class="rk-muted text-justify">
+                    Ao entrar na nova loja, você será envolvido por uma atmosfera serena e acolhedora, ideal para
+                    desacelerar e se reconectar com você mesmo. As massagens são conduzidas por terapeutas altamente
+                    qualificados, que combinam técnicas terapêuticas avançadas para aliviar tensões musculares, melhorar
+                    a circulação e promover um profundo alívio do estresse físico e mental.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 3 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Salas de Macas para Tratamentos Completos</h2>
+                <p class="rk-muted text-justify">
+                    Uma das novidades da Rokuzen no West Plaza é a presença de salas de macas especialmente preparadas
+                    para oferecer tratamentos completos e personalizados. Cada espaço foi projetado para terapias com
+                    ventosas, cremes e técnicas complementares. Se você busca uma experiência que una relaxamento e
+                    tratamento direcionado, vai encontrar na Rokuzen a combinação perfeita.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 4 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Terapeutas Especializados e Atendimento Personalizado</h2>
+                <p class="rk-muted text-justify">
+                    Os profissionais da Rokuzen são mais do que terapeutas: são especialistas em bem-estar. Antes de
+                    cada sessão, o cliente tem um momento de conversa e avaliação, para que o atendimento seja
+                    totalmente adaptado às suas necessidades e objetivos terapêuticos. Cada detalhe é pensado para
+                    entregar cuidado genuíno e resultados perceptíveis.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 5 -->
+        <section class="card rk-card shadow-sm mb-4">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Localização Estratégica</h2>
+                <p class="rk-muted text-justify">
+                    Localizada ao lado do Allianz Parque, a nova unidade é um verdadeiro refúgio urbano. Perfeita para
+                    quem busca um momento de descanso após o trabalho, um jogo ou um passeio pelo shopping. Relaxe,
+                    renove-se e volte à rotina com mais leveza — tudo isso em um dos pontos mais vibrantes de São Paulo.
+                </p>
+            </div>
+        </section>
+
+        <!-- Bloco 6 -->
+        <section class="card rk-card shadow-sm mb-5">
+            <div class="card-body">
+                <h2 class="rk-title h1 text-center mb-3">Inauguração em Breve</h2>
+                <p class="rk-muted text-justify">
+                    A inauguração está prevista para início de outubro, e a expectativa é enorme! A Rokuzen convida você
+                    a viver essa nova forma de cuidado terapêutico — uma jornada de relaxamento profundo e revitalização
+                    completa.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <!-- RODAPÉ -->
+    <footer class="mt-5 w-100 border-top" id="footerbar">
+        <div id="rodape"></div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+        crossorigin="anonymous"></script>
+
+    <!-- Includes -->
+    <script>
+        fetch("menu.html").then(r => r.text()).then(t => { document.getElementById("menu").innerHTML = t; });
+        fetch("rodape.html").then(r => r.text()).then(t => { document.getElementById("rodape").innerHTML = t; });
+    </script>
+</body>
+
+</html>

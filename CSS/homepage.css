@@ -102,94 +102,85 @@ li {
   margin-bottom: 20px;
 }
 
+/* ===== CONTAINER ===== */
 .posts-container {
   position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  width: 100%;
+  padding: 2rem 3rem;
+  background: transparent;
 }
 
-.posts-track {
-  overflow: auto;                      /* permite rolar */
-  scroll-behavior: smooth;             /* rolagem suave quando acionada */
-  -webkit-overflow-scrolling: touch;   /* melhor toque em iOS */
-  width: 100%;
-  max-width: 1000px;
-  margin: 0 auto;
-}
-
-/* esconder a barra de rolagem */
-.posts-track::-webkit-scrollbar { display: none; }
-.posts-track { scrollbar-width: none; }
-
+/* ===== LINHA DE POSTS ===== */
 .posts-row {
   display: flex;
-  gap: 30px;
-  transition: transform 0.35s ease;
-  font-family: 'Amatic SC', cursive;
-  font-size: 44px;
-  width: max-content; /* mantém os itens em linha para rolagem */
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  gap: 2rem;
+  scrollbar-width: none; /* Firefox */
 }
 
+.posts-row::-webkit-scrollbar {
+  display: none; /* Chrome */
+}
+
+/* ===== POSTS ===== */
 .post {
-  background: #fff;
-  border: none;
-  border-radius: 10px;
-  overflow: hidden;
   width: 280px;
-  flex: 0 0 auto;
-  box-shadow: 0 4px 0 var(--green);
+  flex-shrink: 0;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
 
 .post:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 6px 0 var(--green-600);
+  transform: scale(1.03);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
 }
 
 .post img {
   width: 100%;
-  height: 160px;
-  object-fit: cover;
+  border-radius: 12px;
   display: block;
 }
 
-.post .post-title {
-  font-size: 14px;
-  font-family: 'Amatic SC', cursive;
-  color: var(--green-600);
-  line-height: 1.3;
-  text-align: center;
-  margin: 0;
+/* ===== TEXTO ===== */
+.post a {
+  text-decoration: none !important; /* Remove sublinhado */
+  color: inherit !important; /* Mantém a cor padrão */
 }
 
-/* Botões carrossel */
-.posts-btn {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  z-index: 2;
-  background: transparent;
-  border: none;
+.post-title {
+  font-family: "Amatic SC", cursive;
   color: var(--green-600);
-  font-size: 40px;
+  font-size: 30px;
+  text-align: center;
+  margin-top: 0.6rem;
+
+}
+
+/* ===== BOTÕES ===== */
+.posts-btn {
+  border: none;
+  background: var(--green-600);
+  color: white;
+  font-size: 1.5rem;
   cursor: pointer;
-  transition: transform 0.2s ease, color 0.2s ease;
+  position: absolute;
+  top: 50%; /* Centraliza verticalmente */
+  transform: translateY(-50%);
+  padding: 0.6rem 0.8rem;
+  border-radius: 50%;
+  transition: background 0.3s ease;
+  z-index: 5;
 }
 
 .posts-btn:hover {
-  transform: translateY(-50%) scale(1.2);
-  color: var(--green);
+  background: var(--green);
 }
 
 #postsPrev {
-  left: 8px;
+  left: 0.5rem;
 }
 
 #postsNext {
-  right: 8px;
+  right: 0.5rem;
 }
 
 /* Responsivo extra da home */

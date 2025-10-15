@@ -26,7 +26,7 @@
       <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
     </a>
 
-    <a class="feature" href="agendamento.html">
+    <a class="feature" href="agendamento1.html">
       <img src="../imagens/agendamento.jpg" alt="Agendamento online">
       <b>Agendamento Online</b>
       <small>Agende agora mesmo com poucos cliques!</small>
@@ -42,44 +42,63 @@
   <section class="posts-section">
     <h2>Nossos Posts</h2>
 
-    <div class="posts-container">
+    <div class="posts-container position-relative">
+      <!-- Botão anterior -->
       <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
         <i class="fa-solid fa-arrow-left"></i>
       </button>
 
-      <div class="posts-track">
-        <div class="posts-row" id="postsRow">
-          <article class="post">
-            <img src="../imagens/Rectangle 16.png" alt="Post 1">
-            <div class="post-body">
-              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
+      <!-- Linha de posts -->
+      <div class="posts-row d-flex flex-nowrap gap-3 overflow-auto" id="postsRow">
+
+        <!-- Post 1 -->
+        <article class="post flex-shrink-0">
+          <a href="ficardolorido.html" class="text-decoration-none text-dark">
+            <img src="../imagens/Rectangle 16.png" alt="Post 1" class="img-fluid rounded shadow-sm">
+            <div class="post-body mt-2">
+              <p class="post-title fw-semibold">
+                Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
               </p>
             </div>
-          </article>
+          </a>
+        </article>
 
-          <article class="post">
-            <img src="../imagens/Rectangle 21.png" alt="Post 2">
-            <div class="post-body">
-              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
-            </div>
-          </article>
+        <!-- Post 2 -->
+        <article class="post flex-shrink-0">
+          <a href="novoconceito.html" class="text-decoration-none text-dark">
+          <img src="../imagens/Rectangle 21.png" alt="Post 2" class="img-fluid rounded shadow-sm">
+          <div class="post-body mt-2">
+            <p class="post-title fw-semibold">
+              Descubra o novo conceito terapêutico do nosso espaço Rokuzen.
+            </p>
+          </div>
+          </a>
+        </article>
 
-          <article class="post">
-            <img src="../imagens/Rectangle 22.png" alt="Post 3">
-            <div class="post-body">
-              <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
+        <!-- Post 3 -->
+        <article class="post flex-shrink-0">
+          <a href="clima.html" class="text-decoration-none text-dark">
+            <img src="../imagens/Rectangle 22.png" alt="Post 3" class="img-fluid rounded shadow-sm">
+            <div class="post-body mt-2">
+              <p class="post-title fw-semibold">
+                Mudança Climática e sua Influência na Imunidade: O Papel Benéfico
+              </p>
             </div>
-          </article>
+          </a>
+        </article>
 
-          <article class="post">
-            <img src="../imagens/MassagemN.jpg" alt="Post 4">
-            <div class="post-body">
-              <p class="post-title">Massagem não é sacanagem</p>
+        <!-- Post 4 -->
+        <article class="post flex-shrink-0">
+          <a href="massagemnao.html" class="text-decoration-none text-dark">
+            <img src="../imagens/MassagemN.jpg" alt="Post 4" class="img-fluid rounded shadow-sm">
+            <div class="post-body mt-2">
+              <p class="post-title fw-semibold">Massagem não é sacanagem</p>
             </div>
-          </article>
-        </div>
+          </a>
+        </article>
       </div>
 
+      <!-- Botão próximo -->
       <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
         <i class="fa-solid fa-arrow-right"></i>
       </button>

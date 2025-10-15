@@ -3,7 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================
   // helpers
   // =========================
-  const $  = (sel, root = document) => root.querySelector(sel);
+  const $ = (sel, root = document) => root.querySelector(sel);
   const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
 
   const fetchInto = async (targetId, url) => {
@@ -27,7 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // liga o toggle do menu (só depois que o menu.html foi injetado)
     const menuToggle = $('.menu-toggle');
-    const mainMenu   = $('#main-menu');
+    const mainMenu = $('#main-menu');
     if (menuToggle && mainMenu) {
       menuToggle.addEventListener('click', () => {
         mainMenu.classList.toggle('active');
@@ -40,10 +40,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // =========================
   // carrossel: rolar o container
   // =========================
-  const track   = $('.posts-track');
-  const row     = $('#postsRow');
+  const row = $('#postsRow');
+  const track = $('.posts-track') || row; // fallback 👍
   const btnPrev = $('#postsPrev');
   const btnNext = $('#postsNext');
+
 
   // previne submit acidental se estiver dentro de form
   btnPrev?.setAttribute('type', 'button');

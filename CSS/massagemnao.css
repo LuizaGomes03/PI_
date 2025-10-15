@@ -1,0 +1,126 @@
+/* ===== VARIÁVEIS ===== */
+:root {
+    --green: #9DB668;
+    --green-600: #7D9950;
+    --muted: #757870;
+    --bg-light: #f5f5f5;
+    --shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+    --radius: 12px;
+}
+
+/* ===== RESET ===== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body {
+    font-family: 'Inter', system-ui, Arial, sans-serif;
+    line-height: 1.6;
+    color: var(--muted);
+    background: var(--bg-light);
+}
+
+body {
+    overflow-x: hidden;
+}
+
+/* ===== MENU ===== */
+header {
+    background: #fff;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+    z-index: 10;
+}
+
+/* ===== TÍTULO PRINCIPAL ===== */
+h1 {
+    font-family: 'Amatic SC', cursive;
+    font-size: 2.8rem;
+    color: var(--green-600);
+    margin-bottom: 0.5rem;
+    text-align: center;
+}
+
+p {
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: center;
+}
+
+/* ===== CARDS ===== */
+.rk-card {
+    background: #fff;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    box-shadow: var(--shadow);
+}
+
+.rk-title {
+    font-family: 'Amatic SC', cursive;
+    font-size: 2rem;
+    color: var(--green-600);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.rk-muted {
+    font-size: 1rem;
+    color: var(--muted);
+    text-align: justify;
+}
+
+/* ===== BOTÃO ===== */
+.btn-primary {
+    background: var(--green-600);
+    border: none;
+    color: #fff;
+    padding: 0.6rem 1.2rem;
+    border-radius: var(--radius);
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.btn-primary:hover {
+    background: var(--green);
+}
+
+/* ===== HASHTAG ===== */
+h2.rk-title {
+    font-size: 2.4rem;
+    color: var(--green-600);
+    margin-top: 2rem;
+}
+
+/* ===== RODAPÉ ===== */
+footer {
+    background: #fff;
+    padding: 1.5rem;
+    text-align: center;
+    font-size: 0.9rem;
+    color: var(--muted);
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+/* ===== RESPONSIVIDADE ===== */
+@media (max-width: 768px) {
+    h1 {
+        font-size: 2.4rem;
+    }
+
+    .rk-title {
+        font-size: 1.8rem;
+    }
+
+    .rk-card {
+        padding: 1rem;
+    }
+
+    .btn-primary {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+}
