@@ -58,6 +58,7 @@ body {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     animation: fadeInUp 1s ease forwards;
     opacity: 0;
+    margin-bottom: 60px;
 }
 
 .cliente:nth-child(1) { animation-delay: 0.2s; }
@@ -107,16 +108,6 @@ body {
 .cliente a:hover {
     background-color: #89a55d;
     transform: scale(1.05);
-}
-
-/* ====== Rodapé ====== */
-footer {
-    text-align: center;
-    padding: 15px;
-    background-color: #9db668;
-    color: white;
-    font-size: 1rem;
-    margin-top: 50px;
 }
 
 /* ====== Responsividade ====== */

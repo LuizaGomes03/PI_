@@ -145,9 +145,6 @@ body {
 /* hover/ativo */
 .btn-enviar:hover{ transform:translateY(-3px); background:#89a55d; }
 
-/* ====== Rodapé ====== */
-footer{ text-align:center; padding:16px; background:#9db668; color:#fff; }
-
 /* ====== Responsividade ====== */
 @media (max-width: 880px){
     .parceiros-section{ gap:18px; }
@@ -195,7 +192,7 @@ section > p {
     transition: transform 0.18s ease, background 0.18s ease;
 }
 
-}
+
 
 .btn-saiba-mais:hover,
 .btn-saiba-mais:focus {

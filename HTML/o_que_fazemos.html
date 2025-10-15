@@ -5,20 +5,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>O que fazemos - Quick-Massage</title> <!-- CSS do menu e da página -->
-    <link rel="stylesheet" href="../CSS/menu.css">
-    <link rel="stylesheet" href="../CSS/rodape.css">
     <link rel="stylesheet" href="../CSS/o_que_fazemos.css">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
-    <!-- Bootstrap Icons CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
 </head>
 
-<body> <!-- Aqui o menu será carregado automaticamente -->
+<body>
     <div id="menu"></div>
-    <script> // Carrega o menu da página menu.html 
-        fetch("menu.html").then(response => response.text()).then(data => { document.getElementById("menu").innerHTML = data; }); </script>
     <main>
         <article>
             <header>
@@ -100,8 +95,19 @@
 </body>
 <footer>
     <div id="rodape"></div>
-    <script> // Carrega o rodape da página rodape.html 
-        fetch("rodape.html").then(response => response.text()).then(data => { document.getElementById("rodape").innerHTML = data; }); </script>
+    <script>
+        fetch("menu.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("menu").innerHTML = data;
+            });
+
+        fetch("rodape.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("rodape").innerHTML = data;
+            });
+    </script>
 </footer>
 
 </html>

@@ -10,47 +10,10 @@
 
     <!-- CSS externo -->
     <link rel="stylesheet" href="../CSS/nossos_clientes.css">
-    <link rel="stylesheet" href="../CSS/menu.css">
+
 </head>
 <body>
-    <header>
-        <nav>
-          <!-- Logo -->
-          <img src="../imagens/logo.png" alt="Logo ROKUZEN" class="logo">
-          <!-- Menu -->
-          <ul>
-            <li><a href="">Agende seu horário</a></li>
-            <li><a href="#">Gift Card</a></li>
-            <li><a href="#">Quem somos</a></li>
-            <li> <a href="#">Onde estamos &#9662;</a>
-              <ul class="dropdown">
-                <li><a href="#">Unidades</a></li>
-                <li><a href="#">Nossos clientes</a></li>
-                <li><a href="#">Nossos parceiros</a></li>
-              </ul>
-            </li>
-            <li> <a href="#">O que fazemos &#9662;</a>
-              <ul class="dropdown">
-                <li><a href="#">Eventos</a></li>
-                <li><a href="#">Serviços</a></li>
-              </ul>
-            </li>
-            <li> <a href="#">Fale Conosco &#9662;</a>
-              <ul class="dropdown">
-                <li><a href="#">Contato</a></li>
-                <li><a href="#">Trabalhe conosco</a></li>
-                <li><a href="#">Seja um franqueado</a></li>
-              </ul>
-            </li>
-          </ul>
-          <!-- Campo de busca -->
-          <div class="search-container"> <input type="text" placeholder="Buscar..." /> <svg class="search-icon"
-              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-              <circle cx="11" cy="11" r="8" stroke="#A5B441" stroke-width="2" fill="none"></circle>
-              <line x1="21" y1="21" x2="16.65" y2="16.65" stroke="#A5B441" stroke-width="2"></line>
-            </svg> </div>
-        </nav>
-      </header>
+    <div id="menu"></div>
 
     <!-- ====== Título Principal ====== -->
     <section class="titulo-clientes">
@@ -77,8 +40,21 @@
 
     <!-- ====== Rodapé ====== -->
     <footer>
-        &copy; 2025 Sua Empresa — Todos os direitos reservados.
-    </footer>
+    <div id="rodape"></div>
+    <script>
+        fetch("menu.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("menu").innerHTML = data;
+            });
+
+        fetch("rodape.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("rodape").innerHTML = data;
+            });
+    </script>
+</footer>
 
 </body>
 </html>

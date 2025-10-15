@@ -13,22 +13,12 @@
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
     <!-- CSS externo -->
-    <link rel="stylesheet" href="../CSS/menu.css">
     <link rel="stylesheet" href="../CSS/onde_estamos.css">
 </head>
 
 <body>
-    <!-- MENU -->
     <header>
-        <div id="menu">
-            <script>
-                fetch("menu.html")
-                    .then(response => response.text())
-                    .then(data => {
-                        document.getElementById("menu").innerHTML = data;
-                    });
-            </script>
-        </div>
+        <div id="menu"></div>
     </header>
 
     <!-- CONTEÚDO PRINCIPAL -->
@@ -58,7 +48,8 @@
 
             <!-- Unidade 2 -->
             <div class="unit">
-                <img src="https://rokuzen.com.br/wp-content/uploads/2023/11/WestPlaza-fachada.jpg" alt="Unidade West São Paulo">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2023/11/WestPlaza-fachada.jpg"
+                    alt="Unidade West São Paulo">
                 <h2>Unidade West São Paulo</h2>
                 <p>
                     <strong>Endereço:</strong>
@@ -73,7 +64,8 @@
 
             <!-- Unidade 3 -->
             <div class="unit">
-                <img src="https://rokuzen.com.br/wp-content/uploads/2023/08/fachada_gps2@2x.jpg" alt="Unidade Santo André">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2023/08/fachada_gps2@2x.jpg"
+                    alt="Unidade Santo André">
                 <h2>Unidade Santo André</h2>
                 <p>
                     <strong>Endereço:</strong>
@@ -105,7 +97,20 @@
 
     <!-- RODAPÉ -->
     <footer>
-        &copy; 2025 - Todas as Unidades
+        <div id="rodape"></div>
+        <script>
+            fetch("menu.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("menu").innerHTML = data;
+                });
+
+            fetch("rodape.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("rodape").innerHTML = data;
+                });
+        </script>
     </footer>
 </body>
 

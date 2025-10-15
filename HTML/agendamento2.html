@@ -152,6 +152,7 @@
 </head>
 
 <body>
+    <div id="menu"></div>
     <main class="wrap">
         <h1>AGENDE SUA SESSÃO AGORA MESMO!</h1>
         <div class="step">1. Selecione a unidade</div>
@@ -233,6 +234,22 @@
 
         </ul>
     </main>
+    <footer>
+    <div id="rodape"></div>
+    <script>
+        fetch("menu.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("menu").innerHTML = data;
+            });
+
+        fetch("rodape.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("rodape").innerHTML = data;
+            });
+    </script>
+</footer>
 </body>
 
 </html>

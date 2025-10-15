@@ -7,9 +7,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="../CSS/menu.css">
     <link rel="stylesheet" href="../CSS/agendamento.css">
-    <link rel="stylesheet" href="../CSS/rodape.css">
     <title>Agendamento | ROKUZEN</title>
 </head>
 
@@ -89,41 +87,26 @@
         </ul>
     </main>
 
-    <footer class="site-footer">
-        <div class="footer-inner">
-            <div class="footer-col unidades">
-                <h3>Unidades:</h3>
-                <ul>
-                    <li><strong>Golden Square Shopping</strong><br>
-                        Whatsapp: <a href="https://wa.me/551197495306" target="_blank">+55 11 9749 5306</a></li><br>
-                    <li><strong>Mooca Plaza Shopping</strong><br>
-                        Whatsapp: <a href="https://wa.me/5511950841087" target="_blank">+55 11 95084 1087</a></li><br>
-                    <li><strong>Grand Plaza Shopping</strong><br>
-                        Whatsapp: <a href="https://wa.me/5511916657900" target="_blank">+55 11 91665 7900</a></li><br>
-                    <li><strong>Shopping West Plaza</strong><br>
-                        Whatsapp: <a href="https://wa.me/5511919427901" target="_blank">+55 11 91942 7901</a></li>
-                </ul><br>
-                <button class="login-btn">Login</button>
-            </div>
-            <div class="footer-col tags">
-                <h3>Tags:</h3>
-                <p class="tag-list">bem-estar, relaxamento, massagem, quick massage, auriculoterapia, reflexologia,
-                    shiatsu, ventosa, presente, gift card, momento zen</p>
-            </div>
-        </div>
-    </footer>
+    <footer>
+        <div id="rodape"></div>
+        <script>
+            fetch("menu.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("menu").innerHTML = data;
+                });
 
-    <div class="footer-copy">© 2025 Rokuzen – Trabalho Acadêmico</div>
+            fetch("rodape.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("rodape").innerHTML = data;
+                });
+        </script>
+    </footer>
 
     <!-- JS externo -->
     <script src="JS/agendamento.js"></script>
-    <script>
-        fetch("menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menu").innerHTML = data;
-            });
-    </script>
+    
 </body>
 
 </html>
