@@ -2,31 +2,64 @@
 const $ = s => document.querySelector(s);
 
 // ====== refs que já existem no seu HTML ======
-let catalogo       = $('#catalogo');
-const bkService    = $('#bkService');
-const bkTherapist  = $('#bkTherapist');
-const bkClient     = $('#bkClient');
-const bkPhone      = $('#bkPhone');
-const bkEmail      = $('#bkEmail'); // <--- novo
-const bkPrice      = $('#bkPrice');
-const bkDuration   = $('#bkDuration');
-const bkNotes      = $('#bkNotes');
-const bkCondition  = $('#bkCondition');
-const bkDate       = $('#bkDate');   // hidden
-const bkTime       = $('#bkTime');   // hidden
-const btnSubmit    = $('#btnSubmit');
-const resumeEl     = $('#resume');
+let catalogo = $('#catalogo');
+const bkService = $('#bkService');
+let bkTherapist = $('#bkTherapist'); // pode ser <input> ou <select>
+const bkClient = $('#bkClient');
+const bkPhone = $('#bkPhone');
+const bkEmail = $('#bkEmail');
+const bkPrice = $('#bkPrice');
+const bkDuration = $('#bkDuration');
+const bkNotes = $('#bkNotes');
+const bkCondition = document.getElementById('bkCondition');
+const bkDate = $('#bkDate');   // hidden
+const bkTime = $('#bkTime');   // hidden
+const btnSubmit = $('#btnSubmit');
+const resumeEl = $('#resume');
 
-let calendario     = $('#calendario');
-const calTitle     = $('#calTitle');
-const calSummary   = $('#calSummary');
-const calGrid      = $('#calGrid');
-const slotInfo     = $('#slotInfo');
-const slotList     = $('#slotList');
-const calPrev      = $('#calPrev');
-const calNext      = $('#calNext');
-const calJump      = $('#calJump');
-const calGo        = $('#calGo');
+let calendario = $('#calendario');
+const calTitle = $('#calTitle');
+const calSummary = $('#calSummary');
+const calGrid = $('#calGrid');
+const slotInfo = $('#slotInfo');
+const slotList = $('#slotList');
+const calPrev = $('#calPrev');
+const calNext = $('#calNext');
+const calJump = $('#calJump');
+const calGo = $('#calGo');
+
+// --- helper: seta o profissional no #bkTherapist (input/select) e num campo display opcional ---
+function setTherapist(name) {
+  // se não existe no DOM, cria um hidden pra garantir que o valor vá no form
+  if (!bkTherapist) {
+    const hidden = document.createElement('input');
+    hidden.type = 'hidden';
+    hidden.id = 'bkTherapist';
+    hidden.name = 'bkTherapist';
+    document.querySelector('#bookingForm')?.appendChild(hidden);
+    bkTherapist = document.getElementById('bkTherapist');
+  }
+
+  const el = bkTherapist;
+
+  if (el.tagName === 'SELECT') {
+    // garante que o option existe
+    let opt = Array.from(el.options).find(o => o.value === name || o.text === name);
+    if (!opt) {
+      opt = new Option(name, name, true, true);
+      el.add(opt);
+    }
+    el.value = name;
+    el.dispatchEvent(new Event('change'));
+  } else {
+    // input de texto normal/hidden
+    el.value = name;
+  }
+
+  // espelho visual (se existir)
+  const vis = document.getElementById('bkTherapistDisplay');
+  if (vis) vis.value = name;
+}
 
 // ====== CATÁLOGO (com opções de duração/preço) ======
 const SERVICES = [
@@ -57,15 +90,17 @@ const SERVICES = [
 ];
 
 function renderCatalog() {
+  if (!catalogo) return;
   catalogo.innerHTML = '';
   SERVICES.forEach(s => {
     const el = document.createElement('article');
     el.className = 'svc';
 
     const list = s.options.map(o => `<li>${o.min} min — <b>R$ ${o.price}</b></li>`).join('');
+    const imgTag = s.img ? `<img src="${s.img}" alt="${s.name}">` : '';
 
     el.innerHTML = `
-      <img src="${s.img}" alt="${s.name}">
+      ${imgTag}
       <div>
         <h3>${s.name}</h3>
         <p>${s.about}</p>
@@ -77,55 +112,42 @@ function renderCatalog() {
     `;
 
     el.querySelector('button').addEventListener('click', () => {
-      // padrão: primeira opção
       bkService.value = s.name;
       bkDuration.value = s.options[0].min;
       bkPrice.value = s.options[0].price;
-
       // limpa seleção anterior
       bkDate.value = '';
       bkTime.value = '';
-      if (bkPro) bkPro.value = '';
+      if (bkTherapist) bkTherapist.value = '';
       btnSubmit.disabled = true;
 
-      // abre calendário e rola
       openCalendarAndScroll();
-
-      // texto guia
-      calSummary.textContent = 'Escolha um dia para ver os profissionais e horários disponíveis.';
+      if (calSummary) calSummary.textContent = 'Escolha um dia para ver os profissionais e horários disponíveis.';
     });
 
     catalogo.appendChild(el);
   });
 }
-renderCatalog();
 
-// nova função utilitária (cole acima da seção "// ====== CALENDÁRIO ======")
+// ===== util =====
 function openCalendarAndScroll() {
-  // garante que o painel de Agendamento está visível
   const formAgendarPanel = document.getElementById('formAgendar');
   if (formAgendarPanel?.classList.contains('hidden')) {
     formAgendarPanel.classList.remove('hidden');
     history.pushState(null, '', '#formAgendar');
   }
+  calendario?.classList.remove('hidden');
 
-  // mostra o calendário
-  calendario.classList.remove('hidden');
-
-  // se ainda não renderizou, renderiza agora
   if (!calendarRendered) {
     renderCalendar();
     calendarRendered = true;
   }
-
-  // espera 1 frame pra layout atualizar e dá scroll
   requestAnimationFrame(() => {
-    calendario.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    calendario?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   });
 }
 
 // ====== DISPONIBILIDADE (mock) ======
-// AVAILABILITY["YYYY-MM-DD"] = [{ name, sex: 'Homem'|'Mulher', slots: ['10:00','11:00'] }, ...]
 const AVAILABILITY = {};
 seedMock(AVAILABILITY);
 
@@ -135,8 +157,8 @@ function seedMock(store) {
     const d = new Date(today);
     d.setDate(d.getDate() + i);
     const ds = d.toISOString().slice(0, 10);
-    const dow = d.getDay(); // 0=dom
-    if (dow === 0) continue; // fechado aos domingos (exemplo)
+    const dow = d.getDay();
+    if (dow === 0) continue; // fechado aos domingos
     const pros = [
       { name: 'Ayumi', sex: 'Mulher', slots: ['10:00', '11:00', '15:00'] },
       { name: 'Bruno', sex: 'Homem', slots: ['09:30', '14:30'] },
@@ -153,15 +175,15 @@ function seedMock(store) {
 
 // ====== CALENDÁRIO ======
 let calRef = new Date(); // mês em foco
-
 const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
 
 function renderCalendar() {
+  if (!calGrid || !calTitle) return;
   calTitle.textContent = `${monthNames[calRef.getMonth()]} ${calRef.getFullYear()}`;
 
   const first = new Date(calRef.getFullYear(), calRef.getMonth(), 1);
   const last = new Date(calRef.getFullYear(), calRef.getMonth() + 1, 0);
-  const startIdx = (first.getDay() + 6) % 7; // segunda=0 ... domingo=6
+  const startIdx = (first.getDay() + 6) % 7; // segunda=0
   const totalCells = startIdx + last.getDate();
 
   calGrid.innerHTML = '';
@@ -177,10 +199,9 @@ function renderCalendar() {
       const ds = thisDate.toISOString().slice(0, 10);
 
       cell.classList.remove('hidden');
-      cell.classList.add('cal-day'); // re-garante classe base
+      cell.classList.add('cal-day');
       cell.innerHTML = `<div class="num">${dayNum}</div><div class="tag">—</div>`;
 
-      // passado = indisponível
       const isPast = thisDate < today;
       if (isPast) {
         cell.classList.add('off');
@@ -190,11 +211,9 @@ function renderCalendar() {
 
       const avail = AVAILABILITY[ds];
       if (!avail || totalSlots(avail) === 0) {
-        // LOTADO (vermelho)
         cell.classList.add('full');
         cell.querySelector('.tag').textContent = 'Lotado';
       } else {
-        // DISPONÍVEL (branco)
         const male = avail.filter(p => p.sex === 'Homem').length;
         const female = avail.filter(p => p.sex === 'Mulher').length;
         cell.querySelector('.tag').textContent = `${totalSlots(avail)} horários • H:${male} M:${female}`;
@@ -206,10 +225,9 @@ function renderCalendar() {
     calGrid.appendChild(cell);
   }
 
-  // limpa lateral
-  slotInfo.textContent = 'Selecione uma data no calendário.';
-  slotList.innerHTML = '';
-  calSummary.textContent = 'Clique em um dia para ver os profissionais e horários.';
+  if (slotInfo) slotInfo.textContent = 'Selecione uma data no calendário.';
+  if (slotList) slotList.innerHTML = '';
+  if (calSummary) calSummary.textContent = 'Clique em um dia para ver os profissionais e horários.';
 }
 
 function totalSlots(dayArr) {
@@ -217,10 +235,10 @@ function totalSlots(dayArr) {
 }
 
 function selectDay(isoDate) {
+  if (!slotList || !calSummary || !slotInfo) return;
   const avail = AVAILABILITY[isoDate];
   slotList.innerHTML = '';
 
-  // atualiza resumo por gênero pro dia (informativo apenas)
   if (avail && avail.length) {
     const male = avail.filter(p => p.sex === 'Homem').length;
     const female = avail.filter(p => p.sex === 'Mulher').length;
@@ -235,15 +253,8 @@ function selectDay(isoDate) {
   }
 
   slotInfo.textContent = `Dia ${formatBr(isoDate)} — escolha profissional e horário:`;
-  // mostra todos os profissionais disponíveis (sem filtrar por preferência)
-  const shown = avail;
 
-  if (!shown.length) {
-    slotList.innerHTML = `<div class="slot-info">Sem profissionais disponíveis.</div>`;
-    return;
-  }
-
-  shown.forEach(p => {
+  avail.forEach(p => {
     const row = document.createElement('div');
     row.className = 'pro-row';
     row.innerHTML = `
@@ -259,17 +270,21 @@ function selectDay(isoDate) {
       b.className = 'time-btn';
       b.textContent = h;
       b.addEventListener('click', () => {
-        // preenche campos do agendamento
+        // preenche campos
         bkDate.value = isoDate;
         bkTime.value = h;
-        if (bkPro) bkPro.value = p.name;
+        setTherapist(p.name); // ✅ agora no escopo global
 
-        // habilita submit e mostra resumo
-        btnSubmit.disabled = false;
-        resumeEl.textContent =
-          `Selecionado: ${formatBr(isoDate)} às ${h} com ${p.name} • ${bkService.value} • ${bkDuration.value} min • R$ ${bkPrice.value}.`;
+        // sincroniza um input de exibição de hora, se tiver
+        const bkTimeDisplay = document.getElementById('bkTimeDisplay');
+        if (bkTimeDisplay) bkTimeDisplay.value = h;
 
-        // desce direto pro formulário
+        // habilita submit + resumo
+        if (btnSubmit) btnSubmit.disabled = false;
+        if (resumeEl) {
+          resumeEl.textContent =
+            `Selecionado: ${formatBr(isoDate)} às ${h} com ${p.name} • ${bkService.value} • ${bkDuration.value} min • R$ ${bkPrice.value}.`;
+        }
         document.querySelector('#bookingForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
       });
       times.appendChild(b);
@@ -277,25 +292,31 @@ function selectDay(isoDate) {
     slotList.appendChild(row);
   });
 
-  // rola até os horários
   slotList.scrollIntoView({ behavior: 'smooth', block: 'start' });
 }
 
-function formatBr(iso) { const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; }
+function formatBr(iso) {
+  const [y, m, d] = iso.split('-');
+  return `${d}/${m}/${y}`;
+}
 
 // navegação mês
-calPrev.addEventListener('click', () => { calRef = new Date(calRef.getFullYear(), calRef.getMonth() - 1, 1); renderCalendar(); });
-calNext.addEventListener('click', () => { calRef = new Date(calRef.getFullYear(), calRef.getMonth() + 1, 1); renderCalendar(); });
+calPrev?.addEventListener('click', () => {
+  calRef = new Date(calRef.getFullYear(), calRef.getMonth() - 1, 1);
+  renderCalendar();
+});
+calNext?.addEventListener('click', () => {
+  calRef = new Date(calRef.getFullYear(), calRef.getMonth() + 1, 1);
+  renderCalendar();
+});
 
 // pular pra data específica
-calGo.addEventListener('click', () => {
-  if (!calJump.value) return;
+calGo?.addEventListener('click', () => {
+  if (!calJump?.value) return;
   const d = new Date(calJump.value + 'T00:00:00');
   if (isNaN(+d)) return;
-  // muda o mês exibido
   calRef = new Date(d.getFullYear(), d.getMonth(), 1);
   renderCalendar();
-  // se o dia estiver nesse mês, já seleciona
   const iso = d.toISOString().slice(0, 10);
   const monthMatch = calRef.getFullYear() === d.getFullYear() && calRef.getMonth() === d.getMonth();
   if (monthMatch) selectDay(iso);
@@ -303,36 +324,42 @@ calGo.addEventListener('click', () => {
 
 // inicia calendário escondido, render só na primeira exibição
 let calendarRendered = false;
-const observer = new MutationObserver(() => {
-  if (!calendarRendered && !calendario.classList.contains('hidden')) {
-    calendarRendered = true;
-    renderCalendar();
-  }
-});
-observer.observe(calendario, { attributes: true, attributeFilter: ['class'] });
+const observer = calendario
+  ? new MutationObserver(() => {
+    if (!calendarRendered && !calendario.classList.contains('hidden')) {
+      calendarRendered = true;
+      renderCalendar();
+    }
+  })
+  : null;
+
+observer?.observe(calendario, { attributes: true, attributeFilter: ['class'] });
 
 // ====== SUBMIT DO FORM ======
 document.querySelector('#bookingForm')?.addEventListener('submit', e => {
   e.preventDefault();
 
+  // condições selecionadas (checkboxes com name="bkCondition")
   const selectedConditions = Array.from(document.querySelectorAll('input[name="bkCondition"]:checked'))
     .map(cb => cb.value);
 
   if (!bkService.value) { alert('Selecione um serviço.'); return; }
-  // removida a validação de preferência de terapeuta
   if (!bkClient.value) { alert('Informe o nome do cliente.'); return; }
   if (!bkDate.value || !bkTime.value) {
     alert('Escolha a data e o horário no calendário.');
-    calendario.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    calendario?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     return;
   }
 
-  resumeEl.textContent =
-    `Agendamento criado: ${bkClient.value} – ${bkService.value} • ` +
-    `${formatBr(bkDate.value)} às ${bkTime.value} • ` +
-    `${bkDuration.value} min • R$ ${bkPrice.value}` +
-    (bkPro && bkPro.value ? ` • Profissional: ${bkPro.value}` : '') +
-    (selectedConditions.length ? ` • Condições: ${selectedConditions.join(', ')}` : '');
+  // resumo
+  if (resumeEl) {
+    resumeEl.textContent =
+      `Agendamento criado: ${bkClient.value} – ${bkService.value} • ` +
+      `${formatBr(bkDate.value)} às ${bkTime.value} • ` +
+      `${bkDuration.value} min • R$ ${bkPrice.value}` +
+      (bkTherapist && bkTherapist.value ? ` • Profissional: ${bkTherapist.value}` : '') +
+      (selectedConditions.length ? ` • Condições: ${selectedConditions.join(', ')}` : '');
+  }
 
   alert('Agendado com sucesso!');
 
@@ -345,63 +372,66 @@ document.querySelector('#bookingForm')?.addEventListener('submit', e => {
   bkService.value = keepService;
   bkDuration.value = keepDuration;
   bkPrice.value = keepPrice;
-  bkDate.value = ''; bkTime.value = ''; btnSubmit.disabled = true;
-  if (bkPro) bkPro.value = '';
-  slotList.innerHTML = '';
-  slotInfo.textContent = 'Selecione uma data no calendário.';
-
-  // limpa seleção de chips visualmente
+  bkDate.value = ''; bkTime.value = '';
+  if (btnSubmit) btnSubmit.disabled = true;
+  if (bkTherapist) bkTherapist.value = '';
+  if (slotList) slotList.innerHTML = '';
+  if (slotInfo) slotInfo.textContent = 'Selecione uma data no calendário.';
   document.querySelectorAll('#bkConditionWrapper .chip').forEach(c => c.classList.remove('checked'));
 });
 
+// ===== Bootstrap: só roda quando o DOM estiver pronto =====
 document.addEventListener('DOMContentLoaded', () => {
+  // (re)pega refs (caso script esteja no <head>)
+  catalogo = document.getElementById('catalogo') || catalogo;
+  calendario = document.getElementById('calendario') || calendario;
+
+  renderCatalog();
+
   const form = document.getElementById('formAgendar');
   if (form) {
     const desired = ['catalogo', 'calendario'];
-    // move os painéis mantendo o MESMO id (não altera refs)
     desired.slice().reverse().forEach(id => {
       const src = document.getElementById(id);
       if (!src) return;
       const wrapper = document.createElement('div');
-      wrapper.id = id; // mantém o MESMO id (catalogo / calendario)
+      wrapper.id = id;
       wrapper.className = 'moved-panel';
-      // mover todos os filhos do src para o wrapper
       while (src.firstChild) wrapper.appendChild(src.firstChild);
-      // inserir antes do conteúdo atual do form (garante ordem desejada)
       form.insertBefore(wrapper, form.firstChild);
-      // remover a seção vazia original
       src.remove();
     });
 
-    // rebind das refs (agora apontam para os novos nós com o MESMO id)
-    catalogo   = document.getElementById('catalogo');
+    catalogo = document.getElementById('catalogo');
     calendario = document.getElementById('calendario');
 
-    // (re)cria o observer no elemento certo
-    try { observer?.disconnect?.(); } catch (e) { /* ignore */ }
-    calendarRendered = false; // garante estado antes de observar
+    try { observer?.disconnect?.(); } catch { }
+    calendarRendered = false;
 
-    const observer2 = new MutationObserver(() => {
-      if (!calendarRendered && !calendario.classList.contains('hidden')) {
-        calendarRendered = true;
-        renderCalendar();
-      }
-    });
-    observer2.observe(calendario, { attributes: true, attributeFilter: ['class'] });
+    if (calendario) {
+      const observer2 = new MutationObserver(() => {
+        if (!calendarRendered && !calendario.classList.contains('hidden')) {
+          calendarRendered = true;
+          renderCalendar();
+        }
+      });
+      observer2.observe(calendario, { attributes: true, attributeFilter: ['class'] });
+    }
   }
-// trava edição e evita aumento por roda/teclado
-['bkPrice'].forEach(id => {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.readOnly = true;
-  el.addEventListener('wheel', e => e.preventDefault(), { passive: false });
-  el.addEventListener('keydown', e => {
-    if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
-    if (e.key !== 'Tab') e.preventDefault(); // impede digitar
-  });
-});
 
-  // ===== painel "router" — agora só considera formAgendar e posts =====
+  // trava edição e evita aumento por roda/teclado
+  ['bkPrice'].forEach(id => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    el.readOnly = true;
+    el.addEventListener('wheel', e => e.preventDefault(), { passive: false });
+    el.addEventListener('keydown', e => {
+      if (e.key === 'ArrowUp' || e.key === 'ArrowDown') e.preventDefault();
+      if (e.key !== 'Tab') e.preventDefault();
+    });
+  });
+
+  // ===== router (formAgendar | posts) =====
   (function () {
     const PANELS = ['formAgendar', 'posts'];
     const byId = id => document.getElementById(id);
@@ -426,63 +456,177 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     window.addEventListener('popstate', () => {
-      const id = location.hash?.replace('#','');
+      const id = location.hash?.replace('#', '');
       if (PANELS.includes(id)) show(id);
     });
   })();
-
-  // Opcional: se houver código que inicializa calendário/catalogo, ele
-  // continuará funcionando, pois os elementos foram movidos e mantiveram seus IDs.
-  // Se você tiver inicializadores que dependem da presença das seções,
-  // garanta que sejam chamados aqui (após as mudanças de DOM).
 });
 
+// === POSTS (novo CRUD: criar/editar/excluir + carrossel) ===
 document.addEventListener('DOMContentLoaded', () => {
-  // se havia código que usava #openPostsAdmin, proteja-o:
-  const openBtn = document.getElementById('openPostsAdmin');
-  if (openBtn) {
-    openBtn.addEventListener('click', (e) => {
-      // só para compatibilidade; agora a sidebar link navega, então provavelmente não será chamado
-      e.preventDefault();
-      window.location.href = 'nossosposts.html';
+  const LS_KEY = 'rokuzen_posts';
+
+  // Elements
+  const postsRow   = document.getElementById('postsRow');
+  const btnPrev    = document.getElementById('postsPrev');
+  const btnNext    = document.getElementById('postsNext');
+  const btnAdd     = document.getElementById('postAddBtn');
+  const dlg        = document.getElementById('postEditor');
+  const form       = document.getElementById('postForm');
+  const hTitle     = document.getElementById('postEditorTitle');
+  const fldId      = document.getElementById('postId');
+  const fldTitle   = document.getElementById('postTitle');
+  const fldImage   = document.getElementById('postImage');
+  const fldExcerpt = document.getElementById('postExcerpt');
+  const btnCancel  = document.getElementById('postCancel');
+  const btnDelete  = document.getElementById('postDelete');
+
+  // Helpers — storage
+  function loadPosts() {
+    try {
+      const raw = localStorage.getItem(LS_KEY);
+      if (!raw) return [];
+      const arr = JSON.parse(raw);
+      return Array.isArray(arr) ? arr : [];
+    } catch { return []; }
+  }
+  function savePosts(list) {
+    localStorage.setItem(LS_KEY, JSON.stringify(list));
+  }
+
+  // Seed inicial se vazio
+  (function seedIfEmpty() {
+    const cur = loadPosts();
+    if (cur.length) return;
+    savePosts([
+      {
+        id: Date.now(),
+        title: 'Ficar dolorido após massagem…',
+        image: '../imagens/Rectangle 16.png',
+        excerpt: 'É normal sentir uma leve dor após a sessão — seu corpo está se ajustando.'
+      },
+      {
+        id: Date.now()+1,
+        title: 'Descubra o novo conceito terapêutico…',
+        image: '../imagens/Rectangle 17.png',
+        excerpt: 'Técnicas integradas para restaurar o equilíbrio e reduzir o estresse.'
+      }
+    ]);
+  })();
+
+  // Render
+  function escapeHtml(s='') {
+    return s.replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  }
+  function renderPosts() {
+    if (!postsRow) return;
+    const posts = loadPosts().sort((a,b) => b.id - a.id);
+    postsRow.innerHTML = '';
+    posts.forEach(p => {
+      const card = document.createElement('article');
+      card.className = 'post';
+      card.innerHTML = `
+        <img src="${p.image || '../imagens/Rectangle 16.png'}" alt="${escapeHtml(p.title)}">
+        <div class="post-actions">
+          <button class="post-edit" aria-label="Editar"><i class="fa-solid fa-pen"></i></button>
+          <button class="post-del"  aria-label="Excluir"><i class="fa-solid fa-trash"></i></button>
+        </div>
+        <div class="post-body">
+          <p class="post-title">${escapeHtml(p.title)}</p>
+          ${p.excerpt ? `<p class="post-excerpt" style="opacity:.9;margin:.25rem 0 0">${escapeHtml(p.excerpt)}</p>` : ''}
+        </div>
+      `;
+      card.querySelector('.post-edit').addEventListener('click', () => openEditor(p));
+      card.querySelector('.post-del').addEventListener('click', () => {
+        if (!confirm('Excluir este post?')) return;
+        const updated = loadPosts().filter(x => x.id !== p.id);
+        savePosts(updated);
+        renderPosts();
+      });
+      postsRow.appendChild(card);
     });
   }
 
-  const closeBtn = document.getElementById('closePostsAdmin');
-  const panel = document.getElementById('postsAdmin');
-  const form = document.getElementById('postForm');
-  const msg = document.getElementById('postMsg');
+  // Editor
+  function openEditor(post = null) {
+    if (!dlg) return;
+    if (post) {
+      hTitle.textContent = 'Editar Post';
+      fldId.value      = post.id;
+      fldTitle.value   = post.title || '';
+      fldImage.value   = post.image || '';
+      fldExcerpt.value = post.excerpt || '';
+      btnDelete.hidden = false;
+    } else {
+      hTitle.textContent = 'Novo Post';
+      fldId.value      = '';
+      fldTitle.value   = '';
+      fldImage.value   = '';
+      fldExcerpt.value = '';
+      btnDelete.hidden = true;
+    }
+    dlg.showModal();
+    setTimeout(() => fldTitle?.focus(), 50);
+  }
+  function closeEditor() { dlg?.close(); }
 
-  closeBtn?.addEventListener('click', () => {
-    if (!panel) return;
-    panel.style.display = 'none';
-    msg.textContent = '';
-    form.reset();
-    openBtn?.setAttribute('aria-expanded', 'false');
-  });
+  btnAdd?.addEventListener('click', () => openEditor());
 
   form?.addEventListener('submit', (e) => {
     e.preventDefault();
-    const title = document.getElementById('postTitle').value.trim();
-    const image = document.getElementById('postImage').value.trim();
-    const excerpt = document.getElementById('postExcerpt').value.trim();
-    if (!title) return;
-
-    const postsKey = 'rokuzen_posts';
-    const stored = JSON.parse(localStorage.getItem(postsKey) || '[]');
-
-    stored.unshift({
-      id: Date.now(),
-      title,
-      image,
-      excerpt,
-      created: new Date().toISOString()
-    });
-
-    localStorage.setItem(postsKey, JSON.stringify(stored));
-
-    msg.textContent = 'Post salvo com sucesso.';
-    setTimeout(() => { msg.textContent = ''; }, 2500);
-    form.reset();
+    const id = fldId.value ? Number(fldId.value) : Date.now();
+    const item = {
+      id,
+      title: (fldTitle.value || '').trim(),
+      image: (fldImage.value || '').trim(),
+      excerpt: (fldExcerpt.value || '').trim()
+    };
+    if (!item.title) {
+      alert('Título é obrigatório');
+      return;
+    }
+    const list = loadPosts();
+    const idx = list.findIndex(p => p.id === id);
+    if (idx >= 0) list[idx] = item; else list.unshift(item);
+    savePosts(list);
+    renderPosts();
+    closeEditor();
   });
+
+  btnCancel?.addEventListener('click', (e) => {
+    e.preventDefault();
+    closeEditor();
+  });
+
+  btnDelete?.addEventListener('click', (e) => {
+    e.preventDefault();
+    const id = Number(fldId.value);
+    if (!id) return;
+    if (!confirm('Excluir este post?')) return;
+    const list = loadPosts().filter(p => p.id !== id);
+    savePosts(list);
+    renderPosts();
+    closeEditor();
+  });
+
+  // Carrossel
+  let page = 0;
+  function pageWidth() {
+    const firstCard = postsRow?.querySelector('.post');
+    return firstCard ? firstCard.getBoundingClientRect().width + 12 : 320;
+  }
+  function go(delta) {
+    if (!postsRow) return;
+    page = Math.max(0, page + delta);
+    postsRow.style.transform = `translateX(${-page * pageWidth()}px)`;
+  }
+  btnPrev?.addEventListener('click', () => go(-1));
+  btnNext?.addEventListener('click', () => go(+1));
+  window.addEventListener('resize', () => {
+    if (!postsRow) return;
+    postsRow.style.transform = `translateX(${-page * pageWidth()}px)`;
+  });
+
+  // init
+  renderPosts();
 });

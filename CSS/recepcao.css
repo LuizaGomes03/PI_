@@ -1,15 +1,30 @@
+/* =========================
+   Variáveis (completas)
+========================= */
 :root {
+  /* chips saúde */
+  --chip-bg: #fff;
+  --chip-bd: #d7d7d7;
+  --chip-tx: #2b2b2b;
+  --chip-bg-checked: #3b7c3b;
+  /* verde acessível */
+  --chip-tx-checked: #fff;
+  --chip-focus: #1f4e1f;
+
+  /* paleta base do app */
   --green: #9DB668;
-  --green-600: #7D9950;
-  --ink: #222;
-  --glass: rgba(255, 255, 255, .12);
-  --glass-b: #ffffff30;
-  --line: #e6edd7;
-  --muted: #f6f8f2;
-  --shadow: 0 24px 60px rgba(0, 0, 0, .25);
-  --sidebar-c: #0f130d;
+  --green-600: #7e9845;
+  --line: rgba(255, 255, 255, .35);
+
+  /* vidro */
+  --glass: rgba(255, 255, 255, .10);
+  --glass-b: rgba(255, 255, 255, .18);
+  --shadow: 0 10px 30px rgba(0, 0, 0, .25);
 }
 
+/* =========================
+   Reset básico
+========================= */
 * {
   box-sizing: border-box
 }
@@ -20,6 +35,9 @@ body {
   height: 100%
 }
 
+/* =========================
+   Base da página / fundo
+========================= */
 body {
   font-family: 'Inter', system-ui, Arial, sans-serif;
   color: #fff;
@@ -45,16 +63,19 @@ body::before {
   z-index: -1;
 }
 
+/* =========================
+   Sidebar
+========================= */
 .sidebar {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
   width: 76px;
-  background: rgba(15, 19, 13, 0.85);
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
+  background: rgba(15, 19, 13, .85);
+  border-right: 1px solid rgba(255, 255, 255, .12);
   backdrop-filter: blur(6px);
-  transition: width 0.3s ease;
+  transition: width .3s ease;
   z-index: 9999;
   overflow-y: auto;
   overflow-x: hidden;
@@ -90,7 +111,7 @@ body::before {
   height: 42px;
   border-radius: 999px;
   object-fit: cover;
-  border: 2px solid #9DB668;
+  border: 2px solid var(--green);
 }
 
 .sb-user .name,
@@ -110,7 +131,7 @@ body::before {
 
 .collapse-hint {
   margin-left: auto;
-  color: #9DB668
+  color: var(--green);
 }
 
 .sb-menu,
@@ -145,13 +166,13 @@ body::before {
 }
 
 .sb-link:hover {
-  background: rgba(255, 255, 255, .08)
+  background: rgba(255, 255, 255, .08);
 }
 
 .sb-link i {
   width: 22px;
   text-align: center;
-  color: #9DB668
+  color: var(--green);
 }
 
 .sb-link span {
@@ -171,11 +192,11 @@ body::before {
 }
 
 .sb-contacts .group {
-  margin-top: 2px
+  margin-top: 2px;
 }
 
 .sb-contacts .sb-link {
-  padding: 8px 12px
+  padding: 8px 12px;
 }
 
 .sb-contacts .small {
@@ -206,13 +227,16 @@ body::before {
 
 .main {
   margin-left: 76px;
-  transition: margin-left 0.3s ease;
+  transition: margin-left .3s ease;
 }
 
 .sidebar:hover~.main {
   margin-left: 280px;
 }
 
+/* =========================
+   Containers / cards
+========================= */
 .shell {
   border: 1px solid var(--glass-b);
   background: var(--glass);
@@ -227,7 +251,7 @@ body::before {
 .logo {
   width: 160px;
   height: auto;
-  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .4))
+  filter: drop-shadow(0 3px 6px rgba(0, 0, 0, .4));
 }
 
 .head h1 {
@@ -238,9 +262,12 @@ body::before {
 
 .head p {
   margin: 4px 0 0;
-  color: #e7f0db
+  color: #e7f0db;
 }
 
+/* =========================
+   Serviços / cartões
+========================= */
 .services {
   display: grid;
   grid-template-columns: repeat(2, minmax(240px, 1fr));
@@ -262,7 +289,7 @@ body::before {
 .svc {
   display: flex;
   gap: 12px;
-  background: rgba(255, 255, 255, .10);
+  background: var(--glass);
   border: 1px solid var(--glass-b);
   border-radius: 16px;
   padding: 12px;
@@ -277,63 +304,64 @@ body::before {
 }
 
 .svc h3 {
-  margin: 0 0 6px
+  margin: 0 0 6px;
 }
 
 .svc p {
   margin: 0;
   color: #e7f1dd;
-  font-size: 13px
+  font-size: 13px;
 }
 
 .svc .meta {
   margin-top: 6px;
   font-size: 12px;
-  color: #d9eac8
+  color: #d9eac8;
 }
 
 .svc .actions {
-  margin-top: 10px
+  margin-top: 10px;
 }
 
+/* =========================
+   Botões / inputs
+========================= */
 .btn {
   border: 0;
   border-radius: 12px;
   padding: 10px 14px;
   font-weight: 700;
-  cursor: pointer
+  cursor: pointer;
 }
 
 .btn-primary {
   background: linear-gradient(135deg, var(--green), var(--green-600));
-  color: #fff
+  color: #fff;
 }
 
 .btn-muted {
-  background: rgba(251, 250, 250, 0.22);
+  background: rgba(251, 250, 250, .22);
   color: #f4ffef;
-  border: 1px solid rgba(255, 255, 255, .35)
+  border: 1px solid rgba(255, 255, 255, .35);
 }
 
 .form-card {
   margin-top: 22px;
   border: 1px solid var(--glass-b);
-  background: rgba(255, 255, 255, .10);
+  background: var(--glass);
   border-radius: 18px;
   padding: 16px;
 }
 
 .form-card h2 {
   margin: 0 0 12px;
-  font: 600 16px/1 'Inter'
+  font: 600 16px/1 'Inter';
 }
 
 .row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin-bottom: 10px;
-  color: #7D9950;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
 }
 
 .row-1 {
@@ -344,7 +372,7 @@ label {
   display: block;
   font-size: 12px;
   color: #ffffff;
-  margin: 6px 0 6px
+  margin: 6px 0 6px;
 }
 
 input,
@@ -363,27 +391,27 @@ input:focus,
 select:focus,
 textarea:focus {
   border-color: #cfe5a2;
-  box-shadow: 0 0 0 2px rgba(157, 182, 104, .25)
+  box-shadow: 0 0 0 2px rgba(157, 182, 104, .25);
 }
 
 .actions-right {
   display: flex;
   gap: 8px;
   justify-content: flex-end;
-  margin-top: 6px
+  margin-top: 6px;
 }
 
 .resume {
   margin-top: 14px;
   color: #e7f1dc;
-  font-size: 13px
+  font-size: 13px;
 }
 
 footer {
   margin-top: 16px;
   text-align: center;
   color: #e9f2dc;
-  font-size: 12px
+  font-size: 12px;
 }
 
 .hidden {
@@ -394,10 +422,13 @@ footer {
   margin-top: 24px;
 }
 
+/* =========================
+   Calendário
+========================= */
 .calendar-card.big {
   margin-top: 22px;
   border: 1px solid var(--glass-b);
-  background: rgba(255, 255, 255, .10);
+  background: var(--glass);
   border-radius: 18px;
   padding: 18px;
   display: grid;
@@ -450,6 +481,7 @@ footer {
   align-items: center;
 }
 
+/* chips usados na legenda / outros (genéricos) */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -493,7 +525,6 @@ footer {
   display: flex;
   flex-direction: column;
   gap: 10px;
-  justify-content: flex-start;
   transition: transform .15s ease, box-shadow .15s ease;
 }
 
@@ -542,13 +573,13 @@ footer {
 .slot-info {
   color: #e7f1dc;
   font-size: 13px;
-  margin-bottom: 8px
+  margin-bottom: 8px;
 }
 
 .slot-list {
   display: flex;
   flex-direction: column;
-  gap: 8px
+  gap: 8px;
 }
 
 .pro-row {
@@ -563,23 +594,23 @@ footer {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 8px
+  gap: 8px;
 }
 
 .pro-name {
-  font-weight: 700
+  font-weight: 700;
 }
 
 .pro-sex {
   font-size: 12px;
-  opacity: .85
+  opacity: .85;
 }
 
 .times {
   margin-top: 8px;
   display: flex;
   flex-wrap: wrap;
-  gap: 6px
+  gap: 6px;
 }
 
 .time-btn {
@@ -590,18 +621,20 @@ footer {
   color: #fff;
   font-weight: 600;
   cursor: pointer;
+  transition: .15s;
 }
 
 .time-btn:hover {
-  transform: translateY(-1px)
+  transform: translateY(-1px);
 }
 
-.slot-info {
-  margin: 8px 0 12px;
-  font: 600 14px/1.2 'Inter';
-  color: #1f2937;
+.time-btn[disabled] {
+  opacity: .45;
+  cursor: not-allowed;
+  text-decoration: line-through;
 }
 
+/* versão clara (lista lateral nova) */
 .prof-block {
   background: rgba(255, 255, 255, .9);
   border: 1px solid #e5e7eb;
@@ -652,8 +685,6 @@ footer {
   padding: 8px 10px;
   border-radius: 10px;
   font: 600 13px/1 'Inter';
-  cursor: pointer;
-  transition: .15s;
 }
 
 .time-btn:hover {
@@ -661,94 +692,159 @@ footer {
   box-shadow: 0 6px 14px rgba(0, 0, 0, .06);
 }
 
-.time-btn[disabled] {
-  opacity: .45;
-  cursor: not-allowed;
-  text-decoration: line-through;
-}
-
-#bkCondition[multiple] {
-  height: 120px;
-  padding: 10px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.51);
-  color: #7D9950;
-  outline: none;
-  overflow-y: auto;
+/* =========================
+   Campo Observações / inputs
+========================= */
+#bkNotes {
   resize: none;
 }
 
-#bkCondition[multiple]:focus {
-  border-color: #cfe5a2;
-  box-shadow: 0 0 0 2px rgba(157, 182, 104, 0.25);
+#bkPrice::-webkit-outer-spin-button,
+#bkPrice::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
 }
 
-.checkbox-group {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
+#bkPrice[type="number"] {
+  -moz-appearance: textfield;
+  appearance: textfield;
 }
 
-.checkbox-group .chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 12px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, .35);
-  background: rgba(255, 255, 255, .18);
-  color: #84ad41;
-  font-size: 13px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.checkbox-group .chip input[type="checkbox"] {
-  display: none;
-}
-
-.checkbox-group .chip.checked {
-  background: var(--green);
-  color: #fff;
-  border-color: var(--green-600);
-}
-
-/* layout do formulário de agendamento */
 .booking-form {
-  background: rgba(255, 255, 255, 0.03);
+  background: rgba(255, 255, 255, .03);
   padding: 16px;
   border-radius: 8px;
 }
 
 .booking-form h3 {
-  margin: 0 0 12px 0;
+  margin: 0 0 12px;
   font-size: 1.25rem;
   color: #fff;
 }
 
-/* restaurar cores anteriores: fundo claro (rosado) nos inputs e texto verde */
-label input,
-label textarea,
-.booking-form input[type="number"] {
-  width: 100%;
-  padding: 10px 12px;
+/* =========================
+   Condições de Saúde (UI novo, escopado)
+========================= */
+#bkConditionWrapper .row-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+#bkConditionWrapper .label {
+  font-weight: 600;
+}
+
+#bkConditionWrapper .help {
+  margin: .25rem 0 .5rem;
+  color: #ffffff;
+  font-size: .9rem;
+}
+
+#bkConditionWrapper .cond-grid {
+  display: grid;
+  gap: 10px;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+@media (min-width:640px) {
+  #bkConditionWrapper .cond-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (min-width:920px) {
+  #bkConditionWrapper .cond-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+#bkConditionWrapper .hchip {
+  position: relative;
+  display: block;
+  border: 2px solid var(--chip-bd);
+  background: var(--chip-bg);
+  color: var(--chip-tx);
+  border-radius: 12px;
+  padding: 12px 14px;
+  cursor: pointer;
+  user-select: none;
+  transition: transform .05s ease, border-color .2s ease, background .2s ease;
+}
+
+#bkConditionWrapper .hchip:active {
+  transform: scale(.98);
+}
+
+#bkConditionWrapper .hchip input {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+#bkConditionWrapper .hchip span {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 600;
+}
+
+#bkConditionWrapper .hchip i {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--chip-bd);
+  border-radius: 6px;
+  display: inline-block;
+  line-height: 16px;
+  text-align: center;
+  font-style: normal;
+  font-size: 14px;
+  color: transparent;
+}
+
+#bkConditionWrapper .hchip input:checked+span {
+  color: var(--chip-tx-checked);
+}
+
+#bkConditionWrapper .hchip input:checked+span i {
+  border-color: transparent;
+  background: var(--chip-bg-checked);
+  color: var(--chip-tx-checked);
+}
+
+#bkConditionWrapper .hchip:hover {
+  border-color: #bdbdbd;
+}
+
+#bkConditionWrapper .hchip input:focus-visible+span {
+  outline: 3px solid var(--chip-focus);
+  outline-offset: 2px;
   border-radius: 10px;
-  border: 1px solid var(--line);
-  background: rgb(248, 234, 234);
-  /* cor anterior */
-  color: #7D9950;
-  /* texto verde anterior */
-  outline: none;
-  font-size: 0.95rem;
-  box-shadow: none;
 }
 
-label textarea {
-  resize: vertical;
-  min-height: 72px;
+#bkConditionWrapper .hchip.hchip-none {
+  border-style: dashed;
 }
 
+#clearConditions {
+  background: none;
+  border: none;
+  color: var(--green);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+#clearConditions:hover {
+  text-decoration: underline;
+}
+
+/* =========================
+   Responsivo form actions
+========================= */
 .actions {
   display: flex;
   gap: 12px;
@@ -761,28 +857,379 @@ label textarea {
 
 .resume {
   color: #dfe9d7;
-  font-size: 0.9rem;
-  opacity: 0.95;
+  font-size: .9rem;
+  opacity: .95;
 }
 
-/* tira as setinhas (Chrome/Edge/Safari) */
-#bkPrice::-webkit-outer-spin-button,
-#bkPrice::-webkit-inner-spin-button {
+/* =========================
+   Fix visual — Condições de Saúde
+========================= */
+#bkConditionWrapper .hchip {
+  position: relative;
+  display: flex;
+  align-items: center;
+  border: 2px solid var(--chip-bd);
+  background: var(--chip-bg);
+  color: var(--chip-tx);
+  border-radius: 50px;
+  padding: 10px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: all 0.2s ease;
+  font-weight: 600;
+}
+
+/* escondendo totalmente o checkbox */
+#bkConditionWrapper .hchip input[type="checkbox"] {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+  appearance: none;
   -webkit-appearance: none;
+  -moz-appearance: none;
+}
+
+/* conteúdo visual */
+#bkConditionWrapper .hchip span {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* bolinha de check */
+#bkConditionWrapper .hchip i {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--chip-bd);
+  border-radius: 6px;
+  display: inline-block;
+  line-height: 16px;
+  text-align: center;
+  font-style: normal;
+  font-size: 14px;
+  color: transparent;
+  transition: all 0.2s ease;
+}
+
+/* estado marcado */
+#bkConditionWrapper .hchip input:checked+span {
+  color: var(--chip-tx-checked);
+}
+
+#bkConditionWrapper .hchip input:checked+span i {
+  border-color: transparent;
+  background: var(--chip-bg-checked);
+  color: var(--chip-tx-checked);
+}
+
+/* hover / focus */
+#bkConditionWrapper .hchip:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+#bkConditionWrapper .hchip input:focus-visible+span {
+  outline: 2px solid var(--chip-focus);
+  outline-offset: 2px;
+  border-radius: 50px;
+}
+
+/* “Nenhuma” com traço */
+#bkConditionWrapper .hchip.hchip-none {
+  border-style: dashed;
+  opacity: 0.9;
+}
+
+/* botão limpar */
+#clearConditions {
+  background: none;
+  border: none;
+  color: var(--green);
+  font-weight: 600;
+  cursor: pointer;
+  padding: 4px 6px;
+  border-radius: 6px;
+}
+
+#clearConditions:hover {
+  text-decoration: underline;
+}
+
+/* Override: não estilizar inputs dentro dos chips */
+#bkConditionWrapper .hchip input {
+  /* zera qualquer herança do "label input {...}" */
+  all: unset;
+
+  /* esconder acessível */
+  position: absolute;
+  width: 1px;
+  height: 1px;
   margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-/* tira as setinhas (Firefox) */
-#bkPrice[type="number"] {
-  -moz-appearance: textfield;
-  appearance: textfield;
-  /* extra */
+/* chip visual (garante o layout redondinho) */
+#bkConditionWrapper .hchip {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  border: 2px solid var(--chip-bd);
+  background: var(--chip-bg);
+  color: var(--chip-tx);
+  border-radius: 50px;
+  padding: 10px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: all .2s ease;
+  font-weight: 600;
 }
 
-/* responsivo: empilha em telas pequenas */
+#bkConditionWrapper .hchip span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+#bkConditionWrapper .hchip i {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--chip-bd);
+  border-radius: 6px;
+  display: inline-block;
+  line-height: 16px;
+  text-align: center;
+  font-style: normal;
+  font-size: 14px;
+  color: transparent;
+  transition: all .2s ease;
+}
+
+/* estado marcado */
+#bkConditionWrapper .hchip input:checked+span {
+  color: var(--chip-tx-checked);
+}
+
+#bkConditionWrapper .hchip input:checked+span i {
+  border-color: transparent;
+  background: var(--chip-bg-checked);
+  color: var(--chip-tx-checked);
+}
+
+/* hover/foco */
+#bkConditionWrapper .hchip:hover {
+  border-color: var(--green);
+  transform: translateY(-2px);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, .15);
+}
+
+#bkConditionWrapper .hchip input:focus-visible+span {
+  outline: 2px solid var(--chip-focus);
+  outline-offset: 2px;
+  border-radius: 50px;
+}
+
+/* “Nenhuma” tracejada */
+#bkConditionWrapper .hchip.hchip-none {
+  border-style: dashed;
+  opacity: .95;
+}
+
+/* ===== Posts UI ===== */
+/* ===== posiciona o botão "Novo" na direita e com mais margem ===== */
+.posts-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+  padding: 0 12px;
+}
+
+/* botão vai pra direita com um espacinho extra */
+.post-add {
+  margin-left: auto;
+  margin-right: 8px;
+  padding: 10px 18px;
+  border-radius: 12px;
+  color: #3b7c3b;
+}
+
+.post-add:hover {
+  background: rgba(241, 238, 238, 0);
+}
+
+.posts-container {
+  position: relative;
+  display: grid;
+  grid-template-columns: 42px 1fr 42px;
+  gap: 10px;
+}
+
+.posts-btn {
+  height: 42px;
+  width: 42px;
+  border-radius: 10px;
+  border: 1px solid var(--glass-b);
+  background: rgba(255, 255, 255, .12);
+  color: #eaf6db;
+  cursor: pointer;
+}
+
+.posts-btn:hover {
+  background: rgba(255, 255, 255, .18);
+}
+
+.posts-track {
+  overflow: hidden;
+}
+
+.posts-row {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(260px, 1fr);
+  gap: 12px;
+  transition: transform .25s ease;
+  will-change: transform;
+}
+
+.post {
+  position: relative;
+  border: 1px solid var(--glass-b);
+  background: rgba(255, 255, 255, .08);
+  border-radius: 14px;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 160px auto;
+}
+
+.post img {
+  width: 100%;
+  height: 160px;
+  object-fit: cover;
+}
+
+.post-body {
+  padding: 10px;
+  color: #eaf6db;
+}
+
+.post-title {
+  margin: 0;
+  font-weight: 700;
+}
+
+.post-actions {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  gap: 6px;
+}
+
+.post-actions button {
+  width: 34px;
+  height: 34px;
+  display: inline-grid;
+  place-items: center;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, .35);
+  background: rgba(0, 0, 0, .35);
+  color: #fff;
+  cursor: pointer;
+}
+
+.post-actions button:hover {
+  transform: translateY(-1px);
+}
+
+/* Dialog editor */
+#postEditor {
+  border: 1px solid var(--glass-b);
+  border-radius: 14px;
+  padding: 16px;
+  width: min(560px, 92vw);
+  background: rgba(11, 15, 10, .95);
+}
+
+#postEditor::backdrop {
+  background: rgba(0, 0, 0, .5);
+}
+
+#postEditor form label {
+  display: grid;
+  gap: 6px;
+  margin: 8px 0;
+}
+
+#postEditor h3 {
+  margin: 0 0 8px;
+}
+
+.post-form-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.post-form-actions .spacer {
+  flex: 1;
+}
+
+.btn-primary,
+.btn-muted,
+.btn-danger {
+  border: 0;
+  border-radius: 10px;
+  padding: 10px 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, var(--green), var(--green-600));
+  color: #fff;
+}
+
+.btn-muted {
+  background: rgba(255, 255, 255, .12);
+  color: #fff;
+  border: 1px solid var(--glass-b);
+}
+
+.btn-danger {
+  background: #b91c1c;
+  color: #fff;
+}
+
+@media (max-width: 720px) {
+  .posts-container {
+    grid-template-columns: 1fr;
+  }
+
+  .posts-btn {
+    display: none;
+  }
+
+  .posts-row {
+    grid-auto-columns: 80%;
+  }
+}
+
+
 @media (max-width: 820px) {
   .row {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 
   .actions {
