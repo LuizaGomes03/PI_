@@ -112,11 +112,17 @@ li {
 }
 
 .posts-track {
-  flex: 1;
-  overflow: hidden;
+  overflow: auto;                      /* permite rolar */
+  scroll-behavior: smooth;             /* rolagem suave quando acionada */
+  -webkit-overflow-scrolling: touch;   /* melhor toque em iOS */
+  width: 100%;
   max-width: 1000px;
   margin: 0 auto;
 }
+
+/* esconder a barra de rolagem */
+.posts-track::-webkit-scrollbar { display: none; }
+.posts-track { scrollbar-width: none; }
 
 .posts-row {
   display: flex;
@@ -124,6 +130,7 @@ li {
   transition: transform 0.35s ease;
   font-family: 'Amatic SC', cursive;
   font-size: 44px;
+  width: max-content; /* mantém os itens em linha para rolagem */
 }
 
 .post {

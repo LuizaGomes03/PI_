@@ -30,9 +30,8 @@
 
       <div class="sb-menu">
         <div class="sb-title">Atalhos</div>
-        <a class="sb-link" href="#catalogo"><i class="fa-solid fa-list"></i><span> Catálogo de serviços</span></a>
-        <a class="sb-link" href="#calendario"><i class="fa-solid fa-calendar-week"></i><span> Calendário</span></a>
         <a class="sb-link" href="#formAgendar"><i class="fa-solid fa-calendar-plus"></i><span> Agendamento</span></a>
+        <a class="sb-link" href="#posts"><i class="fa-solid fa-pen-to-square"></i><span> Nossos Posts</span></a>
       </div>
 
       <div class="sb-contacts">
@@ -123,108 +122,154 @@
       </section>
 
       <section id="formAgendar" class="form-card">
-        <h2>Novo Agendamento</h2>
-        <div class="chosen-inline" id="chosenInline">
-          <span class="chip-min" id="chipDate"></span>
-          <span class="chip-min" id="chipTime"></span>
-          <span class="chip-min" id="chipPro" style="display:none"></span>
-        </div>
+        <form id="bookingForm" class="booking-form">
+          <h3>Novo Agendamento</h3>
 
-        <form id="bookingForm">
           <div class="row">
-            <div>
-              <label>Serviço</label>
-              <input id="bkService" readonly>
+            <div class="col col-2">
+              <label>Serviço
+                <input id="bkService" placeholder="Escolha um serviço">
+              </label>
             </div>
-            <div>
-              <label>Terapeuta:</label>
-              <select id="bkTherapist" required>
-                <option value="" disabled selected>Selecione…</option>
-                <option>Homem</option>
-                <option>Mulher</option>
-                <option>Não especificado</option>
-              </select>
+            <div class="col col-2">
+              <label>Cliente
+                <input id="bkClient" placeholder="Nome completo">
+              </label>
             </div>
           </div>
 
           <div class="row">
-            <div>
-              <label>Cliente</label>
-              <input id="bkClient" required placeholder="Nome completo">
+            <div class="col col-2">
+              <label>Telefone/WhatsApp
+                <input id="bkPhone" placeholder="(11) 99999-9999">
+              </label>
             </div>
-            <div>
-              <label>Telefone/WhatsApp</label>
-              <input id="bkPhone" placeholder="(11) 99999-9999">
+            <div class="col col-2">
+              <label>E-mail
+                <input id="bkEmail" type="email" placeholder="cliente@gmail.com">
+              </label>
             </div>
           </div>
 
           <div class="row">
-            <div>
-              <label>Valor (R$)</label>
-              <input id="bkPrice" type="number" min="0" step="1" value="0">
+            <div class="col col-2">
+              <label>Valor (R$)
+                <input id="bkPrice" type="number" min="0" step="1" value="0">
+              </label>
             </div>
-            <div>
-              <label>Duração (min)</label>
-              <input id="bkDuration" type="number" min="10" step="5" value="50">
+            <div class="col col-2">
+              <label>Profissional
+                <input id="bkPro" readonly placeholder="Selecione no calendário">
+              </label>
             </div>
           </div>
 
-          <div class="row row-1">
-            <div>
-              <label>Condição médica</label>
-              <div id="bkConditionWrapper" class="checkbox-group">
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Gravidez"> Gravidez
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Gripe"> Gripe
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Câncer"> Câncer
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Alterações de pressão arterial"> Alterações de
-                  pressão arterial
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Trombose"> Trombose
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Fraturas / Hérnias"> Fraturas / Hérnias
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Alergias"> Alergias
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Osteoporose / Osteopenia"> Osteoporose / Osteopenia
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Cirurgias recentes"> Cirurgias recentes
-                </label>
-                <label class="chip">
-                  <input type="checkbox" name="bkCondition" value="Nenhuma das opções acima"> Nenhuma das opções acima
-                </label>
+          <div class="row">
+            <div class="col col-2">
+              <label>Duração (min)
+                <input id="bkDuration" type="number" min="1" step="1">
+              </label>
+            </div>
+          </div>
+
+          <!-- CHECKBOXES: Condições / Alergias / Histórico / Outros
+               (Inserido logo depois de Profissional/Duração e antes de Observações) -->
+          <div class="row">
+            <div class="col">
+              <div class="form-card">
+                <h3 style="margin-top:0;margin-bottom:8px;font-size:16px;color:#e7f1dc">Condições de Saúde</h3>
+
+                <div class="checkbox-section">
+                  <div class="checkbox-group">
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Grávida"> <span>Estou grávida</span>
+                    </label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Trombose"> <span>Trombose</span>
+                    </label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Gripe"> <span>Gripe</span></label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Câncer"> <span>Câncer</span></label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Pressão"> <span>Alterações de pressão arterial</span>
+                    </label>
+                  </div>
+
+                  <strong style="margin-top:10px;display:block">Alergias</strong>
+                  <div class="checkbox-group">
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="AlergiaVinil"> <span>Alergia a vinil</span>
+                    </label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="AlergiaOleo"> <span>Alergia a óleos corporais ou cremes</span>
+                    </label>
+                  </div>
+
+                  <strong style="margin-top:10px;display:block">Histórico de saúde</strong>
+                  <div class="checkbox-group">
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Fraturas"> <span>Fraturas, hérnias, osteoporose ou osteopenia</span>
+                    </label>
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Cirurgias"> <span>Cirurgias recentes</span>
+                    </label>
+                  </div>
+
+                  <strong style="margin-top:10px;display:block">Outros</strong>
+                  <div class="checkbox-group">
+                    <label class="chip"><input type="checkbox" name="bkCondition" value="Nenhuma"> <span>Nenhuma das opções acima</span>
+                    </label>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          <div class="row row-1">
-            <div>
-              <label>Observações</label>
-              <textarea id="bkNotes" rows="2" placeholder="Ex.: prefere sala 2, gestante etc."></textarea>
+          <div class="row">
+            <div class="col">
+              <label>Observações
+                <textarea id="bkNotes" rows="3" placeholder="Observações (opcional)"></textarea>
+              </label>
             </div>
           </div>
 
+          <!-- hidden inputs (mantém ids usados no JS) -->
           <input type="hidden" id="bkDate">
           <input type="hidden" id="bkTime">
 
-          <div class="actions-right">
-            <button type="reset" class="btn btn-muted">Limpar</button>
-            <button type="submit" class="btn btn-primary" id="btnSubmit" disabled>Agendar</button>
+          <div class="row actions">
+            <button id="btnSubmit" class="btn btn-primary" type="submit" disabled>Agendar</button>
+            <div id="resume" class="resume"></div>
           </div>
         </form>
 
         <div class="resume" id="resume"></div>
+      </section> <!-- fim formAgendar -->
+
+      <section id="posts" class="panel hidden">
+        <h2>Nossos Posts</h2>
+
+        <div class="posts-container">
+          <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
+            <i class="fa-solid fa-arrow-left"></i>
+          </button>
+
+          <div class="posts-track">
+            <div class="posts-row" id="postsRow">
+              <article class="post">
+                <img src="../imagens/Rectangle 16.png" alt="Post 1">
+                <div class="post-body">
+                  <p class="post-title">Ficar Dolorido Após Massagem…</p>
+                </div>
+              </article>
+
+              <article class="post">
+                <img src="../imagens/Rectangle 17.png" alt="Post 2">
+                <div class="post-body">
+                  <p class="post-title">Descubra o novo conceito terapêutico...</p>
+                </div>
+              </article>
+
+              <!-- adicione mais posts aqui ou renderize dinamicamente via JS -->
+            </div>
+          </div>
+
+          <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
+            <i class="fa-solid fa-arrow-right"></i>
+          </button>
+        </div>
       </section>
 
       <footer>© 2025 Rokuzen – Recepção</footer>

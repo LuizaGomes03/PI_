@@ -2,16 +2,16 @@
 <html lang="pt-br">
 
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Menu</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Homepage • Rokuzen</title>
+
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
 
-
-  <link rel="stylesheet" href="../CSS\homepage.css">
+  <link rel="stylesheet" href="../CSS/homepage.css">
+  <script src="../JS/homepage.js"></script>
 
 </head>
 
@@ -19,117 +19,114 @@
 
   <div id="menu"></div>
 
-</html>
-<section class="features">
-  <a class="feature" href="nossoatendimento.html">
-    <img src="../imagens/massagem5.jpeg" alt="Nosso Atendimento">
-    <b>Nosso Atendimento</b>
-    <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
-  </a>
+  <section class="features">
+    <a class="feature" href="nossoatendimento.html">
+      <img src="../imagens/massagem5.jpeg" alt="Nosso Atendimento">
+      <b>Nosso Atendimento</b>
+      <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
+    </a>
 
-  <a class="feature" href="agendamento.html">
-    <img src="../imagens/agendamento.jpg" alt="Agendamento online">
-    <b>Agendamento Online</b>
-    <small>Agende agora mesmo com poucos cliques!</small>
-  </a>
+    <a class="feature" href="agendamento.html">
+      <img src="../imagens/agendamento.jpg" alt="Agendamento online">
+      <b>Agendamento Online</b>
+      <small>Agende agora mesmo com poucos cliques!</small>
+    </a>
 
-  <a class="feature" href="giftcard.html">
-    <img src="../imagens\v_gift.jpg" alt="Gift Card">
-    <b>Gift Card</b>
-    <small>Dê um presente especial.</small>
-  </a>
-</section>
+    <a class="feature" href="giftcard.html">
+      <img src="../imagens/v_gift.jpg" alt="Gift Card">
+      <b>Gift Card</b>
+      <small>Dê um presente especial.</small>
+    </a>
+  </section>
 
+  <section class="posts-section">
+    <h2>Nossos Posts</h2>
 
-<section class="posts-section">
-  <h2>Nossos Posts</h2>
+    <div class="posts-container">
+      <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
+        <i class="fa-solid fa-arrow-left"></i>
+      </button>
 
-  <div class="posts-container">
-    <button class="posts-btn" id="postsPrev" aria-label="Anterior">
-      <i class="fa-solid fa-arrow-left"></i>
-    </button>
+      <div class="posts-track">
+        <div class="posts-row" id="postsRow">
+          <article class="post">
+            <img src="../imagens/Rectangle 16.png" alt="Post 1">
+            <div class="post-body">
+              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
+              </p>
+            </div>
+          </article>
 
+          <article class="post">
+            <img src="../imagens/Rectangle 21.png" alt="Post 2">
+            <div class="post-body">
+              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
+            </div>
+          </article>
 
-    <div class="posts-track">
-      <div class="posts-row" id="postsRow">
-        <article class="post">
-          <img src="../imagens/Rectangle 16.png" alt="Post 1">
-          <div class="post-body">
-            <p class="post-title">
-              Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
-            </p>
-          </div>
-        </article>
+          <article class="post">
+            <img src="../imagens/Rectangle 22.png" alt="Post 3">
+            <div class="post-body">
+              <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
+            </div>
+          </article>
 
-        <article class="post">
-          <img src="../imagens/Rectangle 21.png" alt="Post 2">
-          <div class="post-body">
-            <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
-          </div>
-        </article>
-
-        <article class="post">
-          <img src="../imagens/Rectangle 22.png" alt="Post 3">
-          <div class="post-body">
-            <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
-          </div>
-        </article>
-
-
-        <article class="post">
-          <img src="../imagens/MassagemN.jpg" alt="Post 4">
-          <div class="post-body">
-            <p class="post-title">Massagem não é sacanagem</p>
-          </div>
-        </article>
-
+          <article class="post">
+            <img src="../imagens/MassagemN.jpg" alt="Post 4">
+            <div class="post-body">
+              <p class="post-title">Massagem não é sacanagem</p>
+            </div>
+          </article>
+        </div>
       </div>
+
+      <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
+        <i class="fa-solid fa-arrow-right"></i>
+      </button>
     </div>
+  </section>
 
-    <button class="posts-btn" id="postsNext" aria-label="Próximo">
-      <i class="fa-solid fa-arrow-right"></i>
-    </button>
-  </div>
-</section>
-
-
-
-<footer>
+  <footer>
     <div id="rodape"></div>
-    <script>
-        fetch("menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menu").innerHTML = data;
-            });
+  </footer>
 
-        fetch("rodape.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("rodape").innerHTML = data;
-            });
-    </script>
-</footer>
+  <!-- Carregar menu e rodapé -->
+  <script>
+    fetch("menu.html").then(r => r.text()).then(h => { document.getElementById("menu").innerHTML = h; });
+    fetch("rodape.html").then(r => r.text()).then(h => { document.getElementById("rodape").innerHTML = h; });
+  </script>
 
-<!-- VLibras Widget -->
-<div vw class="enabled">
-  <div vw-access-button class="active"></div>
-  <div vw-plugin-wrapper>
-    <div class="vw-plugin-top-wrapper"></div>
+  <!-- VLibras (UMA VEZ SÓ, sem fetch) -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
   </div>
-</div>
-<script src="../JS/vlibras.js"></script>
-<script>
-  new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
-<div id="vlibras"></div>
-<script>
-    // Carregar VLibras
-    fetch("vlibras.html")
-      .then((response) => response.text())
-      .then((data) => {
-        document.getElementById("vlibras").innerHTML = data;
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+
+  <!-- Carrossel: rolar o container -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const track = document.querySelector('.posts-track');
+      const prev = document.getElementById('postsPrev');
+      const next = document.getElementById('postsNext');
+
+      if (!track) return;
+
+      const step = () => Math.round(track.clientWidth * 0.8);
+
+      next?.addEventListener('click', e => {
+        e.preventDefault();
+        track.scrollBy({ left: step(), behavior: 'smooth' });
       });
+
+      prev?.addEventListener('click', e => {
+        e.preventDefault();
+        track.scrollBy({ left: -step(), behavior: 'smooth' });
+      });
+    });
   </script>
 </body>
 
