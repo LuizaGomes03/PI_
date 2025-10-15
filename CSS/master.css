@@ -23,6 +23,7 @@
     display: flex;
     gap: 8px;
     align-items: center
+    
 }
 
 .modal .grid {
@@ -74,16 +75,28 @@ body {
     overflow-x: hidden
 }
 
-#bg-video {
-    position: fixed;
-    inset: 0;
-    width: 100vw;
-    height: 100vh;
-    object-fit: cover;
-    z-index: 0;
-    filter: brightness(.55);
-    pointer-events: none
+/* --- vídeo de fundo atrás de tudo e ignorando cliques --- */
+#bg-video{
+  position: fixed;
+  inset: 0;           /* top:0; right:0; bottom:0; left:0 */
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: -1;        /* fica atrás */
+  pointer-events: none; /* não captura cliques */
 }
+
+/* garante que o app está acima do vídeo */
+.app{
+  position: relative;
+  z-index: 1;
+}
+
+/* se existir algum overlay genérico, ele não bloqueia clique sem precisar */
+[aria-hidden="true"]{
+  pointer-events: none;
+}
+
 
 body::before {
     content: "";
