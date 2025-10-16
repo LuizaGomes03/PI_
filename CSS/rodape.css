@@ -162,27 +162,30 @@
     color: #555;
 }
 
-/* Responsivo: empilha no mobile */
+/* ===== Responsivo: empilha no mobile ===== */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
+        gap: 40px; /* adiciona espaçamento entre blocos */
         text-align: center;
     }
 
     .footer-section {
-        flex: none;
         width: 100%;
         max-width: 400px;
     }
 
     .unidades-grid {
         grid-template-columns: 1fr;
+        gap: 12px; /* mais espaço entre unidades */
     }
 
-    .footer-section.unidades,
-    .footer-section.pagamento,
-    .footer-section.redes {
+    /* todos os blocos centralizados (sem precisar repetir classes) */
+    .footer-section h3 {
         text-align: center;
     }
 }
+
+
+

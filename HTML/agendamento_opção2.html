@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="../CSS/agendamento_opção2.css">
+</head>
+<body>
+  <div id="menu"></div>
+
+  <!-- ====== Título ====== -->
+  <section class="titulo-agendamento" 
+     <p> 2. Escolha o serviço de sua preferência e reserve seu horário</p>
+  </section>
+
+  <!-- ====== Serviços ====== -->
+  <section class="servicos-section">
+    <div class="servico">
+        <a href="agendamento_tempo_quick.html"><img src="https://itiomassagem.com.br/midia/terapias/itio-rokuzen-quick-2.jpg" alt="Quick Massage"></a>
+      <h3>Quick Massage</h3>
+    </div>
+
+    <div class="servico">
+        <a href="agendamento_tempo_maca.html"><img src="https://rokuzen.com.br/compragift/v_maca.jpg" alt="Maca"></a>
+      <h3>Maca</h3>
+      <p>(Shiatsu / Armá / Ventosa / Relaxante)</p>
+    </div>
+
+    <div class="servico">
+        <a href="agendamento_tempo_reflexologia.html"><img src="https://rokuzen.com.br/eventos/assets/img/product-screen-1.png" alt="Reflexologia Podal"></a>
+      <h3>Reflexologia Podal</h3>
+    </div>
+
+    <div class="servico">
+        <a href="agendamento_tempo_auriculoterapia.html"><img src="https://rokuzen.com.br/eventos/assets/img/product-screen-2.png" alt="Auriculoterapia"></a>
+      <h3>Auriculoterapia</h3>
+    </div>
+  </section>
+
+  <!-- ====== Formulário ====== -->
+   <div class="dots">
+            <div class="dot"></div>
+            <div class="dot active"></div>
+            <div class="dot"></div>
+        </div>
+
+  <footer>
+    <div id="rodape"></div>
+    <script>
+      fetch("menu.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("menu").innerHTML = d);
+
+      fetch("rodape.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("rodape").innerHTML = d);
+    </script>
+  </footer>
+</body>
+</html>

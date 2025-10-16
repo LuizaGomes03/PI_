@@ -95,7 +95,7 @@ textarea {
 
 input:focus,
 textarea:focus {
-    outline: 2px solid #2a7f62;
+    outline: 2px solid #a3b874;
 }
 
 /* Espaçamento entre os campos do formulário */
@@ -105,7 +105,7 @@ form p {
 
 /* Estilo do botão */
 button[type="submit"] {
-    background-color: #4f5b30;
+    background-color: #557122;
     color: #fff;
     padding: 12px 20px;
     font-size: 16px;
@@ -116,7 +116,7 @@ button[type="submit"] {
 }
 
 button[type="submit"]:hover {
-    background-color: #245f4f;
+    background-color: #4f5b30;
 }
 
 /* ------------------ IMAGEM À DIREITA ------------------ */

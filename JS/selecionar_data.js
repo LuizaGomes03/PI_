@@ -2,11 +2,11 @@
     const horariosDisponiveis = {};
     function gerarDiasDisponiveis() {
       const hoje = new Date();
-      for (let i = 0; i < 14; i++) {
+      for (let i = 0; i < 365; i++) { // Disponibiliza 1 ano de dias futuros
         const dia = new Date();
         dia.setDate(hoje.getDate() + i);
         const diaSemana = dia.getDay();
-        if (diaSemana === 0 || diaSemana === 6) continue;
+        if (diaSemana === 0 || diaSemana === 6) continue; // pula finais de semana
         const dataStr = dia.toISOString().split("T")[0];
         horariosDisponiveis[dataStr] = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
       }
