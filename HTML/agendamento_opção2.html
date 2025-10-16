@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agendamento</title>
+
+  <!-- Fontes -->
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <!-- CSS externo -->
+  <link rel="stylesheet" href="../CSS/agendamento_opção2.css">
+</head>
+<body>
+  <div id="menu"></div>
+
+  <!-- ====== Título ====== -->
+  <section class="titulo-agendamento">
+    <h2>Escolha o serviço para agendar</h2>
+    <p>Escolha o serviço de sua preferência e reserve seu horário</p>
+  </section>
+
+  <!-- ====== Serviços ====== -->
+  <section class="servicos-section">
+    <div class="servico">
+      <img src="quick-massage.jpg" alt="Quick Massage">
+      <h3>Quick Massage</h3>
+    </div>
+
+    <div class="servico">
+      <img src="maca.jpg" alt="Maca">
+      <h3>Maca</h3>
+      <p>(Shiatsu / Armá / Ventosa / Relaxante)</p>
+    </div>
+
+    <div class="servico">
+      <img src="reflexologia.jpg" alt="Reflexologia Podal">
+      <h3>Reflexologia Podal</h3>
+    </div>
+
+    <div class="servico">
+      <img src="auriculoterapia.jpg" alt="Auriculoterapia">
+      <h3>Auriculoterapia</h3>
+    </div>
+  </section>
+
+  <!-- ====== Formulário ====== -->
+  <section class="form-section">
+    <form>
+      <h3>Agende seu horário</h3>
+
+      <label for="nome">Nome completo:</label>
+      <input type="text" id="nome" placeholder="Digite seu nome" required>
+
+      <label for="data">Data:</label>
+      <input type="date" id="data" required>
+
+      <label for="hora">Hora:</label>
+      <input type="time" id="hora" required>
+
+      <label for="servico">Serviço:</label>
+      <select id="servico" required>
+        <option value="">Selecione...</option>
+        <option>Quick Massage</option>
+        <option>Maca (Shiatsu / Armá / Ventosa / Relaxante)</option>
+        <option>Reflexologia Podal</option>
+        <option>Auriculoterapia</option>
+      </select>
+
+      <label for="mensagem">Observações:</label>
+      <textarea id="mensagem" rows="3" placeholder="Escreva algo (opcional)"></textarea>
+
+      <button type="submit">Confirmar Agendamento</button>
+    </form>
+  </section>
+
+  <footer>
+    <div id="rodape"></div>
+    <script>
+      fetch("menu.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("menu").innerHTML = d);
+
+      fetch("rodape.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("rodape").innerHTML = d);
+    </script>
+  </footer>
+</body>
+</html>
