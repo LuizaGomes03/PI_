@@ -28,7 +28,7 @@ body {
 .titulo-clientes h2 {
     font-family: 'Amatic SC', cursive, Arial, sans-serif;
     font-size: 3rem;
-    color: #9db668;
+    color: #000000;
     margin-bottom: 10px;
 }
 
@@ -48,7 +48,7 @@ body {
 
 /* ====== Cartão de Cliente ====== */
 .cliente {
-    background-color: white;
+    background-color: rgb(255, 255, 255);
     border: 1px solid #ddd;
     border-radius: 12px;
     width: 300px;
