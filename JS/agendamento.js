@@ -48,26 +48,89 @@ document.querySelectorAll(".service .card").forEach((btn) => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const units = document.querySelectorAll(".unit .card");
-  const dots = document.querySelectorAll(".dots .dot");
-  let currentStep = 0;
+  // injeta menu/rodapé se existirem
+  const into = async (id, url) => {
+    const el = document.getElementById(id);
+    if (!el) return;
+    try {
+      const r = await fetch(url);
+      el.innerHTML = await r.text();
+    } catch (e) { /* silencia */ }
+  };
+  into('menu', 'menu.html');
+  into('rodape', 'rodape.html');
 
-  units.forEach((unit) => {
-    unit.addEventListener("click", () => {
-      // Avança para a próxima fase
-      if (currentStep < dots.length - 1) {
-        dots[currentStep].classList.remove("active");
-        dots[currentStep].removeAttribute("aria-current");
-        currentStep++;
-        dots[currentStep].classList.add("active");
-        dots[currentStep].setAttribute("aria-current", "true");
+  // acessibilidade teclado: Enter/Space clicam no card
+  const cards = document.querySelectorAll('.grid .card');
+  cards.forEach(card => {
+    // skeleton -> loaded
+    const img = card.querySelector('img');
+    if (img) {
+      img.addEventListener('load', () => {
+        const wrap = card.querySelector('.img-wrap');
+        wrap?.classList.add('img-loaded');
+        wrap?.classList.remove('skeleton');
+      });
+    }
 
-        // Exibe mensagem ou muda o conteúdo para a próxima fase
-        const unitName = unit.dataset.name;
-        const mallName = unit.dataset.mall;
-        alert(`Unidade selecionada: ${unitName} (${mallName})`);
-        // Aqui você pode carregar o próximo conteúdo dinamicamente
+    card.setAttribute('tabindex', '0');
+    card.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        card.click();
       }
+    });
+
+    card.addEventListener('click', () => {
+      const unidade = {
+        id: card.dataset.unit || '',
+        nome: card.dataset.name || '',
+        mall: card.dataset.mall || ''
+      };
+
+      // guarda seleção
+      sessionStorage.setItem('ag_unidade', JSON.stringify(unidade));
+
+      // feedback
+      toast(`Unidade selecionada: <b>${unidade.nome}</b><br><small>${unidade.mall}</small>`);
+
+      // pequeno delay só pra ver o toast, opcional
+      setTimeout(() => {
+        window.location.href = 'agendamento_opção2.html';
+      }, 420);
+    });
+  });
+
+  // marca etapa ativa nos dots
+  document.querySelectorAll('.wizard-dots .wdot').forEach((d, i) => {
+    d.classList.toggle('active', i === 0);
+    d.setAttribute('aria-selected', i === 0 ? 'true' : 'false');
+  });
+
+  // toast helper
+  function toast(html){
+    const t = document.getElementById('toast');
+    if (!t) return;
+    t.innerHTML = html;
+    t.classList.add('show');
+    clearTimeout(window.__toastTimer);
+    window.__toastTimer = setTimeout(()=> t.classList.remove('show'), 1800);
+  }
+
+  // Redireciona para a tela de opção 2
+  document.querySelectorAll('.unit .card').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const id   = btn.dataset.unit;
+      const name = encodeURIComponent(btn.dataset.name);
+      const mall = encodeURIComponent(btn.dataset.mall);
+
+      const base = 'agendamento_opção2.html'; // com acento
+      const url  = encodeURI(base) + `?unit=${id}&name=${name}&mall=${mall}`;
+      window.location.href = url;
+
+      // ou, se tiver em outra pasta:
+      // const url = encodeURI('../HTML/agendamento_opção2.html') + `?unit=${id}&name=${name}&mall=${mall}`;
+      // window.location.href = url;
     });
   });
 });

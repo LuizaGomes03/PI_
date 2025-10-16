@@ -120,24 +120,24 @@ h1 {
     font-size: 22px;
     letter-spacing: .3px;
 }
-
-/* paginação (bolinhas) */
 .dots {
     display: flex;
-    gap: 26px;
     justify-content: center;
-    margin: 26px 0 18px;
-    padding: 0;
-    list-style: none;
+    gap: 14px;
+    width: 100%;
+    margin: 20px 0 40px;
+    box-sizing: border-box;
 }
 
 .dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 999px;
-    background: #cfcfcf;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bfbfbf;
 }
 
 .dot.active {
-    background: var(--green-700);
+    background: #bfd48b;
 }
+
+
