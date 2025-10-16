@@ -33,15 +33,14 @@ h2 {
     margin: 40px 0 20px;
 }
 
-/* ------------------ PARÁGRAFOS ------------------ */
+/* ------------------ PARÁGRAFOS E LISTAS ------------------ */
 p,
 li {
     font-size: 1rem;
     margin-bottom: 15px;
-    color: #555;
+    color: #333; /* Melhor contraste para leitura */
 }
 
-/* ------------------ LISTAS ------------------ */
 ul,
 ol {
     margin-left: 30px;
@@ -54,7 +53,7 @@ ol li {
 
 /* ------------------ LINKS ------------------ */
 a {
-    color: #A5B441;
+    color: #4f5b30; /* Cor mais acessível */
     font-weight: bold;
     text-decoration: none;
 }
@@ -79,6 +78,7 @@ label {
     font-size: 16px;
     margin-bottom: 8px;
     color: #333;
+    display: block;
 }
 
 input,
@@ -95,7 +95,28 @@ textarea {
 
 input:focus,
 textarea:focus {
-    outline: 2px solid #A5B441;
+    outline: 2px solid #2a7f62;
+}
+
+/* Espaçamento entre os campos do formulário */
+form p {
+    margin-bottom: 20px;
+}
+
+/* Estilo do botão */
+button[type="submit"] {
+    background-color: #4f5b30;
+    color: #fff;
+    padding: 12px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button[type="submit"]:hover {
+    background-color: #245f4f;
 }
 
 /* ------------------ IMAGEM À DIREITA ------------------ */
@@ -120,4 +141,57 @@ textarea:focus {
     max-width: 100%;
     height: auto;
     border-radius: 8px;
+}
+
+/* ------------------ ACESSIBILIDADE ------------------ */
+:focus-visible {
+    outline: 3px solid #4f5b30;
+    outline-offset: 2px;
+}
+
+/* ------------------ RESPONSIVIDADE ------------------ */
+@media (max-width: 768px) {
+    main {
+        margin: 20px auto;
+        padding: 0 15px;
+    }
+
+    h1 {
+        font-size: 36px;
+    }
+
+    h2 {
+        font-size: 26px;
+    }
+
+    .imagem-direita {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .imagem-direita figure {
+        text-align: center;
+    }
+}
+
+@media (max-width: 480px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    h2 {
+        font-size: 22px;
+    }
+
+    input,
+    textarea {
+        font-size: 14px;
+        padding: 10px;
+    }
+
+    button[type="submit"] {
+        width: 100%;
+        padding: 12px;
+        font-size: 15px;
+    }
 }
