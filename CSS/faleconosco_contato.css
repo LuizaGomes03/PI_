@@ -21,22 +21,21 @@ i.fa-brands, i.fa, i.fab, i.fas, i.far, i.fal, i.fad, i.fa-solid, i.fa-regular, 
   -moz-osx-font-smoothing: grayscale;
 }
 /* Garantir que ícones Font Awesome usem a fonte correta mesmo dentro do conteúdo Amatic SC */
-.container i, .contato i, .contato-left i, .contato-right i, .form-contato i, footer i {
+.container i, .contato i, .contato-left i, .contato-right i, .form-contato i {
   font-family: var(--fa-style-family, "Font Awesome 6 Free") !important;
   font-weight: var(--fa-style, 900) !important;
 }
 
 body {
-  margin: 0;
   background: #fff;
-  color: #222;
-  letter-spacing: 0.5px;
+  color: #222;  
+
 }
 
-/* Fonte Amatic SC apenas no conteúdo principal e rodapé */
-.container, .container *, .contato, .contato *, .contato-left, .contato-left *, .contato-right, .contato-right *, .form-contato, .form-contato *, footer, footer *, .copy {
-  font-family: 'Amatic SC', cursive;
-}
+  /* Fonte Amatic SC apenas no conteúdo principal e rodapé */
+  .container, .container *, .contato, .contato *, .contato-left, .contato-left *, .contato-right, .contato-right *, .form-contato, .form-contato *, .copy {
+    font-family: 'Amatic SC', cursive;
+  }
     .container {
       padding: 40px 70px;
     }
