@@ -41,7 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // carrossel: rolar o container
   // =========================
   const row = $('#postsRow');
-  const track = $('.posts-track') || row; // fallback 👍
+  const track = $('.posts-track') || row; 
   const btnPrev = $('#postsPrev');
   const btnNext = $('#postsNext');
 

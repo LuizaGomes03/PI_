@@ -4,50 +4,60 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>O que fazemos - Quick-Massage</title> <!-- CSS do menu e da página -->
-    <link rel="stylesheet" href="../CSS/o_que_fazemos.css">
+    <title>O que fazemos - Serviços</title>
+
+    <!-- Fontes & CSS -->
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
-
+    <link rel="stylesheet" href="../CSS/o_que_fazemos.css">
 </head>
 
 <body>
-    <div id="menu"></div>
+    <!-- Menu será carregado dinamicamente -->
+    <header id="menu" role="navigation" aria-label="Menu principal"></header>
+
     <main>
         <article>
             <header>
                 <h1>Nossos serviços</h1>
             </header>
-            <section>
+
+            <!-- SECTION: Quick Massage -->
+            <section aria-labelledby="Quick-Massage">
                 <h2 id="Quick-Massage">Quick-Massage</h2>
-                <p> A Quick Massage é uma sessão curta de massagem terapêutica, ideal para quem busca relaxamento em
-                    meio à rotina. Realizada na região superior do corpo — costas, ombros, pescoço e cabeça — ela ajuda
-                    a reduzir tensões musculares, aliviar o estresse e melhorar a circulação energética. </p>
+                <p>A Quick Massage é uma sessão curta de massagem terapêutica, ideal para quem busca relaxamento em meio à rotina. 
+                   Realizada na região superior do corpo — costas, ombros, pescoço e cabeça — ela ajuda a reduzir tensões musculares, 
+                   aliviar o estresse e melhorar a circulação energética.</p>
             </section>
-            <section>
+
+            <!-- SECTION: Terapia na Maca -->
+            <section aria-labelledby="Terapia-Maca">
                 <h2 id="Terapia-Maca">Terapia na Maca</h2>
-                <p>Essa massagem trabalha o corpo por completo, utilizando uma combinação de técnicas terapêuticas para
-                    proporcionar um cuidado profundo e personalizado. Entre os métodos aplicados estão o Shiatsu, Anmá,
-                    Massagem Relaxante, Liberação Miofascial e Ventosaterapia — cada um com benefícios específicos para
-                    o alívio de dores, relaxamento muscular e equilíbrio energético.</p>
+                <p>Essa massagem trabalha o corpo por completo, utilizando uma combinação de técnicas terapêuticas para proporcionar 
+                   um cuidado profundo e personalizado. Entre os métodos aplicados estão o Shiatsu, Anmá, Massagem Relaxante, 
+                   Liberação Miofascial e Ventosaterapia — cada um com benefícios específicos para o alívio de dores, relaxamento 
+                   muscular e equilíbrio energético.</p>
             </section>
-            <section>
+
+            <!-- SECTION: Reflexologia -->
+            <section aria-labelledby="Reflexologia-Podal">
                 <h2 id="Reflexologia-Podal">Reflexologia Podal</h2>
-                <p>Terapia que vai além do relaxamento, atuando no corpo através da pressão em pontos específicos dos
-                    pés. Esses pontos correspondem a órgãos e emoções, favorecendo o processo natural de autocura.
-                    Auxilia no alívio de dores, melhora do funcionamento interno e promoção do equilíbrio físico e
-                    emocional.</p>
+                <p>Terapia que vai além do relaxamento, atuando no corpo através da pressão em pontos específicos dos pés. 
+                   Esses pontos correspondem a órgãos e emoções, favorecendo o processo natural de autocura. Auxilia no alívio 
+                   de dores, melhora do funcionamento interno e promoção do equilíbrio físico e emocional.</p>
             </section>
-            <section>
+
+            <!-- SECTION: Auriculoterapia -->
+            <section aria-labelledby="Auriculoterapia">
                 <h2 id="Auriculoterapia">Auriculoterapia</h2>
-                <p> Técnica terapêutica que utiliza pontos específicos no pavilhão auricular (orelha) para auxiliar no
-                    diagnóstico e tratamento de dores e diversas condições do corpo. Atua no equilíbrio físico e
-                    emocional, ajudando no alívio de tensões, ansiedade e desconfortos por meio da estimulação desses
-                    pontos reflexos. </p>
-                <p> <a href="onde_estamos.html">VENHA EXPERIMENTAR EM UMA DE NOSSAS UNIDADES! (clique aqui)</a> </p>
+                <p>Técnica terapêutica que utiliza pontos específicos no pavilhão auricular (orelha) para auxiliar no diagnóstico 
+                   e tratamento de dores e diversas condições do corpo. Atua no equilíbrio físico e emocional, ajudando no alívio 
+                   de tensões, ansiedade e desconfortos por meio da estimulação desses pontos reflexos.</p>
+                <p><a href="onde_estamos.html">VENHA EXPERIMENTAR EM UMA DE NOSSAS UNIDADES! (clique aqui)</a></p>
             </section>
-            <section>
+
+            <!-- SECTION: Indicações -->
+            <section aria-labelledby="indicacoes">
                 <h2 id="indicacoes">Para que são indicados?</h2>
                 <ul>
                     <li>Diminuir o stress</li>
@@ -60,64 +70,58 @@
                     <li>Proporcionar alívio em quadros de dores de cabeça e enxaqueca</li>
                 </ul>
             </section>
-            <section>
+
+            <!-- SECTION: Contraindicações -->
+            <section aria-labelledby="contraindicacoes">
                 <h2 id="contraindicacoes">Quais as contraindicações?</h2>
-                <p> Recomenda-se que pessoas com casos de <strong>pressão alta ou baixa</strong> não recebam a massagem
-                    antes de 40 minutos após ter feito uma refeição. </p>
                 <ol>
-                    <li><strong>Doenças infectocontagiosas</strong> — Não receber a massagem devido ao risco de acelerar
-                        a expansão da moléstia via circulação sanguínea. Na fase de recuperação, após a alta médica, a
-                        massagem poderá ser aplicada.</li>
-                    <li><strong>Reumatismo/Artrite aguda</strong> — Não receber massagem, pois pode ocorrer inflamação
-                        do sistema circulatório e consequente formação de tromboses.</li>
-                    <li><strong>Paciente em repouso absoluto</strong> — É contraindicado, pois esses pacientes podem
-                        apresentar problemas cardíacos e pulmonares.</li>
-                    <li><strong>Hemofilia</strong> — A massagem pode provocar hemorragia devido à baixa resistência dos
-                        vasos.</li>
-                    <li><strong>Ferimentos graves</strong> — Evitar a massagem em casos de fratura, distensão,
-                        hemorragia ou lesões internas.</li>
+                    <li><strong>Doenças infectocontagiosas</strong> — Não receber a massagem devido ao risco de acelerar 
+                        a expansão da moléstia via circulação sanguínea.</li>
+                    <li><strong>Reumatismo/Artrite aguda</strong> — Não receber massagem, pois pode ocorrer inflamação 
+                        do sistema circulatório.</li>
+                    <li><strong>Paciente em repouso absoluto</strong> — É contraindicado.</li>
+                    <li><strong>Hemofilia</strong> — A massagem pode provocar hemorragia.</li>
+                    <li><strong>Ferimentos graves</strong> — Evitar a massagem em lesões internas.</li>
                     <li><strong>Estado febril</strong> — Evitar massagear durante febre alta.</li>
-                    <li><strong>Tuberculose/Sífilis</strong> — Contraindicado, além de apresentar riscos ao terapeuta.
-                    </li>
-                    <li><strong>Câncer</strong> — A massagem pode acelerar a expansão das células cancerígenas via
-                        circulação.</li>
-                    <li><strong>Cicatrizes/Queimaduras recentes</strong> — A massagem deve ser aplicada suavemente ao
-                        redor da lesão.</li>
-                    <li><strong>Eczema</strong> — Contraindicado apenas na região afetada.</li>
-                    <li><strong>Gestante</strong> — Evitar massagem na lombar e membros inferiores até o terceiro mês de
-                        gravidez.</li>
-                    <li><strong>Pressão arterial alta ou baixa</strong> — Pode-se receber a massagem, com variações na
-                        técnica para sedação ou tonificação.</li>
+                    <li><strong>Tuberculose/Sífilis</strong> — Contraindicado.</li>
+                    <li><strong>Câncer</strong> — Pode acelerar expansão das células.</li>
+                    <li><strong>Cicatrizes/Queimaduras recentes</strong> — Aplicar suavemente ao redor.</li>
+                    <li><strong>Eczema</strong> — Evitar região afetada.</li>
+                    <li><strong>Gestante</strong> — Evitar lombar e membros inferiores até 3º mês.</li>
+                    <li><strong>Pressão arterial alta ou baixa</strong> — Pode receber com técnica adequada.</li>
                 </ol>
             </section>
         </article>
     </main>
+
+    <!-- Área de Acessibilidade VLibras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
         <div vw-plugin-wrapper></div>
         <div class="vw-plugin-top-wrapper"></div>
     </div>
-    </div>
+
+    <!-- Rodapé dinâmico -->
+    <footer id="rodape" role="contentinfo" aria-label="Rodapé do site"></footer>
+
+    <!-- SCRIPTS -->
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>
         new window.VLibras.Widget("https://vlibras.gov.br/app");
-    </script>
-</body>
-<footer>
-    <div id="rodape"></div>
-    <script>
+
+        // Carregar Menu
         fetch("menu.html")
             .then((response) => response.text())
             .then((data) => {
                 document.getElementById("menu").innerHTML = data;
             });
 
+        // Carregar Rodapé
         fetch("rodape.html")
             .then((response) => response.text())
             .then((data) => {
                 document.getElementById("rodape").innerHTML = data;
             });
     </script>
-</footer>
-
+</body>
 </html>

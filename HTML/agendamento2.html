@@ -1,255 +1,66 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Rokuzen • Agende sua sessão</title>
-
-    <!-- Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
-        rel="stylesheet">
-
-    <style>
-        :root {
-            --green: #9DB668;
-            --green-700: #7D9950;
-            --ink: #222;
-            --muted: #f5f5f5;
-            --radius: 16px;
-            --maxw: 1100px;
-        }
-
-        * {
-            box-sizing: border-box
-        }
-
-        body {
-            margin: 0;
-            font-family: Inter, system-ui, Arial, sans-serif;
-            color: var(--ink);
-            background: #fff;
-        }
-
-        /* topo */
-        .wrap {
-            max-width: var(--maxw);
-            margin: 40px auto 30px;
-            padding: 0 16px;
-        }
-
-        h1 {
-            font-family: "Amatic SC", cursive;
-            font-size: 40px;
-            margin: 0 0 10px;
-            letter-spacing: .5px;
-        }
-
-        .step {
-            font-size: .95rem;
-            color: #666;
-            margin-bottom: 18px;
-        }
-
-        /* grid */
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 26px;
-        }
-
-        @media (max-width: 1024px) {
-            .grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-
-        @media (max-width: 560px) {
-            .grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .unit {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        .card {
-            position: relative;
-            border-radius: var(--radius);
-            overflow: hidden;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
-            background: #ddd;
-            transition: transform .15s ease, box-shadow .15s ease;
-            cursor: pointer;
-        }
-
-        .card:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 16px 28px rgba(0, 0, 0, .12);
-        }
-
-        .card img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            display: block;
-        }
-
-        /* faixa verde com texto */
-        .ribbon {
-            position: absolute;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            padding: 14px 18px;
-            background: rgba(157, 182, 104, .85);
-            /* #9DB668 com alpha */
-            color: #14250b;
-            font-weight: 600;
-            line-height: 1.2;
-            backdrop-filter: blur(2px);
-            text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
-        }
-
-        .ribbon small {
-            display: block;
-            font-weight: 600;
-            opacity: .95;
-        }
-
-        /* cidade/filial embaixo */
-        .city {
-            text-align: center;
-            font-family: "Amatic SC", cursive;
-            font-size: 22px;
-            letter-spacing: .3px;
-        }
-
-        /* paginação (bolinhas) */
-        .dots {
-            display: flex;
-            gap: 26px;
-            justify-content: center;
-            margin: 26px 0 18px;
-            padding: 0;
-            list-style: none;
-        }
-
-        .dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 999px;
-            background: #cfcfcf;
-        }
-
-        .dot.active {
-            background: var(--green-700);
-        }
-    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="stylesheet" href="../CSS/agendamento.css">
+    <title>Selecione o Serviço | ROKUZEN</title>
 </head>
 
 <body>
-    <div id="menu"></div>
+    <header id="menu"></header>
+
+    <!-- ====== CONTEÚDO AGENDAMENTO ====== -->
     <main class="wrap">
-        <h1>AGENDE SUA SESSÃO AGORA MESMO!</h1>
-        <div class="step">1. Selecione a unidade</div>
+        <h2 class="page-title">SELECIONE O SERVIÇO DESEJADO</h2>
+        <ol class="steps">
+            <li>Selecione a unidade</li>
+            <li class="active">Selecione o serviço</li>
+        </ol>
 
         <section class="grid">
-            <!-- 1 -->
-            <article class="unit">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=1400&auto=format&fit=crop"
-                        alt="Unidade São Bernardo do Campo">
-                    <div class="ribbon">
-                        <strong>Shopping • Golden Square</strong>
-                        <small>Piso L1 • 1º Andar</small>
-                    </div>
+            <!-- Massagem Terapêutica -->
+            <article class="service">
+                <div class="card" data-service="massagem-terapeutica" data-name="Massagem Terapêutica">
+                    <h3>Massagem Terapêutica</h3>
+                    <p>Alívio de tensões musculares e relaxamento profundo.</p>
                 </div>
-                <div class="city">São Bernardo do Campo</div>
             </article>
 
-            <!-- 2 -->
-            <article class="unit">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1528494886116-1c1f3a1a6f3b?q=80&w=1400&auto=format&fit=crop"
-                        alt="Unidade Santo André">
-                    <div class="ribbon">
-                        <strong>Grand Plaza Shopping</strong>
-                        <small>Piso Térreo • Loja 123</small>
-                    </div>
+            <!-- Shiatsu -->
+            <article class="service">
+                <div class="card" data-service="shiatsu" data-name="Shiatsu">
+                    <h3>Shiatsu</h3>
+                    <p>Equilíbrio energético e bem-estar.</p>
                 </div>
-                <div class="city">Santo André</div>
             </article>
 
-            <!-- 3 -->
-            <article class="unit">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1559599078-8d9bb0c6f8f0?q=80&w=1400&auto=format&fit=crop"
-                        alt="Unidade Água Branca">
-                    <div class="ribbon">
-                        <strong>Shopping West Plaza</strong>
-                        <small>2º Piso • Loja 3002</small>
-                    </div>
+            <!-- Liberação Miofascial -->
+            <article class="service">
+                <div class="card" data-service="liberacao-miofascial" data-name="Liberação Miofascial">
+                    <h3>Liberação Miofascial</h3>
+                    <p>Tratamento para dores crônicas e mobilidade.</p>
                 </div>
-                <div class="city">São Paulo • Água Branca</div>
-            </article>
-
-            <!-- 4 -->
-            <article class="unit">
-                <div class="card">
-                    <img src="https://images.unsplash.com/photo-1539702594153-c4b6b2d0f2d4?q=80&w=1400&auto=format&fit=crop"
-                        alt="Unidade Mooca">
-                    <div class="ribbon">
-                        <strong>Shopping Mooca Plaza</strong>
-                        <small>Piso Térreo • Loja A102</small>
-                    </div>
-                </div>
-                <div class="city">São Paulo • Mooca</div>
             </article>
         </section>
 
-        <!-- bolinhas -->
+        <!-- paginação bolinhas -->
         <ul class="dots" aria-label="Paginação">
             <li class="dot active" aria-current="true"></li>
             <li class="dot"></li>
-            <li class="dot"></li>
-            <li class="dot"></li>
-            <li class="dot"></li>
-            <li class="dot"></li>
-            <h2>2. Escolha o serviço em <span id="chosenUnit">...</span></h2>
-
-            <script>
-                const params = new URLSearchParams(window.location.search);
-                const name = params.get("name");
-
-                // fallback: tenta do localStorage
-                const saved = JSON.parse(localStorage.getItem("rz.selectedUnit") || "null");
-                const unitName = name || (saved && saved.name) || "—";
-
-                document.getElementById("chosenUnit").textContent = unitName;
-            </script>
-
         </ul>
     </main>
-    <footer>
-    <div id="rodape"></div>
-    <script>
-        fetch("menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menu").innerHTML = data;
-            });
 
-        fetch("rodape.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("rodape").innerHTML = data;
-            });
-    </script>
-</footer>
+    <footer>
+        <div id="rodape"></div>
+    </footer>
+
+    <!-- JS externo -->
+    <script src="../JS/agendamento.js"></script>
 </body>
 
 </html>
