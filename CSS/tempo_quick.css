@@ -83,11 +83,16 @@
 }
 
 /* ----- Dots padronizados ----- */
+/* ----- Dots sempre centralizados ----- */
 .dots {
+    position: relative;       /* mantém no fluxo normal */
     display: flex;
-    justify-content: center;
+    justify-content: center;  /* centraliza horizontalmente */
+    align-items: center;
     gap: 14px;
-    width: 100%;
+    width: 100vw;             /* ocupa toda a largura da tela */
+    left: 50%;
+    transform: translateX(-50%); /* garante alinhamento perfeito ao centro */
     margin: 20px 0 40px;
     box-sizing: border-box;
 }
