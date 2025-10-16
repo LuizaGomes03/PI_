@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Agendamento de Massagem</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../CSS/selecionar_data.css" />
+
+</head>
+
+<body>
+
+    <header id="menu" role="navigation" aria-label="Menu principal"></header>
+
+    <main>
+        <h1>Selecione a data</h1>
+
+        <div class="calendar-container">
+            <div class="calendar-header">
+                <button id="prevMonthBtn" aria-label="Mês anterior">&lt;</button>
+                <span class="month-label" id="monthLabel"></span>
+                <button id="nextMonthBtn" aria-label="Próximo mês">&gt;</button>
+            </div>
+            <div class="calendar-grid" id="calendarGrid">
+                <!-- Dias do calendário serão renderizados aqui -->
+            </div>
+        </div>
+
+        <div class="horarios-container" id="horariosContainer" style="display:none;">
+            <label for="horariosList"><strong>Escolha o horário:</strong></label>
+            <div class="horarios-list" id="horariosList">
+                <!-- Botões de horários -->
+            </div>
+        </div>
+
+        <div class="profissionais-container" id="profissionaisContainer" style="display:none;">
+            <label for="profissionaisList"><strong>Escolha o profissional:</strong></label>
+            <div class="profissionais-list" id="profissionaisList">
+                <!-- Botões de profissionais -->
+            </div>
+        </div>
+
+        <button class="confirm-btn" id="confirmarBtn" style="display:none;">Confirmar Agendamento</button>
+    </main>
+
+    <footer id="rodape" role="contentinfo" aria-label="Rodapé do site"></footer>
+
+    <!-- VLibras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper></div>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+
+    <!-- Scripts -->
+    <script src="../JS/selecionar_data.js"></script>
+    <script>
+        new window.VLibras.Widget("https://vlibras.gov.br/app");
+
+        // Carrega Menu e Rodapé
+        fetch("menu.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("menu").innerHTML = data;
+            });
+
+        fetch("rodape.html")
+            .then((response) => response.text())
+            .then((data) => {
+                document.getElementById("rodape").innerHTML = data;
+            });
+    </script>
+
+</body>
+
+</html>

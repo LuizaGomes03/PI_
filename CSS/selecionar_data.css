@@ -1,0 +1,197 @@
+main {
+    font-family: Arial, sans-serif;
+    padding: 40px;
+    background-color: #f9f9f9;
+}
+
+h1 {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    color: #4f5b30;
+}
+
+.calendar-container {
+    max-width: 480px;
+    margin: 0 auto 32px auto;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 24px 18px 18px 18px;
+}
+
+.calendar-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 12px;
+}
+
+.calendar-header button {
+    background: #28a745;
+    color: #fff;
+    border: none;
+    border-radius: 8px;
+    font-size: 22px;
+    width: 38px;
+    height: 38px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.calendar-header button:hover {
+    background: #218838;
+}
+
+.calendar-header .month-label {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: #444;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+}
+
+.calendar-grid .dow {
+    text-align: center;
+    font-size: 1rem;
+    color: #888;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+.calendar-grid .day {
+    text-align: center;
+    padding: 14px 0;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    background: #f2f2f2;
+    color: #444;
+    border: 2px solid transparent;
+    transition: background 0.15s, border 0.15s;
+    min-height: 44px;
+    position: relative;
+}
+
+.calendar-grid .day.unavailable {
+    background: #eee;
+    color: #bbb;
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.calendar-grid .day.selected {
+    background: #28a745;
+    color: #fff;
+    border: 2px solid #218838;
+}
+
+.calendar-grid .day.today:not(.unavailable) {
+    border: 2px solid #28a745;
+}
+
+.horarios-container {
+    margin: 24px auto 0 auto;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 18px 18px 18px 18px;
+}
+
+.horarios-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.horario-btn {
+    padding: 10px 18px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #28a745;
+    background: #fff;
+    color: #28a745;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.horario-btn.selected,
+.horario-btn:hover {
+    background: #28a745;
+    color: #fff;
+}
+
+.horario-btn:disabled {
+    background: #eee;
+    color: #bbb;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.confirm-btn {
+    display: block;
+    width: 100%;
+    margin: 24px auto 0 auto;
+    padding: 14px 0;
+    font-size: 1.2rem;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.confirm-btn:hover {
+    background-color: #218838;
+}
+
+.profissionais-container {
+    margin: 24px auto 0 auto;
+    max-width: 480px;
+    background: #fff;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 18px 18px 18px 18px;
+}
+
+.profissionais-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.profissional-btn {
+    padding: 10px 18px;
+    font-size: 1.1rem;
+    border-radius: 8px;
+    border: 1px solid #28a745;
+    background: #fff;
+    color: #28a745;
+    cursor: pointer;
+    transition: background 0.2s, color 0.2s;
+}
+
+.profissional-btn.selected,
+.profissional-btn:hover {
+    background: #28a745;
+    color: #fff;
+}
+
+@media (max-width: 600px) {
+
+    .calendar-container,
+    .horarios-container {
+        max-width: 100%;
+        padding: 10px;
+    }
+
+    .horarios-list {
+        gap: 8px;
+    }
+}
