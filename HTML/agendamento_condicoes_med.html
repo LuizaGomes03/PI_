@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Rokuzen — Condições de Saúde</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Amatic+SC:wght@700&display=swap" rel="stylesheet">
+
+  <!-- Bootstrap -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="../CSS/agendamento_condicoes_med.css" />
+</head>
+
+<body>
+  <!-- MENU -->
+  <header id="topbar" class="sticky-top bg-white shadow-sm">
+    <div id="menu"></div>
+  </header>
+
+  <main class="container py-4 page-section">
+    <section class="rk-card condicoes">
+      <h2 class="rk-title">4. Condições de Saúde Importantes</h2>
+      <p class="rk-desc">Para garantir sua segurança, marque as opções que se aplicam a você:</p>
+
+      <div class="grupo">
+        <h3>Condições Médicas</h3>
+        <div class="chips">
+          <label><input type="checkbox" value="Gravidez"><span>Gravidez</span></label>
+          <label><input type="checkbox" value="Trombose"><span>Trombose</span></label>
+          <label><input type="checkbox" value="Gripe"><span>Gripe</span></label>
+          <label><input type="checkbox" value="Câncer"><span>Câncer</span></label>
+          <label><input type="checkbox" value="Alterações de pressão arterial"><span>Alterações de pressão arterial</span></label>
+        </div>
+      </div>
+
+      <div class="grupo">
+        <h3>Alergias</h3>
+        <div class="chips">
+          <label><input type="checkbox" value="Alergia a vinil"><span>Alergia a vinil</span></label>
+          <label><input type="checkbox" value="Alergia a óleos corporais ou cremes"><span>Alergia a óleos corporais ou cremes</span></label>
+        </div>
+      </div>
+
+      <div class="grupo">
+        <h3>Histórico de Saúde</h3>
+        <div class="chips">
+          <label><input type="checkbox" value="Fraturas, hérnias, osteoporose ou osteopenia"><span>Fraturas, hérnias, osteoporose ou osteopenia</span></label>
+          <label><input type="checkbox" value="Cirurgias recentes"><span>Cirurgias recentes</span></label>
+        </div>
+      </div>
+
+      <div class="grupo">
+        <h3>Outros</h3>
+        <div class="chips">
+          <label><input type="checkbox" value="Nenhuma das opções acima"><span>Nenhuma das opções acima</span></label>
+        </div>
+      </div>
+
+      <button class="rk-btn" id="confirmarBtn">CONFIRMAR AGENDAMENTO</button>
+    </section>
+  </main>
+
+  <!-- RODAPÉ -->
+  <footer id="footerbar" class="mt-5 border-top">
+    <div id="rodape"></div>
+  </footer>
+
+  <!-- JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../JS/agendamento_condicoes_med.js"></script>
+  <script>
+    // inclui menu e rodapé
+    fetch("menu.html").then(r => r.text()).then(html => { document.getElementById("menu").innerHTML = html; });
+    fetch("rodape.html").then(r => r.text()).then(html => { document.getElementById("rodape").innerHTML = html; });
+  </script>
+</body>
+
+</html>
