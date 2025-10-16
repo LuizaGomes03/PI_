@@ -10,7 +10,7 @@
 }
 
 * {
-  box-sizing: border-box;
+  box-sizing: border-box
 }
 
 html,
@@ -23,14 +23,14 @@ body {
 
 body {
   font-family: Inter, system-ui, Arial, sans-serif;
-  line-height: 1.35;
+  line-height: 1.35
 }
 
 ul,
 li {
   margin: 0;
   padding: 0;
-  list-style: none;
+  list-style: none
 }
 
 /* ===================================================
@@ -55,6 +55,7 @@ li {
   align-items: center;
   text-decoration: none;
   color: inherit;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .feature img {
@@ -64,11 +65,11 @@ li {
   border-radius: 50%;
   border: 6px solid var(--green);
   background: #fff;
-  transition: box-shadow 0.2s;
+  transition: box-shadow .2s ease;
 }
 
 .feature:hover img {
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, .12)
 }
 
 .feature b,
@@ -76,7 +77,7 @@ li {
   font-weight: normal;
   color: var(--ink);
   font-family: 'Amatic SC', cursive;
-  font-size: 30px; /* ou o tamanho que preferir */
+  font-size: 30px;
 }
 
 .feature small {
@@ -88,7 +89,7 @@ li {
 }
 
 .posts-section {
-  max-width: 1200px;
+  max-width: var(--maxw);
   margin: 60px auto;
   padding: 0 16px;
   text-align: center;
@@ -97,8 +98,8 @@ li {
 .posts-section h2 {
   font-family: 'Amatic SC', cursive;
   font-size: 48px;
-  color: #757870; /* cinza claro */
-  font-weight: 700; /* negrito */
+  color: #757870;
+  font-weight: 700;
   margin-bottom: 20px;
 }
 
@@ -112,38 +113,47 @@ li {
 /* ===== LINHA DE POSTS ===== */
 .posts-row {
   display: flex;
+  gap: 2rem;
   overflow-x: auto;
   scroll-behavior: smooth;
-  gap: 2rem;
-  scrollbar-width: none; /* Firefox */
+  scroll-snap-type: x mandatory;
+  /* snapzinho delícia */
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  /* Firefox */
 }
 
 .posts-row::-webkit-scrollbar {
-  display: none; /* Chrome */
+  display: none
 }
+
+/* Chrome */
 
 /* ===== POSTS ===== */
 .post {
   width: 280px;
   flex-shrink: 0;
-  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  transition: transform .25s ease, box-shadow .25s ease;
+  scroll-snap-align: start;
 }
 
 .post:hover {
   transform: scale(1.03);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, .15)
 }
 
 .post img {
   width: 100%;
   border-radius: 12px;
   display: block;
+  aspect-ratio: 16/10;
+  object-fit: cover
 }
 
 /* ===== TEXTO ===== */
 .post a {
-  text-decoration: none !important; /* Remove sublinhado */
-  color: inherit !important; /* Mantém a cor padrão */
+  text-decoration: none !important;
+  color: inherit !important
 }
 
 .post-title {
@@ -151,52 +161,153 @@ li {
   color: var(--green-600);
   font-size: 30px;
   text-align: center;
-  margin-top: 0.6rem;
-
+  margin-top: .6rem;
 }
 
 /* ===== BOTÕES ===== */
 .posts-btn {
-  border: none;
+  border: 0;
   background: var(--green-600);
-  color: white;
-  font-size: 1.5rem;
+  color: #fff;
+  width: 44px;
+  height: 44px;
+  display: grid;
+  place-items: center;
+  font-size: 1.1rem;
   cursor: pointer;
   position: absolute;
-  top: 50%; /* Centraliza verticalmente */
+  top: 50%;
   transform: translateY(-50%);
-  padding: 0.6rem 0.8rem;
-  border-radius: 50%;
-  transition: background 0.3s ease;
+  border-radius: 999px;
+  transition: background .2s ease, transform .2s ease, box-shadow .2s ease;
   z-index: 5;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, .12);
 }
 
 .posts-btn:hover {
   background: var(--green);
+  transform: translateY(-50%) scale(1.05)
 }
 
 #postsPrev {
-  left: 0.5rem;
+  left: .75rem
 }
 
 #postsNext {
-  right: 0.5rem;
+  right: .75rem
 }
 
-/* Responsivo extra da home */
-@media (max-width: 1024px) {
+/* ===== Botão genérico com movimento ===== */
+.button-hover {
+  display: inline-block;
+  padding: 1rem 2rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #fff;
+  background: var(--green-600);
+  border: 0;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: transform .3s ease, box-shadow .3s ease, background .3s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1);
+}
+
+.button-hover:hover {
+  transform: translateY(-5px) scale(1.05);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, .2);
+  background: var(--green);
+}
+
+.button-hover:active {
+  transform: none;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, .1)
+}
+
+/* ===== Botão de agendar (efeito ripple suave) ===== */
+.btn-agendar {
+  position: relative;
+  overflow: hidden;
+  background: #9DB668;
+  color: #fff;
+  border: 0;
+  padding: 12px 24px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+
+.btn-agendar::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, .4);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  transition: width .4s ease, height .4s ease;
+}
+
+.btn-agendar:active::after {
+  width: 200%;
+  height: 200%;
+  transition: 0s
+}
+
+/* === Prefere reduzir movimento (a11y) === */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    animation: none !important;
+    transition: none !important
+  }
+}
+
+/* ===== Responsivo ===== */
+@media (max-width:1024px) {
   .features {
-    gap: 42px;
+    gap: 42px
   }
 
-  .posts-track {
-    max-width: 100%;
+  .posts-container {
+    padding: 1.5rem 2rem
+  }
+
+  /* trocado .posts-track -> .posts-row */
+  .posts-row {
+    max-width: 100%
   }
 }
 
-@media (max-width: 768px) {
+@media (max-width:768px) {
   .feature {
-    width: 160px;
+    max-width: 160px
+  }
+
+  .feature img {
+    width: 140px;
+    height: 140px;
+    border-width: 5px
+  }
+
+  .posts-container {
+    padding: 1rem
+  }
+
+  #postsPrev {
+    left: .25rem
+  }
+
+  #postsNext {
+    right: .25rem
+  }
+
+  .post {
+    width: 240px
+  }
+
+  .post-title {
+    font-size: 26px
   }
 }
 
@@ -206,11 +317,12 @@ button:focus-visible,
 input:focus-visible {
   outline: 2px solid var(--green);
   outline-offset: 2px;
+  border-radius: 8px;
 }
 
-/* Ajustar font-size do carrossel */
-@media (max-width: 768px) {
+/* Ajuste de font-size do carrossel (sem confundir layout) */
+@media (max-width:768px) {
   .posts-row {
-    font-size: 24px; /* menor para mobile */
+    font-size: 24px
   }
 }

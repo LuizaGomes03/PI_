@@ -193,4 +193,43 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   injectVLibras();
+
+  // =========================
+  // LGPT Integration
+  // =========================
+  const initLGPT = () => {
+    const lgptScript = document.createElement('script');
+    lgptScript.src = 'https://cdn.lgpt.ai/sdk.js';
+    lgptScript.async = true;
+    lgptScript.onload = () => {
+      console.log('LGPT SDK loaded successfully');
+      // Initialize LGPT with your configuration
+      LGPT.init({
+        apiKey: 'your-api-key-here',
+        language: 'pt-BR',
+        theme: 'light',
+      });
+    };
+    lgptScript.onerror = () => {
+      console.error('Failed to load LGPT SDK');
+    };
+    document.head.appendChild(lgptScript);
+  };
+
+  // Call LGPT initialization
+  initLGPT();
+
+  // inclui menu e rodapé (ajuste os caminhos se menu.html/rodape.html estiverem em outra pasta)
+  fetch("menu.html").then(r => r.text()).then(html => { document.getElementById("menu").innerHTML = html; });
+  fetch("rodape.html").then(r => r.text()).then(html => { document.getElementById("rodape").innerHTML = html; });
+
+  // validação Bootstrap vibe
+  const form = document.getElementById('formDados');
+  form.addEventListener('submit', (e) => {
+      if (!form.checkValidity()) {
+          e.preventDefault();
+          e.stopPropagation();
+      }
+      form.classList.add('was-validated');
+  }, false);
 });
