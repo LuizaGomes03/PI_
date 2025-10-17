@@ -630,3 +630,40 @@ document.addEventListener('DOMContentLoaded', () => {
   // init
   renderPosts();
 });
+
+// ====== CHIPS DE CONDIÇÃO MÉDICA ======
+const conditionChips = document.querySelectorAll('.hchip');
+const clearBtn = document.getElementById('clearConditions');
+
+conditionChips.forEach(chip => {
+  chip.addEventListener('click', () => {
+    const input = chip.querySelector('input');
+    input.checked = !input.checked;
+    chip.classList.toggle('checked', input.checked);
+
+    // 🔹 comportamento especial: "Nenhuma das opções" desmarca todas as outras
+    if (input.value === 'Nenhuma' && input.checked) {
+      conditionChips.forEach(c => {
+        if (c !== chip) {
+          c.classList.remove('checked');
+          c.querySelector('input').checked = false;
+        }
+      });
+    } else if (input.value !== 'Nenhuma' && input.checked) {
+      const noneChip = Array.from(conditionChips)
+        .find(c => c.querySelector('input').value === 'Nenhuma');
+      if (noneChip) {
+        noneChip.classList.remove('checked');
+        noneChip.querySelector('input').checked = false;
+      }
+    }
+  });
+});
+
+// 🔹 botão limpar
+clearBtn.addEventListener('click', () => {
+  conditionChips.forEach(chip => {
+    chip.classList.remove('checked');
+    chip.querySelector('input').checked = false;
+  });
+});

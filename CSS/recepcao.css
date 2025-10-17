@@ -1,30 +1,22 @@
-/* =========================
-   Variáveis (completas)
-========================= */
 :root {
-  /* chips saúde */
+
   --chip-bg: #fff;
   --chip-bd: #d7d7d7;
   --chip-tx: #2b2b2b;
   --chip-bg-checked: #3b7c3b;
-  /* verde acessível */
+
   --chip-tx-checked: #fff;
   --chip-focus: #1f4e1f;
 
-  /* paleta base do app */
   --green: #9DB668;
   --green-600: #7e9845;
   --line: rgba(255, 255, 255, .35);
 
-  /* vidro */
   --glass: rgba(255, 255, 255, .10);
   --glass-b: rgba(255, 255, 255, .18);
   --shadow: 0 10px 30px rgba(0, 0, 0, .25);
 }
 
-/* =========================
-   Reset básico
-========================= */
 * {
   box-sizing: border-box
 }
@@ -35,9 +27,6 @@ body {
   height: 100%
 }
 
-/* =========================
-   Base da página / fundo
-========================= */
 body {
   font-family: 'Inter', system-ui, Arial, sans-serif;
   color: #fff;
@@ -63,9 +52,6 @@ body::before {
   z-index: -1;
 }
 
-/* =========================
-   Sidebar
-========================= */
 .sidebar {
   position: fixed;
   top: 0;
@@ -234,9 +220,6 @@ body::before {
   margin-left: 280px;
 }
 
-/* =========================
-   Containers / cards
-========================= */
 .shell {
   border: 1px solid var(--glass-b);
   background: var(--glass);
@@ -265,9 +248,6 @@ body::before {
   color: #e7f0db;
 }
 
-/* =========================
-   Serviços / cartões
-========================= */
 .services {
   display: grid;
   grid-template-columns: repeat(2, minmax(240px, 1fr));
@@ -323,9 +303,6 @@ body::before {
   margin-top: 10px;
 }
 
-/* =========================
-   Botões / inputs
-========================= */
 .btn {
   border: 0;
   border-radius: 12px;
@@ -422,9 +399,6 @@ footer {
   margin-top: 24px;
 }
 
-/* =========================
-   Calendário
-========================= */
 .calendar-card.big {
   margin-top: 22px;
   border: 1px solid var(--glass-b);
@@ -481,7 +455,6 @@ footer {
   align-items: center;
 }
 
-/* chips usados na legenda / outros (genéricos) */
 .chip {
   display: inline-flex;
   align-items: center;
@@ -778,10 +751,22 @@ footer {
 }
 
 #bkConditionWrapper .hchip input {
+  all: unset;
   position: absolute;
-  inset: 0;
+  width: 1px;
+  height: 1px;
+  margin: 0;
+  padding: 0;
+  border: 0;
   opacity: 0;
-  cursor: pointer;
+  pointer-events: none;
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  clip-path: inset(50%);
+  clip: rect(0 0 0 0);
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 #bkConditionWrapper .hchip span {
@@ -896,24 +881,8 @@ footer {
   gap: 8px;
 }
 
-/* bolinha de check */
 #bkConditionWrapper .hchip i {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--chip-bd);
-  border-radius: 6px;
-  display: inline-block;
-  line-height: 16px;
-  text-align: center;
-  font-style: normal;
-  font-size: 14px;
-  color: transparent;
-  transition: all 0.2s ease;
-}
-
-/* estado marcado */
-#bkConditionWrapper .hchip input:checked+span {
-  color: var(--chip-tx-checked);
+  display: none;
 }
 
 #bkConditionWrapper .hchip input:checked+span i {
@@ -984,15 +953,16 @@ footer {
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  border: 2px solid var(--chip-bd);
-  background: var(--chip-bg);
-  color: var(--chip-tx);
+  border: 1px solid var(--glass-b);
+  background: var(--glass);
+  color: #fff;
   border-radius: 50px;
   padding: 10px 16px;
   cursor: pointer;
   user-select: none;
   transition: all .2s ease;
   font-weight: 600;
+  backdrop-filter: blur(8px);
 }
 
 #bkConditionWrapper .hchip span {
@@ -1002,17 +972,7 @@ footer {
 }
 
 #bkConditionWrapper .hchip i {
-  width: 18px;
-  height: 18px;
-  border: 2px solid var(--chip-bd);
-  border-radius: 6px;
-  display: inline-block;
-  line-height: 16px;
-  text-align: center;
-  font-style: normal;
-  font-size: 14px;
-  color: transparent;
-  transition: all .2s ease;
+  display: none;
 }
 
 /* estado marcado */
@@ -1021,9 +981,7 @@ footer {
 }
 
 #bkConditionWrapper .hchip input:checked+span i {
-  border-color: transparent;
-  background: var(--chip-bg-checked);
-  color: var(--chip-tx-checked);
+  display: none;
 }
 
 /* hover/foco */
@@ -1240,4 +1198,53 @@ footer {
   .actions .btn {
     width: 100%;
   }
+}
+
+.cond-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hchip {
+  display: inline-flex;
+  align-items: center;
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.15);
+  color: var(--green);
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  user-select: none;
+}
+
+.hchip input[type="checkbox"] {
+  display: none;
+}
+
+#bkConditionWrapper .hchip.checked,
+#bkConditionWrapper .hchip input:checked+span {
+  background: linear-gradient(135deg, var(--green), var(--green-600));
+  border-color: var(--green);
+  color: #fff;
+  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+}
+
+/* Corrige o retângulo claro no texto do chip */
+#bkConditionWrapper .hchip span {
+  background: transparent !important;
+}
+
+/* Também remove possíveis sombras internas */
+#bkConditionWrapper .hchip span,
+#bkConditionWrapper .hchip.checked span {
+  box-shadow: none !important;
+}
+
+/* Garante que o texto nunca tenha fundo aplicado por herança */
+#bkConditionWrapper .hchip span::selection {
+  background: transparent;
+  color: inherit;
 }
