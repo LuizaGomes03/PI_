@@ -17,6 +17,14 @@
             <a href="homepage.html">
                 <img src="../imagens/logo.png" alt="Logo ROKUZEN" class="logo">
             </a>
+
+            <!-- Botão hambúrguer -->
+            <button class="hamburger" aria-label="Abrir menu">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+
             <!-- Menu -->
             <ul>
                 <li><a href="agendamento1.html">Agende seu horário</a></li>
@@ -52,5 +60,18 @@
                 </svg> </div>
         </nav>
     </header>
+
+    <script>
+        const hamburger = document.querySelector('.hamburger');
+        const menu = document.querySelector('nav ul');
+
+        hamburger.addEventListener('click', () => {
+            menu.classList.toggle('active');
+            // opcional: animar o hambúrguer
+            hamburger.classList.toggle('open');
+        });
+    </script>
+
+</body>
 
 </html>

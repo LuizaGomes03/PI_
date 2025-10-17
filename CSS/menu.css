@@ -10,9 +10,11 @@
 nav {
     display: flex;
     align-items: center;
-    justify-content: space-between; /* logo à esquerda, menu centralizado, busca à direita */
+    justify-content: space-between;
+    /* logo à esquerda, menu centralizado, busca à direita */
     background-color: #ffffff;
-    padding: 26px 30px 20px; /* padding-top aumentado para a faixa */
+    padding: 26px 30px 20px;
+    /* padding-top aumentado para a faixa */
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
     position: sticky;
     top: 0;
@@ -27,7 +29,8 @@ nav::before {
     top: 0;
     left: 0;
     right: 0;
-    height: 3px; /* altura da faixa verde */
+    height: 3px;
+    /* altura da faixa verde */
     background-color: #9DB668;
     z-index: 10000;
 }
@@ -37,9 +40,12 @@ nav::after {
     position: absolute;
     left: 0;
     right: 0;
-    top: 100%; /* posiciona a faixa logo abaixo do nav */
-    height: 3px; /* altura da faixa cinza */
-    background-color: #D9D9D9; /* cor cinza */
+    top: 100%;
+    /* posiciona a faixa logo abaixo do nav */
+    height: 3px;
+    /* altura da faixa cinza */
+    background-color: #D9D9D9;
+    /* cor cinza */
     z-index: 10000;
 }
 
@@ -49,7 +55,8 @@ nav .logo {
     height: 45px;
     transition: transform 0.3s;
     position: relative;
-    z-index: 10001; /* acima da faixa */
+    z-index: 10001;
+    /* acima da faixa */
 }
 
 nav .logo:hover {
@@ -63,8 +70,10 @@ nav ul {
     list-style: none;
     display: flex;
     gap: 25px;
-    flex: 1; /* ocupa espaço disponível */
-    justify-content: center; /* centraliza os links */
+    flex: 1;
+    /* ocupa espaço disponível */
+    justify-content: center;
+    /* centraliza os links */
 }
 
 /* Itens do menu */
@@ -163,55 +172,73 @@ nav ul li ul.dropdown li a:hover {
     transition: opacity 0.3s ease;
 }
 
-.search-container input:focus + .search-icon {
+.search-container input:focus+.search-icon {
     opacity: 0.8;
 }
 
-/* Responsividade simples */
-@media (max-width: 768px) {
+/* Botão hambúrguer */
+.hamburger {
+    display: none;
+    /* inicialmente escondido em desktop */
+    flex-direction: column;
+    justify-content: space-between;
+    width: 25px;
+    height: 20px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    z-index: 10005;
+    /* acima de tudo */
+}
 
-    nav {
+.hamburger span {
+    display: block;
+    height: 3px;
+    width: 100%;
+    background-color: #6E6E6E;
+    border-radius: 3px;
+    transition: 0.3s;
+}
+
+/* Mobile (tela até 768px) */
+@media (max-width: 768px) {
+    nav ul {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background-color: #ffffff;
         flex-direction: column;
-        align-items: flex-start;
-        padding-top: 26px; /* manter espaço da faixa */
+        align-items: center;
+        gap: 0;
+        overflow: hidden;
+        max-height: 0;
+        /* escondido inicialmente */
+        transition: max-height 0.3s ease;
     }
 
-    nav ul {
-        flex-direction: column;
+    nav ul li {
         width: 100%;
-        gap: 0;
-        justify-content: flex-start;
+        text-align: center;
     }
 
     nav ul li a {
-        width: 100%;
+        padding: 15px;
     }
 
-    nav ul li ul.dropdown {
-        position: relative;
-        top: 0;
-        box-shadow: none;
-        transform: translateY(0);
-        opacity: 1;
+    .hamburger {
+        display: flex;
+        /* mostra o hambúrguer */
+    }
+
+    /* Esconde a barra de busca se quiser */
+    .search-container {
         display: none;
     }
-
-    nav ul li:hover ul.dropdown {
-        display: block;
-    }
-
-    .search-container {
-        width: 100%;
-        margin-top: 10px;
-        justify-content: flex-start;
-    }
-
-    .search-container input {
-        width: 100%;
-    }
 }
-.no-click {
-    pointer-events: none;
-    cursor: default;
-    text-decoration: none;
+
+/* Quando o menu estiver aberto */
+nav ul.active {
+    max-height: 1000px;
+    /* altura suficiente para mostrar todos os links */
 }
