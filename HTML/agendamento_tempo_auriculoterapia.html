@@ -9,6 +9,28 @@
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/tempo_auriculoterapia.css">
 
+    <style>
+        .rk-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: #7D9950;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .rk-btn:hover {
+            background-color: #6f8747;
+            transform: translateY(-1px);
+        }
+    </style>
 </head>
 
 <body>
@@ -26,6 +48,8 @@
                 <div class="price">R$ 69,00</div>
             </div>
         </div>
+
+        <button class="rk-btn" id="confirmarBtn">CONFIRMAR</button>
 
         <!-- dots -->
         <div class="dots">
@@ -78,6 +102,16 @@
                         card.classList.add('selected');
                     }
                 });
+            });
+
+            confirmarBtn.addEventListener('click', () => {
+                const selecionado = document.querySelector('.massage-card.selected');
+                if (selecionado) {
+                    // redirecionar apenas se houver seleção
+                    window.location.href = "agendamento_condicoes_med.html";
+                } else {
+                    alert("Por favor, selecione um tempo de Auriculoterapia antes de confirmar.");
+                }
             });
         })();
     </script>

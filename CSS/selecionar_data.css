@@ -26,7 +26,7 @@ h1 {
 }
 
 .calendar-header button {
-    background: #8DBA38;
+    background: #7D9950;
     color: #fff;
     border: none;
     border-radius: 8px;
@@ -83,13 +83,13 @@ h1 {
 }
 
 .calendar-grid .day.selected {
-    background: #8DBA38;
+    background: #7D9950;
     color: #fff;
-    border: 2px solid #648527;
+    border: 2px solid #7D9950;
 }
 
 .calendar-grid .day.today:not(.unavailable) {
-    border: 2px solid #648527;
+    border: 2px solid #7D9950;
 }
 
 .horarios-container {
@@ -112,18 +112,18 @@ h1 {
     padding: 10px 18px;
     font-size: 1.1rem;
     border-radius: 8px;
-    border: 1px solid #8DBA38;
+    border: 1px solid #7D9950;
     background: #fff;
-    color: #8DBA38;
+    color: #7D9950;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
 .horario-btn.selected,
 .horario-btn:hover {
-    background: #8DBA38;
+    background: #7D9950;
     color: #fff;
-    border: 1px solid #648527;
+    border: 1px solid #7D9950;
 }
 
 .horario-btn:disabled {
@@ -139,7 +139,7 @@ h1 {
     margin: 24px auto 0 auto;
     padding: 14px 0;
     font-size: 1.2rem;
-    background-color: #8DBA38;
+    background-color: #7D9950;
     color: white;
     border: none;
     border-radius: 10px;
@@ -148,7 +148,7 @@ h1 {
 }
 
 .confirm-btn:hover {
-    background-color: #648527;
+    background-color: #7D9950;
 }
 
 .profissionais-container {
@@ -171,18 +171,18 @@ h1 {
     padding: 10px 18px;
     font-size: 1.1rem;
     border-radius: 8px;
-    border: 1px solid #8DBA38;
+    border: 1px solid #7D9950;
     background: #fff;
-    color: #8DBA38;
+    color: #7D9950;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;
 }
 
 .profissional-btn.selected,
 .profissional-btn:hover {
-    background: #8DBA38;
+    background: #7D9950;
     color: #fff;
-    border: 1px solid #648527;
+    border: 1px solid #7D9950;
 }
 
 @media (max-width: 600px) {

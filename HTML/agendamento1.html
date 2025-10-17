@@ -9,12 +9,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../CSS/agendamento.css">
     <title>Agendamento | ROKUZEN</title>
+    <style>
+        /* botão */
+        .rk-btn {
+            display: inline-block;
+            width: 100%;
+            background-color: #7D9950;
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            padding: 14px;
+            cursor: pointer;
+            margin-top: 25px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .rk-btn:hover {
+            background-color: #6f8747;
+            transform: translateY(-1px);
+        }
+
+        /* destaque da unidade selecionada */
+        .card.selected {
+            outline: 3px solid #7D9950;
+            transform: scale(1.03);
+            transition: all 0.2s ease;
+        }
+    </style>
 </head>
 
 <body>
     <header id="menu"></header>
 
-    <!-- ====== CONTEÚDO AGENDAMENTO ====== -->
     <main class="wrap">
         <h2 class="page-title">AGENDE SUA SESSÃO AGORA MESMO!</h2>
         <ol class="steps">
@@ -76,7 +105,8 @@
             </article>
         </section>
 
-        <!-- ====== Formulário ====== -->
+        <button class="rk-btn" id="confirmarBtn">CONFIRMAR</button>
+
         <div class="dots">
             <div class="dot active"></div>
             <div class="dot"></div>
@@ -104,9 +134,35 @@
         </script>
     </footer>
 
-    <!-- JS externo -->
-    <script src="../agendamento.js"></script>
-    
+    <!-- ===== JS: seleção + redirecionamento ===== -->
+    <script>
+        (function () {
+            const cards = document.querySelectorAll('.card');
+            const confirmarBtn = document.getElementById('confirmarBtn');
+
+            function clearSelected() {
+                cards.forEach(c => c.classList.remove('selected'));
+            }
+
+            cards.forEach(card => {
+                card.addEventListener('click', () => {
+                    clearSelected();
+                    card.classList.add('selected');
+                });
+            });
+
+            confirmarBtn.addEventListener('click', () => {
+                const selecionado = document.querySelector('.card.selected');
+                if (selecionado) {
+                    // redireciona apenas se houver seleção
+                    window.location.href = "agendamento_opção2.html";
+                } else {
+                    alert("Por favor, selecione uma unidade antes de confirmar.");
+                }
+            });
+        })();
+    </script>
+
 </body>
 
 </html>

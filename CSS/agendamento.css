@@ -25,7 +25,7 @@ body {
     padding: 0 16px;
 }
 
-.page-title{
+.page-title {
     text-align: left;
     margin-bottom: 40px;
     font-family: "Amatic SC", cursive;
@@ -120,6 +120,7 @@ h1 {
     font-size: 22px;
     letter-spacing: .3px;
 }
+
 .dots {
     display: flex;
     justify-content: center;
@@ -140,4 +141,23 @@ h1 {
     background: #bfd48b;
 }
 
+.rk-btn {
+    display: inline-block;
+    width: 100%;
+    background-color: #7D9950;
+    color: white;
+    font-size: 14px;
+    font-weight: 600;
+    border: none;
+    border-radius: 8px;
+    padding: 14px;
+    cursor: pointer;
+    margin-top: 25px;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
 
+.rk-btn:hover {
+    background-color: #6f8747;
+    transform: translateY(-1px);
+}
