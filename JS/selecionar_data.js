@@ -6,7 +6,6 @@ function gerarDiasDisponiveis() {
     const dia = new Date();
     dia.setDate(hoje.getDate() + i);
     const diaSemana = dia.getDay();
-    if (diaSemana === 0 || diaSemana === 6) continue; // pula finais de semana
     const dataStr = dia.toISOString().split("T")[0];
     horariosDisponiveis[dataStr] = ['09:00', '10:00', '11:00', '14:00', '15:00', '16:00'];
   }
@@ -171,9 +170,6 @@ window.onload = () => {
     localStorage.setItem("dataSelecionada", selectedDate);
     localStorage.setItem("horarioSelecionado", selectedHorario);
     localStorage.setItem("profissionalSelecionado", selectedProfissional);
-
-    alert(`Agendamento confirmado para ${selectedDate} às ${selectedHorario} com ${selectedProfissional}.`);
-
 
     window.location.href = "agendamentodados.html";
   };
