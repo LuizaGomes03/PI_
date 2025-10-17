@@ -9,11 +9,7 @@ body {
     padding: 0;
 }
 
-/* Header */
-#topbar {
-    background-color: #fff;
-    border-bottom: 1px solid #ddd;
-}
+
 
 /* Main Content */
 .container {
@@ -22,15 +18,6 @@ body {
     padding: 20px;
 }
 
-h1 {
-    font-family: 'Amatic SC', cursive;
-    font-size: 2.5rem;
-    color: #5a5a5a;
-}
-
-p {
-    color: #666;
-}
 
 /* Form Styles */
 .card {
@@ -39,52 +26,9 @@ p {
     border-radius: 8px;
 }
 
-.form-label {
-    font-weight: 600;
-    color: #333;
-}
-
-.form-control {
-    border: 1px solid #ddd;
-    border-radius: 4px;
-    padding: 10px;
-}
-
-.btn-success {
-    background-color: #28a745;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1rem;
-    color: #fff;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-success:hover {
-    background-color: #218838;
-}
-
-/* Pagination */
-.dots {
-    margin-top: 20px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    background-color: #ddd;
-    border-radius: 50%;
-    margin: 0 5px;
-    display: inline-block;
-}
-
-.dot.active {
-    background-color: #28a745;
-}
-
 /* Card clean */
 .rk-card{
-  background:#fff; border:1px solid #e7ebdf; border-radius:16px;
+  background:#7d99500e; border:1px solid #e7ebdf; border-radius:16px;
   padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.04);
 }
 .rk-title{ font-family:"Amatic SC", cursive; font-size:28px; margin-bottom:16px; }
@@ -101,7 +45,7 @@ p {
 }
 .rk-field input{
   width:100%; height:44px; padding:10px 14px;
-  background:#eef4e8; border:1.5px solid #c9d6b1; border-radius:14px;
+  background: #9db6684d; border:1.5px; border-radius:14px;
   outline:none; transition:.2s border-color, .2s box-shadow;
   font-size:14px;
 }
@@ -121,7 +65,7 @@ p {
 /* Botão CTA */
 .rk-btn{
   width:100%; margin-top:16px; height:46px; border-radius:12px; border:none;
-  background:#7D9950; color:#fff; font-weight:700; letter-spacing:.5px;
+  background:#9db668; color:#fff; font-weight:700; letter-spacing:.5px;
   box-shadow:0 6px 18px rgba(90,160,79,.25); cursor:pointer; transition:.2s transform,.2s opacity;
 }
 .rk-btn:hover{ transform:translateY(-1px); opacity:.95; }
