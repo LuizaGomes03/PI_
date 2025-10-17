@@ -14,43 +14,7 @@
   <!-- CSS externo -->
   <link rel="stylesheet" href="../CSS/agendamento_opção2.css">
 
-  <style>
-    /* Botão confirmar */
-    .rk-btn {
-      display: inline-block;
-      width: 100%;
-      background-color: #7D9950;
-      color: white;
-      font-size: 14px;
-      font-weight: 600;
-      border: none;
-      border-radius: 8px;
-      padding: 14px;
-      cursor: pointer;
-      margin-top: 25px;
-      transition: all 0.3s ease;
-      text-transform: uppercase;
-    }
 
-    .rk-btn:hover {
-      background-color: #6f8747;
-      transform: translateY(-1px);
-    }
-
-    /* Destaque de seleção sem mexer na imagem */
-    .servico.selected {
-      outline: 3px solid #7D9950;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-
-    .servico {
-      cursor: pointer;
-      padding: 6px;
-      border-radius: 8px;
-      transition: all 0.2s ease;
-    }
-  </style>
 </head>
 
 <body>
@@ -99,19 +63,6 @@
     <div class="dot"></div>
   </div>
 
-  <footer>
-    <div id="rodape"></div>
-    <script>
-      fetch("menu.html")
-        .then(r => r.text())
-        .then(d => document.getElementById("menu").innerHTML = d);
-
-      fetch("rodape.html")
-        .then(r => r.text())
-        .then(d => document.getElementById("rodape").innerHTML = d);
-    </script>
-  </footer>
-
   <!-- ====== JS: seleção + redirecionamento ====== -->
   <script>
     (function () {
@@ -152,7 +103,19 @@
   <script>
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
+  
+  <footer>
+    <div id="rodape"></div>
+    <script>
+      fetch("menu.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("menu").innerHTML = d);
 
+      fetch("rodape.html")
+        .then(r => r.text())
+        .then(d => document.getElementById("rodape").innerHTML = d);
+    </script>
+  </footer>
 </body>
 
 </html>

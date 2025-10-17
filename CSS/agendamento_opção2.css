@@ -1,128 +1,131 @@
-/* ====== Estilo Global ====== */
-body {
-  font-family: 'Raleway', sans-serif;
-  margin: 0;
-  padding: 0;
-  background-color: #f4f4f9;
-}
-
-/* ====== Título ====== */
+/* ===== TÍTULO — maior e com negrito real ===== */
 .titulo-agendamento {
-  text-align: center;
-  margin: 50px 0 40px;
-  animation: fadeInUp 1s ease-out;
+  max-width: 1100px;
+  margin: 40px auto 40px;
+  padding: 0 20px;
+  text-align: left;
 }
 
 .titulo-agendamento h2 {
   font-family: 'Amatic SC', cursive, Arial, sans-serif;
-  font-size: 3rem;
-  color: #000000;
-  margin-bottom: 10px;
+  font-size: 3.4rem;        /* 🔥 aumentei o tamanho */
+  font-weight: 900;         /* 💪 negrito máximo */
+  color: #111;              /* um pouco mais escuro */
+  line-height: 1.1;
+  letter-spacing: 1px;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.08); /* dá um leve destaque */
+  margin: 0 0 12px;
 }
 
+/* caso use <p> embaixo */
 .titulo-agendamento p {
-  font-size: 1.2rem;
-  color: #444;
+  font-family: 'Amatic SC', cursive;
+  font-size: 2rem;
+  color: #333;
+  margin-top: 6px;
+  font-weight: 700;
 }
 
-/* ====== Animação ====== */
-@keyframes fadeInUp {
-  from {
-    opacity: 0;
-    transform: translateY(30px);
+@media (max-width: 768px) {
+  .titulo-agendamento {
+    text-align: center;
   }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+  .titulo-agendamento h2 {
+    font-size: 2.6rem;
+  }
+  .titulo-agendamento p {
+    font-size: 1.6rem;
   }
 }
 
-/* ====== Serviços ====== */
-.servicos-section {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  flex-wrap: nowrap;
-  gap: 40px;
-  margin: 40px 0;
-  overflow-x: auto;
-  padding: 0 20px;
-  margin-bottom: 100px;
+/* ===== SERVIÇOS — todos redondos e do mesmo tamanho ===== */
+.servicos-section{
+  --circle-size: 180px;             /* 👉 mude aqui o diâmetro das fotos */
+  display:flex; flex-wrap:wrap;
+  justify-content:center; align-items:flex-start;
+  gap:36px; margin:28px 0 72px; padding:0 20px;
 }
- 
 
-.servico {
-  background: none;
+/* cada card fica com uma largura fixa (evita "planetão") */
+.servico{
+  width: calc(var(--circle-size) + 40px);  /* imagem + respiro p/ textos */
+  text-align:center; cursor:pointer;
+  transition: transform .25s ease, box-shadow .25s ease;
+}
+
+/* funciona COM ou SEM .img-container */
+.servico .img-container,
+.servico img{
+  width: var(--circle-size) !important;
+  height: var(--circle-size) !important;
+  border-radius: 50% !important;            /* círculo perfeito */
+  display:block; margin:0 auto 10px;
+  overflow:hidden;
+}
+
+/* se houver wrapper, a imagem preenche; se não houver, pega direto no <img> */
+.servico .img-container img,
+.servico img{
+  width: 100%; height: 100%;
+  object-fit: cover;                         /* corta sem distorcer */
+  transition: transform .35s ease;
+}
+
+/* hover */
+.servico:hover{ transform: translateY(-6px); }
+.servico:hover .img-container img,
+.servico:hover img{ transform: scale(1.08); }
+
+/* textos dos serviços */
+.servico h3{
+  font-family:'Amatic SC', cursive, Arial, sans-serif;
+  font-size:1.4rem; color:#333; margin:6px 0 2px;
+}
+.servico p{ color:#555; font-size:.95rem; }
+
+/* responsivo: círculos menores no mobile */
+@media (max-width:768px){
+  .servicos-section{ --circle-size: 140px; gap:22px; }
+  .servico{ width: calc(var(--circle-size) + 32px); }
+}
+
+/* ===== BOTÃO CONFIRMAR (visível e centralizado) ===== */
+.rk-btn {
+  display: block;                /* garante que ele apareça */
+  position: relative;
+  width: 100%;
+  max-width: 480px;              /* largura controlada */
+  height: 48px;
+  margin: 40px auto 0;           /* centraliza */
   border: none;
-  box-shadow: none;
-  text-align: center;
+  border-radius: 12px;
+  background-color: #9db668;
+  color: #fff;
+  font-size: 15px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  box-shadow: 0 6px 14px rgba(90, 160, 79, 0.25);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  z-index: 5;                    /* 👈 sobe pra frente de qualquer coisa */
 }
 
-.servico img {
-  width: 180px;
-  height: 180px;
-  object-fit: cover;
-  border-radius: 50%;
-  transition: transform 0.4s ease;
-  display: block;
-  margin: 0 auto;
-  overflow: hidden;
+.rk-btn:hover {
+  background-color: #7f9954;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(90, 160, 79, 0.25);
 }
 
-/* Contêiner circular que "mascara" o zoom */
-.servico .img-container {
-  width: 180px;
-  height: 180px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin: 0 auto 10px;
-  transition: transform 0.4s ease;
+.rk-btn:focus-visible {
+  outline: 3px solid #cfe0b1;
+  outline-offset: 2px;
 }
 
-/* Zoom suave no hover */
-.servico:hover .img-container img {
-  transform: scale(1.15);
+/* mobile */
+@media (max-width: 768px) {
+  .rk-btn {
+    max-width: 320px;
+    margin-top: 30px;
+  }
 }
-
-
-
-
-.servico h3 {
-  font-family: 'Amatic SC', cursive, Arial, sans-serif;
-  font-size: 1.8rem;
-  color: #555;
-  margin-bottom: 5px;
-}
-
-.servico p {
-  color: #555;
-  font-size: 0.9rem;
-}
-
-.servico:hover {
-  transform: translateY(-10px) scale(1.05);
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
-}
-
-/* ====== Formulário ====== */
-.dots {
-    display: flex;
-    justify-content: center;
-    gap: 14px;
-    width: 100%;
-    margin: 20px 0 40px;
-    box-sizing: border-box;
-}
-
-.dot {
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #bfbfbf;
-}
-
-.dot.active {
-    background: #bfd48b;
-}
-
-

@@ -19,21 +19,6 @@
   <link rel="stylesheet" href="../CSS/agendamentodados.css" />
   <style>
     /* tweaks leves pra ficar próximo do layout */
-    body {
-      font-family: "Raleway", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    }
-
-    h1,
-    h2,
-    .brand {
-      font-family: "Amatic SC", cursive;
-      letter-spacing: .5px
-    }
-
-    .page-section {
-      max-width: 1100px;
-      margin-inline: auto
-    }
   </style>
 </head>
 
@@ -43,18 +28,19 @@
     <div id="menu"></div>
   </header>
 
-  <main class="container py-4 page-section">
-    <!-- Formulário de Dados -->
-    <section class="rk-card">
-      <h2 class="rk-title">6. Dados:</h2>
+  <section class="titulo-agendamento">
+    <h2>6. Preencha seus dados</h2>
+  </section>
 
+  <main class="container py-4 page-section">
+    <div class="rk-card">
+      <!-- Formulário de Dados -->
       <form id="formDados" class="needs-validation" novalidate>
         <div class="rk-grid">
           <!-- Nome -->
           <div class="rk-field">
             <label for="nome">Nome completo</label>
-            <input id="nome" name="nome" type="text" placeholder="Digite o nome completo" required
-              autocomplete="name" />
+            <input id="nome" name="nome" type="text" placeholder="Digite o nome completo" required autocomplete="name" />
             <div class="invalid-feedback">Informe seu nome completo.</div>
           </div>
 
@@ -86,6 +72,7 @@
               Privacidade</a> e os <a href="termosservico.html" target="_blank">Termos de Serviço</a>.</p>
         </small>
       </form>
+    </div>
     </section>
 
   </main>
@@ -128,7 +115,7 @@
     new window.VLibras.Widget('https://vlibras.gov.br/app');
   </script>
 
-  
+
 </body>
 
 </html>

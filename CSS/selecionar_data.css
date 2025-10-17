@@ -4,10 +4,37 @@ main {
     background-color: #f9f9f9;
 }
 
-h1 {
+/* ===== ALINHAMENTO DO TÍTULO ===== */
+/* ===== Título principal da página (5. Selecione a data) ===== */
+main h1 {
     font-family: 'Amatic SC', cursive, Arial, sans-serif;
-    color: #4f5b30;
+    font-size: 2.8rem;
+    /* igual ao .titulo-agendamento h2 */
+    font-weight: 800;
+    /* negrito real */
+    color: #111;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    margin: 30px auto 10px;
+    /* aproxima mais dos cards */
+    text-align: left;
+    /* mantém alinhado à esquerda */
+    max-width: 1100px;
+    padding: 0 20px;
 }
+
+@media (max-width: 768px) {
+    main h1 {
+        font-size: 2.4rem;
+        /* ajusta pro mobile */
+        text-align: center;
+        margin: 20px auto;
+    }
+}
+
+
+
+
 
 .calendar-container {
     max-width: 480px;
@@ -92,6 +119,22 @@ h1 {
     border: 2px solid #7D9950;
 }
 
+/* ====== CARDS COM FUNDO VERDE TRANSPARENTE ====== */
+.calendar-container,
+.horarios-container,
+.profissionais-container {
+    max-width: 480px;
+    margin: 0 auto 32px auto;
+    background: rgba(157, 182, 104, 0.15) !important;
+    border-radius: 14px;
+    box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+    padding: 24px 18px 18px 18px;
+    backdrop-filter: blur(4px);
+    /* ✨ leve blur pra vibe sofisticada */
+    border: 1px solid rgba(157, 182, 104, 0.3);
+    /* contorno sutil */
+}
+
 .horarios-container {
     margin: 24px auto 0 auto;
     max-width: 480px;
@@ -133,23 +176,52 @@ h1 {
     cursor: not-allowed;
 }
 
+/*  BOTÃO CONFIRMAR AGENDAMENTO  */
 .confirm-btn {
     display: block;
-    width: 100%;
-    margin: 24px auto 0 auto;
+    width: 900px;
+    height: auto;
+    margin: 35px auto 0 auto;
     padding: 14px 0;
-    font-size: 1.2rem;
-    background-color: #7D9950;
-    color: white;
+    font-size: 1rem;
+    font-weight: 700;
+    letter-spacing: 0.6px;
+    text-transform: uppercase;
+    background-color: #9DB668;
+    color: #fff;
     border: none;
     border-radius: 10px;
     cursor: pointer;
-    transition: background 0.2s;
+    transition: all 0.3s ease;
+    box-shadow: 0 6px 14px rgba(90, 160, 79, 0.2);
 }
 
+
 .confirm-btn:hover {
-    background-color: #7D9950;
+    background-color: #7f9954;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(90, 160, 79, 0.25);
 }
+
+
+.confirm-btn:active {
+    transform: translateY(0);
+}
+
+
+.confirm-btn:focus-visible {
+    outline: 3px solid #cfe0b1;
+    outline-offset: 2px;
+}
+
+@media (max-width: 768px) {
+    .confirm-btn {
+        width: 90%;
+        max-width: 320px;
+        font-size: 0.95rem;
+    }
+}
+
 
 .profissionais-container {
     margin: 24px auto 0 auto;

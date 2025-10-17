@@ -1,6 +1,6 @@
-/* General Styles */
+/* ===== Base limpa ===== */
 body {
-    font-family: 'Raleway', sans-serif;
+    font-family: "Raleway", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     font-size: 16px;
     line-height: 1.5;
     color: #333;
@@ -9,69 +9,159 @@ body {
     padding: 0;
 }
 
-
-
-/* Main Content */
-.container {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 20px;
+h1, h2, .brand {
+    font-family: "Amatic SC", cursive;
+    letter-spacing: .5px;
 }
 
-
-/* Form Styles */
-.card {
-    background-color: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
+/* container principal sem brigar com o .container do Bootstrap */
+.page-section {
+    max-width: 1100px;
+    margin-inline: auto;
+    padding: 60px 20px 100px; /* mais respiro */
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* centraliza tudo */
 }
 
-/* Card clean */
-.rk-card{
-  background:#7d99500e; border:1px solid #e7ebdf; border-radius:16px;
-  padding:24px; box-shadow:0 10px 30px rgba(0,0,0,.04);
-}
-.rk-title{ font-family:"Amatic SC", cursive; font-size:28px; margin-bottom:16px; }
-
-.rk-footnote{ font-size:12px; color:#6c7c5a; margin-top:12px; }
-
-/* Grid responsivo */
-.rk-grid{ display:grid; gap:16px; grid-template-columns: 1fr 1fr; }
-@media (max-width: 768px){ .rk-grid{ grid-template-columns:1fr; } }
-
-/* Campo padrão “pílula” */
-.rk-field label{
-  display:block; font-size:14px; color:#3e4a2b; margin-bottom:6px; font-weight:600;
-}
-.rk-field input{
-  width:100%; height:44px; padding:10px 14px;
-  background: #9db6684d; border:1.5px; border-radius:14px;
-  outline:none; transition:.2s border-color, .2s box-shadow;
-  font-size:14px;
-}
-.rk-field input::placeholder{ color:#8fa07a; }
-.rk-field input:focus{
-  border-color:#9db668; box-shadow:0 0 0 3px rgba(157,182,104,.25);
+/* ===== Título agendamento ===== */
+.titulo-agendamento {
+    width: 100%;
+    max-width: 1100px;
+    margin: 20px auto 40px;
+    text-align: left;
 }
 
-/* Celular: DDD + número */
-.rk-phone-row{ display:flex; gap:10px; }
-.rk-phone-row #ddd{ max-width:90px; text-align:center; }
-
-/* Mensagens */
-.rk-hint{ display:block; margin-top:6px; color:#6c7c5a; }
-.invalid-feedback{ display:none; color:#b03a2e; font-size:12px; margin-top:6px; }
-
-/* Botão CTA */
-.rk-btn{
-  width:100%; margin-top:16px; height:46px; border-radius:12px; border:none;
-  background:#9db668; color:#fff; font-weight:700; letter-spacing:.5px;
-  box-shadow:0 6px 18px rgba(90,160,79,.25); cursor:pointer; transition:.2s transform,.2s opacity;
+.titulo-agendamento h2 {
+    font-family: 'Amatic SC', cursive, Arial, sans-serif;
+    font-size: 3.2rem;
+    font-weight: 700;
+    color: #222;
+    line-height: 1.1;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
 }
-.rk-btn:hover{ transform:translateY(-1px); opacity:.95; }
 
+@media (max-width: 768px) {
+    .titulo-agendamento {
+        text-align: center;
+    }
+    .titulo-agendamento h2 {
+        font-size: 2.6rem;
+    }
+}
 
+/* ===== Card clean ===== */
+.rk-card {
+    background: linear-gradient(180deg, rgba(157,182,104,0.18) 0%, rgba(157,182,104,0.1) 100%);
+    border: 1px solid rgba(157, 182, 104, 0.4);
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(4px);
+    width: 100%;
+    max-width: 850px;
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
 
-/* Validação só aparece depois do submit */
-.was-validated .rk-field input:invalid{ border-color:#e07d7d; }
-.was-validated .rk-field input:invalid ~ .invalid-feedback{ display:block; }
+.rk-card:hover {
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
+/* ===== Grid dos campos ===== */
+.rk-grid {
+    display: grid;
+    gap: 18px;
+    grid-template-columns: 1fr 1fr;
+}
+
+@media (max-width: 768px) {
+    .rk-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ===== Campos ===== */
+.rk-field label {
+    display: block;
+    font-size: 14px;
+    color: #3e4a2b;
+    margin-bottom: 6px;
+    font-weight: 600;
+}
+
+.rk-field input {
+    width: 100%;
+    height: 44px;
+    padding: 10px 14px;
+    background: #9db6684d;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    outline: none;
+    transition: .2s border-color, .2s box-shadow, .2s background-color;
+    font-size: 14px;
+}
+
+.rk-field input::placeholder {
+    color: #8fa07a;
+}
+
+.rk-field input:focus {
+    border-color: #9db668;
+    box-shadow: 0 0 0 3px rgba(157, 182, 104, .25);
+    background-color: #f5fbef;
+}
+
+/* DDD + número */
+.rk-phone-row {
+    display: flex;
+    gap: 10px;
+}
+
+.rk-phone-row #ddd {
+    max-width: 90px;
+    text-align: center;
+}
+
+/* ===== Botão CTA ===== */
+.rk-btn {
+    width: 100%;
+    max-width: 480px;
+    height: 48px;
+    margin: 32px auto 16px;
+    display: block;
+    border: none;
+    border-radius: 12px;
+    background: #9db668;
+    color: #fff;
+    font-weight: 700;
+    letter-spacing: .6px;
+    cursor: pointer;
+    box-shadow: 0 6px 14px rgba(90, 160, 79, 0.25);
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.rk-btn:hover {
+    background-color: #7f9954;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 18px rgba(90, 160, 79, 0.3);
+}
+
+.rk-btn:focus-visible {
+    outline: 3px solid #cfe0b1;
+    outline-offset: 2px;
+}
+
+/* ===== Rodapé do form ===== */
+.rk-footnote {
+    display: block;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #4f5b30;
+    line-height: 1.5;
+    max-width: 650px;
+    margin-inline: auto;
+}
