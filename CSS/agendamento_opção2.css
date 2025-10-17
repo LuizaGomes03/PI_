@@ -1,42 +1,27 @@
-/* ===== TÍTULO — maior e com negrito real ===== */
-.titulo-agendamento {
-  max-width: 1100px;
-  margin: 40px auto 40px;
-  padding: 0 20px;
-  text-align: left;
+/* ===== TÍTULO — padrão unificado ===== */
+.titulo-agendamento{
+  max-width:1100px;
+  margin:44px auto 24px;   /* mesmo respiro das outras */
+  padding:0 20px;
+  text-align:left;
 }
 
-.titulo-agendamento h2 {
-  font-family: 'Amatic SC', cursive, Arial, sans-serif;
-  font-size: 3.4rem;        /* 🔥 aumentei o tamanho */
-  font-weight: 900;         /* 💪 negrito máximo */
-  color: #111;              /* um pouco mais escuro */
-  line-height: 1.1;
-  letter-spacing: 1px;
-  text-shadow: 0 1px 2px rgba(0,0,0,0.08); /* dá um leve destaque */
-  margin: 0 0 12px;
+.titulo-agendamento h2{
+  font-family:'Amatic SC', cursive, Arial, sans-serif;
+  font-size: 2.2rem;
+  font-weight:800;
+  color:#111;
+  line-height:1.1;
+  letter-spacing:1px;
+  margin:0;
 }
 
-/* caso use <p> embaixo */
-.titulo-agendamento p {
-  font-family: 'Amatic SC', cursive;
-  font-size: 2rem;
-  color: #333;
-  margin-top: 6px;
-  font-weight: 700;
+@media (max-width:768px){
+  .titulo-agendamento{ text-align:center; }
+  .titulo-agendamento h2{ font-size:2.3rem; }
 }
 
-@media (max-width: 768px) {
-  .titulo-agendamento {
-    text-align: center;
-  }
-  .titulo-agendamento h2 {
-    font-size: 2.6rem;
-  }
-  .titulo-agendamento p {
-    font-size: 1.6rem;
-  }
-}
+
 
 /* ===== SERVIÇOS — todos redondos e do mesmo tamanho ===== */
 .servicos-section{
@@ -93,8 +78,8 @@
 .rk-btn {
   display: block;                /* garante que ele apareça */
   position: relative;
-  width: 100%;
-  max-width: 480px;              /* largura controlada */
+  width: 100%; /* Ajusta para ocupar toda a largura disponível */
+  max-width: 800px;              /* Aumenta a largura máxima */
   height: 48px;
   margin: 40px auto 0;           /* centraliza */
   border: none;
@@ -121,6 +106,27 @@
   outline: 3px solid #cfe0b1;
   outline-offset: 2px;
 }
+/* ===== AJUSTE PARA NÃO SOBREPOR O FOOTER ===== */
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin: 20px 0 40px;
+    box-sizing: border-box;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bfbfbf;
+}
+
+.dot.active {
+    background: #bfd48b;
+}
+
 
 /* mobile */
 @media (max-width: 768px) {

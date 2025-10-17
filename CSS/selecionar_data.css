@@ -1,35 +1,54 @@
 main {
     font-family: Arial, sans-serif;
-    padding: 40px;
+    padding: 40px 0; 
     background-color: #f9f9f9;
 }
 
-/* ===== ALINHAMENTO DO TÍTULO ===== */
 /* ===== Título principal da página (5. Selecione a data) ===== */
 main h1 {
-    font-family: 'Amatic SC', cursive, Arial, sans-serif;
-    font-size: 2.8rem;
-    /* igual ao .titulo-agendamento h2 */
+    font-family: 'Amatic SC', cursive;
+    font-size: 40px;
     font-weight: 800;
-    /* negrito real */
     color: #111;
     line-height: 1.1;
     letter-spacing: 1px;
-    margin: 30px auto 10px;
-    /* aproxima mais dos cards */
-    text-align: left;
-    /* mantém alinhado à esquerda */
     max-width: 1100px;
+    text-align: left;
+    margin-bottom: 34px;
+    color: #222;
     padding: 0 20px;
+    margin-left: 700px; /* 👉 ajusta o valor até ficar do jeitinho que quiser */
 }
 
 @media (max-width: 768px) {
     main h1 {
-        font-size: 2.4rem;
-        /* ajusta pro mobile */
+        font-size: 2.3rem;
         text-align: center;
-        margin: 20px auto;
+        margin: 30px auto 28px auto;
+        padding: 0 16px;
+        margin-left: 0; /* no mobile, volta pro centro bonitinho */
     }
+}
+
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin: 20px 0 40px;
+    box-sizing: border-box;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bfbfbf;
+}
+
+.dot.active {
+    background: #bfd48b;
 }
 
 

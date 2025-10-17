@@ -9,7 +9,9 @@ body {
     padding: 0;
 }
 
-h1, h2, .brand {
+h1,
+h2,
+.brand {
     font-family: "Amatic SC", cursive;
     letter-spacing: .5px;
 }
@@ -18,10 +20,12 @@ h1, h2, .brand {
 .page-section {
     max-width: 1100px;
     margin-inline: auto;
-    padding: 60px 20px 100px; /* mais respiro */
+    padding: 60px 20px 100px;
+    /* mais respiro */
     display: flex;
     flex-direction: column;
-    align-items: center; /* centraliza tudo */
+    align-items: center;
+    /* centraliza tudo */
 }
 
 /* ===== Título agendamento ===== */
@@ -46,6 +50,7 @@ h1, h2, .brand {
     .titulo-agendamento {
         text-align: center;
     }
+
     .titulo-agendamento h2 {
         font-size: 2.6rem;
     }
@@ -53,7 +58,7 @@ h1, h2, .brand {
 
 /* ===== Card clean ===== */
 .rk-card {
-    background: linear-gradient(180deg, rgba(157,182,104,0.18) 0%, rgba(157,182,104,0.1) 100%);
+    background: linear-gradient(180deg, rgba(157, 182, 104, 0.18) 0%, rgba(157, 182, 104, 0.1) 100%);
     border: 1px solid rgba(157, 182, 104, 0.4);
     border-radius: 20px;
     padding: 36px 32px;
@@ -164,4 +169,24 @@ h1, h2, .brand {
     line-height: 1.5;
     max-width: 650px;
     margin-inline: auto;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin: 20px 0 40px;
+    box-sizing: border-box;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bfbfbf;
+}
+
+.dot.active {
+    background: #bfd48b;
 }

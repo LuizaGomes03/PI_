@@ -11,8 +11,9 @@
 
     <style>
         .rk-btn {
-            display: inline-block;
-            width: 100%;
+            display: block;
+            width: 800px;
+            margin: 25px auto 0;
             background-color: #7D9950;
             color: white;
             font-size: 14px;
@@ -21,9 +22,9 @@
             border-radius: 8px;
             padding: 14px;
             cursor: pointer;
-            margin-top: 25px;
             transition: all 0.3s ease;
             text-transform: uppercase;
+            text-align: center;
         }
 
         .rk-btn:hover {
@@ -117,17 +118,17 @@
     </script>
 
     <!-- VLibras - Acessibilidade em Libras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
     </div>
-  </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
 
 </body>
 
