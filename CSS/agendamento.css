@@ -18,6 +18,34 @@ body {
     background: #fff;
 }
 
+/* ===== TÍTULO (uma única versão) ===== */
+.titulo-agendamento{
+  max-width:1100px;
+  margin:44px auto 24px;
+  padding:0 20px;
+  text-align:left;
+}
+.titulo-agendamento h2{
+  font-family:'Amatic SC', cursive, Arial, sans-serif;
+  font-size:2.8rem;
+  font-weight:800;
+  color:#111;
+  line-height:1.1;
+  letter-spacing:1px;
+  margin:0;
+}
+@media (max-width:768px){
+  .titulo-agendamento{ text-align:center; }
+  .titulo-agendamento h2{ font-size:2.3rem; }
+}
+
+/* ===== CONTAINER PRINCIPAL (sem margem inferior) ===== */
+.wrap{
+  max-width:1100px;
+  margin:40px auto 0;      /* ⬅ remove o bottom-margin que criava a “faixa” */
+  padding:0 20px 120px;    /* ⬅ usa padding-bottom para dar respiro aos dots */
+}
+
 /* topo */
 .wrap {
     max-width: var(--maxw);
@@ -117,8 +145,9 @@ h1 {
 .city {
     text-align: center;
     font-family: "Amatic SC", cursive;
-    font-size: 22px;
+    font-size: 30px;
     letter-spacing: .3px;
+    font-weight: bold;
 }
 
 .dots {
@@ -141,23 +170,273 @@ h1 {
     background: #bfd48b;
 }
 
-.rk-btn {
-    display: inline-block;
-    width: 100%;
-    background-color: #7D9950;
-    color: white;
-    font-size: 14px;
-    font-weight: 600;
-    border: none;
-    border-radius: 8px;
-    padding: 14px;
-    cursor: pointer;
-    margin-top: 25px;
-    transition: all 0.3s ease;
-    text-transform: uppercase;
+/* ===== BOTÃO (única versão, centralizado) ===== */
+.rk-btn{
+  display:block;
+  width:100%;
+  max-width:480px;
+  margin:32px auto 0;
+  height:48px;
+  border:none;
+  border-radius:12px;
+  background:#9DB668;
+  color:#fff;
+  font-weight:700;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  box-shadow:0 6px 14px rgba(90,160,79,.25);
+  cursor:pointer;
+  transition:.3s;
+}
+.rk-btn:hover{ background:#7f9954; transform:translateY(-2px); }
+@media (max-width:768px){ .rk-btn{ max-width:320px; } }
+
+/* ===== DOTS (uma única versão) ===== */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:20px auto 40px;   /* afasta do rodapé */
+}
+.dots .dot{
+  width:10px; height:10px; border-radius:50%;
+  background:#bfbfbf;
+}
+.dots .dot.active{ background:#9DB668; }
+
+/* ===== RODAPÉ (padronizado + sem fundo duplicado) ===== */
+.site-footer,
+#footerbar,
+footer#footerbar{
+  background:#e0e0e0;      /* 1 única cor */
+  padding:40px 0 20px;
+  color:#444;
+  font-family:"Raleway", sans-serif;
+  border:0;                /* evita linha de borda extra */
 }
 
-.rk-btn:hover {
-    background-color: #6f8747;
-    transform: translateY(-1px);
+:root {
+    --green: #9DB668;
+    --green-700: #7D9950;
+    --ink: #222;
+    --muted: #f5f5f5;
+    --radius: 16px;
+    --maxw: 1100px;
 }
+
+* {
+    box-sizing: border-box
+}
+
+body {
+    margin: 0;
+    font-family: Inter, system-ui, Arial, sans-serif;
+    color: var(--ink);
+    background: #fff;
+}
+
+/* ===== TÍTULO (uma única versão) ===== */
+.titulo-agendamento{
+  max-width:1100px;
+  margin:44px auto 24px;
+  padding:0 20px;
+  text-align:left;
+}
+.titulo-agendamento h2{
+  font-family:'Amatic SC', cursive, Arial, sans-serif;
+  font-size:2.8rem;
+  font-weight:800;
+  color:#111;
+  line-height:1.1;
+  letter-spacing:1px;
+  margin:0;
+}
+@media (max-width:768px){
+  .titulo-agendamento{ text-align:center; }
+  .titulo-agendamento h2{ font-size:2.3rem; }
+}
+
+/* ===== CONTAINER PRINCIPAL (sem margem inferior) ===== */
+.wrap{
+  max-width:1100px;
+  margin:40px auto 0;      /* ⬅ remove o bottom-margin que criava a “faixa” */
+  padding:0 20px 120px;    /* ⬅ usa padding-bottom para dar respiro aos dots */
+}
+
+/* topo */
+.wrap {
+    max-width: var(--maxw);
+    margin: 40px auto 30px;
+    padding: 0 16px;
+}
+
+.page-title {
+    text-align: left;
+    margin-bottom: 40px;
+    font-family: "Amatic SC", cursive;
+    font-size: 32px;
+}
+
+h1 {
+    font-family: "Amatic SC", cursive;
+    font-size: 40px;
+    margin: 0 0 30px;
+    letter-spacing: .5px;
+}
+
+.step {
+    font-size: .95rem;
+    color: #666;
+    margin-bottom: 18px;
+}
+
+/* grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+}
+
+@media (max-width: 1024px) {
+    .grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 560px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.unit {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.card {
+    position: relative;
+    border-radius: var(--radius);
+    overflow: hidden;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+    background: #ddd;
+    transition: transform .15s ease, box-shadow .15s ease;
+    cursor: pointer;
+}
+
+.card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 16px 28px rgba(0, 0, 0, .12);
+}
+
+.card img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    display: block;
+}
+
+/* faixa verde com texto */
+.ribbon {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 14px 18px;
+    background: rgba(157, 182, 104, .85);
+    color: #14250b;
+    font-weight: 600;
+    line-height: 1.2;
+    backdrop-filter: blur(2px);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, .25);
+}
+
+.ribbon small {
+    display: block;
+    font-weight: 600;
+    opacity: .95;
+}
+
+/* cidade/filial embaixo */
+.city {
+    text-align: center;
+    font-family: "Amatic SC", cursive;
+    font-size: 30px;
+    letter-spacing: .3px;
+    font-weight: bold;
+}
+
+.dots {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    width: 100%;
+    margin: 20px 0 40px;
+    box-sizing: border-box;
+}
+
+.dot {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: #bfbfbf;
+}
+
+.dot.active {
+    background: #bfd48b;
+}
+
+/* ===== BOTÃO (única versão, centralizado) ===== */
+.rk-btn{
+  display:block;
+  width:100%;
+  max-width:480px;
+  margin:32px auto 0;
+  height:48px;
+  border:none;
+  border-radius:12px;
+  background:#9DB668;
+  color:#fff;
+  font-weight:700;
+  letter-spacing:.6px;
+  text-transform:uppercase;
+  box-shadow:0 6px 14px rgba(90,160,79,.25);
+  cursor:pointer;
+  transition:.3s;
+}
+.rk-btn:hover{ background:#7f9954; transform:translateY(-2px); }
+@media (max-width:768px){ .rk-btn{ max-width:320px; } }
+
+/* ===== DOTS (uma única versão) ===== */
+/* ===== DOTS (uma única versão) ===== */
+.dots{
+  display:flex;
+  justify-content:center;
+  gap:10px;
+  margin:20px auto 40px;   /* afasta do rodapé */
+}
+.dots .dot{
+  width:10px; height:10px; border-radius:50%;
+  background:#bfbfbf;
+}
+.dots .dot.active{ background:#9DB668; }
+
+/* ===== RODAPÉ (padronizado + sem fundo duplicado) ===== */
+.site-footer,
+#footerbar,
+footer#footerbar{
+  background:#e0e0e0;
+  padding:40px 0 20px;
+  color:#444;
+  font-family:"Raleway", sans-serif;
+  border:0;
+}
+
+#rodape{ background:transparent; margin:0; padding:0; }
+#rodape > *{ background:transparent !important; }
+
+#footerbar a,
+.site-footer a{ color:#2f3e1f; text-decoration:none; }
+#footerbar a:hover,
+.site-footer a:hover{ color:#6f8747; }

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Termos de uso</title>
+
+    <!-- Fonts & Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&family=Amatic+SC:wght@700&display=swap"
+        rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
+
+    <!-- Bootstrap -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+
+    <!-- Seu CSS (opcional) -->
+    <link rel="stylesheet" href="../CSS/termos_uso.css" />
+</head>
+
+<body>
+    <header id="menu" role="navigation" aria-label="Menu principal"></header>
+
+    <main>
+        <p>Seja bem-vindo(a) ao site <strong>www.rokuzen.com.br</strong>. Todos os serviços neste site são oferecidos
+            pela empresa <strong>Rokuzen Spa & Terapias Ltda</strong>, inscrita sob o CNPJ 00.000.000/0001-00, com
+            endereço na Av. Francisco Matarazzo, 1234 – São Paulo/SP.</p>
+
+        <h2>1. Objetivo</h2>
+        <p>A plataforma tem a finalidade de facilitar o agendamento de sessões de massagem terapêutica e oferecer
+            informações sobre nossos serviços, unidades e promoções. A Rokuzen não é um e-commerce, e sim uma plataforma
+            de agendamento de experiências presenciais de bem-estar.</p>
+
+        <h2>2. Do agendamento</h2>
+        <ul>
+            <li>O agendamento é realizado de forma online, com confirmação enviada por e-mail ou WhatsApp.</li>
+            <li>O agendamento só é considerado confirmado após a validação da data e horário disponíveis.</li>
+            <li>Em caso de não comparecimento (“no-show”), a sessão poderá ser cancelada automaticamente.</li>
+            <li>Reagendamentos podem ser feitos até 24h antes do horário marcado, sujeito à disponibilidade.</li>
+        </ul>
+
+        <h2>3. Obrigações do cliente</h2>
+        <ul>
+            <li>Fornecer dados pessoais verdadeiros e completos no momento do cadastro.</li>
+            <li>Ser maior de 18 anos e possuir capacidade civil plena.</li>
+            <li>Comparecer no horário agendado e seguir as orientações dos profissionais.</li>
+            <li>Não divulgar informações ofensivas ou inapropriadas no site.</li>
+            <li>Informar previamente condições médicas ou restrições de saúde relevantes.</li>
+        </ul>
+
+        <h2>4. Obrigações da Rokuzen</h2>
+        <ul>
+            <li>Garantir clareza e veracidade nas informações sobre os serviços.</li>
+            <li>Disponibilizar uma plataforma segura e estável.</li>
+            <li>Proteger os dados pessoais conforme a Lei Geral de Proteção de Dados (LGPD).</li>
+            <li>Zelar pela qualidade dos serviços e bem-estar dos clientes.</li>
+        </ul>
+
+        <h2>5. Política de cancelamento</h2>
+        <ul>
+            <li>Cancelamentos devem ser realizados com pelo menos 24 horas de antecedência.</li>
+            <li>Cancelamentos fora desse prazo poderão gerar cobrança integral do serviço.</li>
+            <li>O cliente pode reagendar sem custo, respeitando o prazo estabelecido.</li>
+            <li>O não comparecimento será considerado no-show, sem direito a reembolso.</li>
+        </ul>
+
+        <h2>6. Isenção de responsabilidade</h2>
+        <ul>
+            <li>As terapias oferecidas são de natureza relaxante e terapêutica, não substituindo tratamentos médicos.
+            </li>
+            <li>Não nos responsabilizamos por reações decorrentes de condições de saúde não informadas.</li>
+            <li>A Rokuzen não se responsabiliza por danos causados por uso indevido dos serviços.</li>
+        </ul>
+
+        <h2>7. Propriedade intelectual</h2>
+        <ul>
+            <li>Todo o conteúdo do site é de propriedade da Rokuzen (textos, imagens, vídeos, layout e código-fonte).
+            </li>
+            <li>É proibida a reprodução ou uso não autorizado de qualquer material.</li>
+            <li>Links externos que possam aparecer no site não são de responsabilidade da Rokuzen.</li>
+        </ul>
+
+        <h2>8. Formas de pagamento</h2>
+        <ul>
+            <li>Pagamentos podem ser realizados presencialmente nas unidades ou via links oficiais enviados pela
+                Rokuzen.</li>
+            <li>Não aceitamos pagamentos fora dos canais oficiais.</li>
+            <li>Para dúvidas ou estornos, entre em contato pelo e-mail: <a
+                    href="mailto:atendimento@rokuzen.com.br">atendimento@rokuzen.com.br</a></li>
+        </ul>
+
+        <h2>9. Uso de dados pessoais</h2>
+        <p>A Rokuzen trata os dados pessoais de acordo com a <a href="politica_privacidade.html">Política de
+                Privacidade</a>. O usuário concorda que suas informações poderão ser utilizadas para comunicações sobre
+            agendamentos, confirmações e promoções (mediante consentimento).</p>
+
+        <h2>10. Foro e legislação</h2>
+        <p>Estes Termos são regidos pelas leis brasileiras, sendo eleito o foro da Comarca de São Paulo/SP para resolver
+            quaisquer controvérsias.</p>
+    </main>
+
+    <footer id="footerbar" class="mt-5 border-top">
+        <div id="rodape"></div>
+    </footer>
+
+    <script>
+        // ajuste o caminho se o menu estiver em outra pasta (ex: "../menu.html")
+        fetch("menu.html")
+            .then(r => r.text())
+            .then(html => { document.getElementById("menu").innerHTML = html; })
+            .catch(err => console.error("Erro ao carregar menu:", err));
+
+        fetch("rodape.html")
+            .then(r => r.text())
+            .then(html => { document.getElementById("rodape").innerHTML = html; })
+            .catch(err => console.error("Erro ao carregar rodapé:", err));
+    </script>
+</body>
+
+</html>

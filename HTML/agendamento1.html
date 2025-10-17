@@ -9,36 +9,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../CSS/agendamento.css">
     <title>Agendamento | ROKUZEN</title>
-    <style>
-        /* botão */
-        .rk-btn {
-            display: inline-block;
-            width: 100%;
-            background-color: #7D9950;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            padding: 14px;
-            cursor: pointer;
-            margin-top: 25px;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-        }
 
-        .rk-btn:hover {
-            background-color: #6f8747;
-            transform: translateY(-1px);
-        }
-
-        /* destaque da unidade selecionada */
-        .card.selected {
-            outline: 3px solid #7D9950;
-            transform: scale(1.03);
-            transition: all 0.2s ease;
-        }
-    </style>
 </head>
 
 <body>
@@ -46,9 +17,10 @@
 
     <main class="wrap">
         <h2 class="page-title">AGENDE SUA SESSÃO AGORA MESMO!</h2>
-        <ol class="steps">
-            <li>Selecione a unidade</li>
-        </ol>
+
+        <section class="titulo-agendamento">
+            <h2>1. Escolha a unidade que gostaria de agendar</h2>
+        </section>
 
         <section class="grid">
             <!-- São Bernardo -->
@@ -117,22 +89,8 @@
         </div>
     </main>
 
-    <footer>
-        <div id="rodape"></div>
-        <script>
-            fetch("menu.html")
-                .then((response) => response.text())
-                .then((data) => {
-                    document.getElementById("menu").innerHTML = data;
-                });
 
-            fetch("rodape.html")
-                .then((response) => response.text())
-                .then((data) => {
-                    document.getElementById("rodape").innerHTML = data;
-                });
-        </script>
-    </footer>
+
 
     <!-- ===== JS: seleção + redirecionamento ===== -->
     <script>
@@ -176,6 +134,21 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
 
+    <!-- carrega menu e rodapé -->
+    <script>
+        // Ajuste o caminho conforme a pasta real dos arquivos
+        fetch("menu.html")
+            .then(r => r.text())
+            .then(html => { document.getElementById("menu").innerHTML = html; });
+
+        fetch("rodape.html")
+            .then(r => r.text())
+            .then(html => { document.getElementById("rodape").innerHTML = html; });
+    </script>
+
+    <footer id="footerbar" class="mt-5 border-top">
+        <div id="rodape"></div>
+    </footer>
 
 </body>
 
