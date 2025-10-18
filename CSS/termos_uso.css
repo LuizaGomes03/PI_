@@ -1,72 +1,73 @@
- :root {
-      --green: #9DB668;
-      --green-dark: #7D9950;
-      --ink: #222;
-    }
+:root {
+  --green: #9DB668;
+  --green-dark: #7D9950;
+  --ink: #222;
+}
 
-    body {
-      font-family: "Raleway", sans-serif;
-      margin: 0;
-      padding: 0;
-      color: var(--ink);
-      background-color: #fff;
-      line-height: 1.7;
-    }
+/* conteúdo dos Termos */
+.policy {
+  max-width: 900px;
+  margin: 50px auto 80px;
+  padding: 0 20px;
+  font-family: "Raleway", sans-serif;
+  color: var(--ink);
+  line-height: 1.7;
+}
 
-    header {
-      background-color: #f6f6f6;
-      padding: 20px 0;
-      text-align: center;
-      border-bottom: 2px solid #e3e3e3;
-    }
+/* título principal — "Termos de Uso" */
+.policy h1 {
+  font-family: "Amatic SC", cursive;
+  font-size: 3.5rem;
+  color: var(--green-dark); /* 💚 verde igual ao da Política */       /* centraliza o título */
+  margin-top: 40px;
+  margin-bottom: 20px;
+}
 
-    header h1 {
-      font-family: "Amatic SC", cursive;
-      font-size: 3rem;
-      color: var(--green-dark);
-      margin: 0;
-    }
+/* subtítulos */
+.policy h2 {
+  font-family: "Amatic SC", cursive;
+  font-size: 2.2rem;
+  color: var(--green-dark);
+  margin-top: 40px;
+  border-left: 5px solid var(--green);
+  padding-left: 10px;
+}
 
-    main {
-      max-width: 900px;
-      margin: 50px auto;
-      padding: 0 20px 80px;
-    }
+/* textos */
+.policy p,
+.policy li {
+  font-size: 1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
 
-    h2 {
-      font-family: "Amatic SC", cursive;
-      font-size: 2.2rem;
-      color: var(--green-dark);
-      margin-top: 40px;
-      border-left: 5px solid var(--green);
-      padding-left: 10px;
-    }
+.policy ul {
+  padding-left: 20px;
+}
 
-    p,
-    li {
-      font-size: 1rem;
-      margin-bottom: 10px;
-      color: #333;
-    }
+/* links */
+.policy a {
+  color: var(--green-dark);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
 
-    ul {
-      padding-left: 20px;
-    }
+.policy a:hover {
+  color: var(--green);
+  text-decoration: underline;
+}
 
-    footer {
-      background-color: #f6f6f6;
-      text-align: center;
-      padding: 25px 10px;
-      border-top: 2px solid #e3e3e3;
-      color: #555;
-      font-size: 0.9rem;
-    }
+/* responsivo */
+@media (max-width: 600px) {
+  .policy {
+    padding: 0 16px;
+  }
 
-    a {
-      color: var(--green-dark);
-      text-decoration: none;
-    }
+  .policy h1 {
+    font-size: 2.6rem;
+  }
 
-    a:hover {
-      text-decoration: underline;
-    }
+  .policy h2 {
+    font-size: 1.9rem;
+  }
+}
