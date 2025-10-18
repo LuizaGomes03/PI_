@@ -211,27 +211,189 @@ function applyRoleUI() {
 /* ================== INIT ================== */
 const data = load();
 
-$$('.sb-link').forEach(a => {
-    a.addEventListener('click', (e) => { e.preventDefault(); navTo(a.dataset.view); });
-});
+// 1) roteador de views + persistência
+const links = Array.from(document.querySelectorAll('.sb-link'));
+const views = Array.from(document.querySelectorAll('.view'));
 
-$('#applyRole')?.addEventListener('click', () => {
-    state.role = $('#roleSelect').value;
-    applyRoleUI();
-    if (state.role === 'massagista') navTo('dashboard');
-    updateAll();
+function setActiveView(id){
+  views.forEach(v => v.classList.toggle('active', v.id === id));
+  links.forEach(b => b.setAttribute('aria-selected', b.dataset.view === id ? 'true' : 'false'));
+  localStorage.setItem('activeView', id);
+}
+links.forEach(b=>{
+  b.setAttribute('role','tab');
+  b.addEventListener('click', ()=> setActiveView(b.dataset.view));
 });
+document.querySelector('.sb-block').setAttribute('role','tablist');
+setActiveView(localStorage.getItem('activeView') || 'view-dashboard');
 
-function updateAll() {
-    const d = load();
-    buildUnitPills(d);
-    renderDashboard(d);
-    if ($('#view-attendance')?.classList.contains('active')) renderAttendance(d);
-    if ($('#view-calendar')?.classList.contains('active')) renderCalendar(d);
-    if ($('#view-employees')?.classList.contains('active')) renderEmployees(d);
-    if ($('#view-contacts')?.classList.contains('active')) renderContacts(d);
+// 2) reduced motion pro vídeo
+const vid = document.getElementById('bg-video');
+const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)');
+function handleMotion(){ if(prefersReduced.matches){ vid.pause(); vid.removeAttribute('autoplay'); } }
+prefersReduced.addEventListener?.('change', handleMotion);
+handleMotion();
+
+// 3) helpers de “Hoje / Mês atual”
+const btnToday = document.getElementById('btnToday');
+if(btnToday){
+  btnToday.addEventListener('click', ()=>{
+    const d = new Date().toISOString().slice(0,10);
+    const input = document.getElementById('filterDate');
+    if(input){ input.value = d; /* renderPonto(); */ }
+  });
+}
+const monthTodayHook = (btnId, inputId) =>{
+  const btn = document.getElementById(btnId), input = document.getElementById(inputId);
+  if(btn && input){ btn.addEventListener('click', ()=>{
+    const now = new Date();
+    input.value = `${now.getFullYear()}-${String(now.getMonth()+1).padStart(2,'0')}`;
+    /* renderCalendario(); */
+  });}
+};
+monthTodayHook('btnMonthTodayUnit', 'monthPickerUnit');
+monthTodayHook('btnMonthTodayAnnual', 'monthPickerAnnual');
+
+// 4) empty state exemplos
+function setEmpty(tableId, text){
+  const tbody = document.querySelector(`#${tableId} tbody`);
+  if(!tbody) return;
+  tbody.innerHTML = `<tr><td class="empty" colspan="6">${text}</td></tr>`;
+}
+setEmpty('tblNextAppts','Sem atendimentos programados.');
+setEmpty('tblPonto','Sem lançamentos para o dia.');
+setEmpty('tblCalendarUnit','Sem eventos no mês.');
+setEmpty('tblCalendarAnnual','Sem eventos.');
+setEmpty('tblEmployees','Nenhum funcionário listado.');
+setEmpty('tblContacts','Nenhum contato cadastrado.');
+
+/* 5) login rápido (habilita somente se mudar) */
+const roleSelect = document.getElementById('roleSelect');
+const applyRole = document.getElementById('applyRole');
+if(roleSelect && applyRole){
+  const baseline = roleSelect.value;
+  const refresh = ()=> applyRole.disabled = (roleSelect.value === baseline);
+  roleSelect.addEventListener('change', refresh);
+  refresh();
 }
 
+// ===== Configurações: sub-abas =====
+(function setupSettingsTabs(){
+  const root = document.getElementById('view-settings');
+  if(!root) return;
+  const tabs = root.querySelectorAll('.tab');
+  const panels = root.querySelectorAll('.tabpanel');
+  tabs.forEach(t=>{
+    t.addEventListener('click', ()=>{
+      tabs.forEach(x=>{ x.classList.remove('active'); x.setAttribute('aria-selected','false'); });
+      panels.forEach(p=>p.classList.remove('active'));
+      t.classList.add('active'); t.setAttribute('aria-selected','true');
+      root.querySelector('#tab-' + t.dataset.tab)?.classList.add('active');
+      localStorage.setItem('settingsSubtab', t.dataset.tab);
+    });
+  });
+  const saved = localStorage.getItem('settingsSubtab');
+  if(saved){
+    root.querySelector(`.tab[data-tab="${saved}"]`)?.click();
+  }
+})();
+
+// ===== Mock: unidades / usuários / serviços (exemplo)
+const mockUnits = [
+  { id:'golden', nome:'Golden Square Shopping', endereco:'Av. Kennedy, 700', wa:'(11) 94749-5306', funcionamento:'Seg-Dom 10h–22h' },
+  { id:'mooca', nome:'Mooca Plaza Shopping', endereco:'R. Cap. Pacheco e Chaves, 313', wa:'(11) 95084-1087', funcionamento:'Seg-Dom 10h–22h' },
+  { id:'grand', nome:'Grand Plaza Shopping', endereco:'Av. Industrial, 600', wa:'(11) 91665-7900', funcionamento:'Seg-Dom 10h–22h' },
+  { id:'west', nome:'Shopping West Plaza', endereco:'Av. Francisco Matarazzo', wa:'(11) 91942-7901', funcionamento:'Seg-Dom 10h–22h' },
+];
+const mockUsers = [
+  { nome:'Luiza Gomes', papel:'admin', unidade:'Rede', tel:'(11) 99999-0000', status:'ativo' },
+  { nome:'Giovanna Lima', papel:'gerente', unidade:'Mooca Plaza', tel:'(11) 98888-0000', status:'ativo' },
+  { nome:'Thales Souza', papel:'recepcao', unidade:'Golden Square', tel:'(11) 97777-0000', status:'ativo' },
+  { nome:'João Silva', papel:'massagista', unidade:'Grand Plaza', tel:'(11) 96666-0000', status:'inativo' },
+];
+const mockServices = [
+  { nome:'Quick Massage', dur:'20 min', preco:53, pts:1, ativo:true },
+  { nome:'Relaxante 50', dur:'50 min', preco:159, pts:3, ativo:true },
+  { nome:'Terapêutica 80', dur:'80 min', preco:239, pts:4, ativo:true },
+];
+
+// ===== Render helpers =====
+function renderUnits(){
+  const tb = document.querySelector('#tblUnits tbody'); if(!tb) return;
+  const q = (document.getElementById('unitSearch')?.value || '').toLowerCase();
+  const list = mockUnits.filter(u => !q || u.nome.toLowerCase().includes(q));
+  tb.innerHTML = list.length ? list.map(u=>`
+    <tr>
+      <td>${u.nome}</td>
+      <td>${u.endereco}</td>
+      <td>${u.wa}</td>
+      <td>${u.funcionamento}</td>
+      <td class="ta-r">
+        <button class="btn ghost btn-sm" data-edit-unit="${u.id}" type="button"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn ghost btn-sm" data-del-unit="${u.id}" type="button"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    </tr>`).join('') : `<tr><td class="empty" colspan="5">Sem unidades</td></tr>`;
+}
+function renderUsers(){
+  const tb = document.querySelector('#tblUsers tbody'); if(!tb) return;
+  const role = document.getElementById('filterRole')?.value || '';
+  const unit = document.getElementById('filterUnit')?.value || '';
+  let list = mockUsers.slice();
+  if(role) list = list.filter(u=>u.papel===role);
+  if(unit) list = list.filter(u=>u.unidade===unit);
+  tb.innerHTML = list.length ? list.map(u=>`
+    <tr>
+      <td>${u.nome}</td>
+      <td>${u.papel}</td>
+      <td>${u.unidade}</td>
+      <td>${u.tel}</td>
+      <td>${u.status}</td>
+      <td class="ta-r">
+        <button class="btn ghost btn-sm" data-edit-user="${u.nome}" type="button"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn ghost btn-sm" data-toggle-user="${u.nome}" type="button"><i class="fa-solid fa-user-lock"></i></button>
+      </td>
+    </tr>`).join('') : `<tr><td class="empty" colspan="6">Nenhum usuário</td></tr>`;
+}
+function renderServices(){
+  const tb = document.querySelector('#tblServices tbody'); if(!tb) return;
+  tb.innerHTML = mockServices.length ? mockServices.map(s=>`
+    <tr>
+      <td>${s.nome}</td>
+      <td>${s.dur}</td>
+      <td>${s.preco.toFixed(2)}</td>
+      <td>${s.pts}</td>
+      <td>${s.ativo ? 'Sim' : 'Não'}</td>
+      <td class="ta-r">
+        <button class="btn ghost btn-sm" data-edit-service="${s.nome}" type="button"><i class="fa-solid fa-pen"></i></button>
+        <button class="btn ghost btn-sm" data-del-service="${s.nome}" type="button"><i class="fa-solid fa-trash"></i></button>
+      </td>
+    </tr>`).join('') : `<tr><td class="empty" colspan="6">Nenhum serviço cadastrado</td></tr>`;
+}
+function fillUnitFilter(){
+  const sel = document.getElementById('filterUnit'); if(!sel) return;
+  sel.innerHTML = `<option value="">Todas as unidades</option>` + mockUnits.map(u=>`<option>${u.nome}</option>`).join('');
+}
+
+// ===== Bind inicial
+(function initSettings(){
+  renderUnits(); renderUsers(); renderServices(); fillUnitFilter();
+  document.getElementById('unitSearch')?.addEventListener('input', renderUnits);
+  document.getElementById('filterRole')?.addEventListener('change', renderUsers);
+  document.getElementById('filterUnit')?.addEventListener('change', renderUsers);
+
+  // ações (stub)
+  document.getElementById('btnAddUnit')?.addEventListener('click', ()=>alert('Abrir modal: Nova Unidade'));
+  document.getElementById('btnInviteUser')?.addEventListener('click', ()=>alert('Abrir modal: Convidar Usuário'));
+  document.getElementById('btnAddService')?.addEventListener('click', ()=>alert('Abrir modal: Novo Serviço'));
+
+  document.getElementById('saveOrg')?.addEventListener('click', ()=>alert('Organização salva ✅'));
+  document.getElementById('saveNotify')?.addEventListener('click', ()=>alert('Notificações salvas ✅'));
+  document.getElementById('saveSecurity')?.addEventListener('click', ()=>alert('Segurança salva ✅'));
+
+  document.getElementById('btnExportData')?.addEventListener('click', ()=>alert('Export iniciada…'));
+  document.getElementById('btnAnonymize')?.addEventListener('click', ()=>alert('Anonimização solicitada…'));
+  document.getElementById('btnAuditLog')?.addEventListener('click', ()=>alert('Abrir Log de Auditoria'));
+})();
 applyRoleUI();
 buildUnitPills(data);
 renderDashboard(data);

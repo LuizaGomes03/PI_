@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gerente • Rokuzen</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="stylesheet" href="../CSS/gerente.css">
+  <script src="../JS/gerente.js" defer></script>
+</head>
+<body>
+  <!-- BG VIDEO -->
+  <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg" aria-hidden="true">
+    <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
+  </video>
+
+  <div class="app-shell">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="side-nav">
+      <div class="side-card side-card--avatar">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" alt="Foto do usuário" class="avatar__img">
+        <div>
+          <div class="text--strong">Painel do Gerente</div>
+          <div class="chip"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span></div>
+        </div>
+      </div>
+
+      <!-- Navegação (IDs e data-view alinhados) -->
+      <div class="side-card" role="tablist" aria-label="Navegação principal">
+        <button class="nav-btn is-active" role="tab" aria-selected="true" data-view="dashboard" aria-controls="view-dashboard" type="button">
+          <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Resumo
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="clients" aria-controls="view-clients" type="button">
+          <i class="fa-solid fa-user" aria-hidden="true"></i> Clientes
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="agenda" aria-controls="view-agenda" type="button">
+          <i class="fa-regular fa-calendar"></i> Agenda
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="attendance" aria-controls="view-attendance" type="button">
+          <i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="employees" aria-controls="view-employees" type="button">
+          <i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="reports" aria-controls="view-reports" type="button">
+          <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Relatórios
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="settings" aria-controls="view-settings" type="button">
+          <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
+        </button>
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="audit" aria-controls="view-audit" type="button">
+          <i class="fa-solid fa-calculator" aria-hidden="true"></i> Auditoria
+        </button>
+      </div>
+
+      <div class="copyright">© 2025 Rokuzen – Gerente</div>
+    </aside>
+
+    <!-- ===== MAIN ===== -->
+    <main class="main-content">
+      <header class="page-head">
+        <div class="page-head__row">
+          <img src="../imagens/logo.png" class="brand-logo" alt="Rokuzen">
+        </div>
+        <div class="page-head__row">
+          <div class="chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span id="currentUnitName">—</span></div>
+        </div>
+      </header>
+
+      <!-- ===== RESUMO ===== -->
+      <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
+        <div class="cards-grid">
+          <article class="card">
+            <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia (unidade)</h2>
+            <div class="grid grid--2">
+              <div class="side-card">
+                <div class="side-card__title">Atendimentos</div>
+                <div class="row">
+                  <div class="chip"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b></div>
+                  <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b id="kpiActiveTherapists">0</b></div>
+                </div>
+              </div>
+              <div class="side-card">
+                <div class="side-card__title">Ponto</div>
+                <div class="row">
+                  <div class="chip"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b></div>
+                  <div class="chip"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b></div>
+                  <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b></div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+          <article class="card">
+            <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos</h2>
+            <table class="table" id="tblNextAppts">
+              <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
+              <thead class="table__head">
+                <tr>
+                  <th>Hora</th>
+                  <th>Cliente</th>
+                  <th>Serviço</th>
+                  <th>Terapeuta</th>
+                  <th>Sala</th>
+                </tr>
+              </thead>
+              <tbody class="table__body"></tbody>
+            </table>
+          </article>
+        </div>
+      </section>
+
+      <!-- ===== CLIENTES ===== -->
+      <section id="view-clients" class="view" aria-labelledby="clientsTitle">
+        <article class="card">
+          <h2 class="card__title" id="clientsTitle"><i class="fa-solid fa-user"></i> Clientes</h2>
+          <div class="row row--gap-sm">
+            <input type="search" id="searchClient" class="input" placeholder="Buscar cliente...">
+            <button class="btn" id="btnNewClient"><i class="fa-solid fa-user-plus"></i> Novo</button>
+          </div>
+          <table class="table" id="tblClients">
+            <thead class="table__head">
+              <tr>
+                <th>Nome</th>
+                <th>WhatsApp</th>
+                <th>E-mail</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+          </table>
+        </article>
+      </section>
+
+      <!-- ===== AGENDA ===== -->
+      <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
+        <article class="card">
+          <h2 class="card__title" id="agendaTitle"><i class="fa-regular fa-calendar"></i> Agenda</h2>
+          <div class="row row--gap-sm">
+            <input type="date" id="agendaDate" class="input">
+            <button class="btn" id="btnNewAppt"><i class="fa-solid fa-plus"></i> Agendar</button>
+          </div>
+          <table class="table" id="tblAgenda">
+            <thead class="table__head">
+              <tr>
+                <th>Hora</th>
+                <th>Cliente</th>
+                <th>Serviço</th>
+                <th>Terapeuta</th>
+                <th>Sala</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+          </table>
+        </article>
+      </section>
+
+      <!-- ===== PONTO ===== -->
+      <section id="view-attendance" class="view" aria-labelledby="pontoTitle">
+        <article class="card">
+          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto (Recepção)</h2>
+          <div class="row row--gap-sm">
+            <select id="filterEmp" class="input"></select>
+            <input type="date" id="filterDate" class="input">
+            <button class="btn btn--ghost" id="btnToday">Hoje</button>
+            <button class="btn" id="btnNewEntry"><i class="fa-solid fa-plus"></i> Lançar manual</button>
+          </div>
+          <table class="table" id="tblPonto">
+            <thead class="table__head">
+              <tr>
+                <th>Quando</th>
+                <th>Quem</th>
+                <th>Ação</th>
+                <th>Origem</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+          </table>
+        </article>
+      </section>
+
+      <!-- ===== EQUIPE ===== -->
+      <section id="view-employees" class="view" aria-labelledby="empTitle">
+        <article class="card">
+          <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
+          <div class="row row--gap-sm">
+            <button class="btn" id="btnAddEmp"><i class="fa-solid fa-user-plus"></i> Adicionar</button>
+            <select id="roleFilter" class="input">
+              <option value="">Todos os papéis</option>
+              <option value="massagista">Massagista</option>
+              <option value="recepcao">Recepção</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <table class="table" id="tblEmployees">
+            <thead class="table__head">
+              <tr>
+                <th>Nome</th>
+                <th>Papel</th>
+                <th>Unidade</th>
+                <th>Telefone</th>
+                <th>Status</th>
+                <th></th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+          </table>
+        </article>
+      </section>
+
+      <!-- ===== RELATÓRIOS ===== -->
+      <section id="view-reports" class="view" aria-labelledby="reportsTitle">
+        <article class="card">
+          <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
+          <div class="row row--gap-sm">
+            <input type="month" id="reportMonth" class="input">
+            <button class="btn" id="btnMakeReport">Gerar Relatório</button>
+          </div>
+          <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
+        </article>
+      </section>
+
+      <!-- ===== CONFIGURAÇÕES (stub) ===== -->
+      <section id="view-settings" class="view" aria-labelledby="settingsTitle">
+        <article class="card">
+          <h2 class="card__title" id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações</h2>
+          <div class="tabs" role="tablist" aria-label="Seções de Configurações">
+            <button class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org" type="button"><i class="fa-solid fa-building"></i> Organização</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users" type="button"><i class="fa-solid fa-user-shield"></i> Usuários</button>
+          </div>
+          <div class="tabpanels">
+            <div id="tab-org" class="tabs__panel is-active" role="tabpanel">
+              <form id="formOrg" class="grid grid--2">
+                <div class="field"><label class="field__label">Nome da Unidade</label><input class="input" type="text" id="orgName" placeholder="Mooca Plaza"></div>
+                <div class="field"><label class="field__label">WhatsApp</label><input class="input" type="text" id="orgWa" placeholder="(11) 95084-1087"></div>
+                <div class="actions actions--end grid__col--2"><button class="btn" type="button" id="saveOrg"><i class="fa-solid fa-floppy-disk"></i> Salvar</button></div>
+              </form>
+            </div>
+            <div id="tab-users" class="tabs__panel" role="tabpanel">
+              <div class="text--muted">Gerencie acessos dos usuários desta unidade.</div>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <!-- ===== AUDITORIA ===== -->
+      <section id="view-audit" class="view" aria-labelledby="auditTitle">
+        <article class="card">
+          <h2 class="card__title" id="auditTitle"><i class="fa-solid fa-calculator"></i> Auditoria</h2>
+          <div class="row row--gap-sm">
+            <input type="date" id="auditDate" class="input">
+            <select id="auditPeriod" class="input">
+              <option value="dia">Dia</option>
+              <option value="semana">Semana</option>
+              <option value="mes">Mês</option>
+            </select>
+            <button class="btn" id="btnMakeAudit">Gerar</button>
+          </div>
+          <table class="table" id="tblAudit">
+            <thead class="table__head">
+              <tr>
+                <th>Data</th>
+                <th>Qtd Atendimentos</th>
+                <th>Receita (R$)</th>
+                <th>Pontos</th>
+              </tr>
+            </thead>
+            <tbody class="table__body"></tbody>
+            <tfoot>
+              <tr>
+                <th>Total</th>
+                <th id="audTotalQtd">0</th>
+                <th id="audTotalReceita">0,00</th>
+                <th id="audTotalPontos">0</th>
+              </tr>
+            </tfoot>
+          </table>
+        </article>
+      </section>
+
+    </main>
+  </div>
+</body>
+</html>

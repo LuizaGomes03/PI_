@@ -14,76 +14,93 @@
 </head>
 
 <body>
-    <video id="bg-video" autoplay muted loop playsinline preload="auto">
+    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg" aria-hidden="true">
         <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
     </video>
 
     <div class="app">
-
         <aside class="sidebar">
-            <div class="sb-block" style="display:flex;align-items:center;gap:12px">
+            <div class="sb-block avatar">
                 <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
-                    alt="avatar"
-                    style="width:54px;height:54px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
+                    alt="Foto do usuário" class="avatar-img">
                 <div>
-                    <div style="font-weight:700">Master Console</div>
-                    <div class="badge"><i class="fa-solid fa-user-shield"></i> <span id="roleChip">Admin</span></div>
+                    <div class="fw-700">Master Console</div>
+                    <div class="badge"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span>
+                    </div>
                 </div>
             </div>
 
             <div class="sb-block">
-                <div class="sb-title"><i class="fa-solid fa-building"></i> Unidades</div>
+                <div class="sb-title"><i class="fa-solid fa-building" aria-hidden="true"></i> Unidades</div>
                 <div class="unit-pill" id="unitPills"></div>
             </div>
 
             <div class="sb-block">
-                <a class="sb-link active" data-view="dashboard"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-                <a class="sb-link" data-view="attendance"><i class="fa-regular fa-clock"></i> Pontos</a>
-                <a class="sb-link" data-view="calendar"><i class="fa-solid fa-calendar-days"></i> Calendário</a>
-                <a class="sb-link" data-view="employees"><i class="fa-solid fa-user-group"></i> Funcionários</a>
-                <a class="sb-link" data-view="contacts"><i class="fa-solid fa-phone-volume"></i> Contatos</a>
-                <a class="sb-link" data-view="settings"><i class="fa-solid fa-gear"></i> Configurações</a>
+                <button class="sb-link active" data-view="dashboard" aria-controls="view-dashboard" type="button">
+                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard
+                </button>
+                <button class="sb-link" data-view="attendance" aria-controls="view-attendance" type="button">
+                    <i class="fa-regular fa-clock" aria-hidden="true"></i> Pontos
+                </button>
+                <button class="sb-link" data-view="calendar-unit" aria-controls="view-calendar-unit" type="button">
+                    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário (Unidade)
+                </button>
+                <button class="sb-link" data-view="calendar-annual" aria-controls="view-calendar-annual" type="button">
+                    <i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário (Anual)
+                </button>
+                <button class="sb-link" data-view="employees" aria-controls="view-employees" type="button">
+                    <i class="fa-solid fa-user-group" aria-hidden="true"></i> Funcionários
+                </button>
+                <button class="sb-link" data-view="contacts" aria-controls="view-contacts" type="button">
+                    <i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos
+                </button>
+                <button class="sb-link" data-view="settings" aria-controls="view-settings" type="button">
+                    <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
+                </button>
             </div>
 
             <div class="sb-block">
-                <div class="sb-title"><i class="fa-solid fa-right-to-bracket"></i> Login rápido</div>
+                <div class="sb-title"><i class="fa-solid fa-right-to-bracket" aria-hidden="true"></i> Login rápido</div>
                 <div class="row">
+                    <label class="sr-only" for="roleSelect">Selecionar papel</label>
                     <select id="roleSelect">
                         <option value="admin">Admin Master</option>
                         <option value="recepcao">Recepção</option>
                         <option value="massagista">Massagista</option>
                     </select>
-                    <button class="btn ghost" id="applyRole">Aplicar</button>
+                    <button class="btn ghost" id="applyRole" type="button">Aplicar</button>
                 </div>
             </div>
 
-            <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Master</div>
+            <div class="copyright">© 2025 Rokuzen – Master</div>
         </aside>
+
         <main class="main">
             <div class="head">
                 <div class="row">
                     <img src="../imagens/logo.png" class="logo" alt="Rokuzen">
                     <div>
                         <h1>Painel Master</h1>
-                        <div style="opacity:.9">Controle de ponto, agenda e operações das 4 unidades.</div>
+                        <div class="muted">Controle de ponto, agenda e operações das 4 unidades.</div>
                     </div>
                 </div>
                 <div class="row">
-                    <div class="badge"><i class="fa-solid fa-location-dot"></i> <span id="currentUnitName">—</span>
+                    <div class="badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span id="currentUnitName">—</span>
                     </div>
                 </div>
             </div>
 
-            <section id="view-dashboard" class="view active">
+            <section id="view-dashboard" class="view active" aria-labelledby="dashTitle">
                 <div class="cards">
                     <div class="card">
-                        <h2><i class="fa-solid fa-chart-simple"></i> Resumo do Dia (unidade)</h2>
+                        <h2 id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia (unidade)
+                        </h2>
                         <div class="grid-2">
                             <div class="sb-block">
                                 <div class="sb-title">Atendimentos</div>
                                 <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-calendar-day"></i> Hoje: <b
-                                            id="kpiToday">0</b></div>
+                                    <div class="badge"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b>
+                                    </div>
                                     <div class="badge"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
                                             id="kpiActiveTherapists">0</b></div>
                                 </div>
@@ -91,10 +108,10 @@
                             <div class="sb-block">
                                 <div class="sb-title">Ponto</div>
                                 <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-door-open"></i> Entradas: <b
-                                            id="kpiIns">0</b></div>
-                                    <div class="badge"><i class="fa-solid fa-door-closed"></i> Saídas: <b
-                                            id="kpiOuts">0</b></div>
+                                    <div class="badge"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b>
+                                    </div>
+                                    <div class="badge"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b>
+                                    </div>
                                     <div class="badge"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b
                                             id="kpiBreaks">0</b></div>
                                 </div>
@@ -103,8 +120,9 @@
                     </div>
 
                     <div class="card">
-                        <h2><i class="fa-solid fa-clipboard-list"></i> Próximos Atendimentos</h2>
+                        <h2><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos</h2>
                         <table class="table" id="tblNextAppts">
+                            <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
                             <thead>
                                 <tr>
                                     <th>Hora</th>
@@ -120,9 +138,9 @@
                 </div>
             </section>
 
-            <section id="view-attendance" class="view">
+            <section id="view-attendance" class="view" aria-labelledby="pontoTitle">
                 <div class="card">
-                    <h2><i class="fa-regular fa-clock"></i> Controle de Ponto</h2>
+                    <h2 id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle de Ponto</h2>
                     <div class="row" style="margin-bottom:10px">
                         <select id="filterEmp"></select>
                         <input type="date" id="filterDate">
@@ -143,14 +161,17 @@
                     </table>
                 </div>
             </section>
-            <section id="view-calendar" class="view">
+            <section id="view-calendar-unit" class="view" aria-labelledby="calUnitTitle">
                 <div class="card">
-                    <h2><i class="fa-solid fa-calendar-days"></i> Calendário Unidade</h2>
-                    <div class="row" style="margin-bottom:10px">
-                        <input type="month" id="monthPicker">
-                        <button class="btn ghost" id="btnMonthToday">Mês atual</button>
+                    <h2 id="calUnitTitle"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário Unidade
+                    </h2>
+                    <div class="row mb-2">
+                        <label class="sr-only" for="monthPickerUnit">Selecionar mês</label>
+                        <input type="month" id="monthPickerUnit">
+                        <button class="btn ghost" id="btnMonthTodayUnit" type="button">Mês atual</button>
                     </div>
-                    <table class="table" id="tblCalendar">
+                    <table class="table" id="tblCalendarUnit">
+                        <caption class="sr-only">Calendário mensal da unidade</caption>
                         <thead>
                             <tr>
                                 <th>Data</th>
@@ -163,14 +184,16 @@
                 </div>
             </section>
 
-            <section id="view-calendar" class="view">
+            <section id="view-calendar-annual" class="view" aria-labelledby="calAnnualTitle">
                 <div class="card">
-                    <h2><i class="fa-solid fa-calendar-days"></i> Calendário Anual</h2>
-                    <div class="row" style="margin-bottom:10px">
-                        <input type="month" id="monthPicker">
-                        <button class="btn ghost" id="btnMonthToday">Mês atual</button>
+                    <h2 id="calAnnualTitle"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário Anual</h2>
+                    <div class="row mb-2">
+                        <label class="sr-only" for="monthPickerAnnual">Selecionar mês</label>
+                        <input type="month" id="monthPickerAnnual">
+                        <button class="btn ghost" id="btnMonthTodayAnnual" type="button">Mês atual</button>
                     </div>
-                    <table class="table" id="tblCalendar">
+                    <table class="table" id="tblCalendarAnnual">
+                        <caption class="sr-only">Calendário anual consolidado</caption>
                         <thead>
                             <tr>
                                 <th>Data</th>
@@ -183,9 +206,9 @@
                 </div>
             </section>
 
-            <section id="view-employees" class="view">
+            <section id="view-employees" class="view" aria-labelledby="empTitle">
                 <div class="card">
-                    <h2><i class="fa-solid fa-user-group"></i> Funcionários</h2>
+                    <h2 id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Funcionários</h2>
                     <div class="row" style="margin-bottom:10px">
                         <button class="btn" id="btnAddEmp"><i class="fa-solid fa-user-plus"></i> Adicionar</button>
                         <select id="roleFilter">
@@ -211,9 +234,10 @@
                 </div>
             </section>
 
-            <section id="view-contacts" class="view">
+            <section id="view-contacts" class="view" aria-labelledby="contactsTitle">
                 <div class="card">
-                    <h2><i class="fa-solid fa-phone-volume"></i> Contatos das Unidades</h2>
+                    <h2 id="contactsTitle"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos das Unidades
+                    </h2>
                     <table class="table" id="tblContacts">
                         <thead>
                             <tr>
@@ -227,6 +251,129 @@
                     </table>
                 </div>
             </section>
-</body>
 
-</html>
+            <section id="view-settings" class="view" aria-labelledby="settingsTitle">
+                <div class="card">
+                    <h2 id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações</h2>
+
+                    <!-- sub-abas -->
+                    <div class="tabs" role="tablist" aria-label="Seções de Configurações">
+                        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org" type="button">
+                            <i class="fa-solid fa-building"></i> Organização
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-units" data-tab="units" type="button">
+                            <i class="fa-solid fa-store"></i> Unidades
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users" type="button">
+                            <i class="fa-solid fa-user-shield"></i> Usuários & Permissões
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-services" data-tab="services" type="button">
+                            <i class="fa-solid fa-spa"></i> Serviços & Pontos
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-notify" data-tab="notify" type="button">
+                            <i class="fa-solid fa-bell"></i> Notificações
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-security" data-tab="security" type="button">
+                            <i class="fa-solid fa-lock"></i> Segurança
+                        </button>
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-lgpd" data-tab="lgpd" type="button">
+                            <i class="fa-solid fa-scale-balanced"></i> LGPD & Auditoria
+                        </button>
+
+                    </div>
+
+                    <!-- painéis -->
+                    <div class="tabpanels">
+                        <!-- Organização -->
+                        <div id="tab-org" class="tabpanel active" role="tabpanel">
+                            <form id="formOrg" class="grid-2">
+                                <div class="field">
+                                    <label>Razão Social</label>
+                                    <input type="text" id="orgName" placeholder="Rokuzen Spa & Terapias Ltda">
+                                </div>
+                                <div class="field">
+                                    <label>CNPJ</label>
+                                    <input type="text" id="orgCnpj" placeholder="34.758.604/0001-13">
+                                </div>
+                                <div class="field col-2">
+                                    <label>Endereço Fiscal</label>
+                                    <input type="text" id="orgAddr" placeholder="Rua Cap. Pacheco e Chaves, 313 – Vila Prudente, São Paulo/SP">
+                                </div>
+
+                                <div class="divider col-2">Branding</div>
+                                <div class="field">
+                                    <label>Logo (claro)</label>
+                                    <input type="url" id="logoLight" placeholder="URL da imagem">
+                                </div>
+                                <div class="field">
+                                    <label>Logo (escuro)</label>
+                                    <input type="url" id="logoDark" placeholder="URL da imagem">
+                                </div>
+                                <div class="field">
+                                    <label>Cor Primária</label>
+                                    <input type="color" id="brandColor" value="#9DB668">
+                                </div>
+                                <div class="field">
+                                    <label>Favicon</label>
+                                    <input type="url" id="faviconUrl" placeholder="URL do favicon">
+                                </div>
+
+                                <div class="actions col-2">
+                                    <button class="btn" type="button" id="saveOrg"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Unidades -->
+                        <div id="tab-units" class="tabpanel" role="tabpanel">
+                            <div class="row mb-2">
+                                <button class="btn" id="btnAddUnit" type="button"><i class="fa-solid fa-plus"></i> Nova Unidade</button>
+                                <input type="search" id="unitSearch" placeholder="Buscar unidade...">
+                            </div>
+                            <table class="table" id="tblUnits">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Unidade</th>
+                                        <th scope="col">Endereço</th>
+                                        <th scope="col">WhatsApp</th>
+                                        <th scope="col">Funcionamento</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Usuários & Permissões -->
+                        <div id="tab-users" class="tabpanel" role="tabpanel">
+                            <div class="row mb-2">
+                                <button class="btn" id="btnInviteUser" type="button"><i class="fa-solid fa-user-plus"></i> Convidar Usuário</button>
+                                <select id="filterRole">
+                                    <option value="">Todos os papéis</option>
+                                    <option value="gerente">Gerente</option>
+                                    <option value="recepcao">Recepção</option>
+                                    <option value="massagista">Massagista</option>
+                                    <option value="admin">Admin</option>
+                                </select>
+                                <select id="filterUnit"></select>
+                            </div>
+                            <table class="table" id="tblUsers">
+                                <thead>
+                                    <tr>
+                                        <th scope="col">Nome</th>
+                                        <th scope="col">Papel</th>
+                                        <th scope="col">Unidade</th>
+                                        <th scope="col">Telefone</th>
+                                        <th scope="col">Status</th>
+                                        <th scope="col"></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                        </div>
+
+                        <!-- Serviços & Pontos -->
+                        <div id="tab-services" class="tabpanel" role="tabpanel">
+                            <div class="row mb-2">
+                                <button class="btn" id="btnAddService" type="button"><i class="fa-solid fa-plus"></i> Novo Serviço</button>
+                                <div class="badge">Regra: <b>Quick Massage = 1 ponto
