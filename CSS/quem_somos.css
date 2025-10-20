@@ -1,0 +1,74 @@
+/* Aplica fonte e centralização somente dentro do main */
+main {
+    font-family: 'Amatic SC', cursive;
+    text-align: center;
+    color: #333;
+    padding: 20px;
+}
+
+/* Centralizar e aumentar títulos dentro do main */
+main h1, main h2, main h3, main h4 {
+    font-weight: 700;
+    margin: 0.5em 0;
+}
+
+/* Título principal dentro do main */
+main header h1 {
+    font-size: 4em;
+    margin-bottom: 0.3em;
+    text-align: center;
+}
+
+/* Outros títulos */
+main h2 {
+    font-size: 3em;
+    margin-top: 1em;
+}
+
+main h3 {
+    font-size: 2.5em;
+}
+
+main h4 {
+    font-size: 2em;
+}
+
+/* Texto e listas dentro do main */
+main p, main li {
+    font-size: 1.8em;
+    line-height: 1.4;
+    max-width: 800px;
+    margin: 0 auto 1em auto;
+    text-align: center;
+}
+
+main ul, main ol {
+    list-style-position: inside;
+    padding: 0;
+    margin: 1em auto;
+    max-width: 800px;
+    text-align: left; /* listas alinhadas à esquerda para melhor leitura */
+}
+
+/* Se quiser centralizar as listas, altere para text-align: center */
+
+/* Seções e figuras */
+main section {
+    margin: 40px 0;
+}
+
+main figure {
+    margin: 20px auto;
+}
+
+main img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+/* Mantém menu e rodape com estilo padrão sem interferência */
+#menu, #rodape {
+    margin-bottom: 20px;
+}
