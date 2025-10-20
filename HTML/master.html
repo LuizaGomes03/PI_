@@ -14,7 +14,8 @@
 </head>
 
 <body>
-    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg" aria-hidden="true">
+    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg"
+        aria-hidden="true">
         <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
     </video>
 
@@ -25,7 +26,8 @@
                     alt="Foto do usuário" class="avatar-img">
                 <div>
                     <div class="fw-700">Master Console</div>
-                    <div class="badge"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span>
+                    <div class="badge"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span
+                            id="roleChip">Admin</span>
                     </div>
                 </div>
             </div>
@@ -85,7 +87,8 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span id="currentUnitName">—</span>
+                    <div class="badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span
+                            id="currentUnitName">—</span>
                     </div>
                 </div>
             </div>
@@ -93,13 +96,15 @@
             <section id="view-dashboard" class="view active" aria-labelledby="dashTitle">
                 <div class="cards">
                     <div class="card">
-                        <h2 id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia (unidade)
+                        <h2 id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia
+                            (unidade)
                         </h2>
                         <div class="grid-2">
                             <div class="sb-block">
                                 <div class="sb-title">Atendimentos</div>
                                 <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b>
+                                    <div class="badge"><i class="fa-solid fa-calendar-day"></i> Hoje: <b
+                                            id="kpiToday">0</b>
                                     </div>
                                     <div class="badge"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
                                             id="kpiActiveTherapists">0</b></div>
@@ -108,9 +113,11 @@
                             <div class="sb-block">
                                 <div class="sb-title">Ponto</div>
                                 <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b>
+                                    <div class="badge"><i class="fa-solid fa-door-open"></i> Entradas: <b
+                                            id="kpiIns">0</b>
                                     </div>
-                                    <div class="badge"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b>
+                                    <div class="badge"><i class="fa-solid fa-door-closed"></i> Saídas: <b
+                                            id="kpiOuts">0</b>
                                     </div>
                                     <div class="badge"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b
                                             id="kpiBreaks">0</b></div>
@@ -163,7 +170,8 @@
             </section>
             <section id="view-calendar-unit" class="view" aria-labelledby="calUnitTitle">
                 <div class="card">
-                    <h2 id="calUnitTitle"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário Unidade
+                    <h2 id="calUnitTitle"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário
+                        Unidade
                     </h2>
                     <div class="row mb-2">
                         <label class="sr-only" for="monthPickerUnit">Selecionar mês</label>
@@ -186,7 +194,8 @@
 
             <section id="view-calendar-annual" class="view" aria-labelledby="calAnnualTitle">
                 <div class="card">
-                    <h2 id="calAnnualTitle"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário Anual</h2>
+                    <h2 id="calAnnualTitle"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário Anual
+                    </h2>
                     <div class="row mb-2">
                         <label class="sr-only" for="monthPickerAnnual">Selecionar mês</label>
                         <input type="month" id="monthPickerAnnual">
@@ -236,7 +245,8 @@
 
             <section id="view-contacts" class="view" aria-labelledby="contactsTitle">
                 <div class="card">
-                    <h2 id="contactsTitle"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos das Unidades
+                    <h2 id="contactsTitle"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos das
+                        Unidades
                     </h2>
                     <table class="table" id="tblContacts">
                         <thead>
@@ -258,25 +268,32 @@
 
                     <!-- sub-abas -->
                     <div class="tabs" role="tablist" aria-label="Seções de Configurações">
-                        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org" type="button">
+                        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-org"
+                            data-tab="org" type="button">
                             <i class="fa-solid fa-building"></i> Organização
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-units" data-tab="units" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-units" data-tab="units"
+                            type="button">
                             <i class="fa-solid fa-store"></i> Unidades
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users"
+                            type="button">
                             <i class="fa-solid fa-user-shield"></i> Usuários & Permissões
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-services" data-tab="services" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-services"
+                            data-tab="services" type="button">
                             <i class="fa-solid fa-spa"></i> Serviços & Pontos
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-notify" data-tab="notify" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-notify"
+                            data-tab="notify" type="button">
                             <i class="fa-solid fa-bell"></i> Notificações
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-security" data-tab="security" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-security"
+                            data-tab="security" type="button">
                             <i class="fa-solid fa-lock"></i> Segurança
                         </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-lgpd" data-tab="lgpd" type="button">
+                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-lgpd" data-tab="lgpd"
+                            type="button">
                             <i class="fa-solid fa-scale-balanced"></i> LGPD & Auditoria
                         </button>
 
@@ -297,7 +314,8 @@
                                 </div>
                                 <div class="field col-2">
                                     <label>Endereço Fiscal</label>
-                                    <input type="text" id="orgAddr" placeholder="Rua Cap. Pacheco e Chaves, 313 – Vila Prudente, São Paulo/SP">
+                                    <input type="text" id="orgAddr"
+                                        placeholder="Rua Cap. Pacheco e Chaves, 313 – Vila Prudente, São Paulo/SP">
                                 </div>
 
                                 <div class="divider col-2">Branding</div>
@@ -319,7 +337,8 @@
                                 </div>
 
                                 <div class="actions col-2">
-                                    <button class="btn" type="button" id="saveOrg"><i class="fa-solid fa-floppy-disk"></i> Salvar</button>
+                                    <button class="btn" type="button" id="saveOrg"><i
+                                            class="fa-solid fa-floppy-disk"></i> Salvar</button>
                                 </div>
                             </form>
                         </div>
@@ -327,7 +346,8 @@
                         <!-- Unidades -->
                         <div id="tab-units" class="tabpanel" role="tabpanel">
                             <div class="row mb-2">
-                                <button class="btn" id="btnAddUnit" type="button"><i class="fa-solid fa-plus"></i> Nova Unidade</button>
+                                <button class="btn" id="btnAddUnit" type="button"><i class="fa-solid fa-plus"></i> Nova
+                                    Unidade</button>
                                 <input type="search" id="unitSearch" placeholder="Buscar unidade...">
                             </div>
                             <table class="table" id="tblUnits">
@@ -347,7 +367,8 @@
                         <!-- Usuários & Permissões -->
                         <div id="tab-users" class="tabpanel" role="tabpanel">
                             <div class="row mb-2">
-                                <button class="btn" id="btnInviteUser" type="button"><i class="fa-solid fa-user-plus"></i> Convidar Usuário</button>
+                                <button class="btn" id="btnInviteUser" type="button"><i
+                                        class="fa-solid fa-user-plus"></i> Convidar Usuário</button>
                                 <select id="filterRole">
                                     <option value="">Todos os papéis</option>
                                     <option value="gerente">Gerente</option>
@@ -375,5 +396,23 @@
                         <!-- Serviços & Pontos -->
                         <div id="tab-services" class="tabpanel" role="tabpanel">
                             <div class="row mb-2">
-                                <button class="btn" id="btnAddService" type="button"><i class="fa-solid fa-plus"></i> Novo Serviço</button>
+                                <button class="btn" id="btnAddService" type="button"><i class="fa-solid fa-plus"></i>
+                                    Novo Serviço</button>
                                 <div class="badge">Regra: <b>Quick Massage = 1 ponto
+            </section>
+        </main>
+    </div>
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
+</body>

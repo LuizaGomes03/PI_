@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Gerente • Rokuzen</title>
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
+    rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="../CSS/gerente.css">
   <script src="../JS/gerente.js" defer></script>
 </head>
+
 <body>
   <!-- BG VIDEO -->
-  <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg" aria-hidden="true">
+  <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg"
+    aria-hidden="true">
     <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
   </video>
 
@@ -19,37 +23,47 @@
     <!-- ===== SIDEBAR ===== -->
     <aside class="side-nav">
       <div class="side-card side-card--avatar">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop" alt="Foto do usuário" class="avatar__img">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
+          alt="Foto do usuário" class="avatar__img">
         <div>
           <div class="text--strong">Painel do Gerente</div>
-          <div class="chip"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span></div>
+          <div class="chip"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span>
+          </div>
         </div>
       </div>
 
       <!-- Navegação (IDs e data-view alinhados) -->
       <div class="side-card" role="tablist" aria-label="Navegação principal">
-        <button class="nav-btn is-active" role="tab" aria-selected="true" data-view="dashboard" aria-controls="view-dashboard" type="button">
+        <button class="nav-btn is-active" role="tab" aria-selected="true" data-view="dashboard"
+          aria-controls="view-dashboard" type="button">
           <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Resumo
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="clients" aria-controls="view-clients" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="clients" aria-controls="view-clients"
+          type="button">
           <i class="fa-solid fa-user" aria-hidden="true"></i> Clientes
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="agenda" aria-controls="view-agenda" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="agenda" aria-controls="view-agenda"
+          type="button">
           <i class="fa-regular fa-calendar"></i> Agenda
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="attendance" aria-controls="view-attendance" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="attendance" aria-controls="view-attendance"
+          type="button">
           <i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="employees" aria-controls="view-employees" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="employees" aria-controls="view-employees"
+          type="button">
           <i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="reports" aria-controls="view-reports" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="reports" aria-controls="view-reports"
+          type="button">
           <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Relatórios
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="settings" aria-controls="view-settings" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="settings" aria-controls="view-settings"
+          type="button">
           <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
         </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="audit" aria-controls="view-audit" type="button">
+        <button class="nav-btn" role="tab" aria-selected="false" data-view="audit" aria-controls="view-audit"
+          type="button">
           <i class="fa-solid fa-calculator" aria-hidden="true"></i> Auditoria
         </button>
       </div>
@@ -64,7 +78,8 @@
           <img src="../imagens/logo.png" class="brand-logo" alt="Rokuzen">
         </div>
         <div class="page-head__row">
-          <div class="chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span id="currentUnitName">—</span></div>
+          <div class="chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span
+              id="currentUnitName">—</span></div>
         </div>
       </header>
 
@@ -72,13 +87,15 @@
       <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
         <div class="cards-grid">
           <article class="card">
-            <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia (unidade)</h2>
+            <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do
+              Dia (unidade)</h2>
             <div class="grid grid--2">
               <div class="side-card">
                 <div class="side-card__title">Atendimentos</div>
                 <div class="row">
                   <div class="chip"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b></div>
-                  <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b id="kpiActiveTherapists">0</b></div>
+                  <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
+                      id="kpiActiveTherapists">0</b></div>
                 </div>
               </div>
               <div class="side-card">
@@ -86,14 +103,16 @@
                 <div class="row">
                   <div class="chip"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b></div>
                   <div class="chip"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b></div>
-                  <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b></div>
+                  <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b>
+                  </div>
                 </div>
               </div>
             </div>
           </article>
 
           <article class="card">
-            <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos</h2>
+            <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos
+            </h2>
             <table class="table" id="tblNextAppts">
               <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
               <thead class="table__head">
@@ -160,7 +179,8 @@
       <!-- ===== PONTO ===== -->
       <section id="view-attendance" class="view" aria-labelledby="pontoTitle">
         <article class="card">
-          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto (Recepção)</h2>
+          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto
+            (Recepção)</h2>
           <div class="row row--gap-sm">
             <select id="filterEmp" class="input"></select>
             <input type="date" id="filterDate" class="input">
@@ -226,17 +246,23 @@
       <!-- ===== CONFIGURAÇÕES (stub) ===== -->
       <section id="view-settings" class="view" aria-labelledby="settingsTitle">
         <article class="card">
-          <h2 class="card__title" id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações</h2>
+          <h2 class="card__title" id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
+          </h2>
           <div class="tabs" role="tablist" aria-label="Seções de Configurações">
-            <button class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org" type="button"><i class="fa-solid fa-building"></i> Organização</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users" type="button"><i class="fa-solid fa-user-shield"></i> Usuários</button>
+            <button class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org"
+              type="button"><i class="fa-solid fa-building"></i> Organização</button>
+            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users"
+              type="button"><i class="fa-solid fa-user-shield"></i> Usuários</button>
           </div>
           <div class="tabpanels">
             <div id="tab-org" class="tabs__panel is-active" role="tabpanel">
               <form id="formOrg" class="grid grid--2">
-                <div class="field"><label class="field__label">Nome da Unidade</label><input class="input" type="text" id="orgName" placeholder="Mooca Plaza"></div>
-                <div class="field"><label class="field__label">WhatsApp</label><input class="input" type="text" id="orgWa" placeholder="(11) 95084-1087"></div>
-                <div class="actions actions--end grid__col--2"><button class="btn" type="button" id="saveOrg"><i class="fa-solid fa-floppy-disk"></i> Salvar</button></div>
+                <div class="field"><label class="field__label">Nome da Unidade</label><input class="input" type="text"
+                    id="orgName" placeholder="Mooca Plaza"></div>
+                <div class="field"><label class="field__label">WhatsApp</label><input class="input" type="text"
+                    id="orgWa" placeholder="(11) 95084-1087"></div>
+                <div class="actions actions--end grid__col--2"><button class="btn" type="button" id="saveOrg"><i
+                      class="fa-solid fa-floppy-disk"></i> Salvar</button></div>
               </form>
             </div>
             <div id="tab-users" class="tabs__panel" role="tabpanel">
@@ -283,5 +309,19 @@
 
     </main>
   </div>
+  <!-- VLibras - Acessibilidade em Libras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
 </body>
+
 </html>

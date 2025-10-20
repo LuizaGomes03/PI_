@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
@@ -7,10 +8,12 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet" />
   <link rel="stylesheet" href="../CSS/recepcao.css">
 </head>
+
 <body>
   <div class="main shell">
     <header class="head">
-      <a href="recepcao.html" class="btn btn-muted" style="margin-right:12px;"><i class="fa-solid fa-arrow-left"></i> Voltar</a>
+      <a href="recepcao.html" class="btn btn-muted" style="margin-right:12px;"><i class="fa-solid fa-arrow-left"></i>
+        Voltar</a>
       <h1>Nossos Posts — Administração</h1>
     </header>
 
@@ -35,7 +38,7 @@
   </div>
 
   <script>
-    (function(){
+    (function () {
       const postsKey = 'rokuzen_posts';
       const form = document.getElementById('postForm');
       const titleEl = document.getElementById('postTitle');
@@ -103,7 +106,7 @@
         msg.textContent = 'Post salvo com sucesso.';
         form.reset();
         load();
-        setTimeout(()=> msg.textContent = '', 2500);
+        setTimeout(() => msg.textContent = '', 2500);
       });
 
       clearBtn.addEventListener('click', () => {
@@ -115,5 +118,19 @@
       load();
     })();
   </script>
+  <!-- VLibras - Acessibilidade em Libras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
 </body>
+
 </html>

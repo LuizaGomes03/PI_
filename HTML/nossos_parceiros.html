@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Nossos Parceiros</title>
 
     <!-- Fontes -->
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap"
+        rel="stylesheet">
 
     <!-- CSS externo -->
     <link rel="stylesheet" href="../CSS/nossos_parceiros.css">
 </head>
+
 <body>
     <div id="menu"></div>
 
@@ -23,35 +27,39 @@
     <!-- ====== Parceiros (cards) ====== -->
     <section class="parceiros-section">
         <div class="parceiro">
-            <img src="https://tse1.mm.bing.net/th/id/OIP.9CCJ_m8yVopJ_kvHOWHT0QHaEL?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3" alt="T-systems">
+            <img src="https://tse1.mm.bing.net/th/id/OIP.9CCJ_m8yVopJ_kvHOWHT0QHaEL?cb=12&rs=1&pid=ImgDetMain&o=7&rm=3"
+                alt="T-systems">
             <h3>T-systems</h3>
             <p>Parceria voltada para sustentabilidade e responsabilidade ambiental.</p>
         </div>
 
         <div class="parceiro">
-            <img src="https://www.t-systems.com/resource/image/116680/ratio3x2/1440/960/fc37e72301e47e9fe320104648addffd/83B7DFDA95A55D1C99B83666C4030CB7/im-profile-northerneuropemap-tsystemsuk.png" alt="Natura">
+            <img src="https://www.t-systems.com/resource/image/116680/ratio3x2/1440/960/fc37e72301e47e9fe320104648addffd/83B7DFDA95A55D1C99B83666C4030CB7/im-profile-northerneuropemap-tsystemsuk.png"
+                alt="Natura">
             <h3>BENEFÍCIOS</h3>
             <p>Oferecemos descontos, pacotes e a incrível “Relaxing Time” para os colaboradores da T-Systems.</p>
         </div>
     </section>
 
-      <section>
-        <p>No Brasil, a T-Systems tem mais 1.600 clientes, cerca de 2 mil funcionários e possui 11 filiais instaladas em 8 cidades,
-            aptas a ofertar serviços de Consultoria, Infraestrutura de TI e Telecom, Desenvolvimento e Manutenção de Aplicativos e Soluções por Indústria. 
+    <section>
+        <p>No Brasil, a T-Systems tem mais 1.600 clientes, cerca de 2 mil funcionários e possui 11 filiais instaladas em
+            8 cidades,
+            aptas a ofertar serviços de Consultoria, Infraestrutura de TI e Telecom, Desenvolvimento e Manutenção de
+            Aplicativos e Soluções por Indústria.
             Além disso, tem um portfolio inovador para oferta de Soluções SAP (inclusive SAP as a Service),
-            SAP HANA, Soluções para Big Data, M2M (Machine to Machine) e Soluções específicas para Smart Grid, 
+            SAP HANA, Soluções para Big Data, M2M (Machine to Machine) e Soluções específicas para Smart Grid,
             para área de Saúde e soluções para otimizar processos logísticos
         </p>
-    
+
         <a href="https://www.t-systems.com/br/pt" target="_blank" rel="noopener" class="btn-saiba-mais">Saiba mais</a>
 
         <p class="parceiro-convite">
-          Seja um parceiro da ROKUZEN você também!!<br><br>
-          Entre em contato conosco e faça a sua proposição. Iremos avaliar e responderemos assim que possível.
-      </p>
-      
+            Seja um parceiro da ROKUZEN você também!!<br><br>
+            Entre em contato conosco e faça a sua proposição. Iremos avaliar e responderemos assim que possível.
+        </p>
+
     </section>
-              
+
     <!-- ====== Formulário de Contato (igual à imagem) ====== -->
     <section class="contato-parceria">
         <h2>ENTRE EM CONTATO</h2>
@@ -78,29 +86,43 @@
 
     <!-- ====== Rodapé ====== -->
     <footer>
-    <div id="rodape"></div>
-    <script>
-        fetch("menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menu").innerHTML = data;
-            });
+        <div id="rodape"></div>
+        <script>
+            fetch("menu.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("menu").innerHTML = data;
+                });
 
-        fetch("rodape.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("rodape").innerHTML = data;
-            });
-    </script>
-</footer>
+            fetch("rodape.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("rodape").innerHTML = data;
+                });
+        </script>
+    </footer>
 
     <!-- (opcional) script para demo: evita envio real -->
     <script>
-      document.getElementById('form-parceria').addEventListener('submit', function(e){
-        e.preventDefault();
-        alert('Formulário enviado (demo).');
-        this.reset();
-      });
+        document.getElementById('form-parceria').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Formulário enviado (demo).');
+            this.reset();
+        });
     </script>
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+
 </body>
+
 </html>

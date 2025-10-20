@@ -19,7 +19,7 @@
     <!-- 🌿 Fundo com vídeo -->
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="../video/3140104-hd_1920_1080_30fps.mp4" type="video/mp4">
-       
+
     </video>
 
     <div class="login-box">
@@ -65,4 +65,16 @@
                 alert("Usuário ou senha incorretos!");
             }
         }
+    </script>
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>

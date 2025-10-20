@@ -1,17 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nossos Clientes</title>
 
     <!-- Fontes -->
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Raleway:wght@300;400;600&display=swap"
+        rel="stylesheet">
 
     <!-- CSS externo -->
     <link rel="stylesheet" href="../CSS/nossos_clientes.css">
 
 </head>
+
 <body>
     <div id="menu"></div>
 
@@ -24,37 +28,55 @@
     <!-- ====== Seção de Clientes ====== -->
     <section class="clientes-section">
         <div class="cliente">
-            <img src="https://play-lh.googleusercontent.com/wbEVtSJ7jiNu9gix1OKQqSxuEChvUfxfSYzONFj4cHt_sMOEyBgEQF2lZrFw0AjxYtbY" alt="Cliente 1">
+            <img src="https://play-lh.googleusercontent.com/wbEVtSJ7jiNu9gix1OKQqSxuEChvUfxfSYzONFj4cHt_sMOEyBgEQF2lZrFw0AjxYtbY"
+                alt="Cliente 1">
             <h3>Shopping Golden Square</h3>
-            <p>Muito mais do que um centro de compras, o Golden Square Shopping vem com a missão de trazer a inovação.</p>
+            <p>Muito mais do que um centro de compras, o Golden Square Shopping vem com a missão de trazer a inovação.
+            </p>
             <a href="https://www.goldensquareshopping.com.br/" target="_blank">Saiba mais</a>
         </div>
 
         <div class="cliente">
-            <img src="https://co.delfia.tech/wp-content/uploads/sites/2/2024/02/clientedelfia_ancarivanhoe.png" alt="Cliente 2">
+            <img src="https://co.delfia.tech/wp-content/uploads/sites/2/2024/02/clientedelfia_ancarivanhoe.png"
+                alt="Cliente 2">
             <h3>Ancar Ivanhoe</h3>
-            <p>Estamos presentes em todas as regiões do Brasil, com 22 shoppings e mais de 5 mil lojas em nosso portfólio.</p>
+            <p>Estamos presentes em todas as regiões do Brasil, com 22 shoppings e mais de 5 mil lojas em nosso
+                portfólio.</p>
             <a href="https://www.ancar.com.br/" target="_blank">Saiba mais</a>
         </div>
     </section>
 
     <!-- ====== Rodapé ====== -->
     <footer>
-    <div id="rodape"></div>
-    <script>
-        fetch("menu.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("menu").innerHTML = data;
-            });
+        <div id="rodape"></div>
+        <script>
+            fetch("menu.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("menu").innerHTML = data;
+                });
 
-        fetch("rodape.html")
-            .then((response) => response.text())
-            .then((data) => {
-                document.getElementById("rodape").innerHTML = data;
-            });
+            fetch("rodape.html")
+                .then((response) => response.text())
+                .then((data) => {
+                    document.getElementById("rodape").innerHTML = data;
+                });
+        </script>
+    </footer>
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
-</footer>
+
 
 </body>
+
 </html>
