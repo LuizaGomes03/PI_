@@ -1,121 +1,96 @@
+/* Reset básico */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+/* Rodapé */
 .footer {
     background-color: #D9D9D9;
     color: #333;
-    padding-top: 40px;
-    font-family: 'Raleway', sans-serif;
+    padding: 40px 20px 20px;
 }
 
-/* Container principal do rodapé */
 .footer-container {
     display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
     flex-wrap: wrap;
+    justify-content: space-between;
     max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 20px 40px;
-    gap: 40px;
+    margin: auto;
 }
 
-/* Bloco genérico */
 .footer-section {
-    min-width: 250px;
+    flex: 1 1 200px;
+    margin: 20px;
 }
 
-/* Alinhamento individual por seção */
-.footer-section.unidades {
-    text-align: left;
-    flex: 1;
-}
-
-.footer-section.pagamento {
-    text-align: center;
-    flex: 1;
-}
-
-.footer-section.redes {
-    text-align: right;
-    flex: 1;
-}
-
-/* Título das seções */
 .footer-section h3 {
     margin-bottom: 15px;
-    color: #6b4f4f;
     font-size: 18px;
-    text-align: center;
+    color: #333;
 }
 
-/* Grade de unidades (2 colunas) */
-.unidades-grid {
-    display: grid;
-    grid-template-columns: auto auto;
-    column-gap: 35px;
-    row-gap: 10px;
+.footer-section ul {
+    list-style: none;
+    padding-left: 0;
 }
 
-/* Bloco de uma unidade */
-.unidade {
-    font-size: 15px;
-    line-height: 1.6;
-    margin-bottom: 20px;
+.footer-section li {
+    margin-bottom: 15px;
+    font-size: 14px;
+    color: #333;
 }
 
-/* Linha do endereço */
-.endereco {
-    white-space: nowrap;
-}
-
-/* Estilo do link do WhatsApp */
-.whatsapp {
-    white-space: nowrap;
-    color: #006400;
+.footer-section a {
+    color: #333;
     text-decoration: none;
+    transition: color 0.3s;
 }
 
-.whatsapp:hover {
-    text-decoration: underline;
+.footer-section a:hover {
+    color: #000000;
 }
 
-/* Listas de pagamento e redes sociais */
-.pagamentos,
+.footer-section span {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+/* Redes Sociais - Ícones */
 .social-icons {
     display: flex;
-    justify-content: center;
     gap: 15px;
-    padding: 0;
+    padding-left: 0;
 }
 
-.pagamentos li,
 .social-icons li {
     list-style: none;
 }
 
-/* Imagens das formas de pagamento */
-.pagamentos img {
-    width: 34px;
-    height: 34px;
-    cursor: pointer;
-    transition: transform 0.3s ease, filter 0.3s ease;
-}
-
-.pagamentos img:hover {
-    transform: scale(1.1);
-    filter: brightness(1.1);
-}
-
 .social-icons li a {
-    text-decoration: none;
-    font-size: 28px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    transition: color 0.3s ease, filter 0.3s ease;
+    font-size: 25px;
 }
 
 /* Facebook - azul oficial */
 .social-icons li a.facebook {
     color: #1877F2;
+}
+
+/* Estilo do link do WhatsApp */
+.whatsapp {
+    white-space: nowrap;
+    color: #006400 !important;
+    text-decoration: none;
+}
+
+.whatsapp:hover, .maps:hover  {
+    text-decoration: underline;
 }
 
 /* Instagram - gradiente vibrante */
@@ -153,39 +128,56 @@
     transition: color 0.3s ease, filter 0.3s ease;
 }
 
-/* Rodapé inferior */
-.footer-bottom {
-    text-align: center;
-    padding: 15px 10px;
-    background-color: #fff;
-    font-size: 14px;
-    color: #555;
+/* Formas de Pagamento - Bandeiras */
+.payment-icons {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    padding-left: 0;
 }
 
-/* ===== Responsivo: empilha no mobile ===== */
+.payment-icons li {
+    list-style: none;
+}
+
+.payment-icons img {
+    width: 34px;
+    height: 34px;
+    transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.payment-icons img:hover {
+    transform: scale(1.1);
+    filter: brightness(1.1);
+}
+
+/* Rodapé inferior */
+.footer-bottom {
+    background-color: white;
+    color: #555;
+    text-align: center;
+    font-size: 14px;
+    padding: 15px 20px;
+}
+
+
+/* Responsivo */
 @media (max-width: 768px) {
     .footer-container {
         flex-direction: column;
         align-items: center;
-        gap: 40px; /* adiciona espaçamento entre blocos */
-        text-align: center;
     }
 
     .footer-section {
-        width: 100%;
-        max-width: 400px;
-    }
-
-    .unidades-grid {
-        grid-template-columns: 1fr;
-        gap: 12px; /* mais espaço entre unidades */
-    }
-
-    /* todos os blocos centralizados (sem precisar repetir classes) */
-    .footer-section h3 {
+        margin: 20px 0;
         text-align: center;
     }
+
+    .social-icons {
+        justify-content: center;
+    }
+
+    .payment-icons {
+        justify-content: center;
+    }
 }
-
-
-
