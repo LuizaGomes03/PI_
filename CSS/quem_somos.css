@@ -1,74 +1,248 @@
-/* Aplica fonte e centralização somente dentro do main */
+/*=============================
+  VARIÁVEIS E BASE GLOBAL
+===============================*/
+:root {
+  --verde-escuro: #4f5b30;
+  --verde-claro: #9DB668;
+  --texto: #333;
+  --fundo: #fff;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--fundo);
+  color: var(--texto);
+  line-height: 1.6;
+}
+
 main {
-    font-family: 'Amatic SC', cursive;
-    text-align: center;
-    color: #333;
-    padding: 20px;
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 20px;
+  text-align: center;
+  box-sizing: border-box;
 }
 
-/* Centralizar e aumentar títulos dentro do main */
-main h1, main h2, main h3, main h4 {
-    font-weight: 700;
-    margin: 0.5em 0;
-}
-
-/* Título principal dentro do main */
-main header h1 {
-    font-size: 4em;
-    margin-bottom: 0.3em;
-    text-align: center;
-}
-
-/* Outros títulos */
-main h2 {
-    font-size: 3em;
-    margin-top: 1em;
-}
-
-main h3 {
-    font-size: 2.5em;
-}
-
+/*=============================
+  TIPOGRAFIA
+===============================*/
+main h1,
+main h2,
+main h3,
 main h4 {
-    font-size: 2em;
+  color: var(--verde-escuro);
+  margin: 0.6em 0;
+  font-weight: 700;
+  font-family: 'Amatic SC', cursive, Arial, sans-serif;
 }
 
-/* Texto e listas dentro do main */
-main p, main li {
-    font-size: 1.8em;
-    line-height: 1.4;
-    max-width: 800px;
-    margin: 0 auto 1em auto;
-    text-align: center;
+main h1 { font-size: 64px; letter-spacing: 1px; }
+main h2 { font-size: 40px; margin-top: 30px; }
+main h3 { font-size: 36px; }
+main h4 { font-size: 24px; }
+
+main p,
+main li {
+  font-size: 1rem;
+  color: #222;
+  max-width: 900px;
+  margin: 0.8em auto;
+  text-align: left;
 }
 
-main ul, main ol {
-    list-style-position: inside;
-    padding: 0;
-    margin: 1em auto;
-    max-width: 800px;
-    text-align: left; /* listas alinhadas à esquerda para melhor leitura */
+main ul,
+main ol {
+  margin-left: 28px;
+  max-width: 900px;
 }
 
-/* Se quiser centralizar as listas, altere para text-align: center */
-
-/* Seções e figuras */
-main section {
-    margin: 40px 0;
+/*=============================
+  SEÇÕES E FIGURAS
+===============================*/
+section {
+  margin-bottom: 36px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #eee;
 }
 
-main figure {
+section:last-child { border-bottom: none; }
+
+figure {
+  margin: 18px auto;
+  text-align: center;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 6px;
+  display: block;
+  margin: 0 auto;
+}
+
+/*=============================
+  IMAGEM DIREITA
+===============================*/
+.imagem-direita {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.imagem-direita .texto { flex: 2; text-align: left; }
+.imagem-direita figure { flex: 1; text-align: right; margin: 0; }
+.imagem-direita img { border-radius: 8px; }
+
+/*=============================
+  ACESSIBILIDADE
+===============================*/
+:focus-visible {
+  outline: 3px solid rgba(157, 182, 104, 0.6);
+  outline-offset: 3px;
+}
+
+/*=============================
+  MENU E RODAPÉ
+===============================*/
+#menu,
+#rodape {
+  margin-bottom: 20px;
+}
+
+/*=============================
+  CARDS "NOSSOS 3 VALORES"
+===============================*/
+.valores-cards {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  align-items: stretch;
+  flex-wrap: wrap;
+  margin-top: 18px;
+}
+
+.card {
+  background: #fff;
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  width: 320px;
+  min-width: 220px;
+  overflow: hidden;
+  transition: transform 220ms ease, box-shadow 220ms ease, border-color 220ms ease;
+  cursor: pointer;
+  margin-bottom: 30px;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+}
+
+.card[open] {
+  border-color: var(--verde-claro);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.10);
+}
+
+.card > summary {
+  list-style: none;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(180deg, rgba(157,182,104,0.04), transparent);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  font-size: 1.25rem;
+  color: var(--verde-escuro);
+  font-weight: 700;
+  user-select: none;
+  outline: none;
+}
+
+.card > summary::-webkit-details-marker { display: none; }
+
+.card > summary::after {
+  content: "+";
+  font-size: 1.25rem;
+  line-height: 1;
+  color: var(--verde-escuro);
+  transition: transform 180ms ease, content 120ms;
+}
+
+.card[open] > summary::after { content: "−"; }
+
+.card .card-content {
+  padding: 16px 20px 22px 20px;
+  color: #333;
+  font-size: 1rem;
+  background: rgba(240, 248, 235, 0.6);
+  border-top: 1px solid rgba(0,0,0,0.03);
+}
+
+.card > summary:focus-visible {
+  outline: 3px solid rgba(157,182,104,0.35);
+  outline-offset: 3px;
+}
+
+/*=============================
+  RESPONSIVIDADE
+===============================*/
+@media (max-width: 768px) {
+  .valores-cards { gap: 16px; }
+  .card { width: calc(50% - 12px); }
+
+  main {
     margin: 20px auto;
+    padding: 16px;
+  }
+
+  main h1 { font-size: 48px; }
+  main h2 { font-size: 34px; }
+  main h3 { font-size: 30px; }
+  main h4 { font-size: 20px; }
+
+  .imagem-direita {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .imagem-direita .texto,
+  .imagem-direita figure,
+  main p,
+  main li {
+    text-align: center;
+  }
 }
 
-main img {
-    max-width: 100%;
-    height: auto;
-    display: block;
-    margin: 0 auto;
-}
+@media (max-width: 480px) {
+  .valores-cards {
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+  }
 
-/* Mantém menu e rodape com estilo padrão sem interferência */
-#menu, #rodape {
-    margin-bottom: 20px;
+  .card {
+    width: 100%;
+    max-width: 420px;
+  }
+
+  .card > summary {
+    font-size: 1.15rem;
+    padding: 16px;
+  }
+
+  main h1 { font-size: 40px; }
+  main h2 { font-size: 28px; }
+  main h3 { font-size: 24px; }
+  main h4 { font-size: 18px; }
+
+  main p,
+  main li {
+    font-size: 0.95rem;
+    padding: 0 6px;
+  }
 }

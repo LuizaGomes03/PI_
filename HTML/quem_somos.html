@@ -11,15 +11,13 @@
 </head>
 
 <body>
-
-    <header>
-        <div id="menu"></div>
+    <header role="banner">
+        <div id="menu" aria-label="Menu principal"></div>
     </header>
 
-
-    <main>
-        <section>
-            <h1>Quem Somos?</h1>
+    <main id="conteudo-principal">
+        <section aria-labelledby="titulo-quem-somos">
+            <h1 id="titulo-quem-somos">Quem Somos?</h1>
             <h2>História</h2>
             <p>
                 Criada em 2015, a Rokuzen é uma empresa brasileira de massagem terapêutica que se propõe a conduzir
@@ -27,52 +25,49 @@
             </p>
             <p>
                 Oferece à seus clientes uma equipe composta por massoterapeutas especializados e experientes, além de um
-                ambiente confortável e provido de elementos para o relaxamento dos 5 (cinco) sentidos do ser humano. Um
-                conjunto de aspectos que permitem o desenvolvimento e a ampliação do bem-estar, ou seja, um momento
-                dedicado a si mesmo, favorecendo melhores condições para a sua saúde física e mental.
+                ambiente confortável e provido de elementos para o relaxamento dos cinco sentidos do ser humano.
             </p>
         </section>
 
-        <section>
-            <h3>Nossos 3 Valores</h3>
-
-            <article>
-                <h4>Missão</h4>
-                <p>Proporcionar um momento terapêutico integrado e dedicado aos seus sentidos.</p>
-            </article>
-
-            <article>
-                <h4>Visão</h4>
-                <p>Ser um instrumento de saúde e bem-estar para as pessoas.</p>
-            </article>
-
-            <article>
-                <h4>Valores</h4>
-                <p>Respeito; Cooperação; Comprometimento.</p>
-            </article>
+        <section aria-labelledby="titulo-valores">
+            <h2 id="titulo-valores">Nossos 3 Valores</h2>
+            <div class="valores-cards" role="list">
+                <details class="card" role="listitem">
+                    <summary>Missão</summary>
+                    <div class="card-content">
+                        <p>Proporcionar um momento terapêutico integrado e dedicado aos seus sentidos.</p>
+                    </div>
+                </details>
+                <details class="card" role="listitem">
+                    <summary>Visão</summary>
+                    <div class="card-content">
+                        <p>Ser um instrumento de saúde e bem-estar para as pessoas.</p>
+                    </div>
+                </details>
+                <details class="card" role="listitem">
+                    <summary>Valores</summary>
+                    <div class="card-content">
+                        <p>Respeito; Cooperação; Comprometimento.</p>
+                    </div>
+                </details>
+            </div>
         </section>
 
-        <section>
-            <h2>Por que ROKUZEN?</h2>
-
+        <section aria-labelledby="titulo-nome">
+            <h2 id="titulo-nome">Por que ROKUZEN?</h2>
             <h3>Por trás do nome</h3>
             <p>O nome ROKUZEN é constituído da união de duas palavras: Roku + Zen.</p>
-
             <ul>
-                <li>A palavra ROKU em japonês representa o número 6 (seis), cujo Kanji é:</li>
+                <li>A palavra ROKU em japonês representa o número seis.</li>
             </ul>
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/roku.png" alt="Kanji Roku" width="400">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/roku.png" alt="Kanji que representa Roku, o número seis em japonês" width="400">
             </figure>
-
-            <p>E a palavra ZEN possui um significado amplo como: pessoa ou coisa calma, tranquila, mística,
-                contemplativa. Seu Kanji é:</p>
+            <p>A palavra ZEN possui significado amplo como calma e contemplação.</p>
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/zen.png" alt="Kanji Zen" width="300">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/zen.png" alt="Kanji que representa Zen" width="300">
             </figure>
-
-            <p>Sendo que o conceito de nossos serviços é proporcionar o relaxamento dos 5 (cinco) sentidos do ser
-                humano:</p>
+            <p>O conceito dos serviços é proporcionar o relaxamento dos cinco sentidos do ser humano:</p>
             <ol>
                 <li>Tato (massagem);</li>
                 <li>Visão (jardim zen);</li>
@@ -82,51 +77,33 @@
             </ol>
         </section>
 
-        <section>
-            <h2>Nossa Estrutura</h2>
+        <section aria-labelledby="titulo-estrutura">
+            <h2 id="titulo-estrutura">Nossa Estrutura</h2>
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/ROKUZEN_vista_superior.jpg"
-                    alt="Foto da área de atendimento" width="400">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/ROKUZEN_vista_superior.jpg" alt="Área de atendimento da Rokuzen com tatami e jardim zen central" width="400">
             </figure>
-
             <p>
-                Nossa área de atendimento é revestida por tatami japonês e possui a forma de octógono. As cadeiras
-                especiais de quick-massage são orientadas no sentido horário (energia positiva) no entorno do Jardim
-                Zen, localizado ao centro do octógono, cujo formato refere-se ao Bá-Gua.
+                Nossa área de atendimento é revestida por tatami japonês e possui a forma de octógono.
             </p>
-            <p>
-                Trigramas são as oito combinações possíveis das energias Yin e Yang, formando o Bá-gua, que serve para
-                delimitar onde cada energia se localiza em pessoas e ambientes (Feng Shui).
-            </p>
-
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/B%C3%A1-gua.png" alt="Imagem dos trigramas"
-                    width="300">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/B%C3%A1-gua.png" alt="Imagem dos trigramas do Bá-Gua" width="300">
             </figure>
-
-            <p>
-                Os trigramas são relacionados a elementos da natureza, personalidades, membros da família, direções
-                cardeais, horários e também setores da vida.
-            </p>
-
+            <p>Os trigramas são relacionados a elementos da natureza e setores da vida.</p>
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/setores-bagua.jpg"
-                    alt="Imagem dos setores da vida" width="300">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/setores-bagua.jpg" alt="Imagem dos setores da vida no Bá-Gua" width="300">
             </figure>
         </section>
 
-        <section>
-            <h2>Logotipo</h2>
-            <p>Da união e composição dos três símbolos (Roku, Zen e Bá-gua), constituímos o logo da ROKUZEN.</p>
-
+        <section aria-labelledby="titulo-logotipo">
+            <h2 id="titulo-logotipo">Logotipo</h2>
+            <p>Da união dos três símbolos, constituímos o logo da ROKUZEN.</p>
             <figure>
-                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/cropped-Logo-Frontal-Rokuzen-PNG-com-fundo-transparente.png"
-                    alt="Logotipo da ROKUZEN" width="300">
+                <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/cropped-Logo-Frontal-Rokuzen-PNG-com-fundo-transparente.png" alt="Logotipo da Rokuzen" width="300">
             </figure>
         </section>
     </main>
 
-    <footer>
+    <footer role="contentinfo">
         <div id="rodape"></div>
         <script>
             fetch("menu.html")
@@ -142,18 +119,5 @@
                 });
         </script>
     </footer>
-    <!-- VLibras - Acessibilidade em Libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
-
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-        new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
 </body>
-
 </html>
