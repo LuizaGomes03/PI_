@@ -89,7 +89,7 @@ body {
     text-decoration: none;
 }
 
-.whatsapp:hover, .maps:hover  {
+.whatsapp:hover, .link:hover  {
     text-decoration: underline;
 }
 
