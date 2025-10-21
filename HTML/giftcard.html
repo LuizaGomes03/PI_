@@ -25,17 +25,21 @@
                     pronto.</p>
                 <h2 class="step">1. Clique no serviço que deseja dar de presente:</h2>
                 <div class="services-grid">
-                    <article class="service"> <img src="../imagens/v_quick1.jpg" alt="Quick Massage">
+                    <article class="service" role="button" tabindex="0" data-service="Quick Massage"> <img
+                            src="../imagens/v_quick1.jpg" alt="Quick Massage">
                         <p class="service-title">Quick Massage</p>
                     </article>
-                    <article class="service"> <img src="../imagens/v_maca.jpg"
+                    <article class="service" role="button" tabindex="0"
+                        data-service="Maca (Shiatsu / Anmá / Ventosa / Relaxante)"> <img src="../imagens/v_maca.jpg"
                             alt="Maca (Shiatsu / Anmá / Ventosa / Relaxante)">
                         <p class="service-title">Maca (Shiatsu / Anmá / Ventosa / Relaxante)</p>
                     </article>
-                    <article class="service"> <img src="../imagens/v_auriculoterapia.jpg" alt="Auriculoterapia">
+                    <article class="service" role="button" tabindex="0" data-service="Auriculoterapia"> <img
+                            src="../imagens/v_auriculoterapia.jpg" alt="Auriculoterapia">
                         <p class="service-title">Auriculoterapia</p>
                     </article>
-                    <article class="service"> <img src="../imagens/v_reflexologia.jpg" alt="Reflexologia Podal">
+                    <article class="service" role="button" tabindex="0" data-service="Reflexologia Podal"> <img
+                            src="../imagens/v_reflexologia.jpg" alt="Reflexologia Podal">
                         <p class="service-title">Reflexologia Podal</p>
                     </article>
                 </div>
@@ -67,6 +71,35 @@
                 });
         </script>
     </footer>
+    
+    <!-- ===== JS: seleção única + acessibilidade ===== -->
+    <script>
+        (function () {
+            const services = document.querySelectorAll('.service');
+
+            function clearSelected() {
+                services.forEach(s => s.classList.remove('selected'));
+            }
+
+            services.forEach(service => {
+                // clique com mouse
+                service.addEventListener('click', () => {
+                    clearSelected();
+                    service.classList.add('selected');
+                });
+
+                // teclado: Enter ou Espaço
+                service.addEventListener('keydown', (e) => {
+                    if (e.key === 'Enter' || e.key === ' ') {
+                        e.preventDefault();
+                        clearSelected();
+                        service.classList.add('selected');
+                    }
+                });
+            });
+        })();
+    </script>
+
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>

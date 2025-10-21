@@ -92,32 +92,57 @@
 }
 
 .service {
-    text-align: left;
+    display: inline-block;
+    width: 190px;
+    background-color: #f7f9f0;
+    border-radius: 12px;
+    border: 1px solid #e6ecd9;
+    padding: 16px;
+    text-align: center;
+    box-shadow: 0 8px 0 rgba(157, 182, 104, 0.07);
+    transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
 }
 
 .service img {
+    border-radius: 8px;
     width: 100%;
     height: 150px;
     object-fit: cover;
     display: block;
-    border: 6px solid transparent;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
-    transition: transform 0.25s ease, border-color 0.2s ease;
-}
-
-.service img:hover {
-    transform: translateY(-6px);
-    border-color: rgba(165, 180, 65, 0.15);
+    margin-bottom: 12px;
 }
 
 .service-title {
     margin-top: 10px;
     font-family: 'Amatic SC', cursive;
-    font-size: 28px;
+    font-size: 30px;
     text-transform: none;
     color: #2f2f2f;
     line-height: 1.1;
     letter-spacing: 1px;
+    height: 30px;
+}
+
+/* hover / active / selected */
+.service:hover {
+    transform: translateY(-6px);
+    box-shadow: 0 18px 30px rgba(0, 0, 0, 0.08);
+}
+
+.service:active {
+    transform: translateY(-2px) scale(.997);
+    box-shadow: 0 10px 18px rgba(0, 0, 0, 0.06);
+}
+
+.service.selected {
+    border-color: #9DB668;
+    box-shadow: 0 18px 30px rgba(157, 182, 104, 0.14);
+    transform: translateY(-8px);
+}
+
+.service:focus {
+    outline: 3px solid rgba(157, 182, 104, 0.18);
+    outline-offset: 4px;
 }
 
 /* ----- Dots padronizados ----- */
