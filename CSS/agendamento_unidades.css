@@ -181,6 +181,50 @@ h1 {
     transform: translateY(-2px);
 }
 
+/* ===== ESTILO DA SELEÇÃO ===== */
+.card {
+  transition: transform .25s ease, box-shadow .25s ease, border .25s ease;
+  border: 2px solid transparent;
+}
+
+/* efeito visual ao passar o mouse */
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 26px rgba(0, 0, 0, .18);
+}
+
+/* estado fixo quando selecionado */
+.card.selected {
+  border: 2px solid #9DB668; /* borda verde suave */
+  box-shadow: 0 0 20px rgba(157, 182, 104, 0.6);
+  transform: translateY(-4px);
+}
+
+/* destaque no nome quando selecionado */
+.card.selected .ribbon {
+  background: linear-gradient(to top, rgba(125,153,80,.9), rgba(23,35,16,.4));
+  color: #fff;
+  box-shadow: 0 8px 18px rgba(125,153,80,.4);
+  border-color: rgba(255,255,255,.35);
+}
+
+/* brilho sutil quando o card é clicado */
+.card.selected::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: var(--radius);
+  background: radial-gradient(circle at center, rgba(255,255,255,.12) 0%, transparent 70%);
+  pointer-events: none;
+  animation: pulseGlow 1s ease-out;
+}
+
+@keyframes pulseGlow {
+  0% { opacity: .7; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.3); }
+}
+
+
 @media (max-width:768px) {
     .rk-btn {
         max-width: 320px;
