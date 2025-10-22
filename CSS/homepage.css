@@ -110,6 +110,25 @@ li {
   background: transparent;
 }
 
+/* Ensure nav buttons sit above the row and remain clickable */
+.posts-container { position: relative; }
+.posts-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;            /* bring buttons above the posts row */
+  pointer-events: auto;   /* ensure buttons receive clicks */
+}
+#postsPrev { left: .75rem; }
+#postsNext { right: .75rem; }
+
+/* Keep the posts row below buttons so side buttons are clickable */
+.posts-row {
+  position: relative;
+  z-index: 1;
+  overflow-x: auto;
+}
+
 /* ===== LINHA DE POSTS ===== */
 .posts-row {
   display: flex;

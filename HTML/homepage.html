@@ -1,18 +1,26 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Homepage • Rokuzen</title>
+  <title>Rokuzen</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet" />
+  <!-- Bootstrap core CSS (utilitários: d-flex, gap, etc.) -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-  <link rel="stylesheet" href="../CSS/homepage.css">
-  <!-- carrega teu JS externo depois do HTML com defer -->
-  <script src="../JS/homepage.js" defer></script>
+  <!-- Fonte Amatic SC (usada no CSS) -->
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+
+  <!-- Font Awesome (para .fa-solid ...) -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <!-- Fontes e CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../CSS/menu.css" />
+  <link rel="stylesheet" href="../CSS/rodape.css" />
+  <link rel="stylesheet" href="../CSS/homepage.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
 </head>
 
 <body>
@@ -41,101 +49,89 @@
   <section class="posts-section" aria-labelledby="postsHeading">
     <h2 id="postsHeading">Nossos Posts</h2>
 
-    <div class="posts-container position-relative" role="region" aria-label="Carrossel de posts">
+    <div class="posts-container" role="region" aria-label="Carrossel de posts">
       <!-- Botão anterior -->
-      <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior" aria-controls="postsRow">
+      <button class="posts-btn" id="postsPrev" type="button" aria-controls="postsRow" aria-label="Anterior">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
       </button>
 
-      <!-- Linha de posts (este é o track/scroller) -->
-      <div class="posts-row d-flex flex-nowrap gap-3 overflow-auto" id="postsRow" tabindex="0">
-        <article class="post flex-shrink-0">
+      <!-- Faixa -->
+      <div class="posts-row" id="postsRow" tabindex="0">
+        <article class="post">
           <a href="ficardolorido.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 16.png" alt="Ficar Dolorido Após Massagem..."
-              class="img-fluid rounded shadow-sm" loading="lazy">
+            <img src="../imagens/Rectangle 16.png" alt="Ficar Dolorido Após Massagem..." loading="lazy">
             <div class="post-body mt-2">
-              <p class="post-title fw-semibold">
-                Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
+              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
               </p>
             </div>
           </a>
         </article>
 
-        <article class="post flex-shrink-0">
+        <article class="post">
           <a href="novoconceito.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 21.png" alt="Novo conceito terapêutico" class="img-fluid rounded shadow-sm"
-              loading="lazy">
+            <img src="../imagens/Rectangle 21.png" alt="Novo conceito terapêutico" loading="lazy">
             <div class="post-body mt-2">
-              <p class="post-title fw-semibold">
-                Descubra o novo conceito terapêutico do nosso espaço Rokuzen.
-              </p>
+              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
             </div>
           </a>
         </article>
 
-        <article class="post flex-shrink-0">
+        <article class="post">
           <a href="clima.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 22.png" alt="Mudança Climática e Imunidade"
-              class="img-fluid rounded shadow-sm" loading="lazy">
+            <img src="../imagens/Rectangle 22.png" alt="Mudança Climática e Imunidade" loading="lazy">
             <div class="post-body mt-2">
-              <p class="post-title fw-semibold">
-                Mudança Climática e sua Influência na Imunidade: O Papel Benéfico
-              </p>
+              <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
             </div>
           </a>
         </article>
 
-        <article class="post flex-shrink-0">
+        <article class="post">
           <a href="massagemnao.html" class="text-decoration-none text-dark">
-            <img src="../imagens/MassagemN.jpg" alt="Massagem não é sacanagem" class="img-fluid rounded shadow-sm"
-              loading="lazy">
+            <img src="../imagens/MassagemN.jpg" alt="Massagem não é sacanagem" loading="lazy">
             <div class="post-body mt-2">
-              <p class="post-title fw-semibold">Massagem não é sacanagem</p>
+              <p class="post-title">Massagem não é sacanagem</p>
             </div>
           </a>
         </article>
       </div>
 
       <!-- Botão próximo -->
-      <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo" aria-controls="postsRow">
+      <button class="posts-btn" id="postsNext" type="button" aria-controls="postsRow" aria-label="Próximo">
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
     </div>
   </section>
 
-  <footer>
-    <div id="rodape"></div>
-  </footer>
 
-  <!-- Carregar menu e rodapé -->
+  </div> <!-- fecha #postsRow -->
+
+  <!-- botão próximo -->
+  <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo" aria-controls="postsRow">
+    <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
+  </button>
+  </div> <!-- fecha .posts-container -->
+  </section>
+
+  <!-- Carregar só o menu -->
   <script>
-    // garante que só injeta depois do DOM
     document.addEventListener('DOMContentLoaded', () => {
-      fetch("menu.html").then(r => r.text()).then(h => { document.getElementById("menu").innerHTML = h; });
-      fetch("rodape.html").then(r => r.text()).then(h => { document.getElementById("rodape").innerHTML = h; });
+      fetch("menu.html")
+        .then(r => r.text())
+        .then(h => {
+          document.getElementById("menu").innerHTML = h;
+        });
     });
   </script>
 
-  <!-- VLibras (UMA VEZ SÓ, sem fetch) -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
-
-  <!-- Carrossel: rolar o container (#postsRow) -->
+  <!-- Carrossel -->
   <script>
     document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('postsRow');   // ✅ agora bate com o HTML
+      const track = document.getElementById('postsRow');
       const prev = document.getElementById('postsPrev');
       const next = document.getElementById('postsNext');
 
       if (!track) return;
 
-      // calcula um passo baseado na largura visível (80%)
       const step = () => Math.round(track.clientWidth * 0.8);
 
       next?.addEventListener('click', (e) => {
@@ -148,13 +144,17 @@
         track.scrollBy({ left: -step(), behavior: 'smooth' });
       });
 
-      // acessibilidade: setas do teclado quando foco está na faixa
       track.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') { e.preventDefault(); track.scrollBy({ left: step(), behavior: 'smooth' }); }
-        if (e.key === 'ArrowLeft') { e.preventDefault(); track.scrollBy({ left: -step(), behavior: 'smooth' }); }
+        if (e.key === 'ArrowRight') {
+          e.preventDefault();
+          track.scrollBy({ left: step(), behavior: 'smooth' });
+        }
+        if (e.key === 'ArrowLeft') {
+          e.preventDefault();
+          track.scrollBy({ left: -step(), behavior: 'smooth' });
+        }
       });
 
-      // atualiza passo ao redimensionar (debouncezinho simples)
       let t;
       window.addEventListener('resize', () => {
         clearTimeout(t);
@@ -162,6 +162,111 @@
       });
     });
   </script>
+  </main>
+
+  <!-- VLibras -->
+  <div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+      <div class="vw-plugin-top-wrapper"></div>
+    </div>
+  </div>
+  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+  <script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+  </script>
+
+
+  <!-- ===== FOOTER ===== -->
+  <footer class="footer">
+    <div class="footer-container">
+
+      <!-- Unidades -->
+      <div class="footer-section">
+        <h3>Unidades</h3>
+        <ul class="unidades">
+          <li>
+            <a class="link" href="https://maps.app.goo.gl/xEmYJiYuSQi1qvD88" target="_blank">Golden Square Shopping -
+              SBC</a><br>
+            <span><a class="whatsapp" href="https://wa.me/5511947495306" target="_blank">(11) 94749-5306</a></span>
+          </li>
+          <li>
+            <a class="link" href="https://maps.app.goo.gl/FProysErrBT6BpoZ9" target="_blank">Mooca Plaza Shopping -
+              SP</a><br>
+            <span><a class="whatsapp" href="https://wa.me/5511950841087" target="_blank">(11) 95084-1087</a></span>
+          </li>
+          <li>
+            <a class="link" href="https://maps.app.goo.gl/Sqc99tERM5vv2TU46" target="_blank">Grand Plaza Shopping -
+              Santo André</a><br>
+            <span><a class="whatsapp" href="https://wa.me/5511916657900" target="_blank">(11) 91665-7900</a></span>
+          </li>
+          <li>
+            <a class="link" href="https://maps.app.goo.gl/EbEqTRTz2pe1YdGv8" target="_blank">Shopping West Plaza -
+              SP</a><br>
+            <span><a class="whatsapp" href="https://wa.me/5511919427901" target="_blank">(11) 91942-7901</a></span>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Pagamento -->
+      <div class="footer-section">
+        <h3>Formas de Pagamento</h3>
+        <ul class="payment-icons">
+          <li><img src="https://www.svgrepo.com/show/328144/visa.svg" alt="Visa"></li>
+          <li><img src="https://www.svgrepo.com/show/508701/mastercard-full.svg" alt="Mastercard"></li>
+          <li><img src="https://www.svgrepo.com/show/266068/american-express.svg" alt="American Express"></li>
+          <li><img src="https://www.svgrepo.com/show/361993/elo-3.svg" alt="Elo"></li>
+        </ul>
+      </div>
+
+      <!-- Redes Sociais -->
+      <div class="footer-section">
+        <h3>Redes Sociais</h3>
+        <ul class="social-icons">
+          <li><a href="https://www.facebook.com/rokuzen.massagem" class="facebook"><i class="bi bi-facebook"></i></a>
+          </li>
+          <li><a href="https://www.instagram.com/rokuzen.massagem/#" class="instagram"><i
+                class="bi bi-instagram"></i></a>
+          </li>
+          <li><a href="https://www.linkedin.com/company/rokuzen?trk=top_nav_home" class="linkedin"><i
+                class="bi bi-linkedin"></i></a></li>
+          <li><a href="mailto:seuemail@example.com" class="email"><i class="bi bi-envelope"></i></a></li>
+        </ul>
+      </div>
+
+
+      <!-- Políticas -->
+      <div class="footer-section">
+        <h3>Políticas</h3>
+        <ul>
+          <li><a class="link" href="politica_privacidade.html">Política de Privacidade</a></li>
+          <li><a class="link" href="termos_uso.html">Termos de Uso</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="footer-bottom">
+    <p>&copy; 2025 Rokuzen. Todos os direitos reservados.</p>
+
+    <!-- login discreto -->
+    <a href="login.html" class="login-link" aria-label="Área de login">
+      <i class="bi bi-person"></i>
+      <span class="login-text">Entrar</span>
+    </a>
+  </div>
+
+
+  <script>
+    const hamburger = document.querySelector('.hamburger');
+    const menu = document.querySelector('nav ul');
+
+    hamburger.addEventListener('click', () => {
+      menu.classList.toggle('active');
+      hamburger.classList.toggle('open');
+    });
+  </script>
+
 </body>
 
 </html>
