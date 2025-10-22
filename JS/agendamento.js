@@ -1,5 +1,5 @@
 // Próxima tela após selecionar a unidade:
-const NEXT_PAGE = "agendamento1.html";
+const NEXT_PAGE = "agendamento_unidades.html";
 
 // Próxima fase após selecionar o serviço
 const NEXT_PAGE_SERVICE = "agendamento3.html";
