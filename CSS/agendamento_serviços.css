@@ -168,3 +168,14 @@
     margin-top: 30px;
   }
 }
+
+.servico {
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.servico.selected {
+  border: 3px solid #9db668;
+  box-shadow: 0 0 10px rgba(43, 124, 255, 0.3);
+  transform: scale(1.03);
+}

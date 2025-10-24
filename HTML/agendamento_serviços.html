@@ -67,18 +67,21 @@
     (function () {
       const servicos = document.querySelectorAll('.servico');
       const confirmarBtn = document.getElementById('confirmarBtn');
-
+  
+      // Remove seleção anterior
       function clearSelected() {
         servicos.forEach(s => s.classList.remove('selected'));
       }
-
+  
+      // Marca o serviço clicado
       servicos.forEach(servico => {
         servico.addEventListener('click', () => {
           clearSelected();
           servico.classList.add('selected');
         });
       });
-
+  
+      // Redireciona ao confirmar
       confirmarBtn.addEventListener('click', () => {
         const selecionado = document.querySelector('.servico.selected');
         if (selecionado) {
@@ -89,7 +92,7 @@
         }
       });
     })();
-  </script>
+  </script>  
   <!-- VLibras - Acessibilidade em Libras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
