@@ -1,70 +1,77 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Seja um fraqueado</title>
 
-    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Quicksand:wght@300..700&display=swap" rel="stylesheet">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Seja um fraqueado</title>
+
+  <link
+    href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Quicksand:wght@300..700&display=swap"
+    rel="stylesheet">
 
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-    <link rel="stylesheet" href="../CSS/menu.css">
-    <link rel="stylesheet" href="../CSS/faleconosco_sejaumfranqueado.css">
+  <link rel="stylesheet" href="../CSS/menu.css">
+  <link rel="stylesheet" href="../CSS/faleconosco_sejaumfranqueado.css">
 
 </head>
+
 <body>
-    <!-- MENU -->
-    <div id="menu"></div>
+  <!-- MENU -->
+  <div id="menu"></div>
 
   <!-- CONTEÚDO PRINCIPAL -->
-<main>
-  <div class="container">
-    <h2>Seja um franqueado:</h2>
+  <main>
+    <div class="container">
+      <h2>Seja um franqueado:</h2>
 
-    <div class="grid">
-      <div class="bloco-texto">
-        <p>Olá! A Rokuzen está planejando e estruturando o seu sistema de micro franquias, um formato
-          simplificado desde sua implantação, administração e operação.</p>
-  <br>
-        <p><b>Vantagens:</b></p>
-        <ul class="vantagens">
-          <li>Baixo investimento;</li>
-          <li>Ótimo retorno;</li>
-          <li>Suporte ao franqueado.</li>
-        </ul>
-  <br>
-        <p>Pretendemos dar suporte ao franqueado desde a concepção do projeto, negociação junto à administração do shopping,
-          elaboração do projeto sob medida, aprovação e confecção.Orientação quanto aos equipamentos e fornecedores, além do apoio na seleção e treinamento dos massoterapeutas. Buscamos pessoas
-          empreendedoras e dispostas a investir no segmento de massoterapia, um negócio com excelentes perspectivas
-          de mercado e retorno. Caso você esteja interessado em ser um franqueado, entre em contato conosco e tire suas dúvidas por
-          meio do formulário abaixo.</p>
+      <div class="grid">
+        <div class="bloco-texto">
+          <p>Olá! A Rokuzen está planejando e estruturando o seu sistema de micro franquias, um formato
+            simplificado desde sua implantação, administração e operação.</p>
+          <br>
+          <p><b>Vantagens:</b></p>
+          <ul class="vantagens">
+            <li>Baixo investimento;</li>
+            <li>Ótimo retorno;</li>
+            <li>Suporte ao franqueado.</li>
+          </ul>
+          <br>
+          <p>Pretendemos dar suporte ao franqueado desde a concepção do projeto, negociação junto à administração do
+            shopping,
+            elaboração do projeto sob medida, aprovação e confecção.Orientação quanto aos equipamentos e fornecedores,
+            além do apoio na seleção e treinamento dos massoterapeutas. Buscamos pessoas
+            empreendedoras e dispostas a investir no segmento de massoterapia, um negócio com excelentes perspectivas
+            de mercado e retorno. Caso você esteja interessado em ser um franqueado, entre em contato conosco e tire
+            suas dúvidas por
+            meio do formulário abaixo.</p>
 
-        <p>Responderemos assim que possível, desde já agradecemos pelo interesse!</p>
+          <p>Responderemos assim que possível, desde já agradecemos pelo interesse!</p>
 
-        <p><b>Tenha um negócio de sucesso!!</b></p><br>
-      </div>
+          <p><b>Tenha um negócio de sucesso!!</b></p><br>
+        </div>
 
-  <div class="card-contato">
-  <h3 class="contato-left">
-    Entre em contato:
-    <a href="mailto:contato@rokuzen.com.br">contato@rokuzen.com.br</a>
-  </h3>
-</div>
-<br>
-</main>
+        <div class="card-contato">
+          <h3 class="contato-left">
+            Entre em contato:
+            <a href="mailto:contato@rokuzen.com.br">contato@rokuzen.com.br</a>
+          </h3>
+        </div>
+        <br>
+  </main>
 
   <footer class="mt-5 w-100 border-top" id="footerbar">
-          <div id="rodape"></div>
-    </footer>
+    <div id="rodape"></div>
+  </footer>
 
-    <script>
-        fetch("menu.html").then(r => r.text()).then(t => { document.getElementById("menu").innerHTML = t; });
-        fetch("rodape.html").then(r => r.text()).then(t => { document.getElementById("rodape").innerHTML = t; });
-    </script>
+  <script>
+    fetch("menu.html").then(r => r.text()).then(t => { document.getElementById("menu").innerHTML = t; });
+    fetch("rodape.html").then(r => r.text()).then(t => { document.getElementById("rodape").innerHTML = t; });
+  </script>
 
-          <!-- VLibras (UMA VEZ SÓ, sem fetch) -->
+  <!-- VLibras (UMA VEZ SÓ, sem fetch) -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -73,6 +80,7 @@
   </div>
   <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
   <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
-  
+  <script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
+
 </html>
