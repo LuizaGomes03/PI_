@@ -1,10 +1,29 @@
-
 /*  FORMULÁRIO DE DADOS */
 .dados-container {
     max-width: 1000px;
     margin: 60px auto;
     padding: 0 20px;
 }
+
+.rk-card {
+    background: linear-gradient(180deg, rgba(157, 182, 104, 0.18) 0%, rgba(157, 182, 104, 0.1) 100%);
+    border: 1px solid rgba(157, 182, 104, 0.4);
+    border-radius: 20px;
+    padding: 36px 32px;
+    box-shadow: 0 10px 26px rgba(0, 0, 0, 0.06);
+    backdrop-filter: blur(4px);
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    /* centraliza o card */
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+
+.rk-card:hover {
+    box-shadow: 0 14px 30px rgba(0, 0, 0, 0.1);
+    transform: translateY(-3px);
+}
+
 
 h2 {
     font-family: 'Amatic SC', cursive;
@@ -26,23 +45,30 @@ h2 {
 }
 
 label {
-    font-size: 16px;
+    font-size: 15px;
     margin-bottom: 8px;
-    color: #333;
+    color: #3e4a2b;
+    font-weight: 600;
 }
 
-input {
-    background: var(--gray-light);
-    border: none;
-    border-radius: 6px;
+.form-dados input {
+    background: #9db6684d;
+    border: 1.5px solid transparent;
+    border-radius: 14px;
+    outline: none;
     padding: 12px;
-    box-shadow: 0 2px 2px #a3b874;
     font-size: 15px;
-    transition: 0.2s ease;
+    transition: .2s border-color, .2s box-shadow, .2s background-color;
 }
 
 input:focus {
-    outline: 2px solid var(--green);
+    border-color: #9db668;
+    box-shadow: 0 0 0 3px rgba(157, 182, 104, .25);
+    background-color: #f5fbef;
+}
+
+.form-dados input::placeholder {
+    color: #8fa07a;
 }
 
 /* Campo de telefone */
@@ -66,44 +92,30 @@ small {
 /* Botão Comprar premium */
 
 .botao-container {
-    text-align: center;
-    /* centraliza botões inline */
+    text-align: center; /* centraliza botões inline */
     margin-top: 40px;
-    display: flex;
-    /* flex opcional */
-    justify-content: center;
-    /* centraliza horizontalmente */
+    display: flex; /* flex opcional */
+    justify-content: center; /* centraliza horizontalmente */
 }
 
 .btn-comprar {
     background: #9DB668;
     color: #fff;
-    font-size: 18px;
-    font-weight: 600;
-    padding: 14px 50px 14px 45px;
-    /* espaço extra à esquerda para o ícone */
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: .6px;
+    padding: 14px 50px 14px 50px; 
     border: none;
     border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 6px 14px rgba(90, 160, 79, 0.25);
     cursor: pointer;
     position: relative;
     overflow: hidden;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-}
-
-/* Ícone de cartão dentro do botão */
-.btn-comprar::before {
-    content: "💳";
-    /* ícone de cartão */
-    position: absolute;
-    left: 20px;
-    font-size: 18px;
-    opacity: 0;
-    transform: translateX(-10px);
-    transition: transform 0.3s ease, opacity 0.3s ease;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
 }
 
 /* Hover */
@@ -111,12 +123,6 @@ small {
     transform: translateY(-3px) scale(1.02);
     box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
     filter: brightness(1.05);
-}
-
-/* Ícone animado no hover */
-.btn-comprar:hover::before {
-    opacity: 1;
-    transform: translateX(0);
 }
 
 /* Focus (acessibilidade) */
@@ -138,7 +144,7 @@ small {
     justify-content: center;
     gap: 14px;
     width: 100%;
-    margin: 20px 0 40px;
+    margin: 40px 0 40px;
     box-sizing: border-box;
 }
 
@@ -160,4 +166,3 @@ small {
         flex-direction: column;
     }
 }
-

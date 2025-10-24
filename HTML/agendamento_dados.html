@@ -16,10 +16,8 @@
     integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
 
   <!-- Seu CSS (opcional) -->
-  <link rel="stylesheet" href="../CSS/agendamentodados.css" />
-  <style>
-    /* tweaks leves pra ficar próximo do layout */
-  </style>
+  <link rel="stylesheet" href="../CSS/agendamento_dados.css" />
+
 </head>
 
 <body>
@@ -40,9 +38,8 @@
           <!-- Nome -->
           <div class="rk-field">
             <label for="nome">Nome completo</label>
-            <input id="nome" name="nome" type="text" placeholder="Digite o nome completo" required
+            <input id="nome" name="nome" type="text" placeholder="Digite seu nome completo" required
               autocomplete="name" />
-            <div class="invalid-feedback">Informe seu nome completo.</div>
           </div>
 
           <!-- Email -->
@@ -50,8 +47,7 @@
             <label for="email">E-mail</label>
             <input id="email" name="email" type="email" placeholder="Digite um e-mail válido" required
               autocomplete="email" inputmode="email" />
-            <small class="rk-hint">(se for cliente, utilize o e-mail de cadastro)</small>
-            <div class="invalid-feedback">Digite um e-mail válido.</div>
+            <small class="rk-hint">*Se for cliente, utilize o e-mail de cadastro</small>
           </div>
 
           <!-- Celular: DDD + número -->
@@ -62,7 +58,6 @@
               <input id="celular" name="celular" type="tel" placeholder="Digite o seu número de celular" inputmode="tel"
                 required />
             </div>
-            <div class="invalid-feedback">Informe DDD e número válidos.</div>
           </div>
         </div>
         <div class="dots">
