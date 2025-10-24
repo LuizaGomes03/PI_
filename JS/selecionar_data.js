@@ -171,7 +171,7 @@ window.onload = () => {
     localStorage.setItem("horarioSelecionado", selectedHorario);
     localStorage.setItem("profissionalSelecionado", selectedProfissional);
 
-    window.location.href = "agendamentodados.html";
+    window.location.href = "agendamento_dados.html";
   };
 
   function resetarSelecao() {
