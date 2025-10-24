@@ -174,8 +174,19 @@
   cursor: pointer;
 }
 
-.servico.selected {
+.servico {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.servico img {
+  border-radius: 15px;
+  transition: all 0.2s ease;
+}
+
+.servico.selected img {
   border: 3px solid #9db668;
   box-shadow: 0 0 10px rgba(43, 124, 255, 0.3);
   transform: scale(1.03);
 }
+
