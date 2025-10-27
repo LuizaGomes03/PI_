@@ -1248,3 +1248,16 @@ footer {
   background: transparent;
   color: inherit;
 }
+
+/* FILE: RECEPCAO.CSS - adicione ao final */
+#agenda .cal-day.off {
+  background: rgba(231, 76, 60, 0.85); /* feriado */
+  color: #fff;
+  border-color: rgba(231, 76, 60, 0.9);
+}
+#agenda .cal-day.full {
+  background: rgba(255,255,255,0.06);
+  color: #fff;
+}
+#agenda .cal-grid { margin-top: 12px; }
+#agenda .slot-list .pro-row { margin-bottom: 8px; }

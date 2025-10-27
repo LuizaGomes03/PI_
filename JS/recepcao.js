@@ -335,7 +335,16 @@ const observer = calendario
 
 observer?.observe(calendario, { attributes: true, attributeFilter: ['class'] });
 
-// ====== SUBMIT DO FORM ======
+// --- storage de bookings (agenda) ---
+const BK_STORE = 'rokuzen_bookings';
+function loadBookings() {
+  try { return JSON.parse(localStorage.getItem(BK_STORE)) || []; } catch { return []; }
+}
+function saveBookings(list) {
+  localStorage.setItem(BK_STORE, JSON.stringify(list));
+}
+
+// Substitui listener de submit do form de agendamento (garante persistência)
 document.querySelector('#bookingForm')?.addEventListener('submit', e => {
   e.preventDefault();
 
@@ -351,17 +360,37 @@ document.querySelector('#bookingForm')?.addEventListener('submit', e => {
     return;
   }
 
-  // resumo
+  // montar objeto de booking
+  const booking = {
+    id: Date.now(),
+    client: bkClient.value.trim(),
+    phone: bkPhone.value.trim(),
+    email: bkEmail.value.trim(),
+    service: bkService.value.trim(),
+    price: Number(bkPrice.value) || 0,
+    duration: Number(bkDuration.value) || 0,
+    therapist: (bkTherapist && bkTherapist.value) ? bkTherapist.value : '',
+    date: bkDate.value, // ISO yyyy-mm-dd
+    time: bkTime.value,
+    conditions: selectedConditions
+  };
+
+  // salvar no storage
+  const all = loadBookings();
+  all.unshift(booking);
+  saveBookings(all);
+
+  // resumo e feedback
   if (resumeEl) {
     resumeEl.textContent =
-      `Agendamento criado: ${bkClient.value} – ${bkService.value} • ` +
-      `${formatBr(bkDate.value)} às ${bkTime.value} • ` +
-      `${bkDuration.value} min • R$ ${bkPrice.value}` +
-      (bkTherapist && bkTherapist.value ? ` • Profissional: ${bkTherapist.value}` : '') +
+      `Agendamento criado: ${booking.client} – ${booking.service} • ` +
+      `${formatBr(booking.date)} às ${booking.time} • ` +
+      `${booking.duration} min • R$ ${booking.price}` +
+      (booking.therapist ? ` • Profissional: ${booking.therapist}` : '') +
       (selectedConditions.length ? ` • Condições: ${selectedConditions.join(', ')}` : '');
   }
 
-  alert('Agendado com sucesso!');
+  alert('Agendado com sucesso! (salvo na Agenda Geral)');
 
   // reset parcial (mantém serviço/duração/preço)
   const keepService = bkService.value;
@@ -377,8 +406,170 @@ document.querySelector('#bookingForm')?.addEventListener('submit', e => {
   if (bkTherapist) bkTherapist.value = '';
   if (slotList) slotList.innerHTML = '';
   if (slotInfo) slotInfo.textContent = 'Selecione uma data no calendário.';
-  document.querySelectorAll('#bkConditionWrapper .chip').forEach(c => c.classList.remove('checked'));
+  document.querySelectorAll('#bkConditionWrapper .hchip').forEach(c => c.classList.remove('checked'));
+
+  // atualizar vista da aba Agenda caso esteja visível
+  if (!document.getElementById('agenda')?.classList.contains('hidden')) {
+    // re-renderiza o mês / dia atual
+    renderAgendaMonth(agendaRef);
+    if (selectedAgendaDate) renderAgendaDay(selectedAgendaDate);
+  }
 });
+
+// ===== Agenda Geral: calendário + lista de sessões =====
+const HOLIDAYS = [
+  // exemplos (adicione mais ou gere dinamicamente)
+  new Date().getFullYear() + '-01-01', // ano atual 01/01
+  new Date().getFullYear() + '-12-25'  // 25/12
+];
+
+let agendaRef = new Date(); // mês em foco para agenda
+let selectedAgendaDate = null;
+
+const agendaGrid = document.getElementById('agendaGrid');
+const agendaTitle = document.getElementById('agendaTitle');
+const agendaSummary = document.getElementById('agendaSummary');
+const agendaDayInfo = document.getElementById('agendaDayInfo');
+const agendaList = document.getElementById('agendaList');
+const agendaPrev = document.getElementById('agendaPrev');
+const agendaNext = document.getElementById('agendaNext');
+const agendaJump = document.getElementById('agendaJump');
+const agendaGo = document.getElementById('agendaGo');
+const agendaDayTitle = document.getElementById('agendaDayTitle');
+
+function isHoliday(iso) {
+  return HOLIDAYS.includes(iso);
+}
+function isoFromDate(d) { return d.toISOString().slice(0,10); }
+
+function renderAgendaMonth(refDate) {
+  if (!agendaGrid || !agendaTitle) return;
+  agendaRef = new Date(refDate.getFullYear(), refDate.getMonth(), 1);
+  agendaTitle.textContent = `${monthNames[agendaRef.getMonth()]} ${agendaRef.getFullYear()}`;
+
+  const first = new Date(agendaRef.getFullYear(), agendaRef.getMonth(), 1);
+  const last = new Date(agendaRef.getFullYear(), agendaRef.getMonth() + 1, 0);
+  const startIdx = (first.getDay() + 6) % 7;
+  const totalCells = startIdx + last.getDate();
+
+  agendaGrid.innerHTML = '';
+  const today = new Date(); today.setHours(0,0,0,0);
+
+  const bookings = loadBookings();
+  for (let i = 0; i < totalCells; i++) {
+    const cell = document.createElement('div');
+    cell.className = 'cal-day hidden';
+
+    if (i >= startIdx) {
+      const dayNum = i - startIdx + 1;
+      const thisDate = new Date(agendaRef.getFullYear(), agendaRef.getMonth(), dayNum);
+      const ds = isoFromDate(thisDate);
+
+      cell.classList.remove('hidden');
+      cell.classList.add('cal-day');
+      cell.innerHTML = `<div class="num">${dayNum}</div><div class="tag">—</div>`;
+
+      // feriado?
+      if (isHoliday(ds)) {
+        cell.classList.add('off');
+        cell.querySelector('.tag').textContent = 'Feriado';
+      } else {
+        const dayBookings = bookings.filter(b => b.date === ds);
+        if (!dayBookings.length) {
+          cell.classList.add('full'); // usar full como "sem sessões" visual (ajuste se quiser)
+          cell.querySelector('.tag').textContent = 'Sem sessões';
+        } else {
+          cell.querySelector('.tag').textContent = `${dayBookings.length} sessão(s)`;
+        }
+      }
+
+      // clique seleciona dia
+      cell.addEventListener('click', () => {
+        selectedAgendaDate = ds;
+        renderAgendaDay(ds);
+      });
+    }
+
+    agendaGrid.appendChild(cell);
+  }
+
+  agendaDayInfo.textContent = 'Selecione um dia no calendário.';
+  agendaList.innerHTML = '';
+  agendaSummary.textContent = 'Clique em um dia para ver as sessões agendadas.';
+}
+
+function renderAgendaDay(isoDate) {
+  selectedAgendaDate = isoDate;
+  const bookings = loadBookings().filter(b => b.date === isoDate).sort((a,b) => a.time.localeCompare(b.time));
+  agendaDayTitle.textContent = `Sessões de ${formatBr(isoDate)}`;
+  if (isHoliday(isoDate)) {
+    agendaDayInfo.textContent = `Feriado (${formatBr(isoDate)}) — confira escalas/plantões.`;
+  } else {
+    agendaDayInfo.textContent = `Dia ${formatBr(isoDate)} — ${bookings.length} sessão(ões).`;
+  }
+
+  agendaList.innerHTML = '';
+  if (!bookings.length) {
+    const el = document.createElement('div');
+    el.className = 'pro-row';
+    el.textContent = isHoliday(isoDate) ? 'Feriado — sem sessões registradas.' : 'Nenhuma sessão registrada neste dia.';
+    agendaList.appendChild(el);
+    return;
+  }
+
+  bookings.forEach(b => {
+    const row = document.createElement('div');
+    row.className = 'pro-row';
+    row.innerHTML = `
+      <div style="display:flex;justify-content:space-between;gap:8px;align-items:center;">
+        <div>
+          <div style="font-weight:700">${b.time} — ${escapeHtml(b.service)}</div>
+          <div style="opacity:.9">${escapeHtml(b.client)} ${b.therapist ? '• ' + escapeHtml(b.therapist) : ''}</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-weight:700">R$ ${b.price}</div>
+          <div style="font-size:12px;opacity:.9">${b.duration} min</div>
+        </div>
+      </div>
+    `;
+    agendaList.appendChild(row);
+  });
+}
+
+// liga controles
+agendaPrev?.addEventListener('click', () => {
+  agendaRef = new Date(agendaRef.getFullYear(), agendaRef.getMonth() - 1, 1);
+  renderAgendaMonth(agendaRef);
+});
+agendaNext?.addEventListener('click', () => {
+  agendaRef = new Date(agendaRef.getFullYear(), agendaRef.getMonth() + 1, 1);
+  renderAgendaMonth(agendaRef);
+});
+agendaGo?.addEventListener('click', () => {
+  if (!agendaJump?.value) return;
+  const d = new Date(agendaJump.value + 'T00:00:00');
+  if (isNaN(+d)) return;
+  agendaRef = new Date(d.getFullYear(), d.getMonth(), 1);
+  renderAgendaMonth(agendaRef);
+  const iso = d.toISOString().slice(0,10);
+  renderAgendaDay(iso);
+});
+
+// inicializa agenda quando a aba for mostrada (router já oculta/exibe)
+(function hookAgendaInit(){
+  // detectar quando a aba agenda ficar visível
+  const agendaPanel = document.getElementById('agenda');
+  if (!agendaPanel) return;
+  const mo = new MutationObserver(() => {
+    if (!agendaPanel.classList.contains('hidden')) {
+      renderAgendaMonth(agendaRef);
+      // se hoje tiver sessões, mostrar hoje
+      const todayIso = isoFromDate(new Date());
+      renderAgendaDay(todayIso);
+    }
+  });
+  mo.observe(agendaPanel, { attributes: true, attributeFilter: ['class'] });
+})();
 
 // ===== Bootstrap: só roda quando o DOM estiver pronto =====
 document.addEventListener('DOMContentLoaded', () => {
@@ -667,3 +858,60 @@ clearBtn.addEventListener('click', () => {
     chip.querySelector('input').checked = false;
   });
 });
+
+// Navegação simples entre seções via sidebar (abre agenda ao clicar)
+(function initSectionRouter() {
+  const panels = ['catalogo', 'calendario', 'formAgendar', 'agenda', 'posts'];
+
+  function showPanel(id) {
+    if (!id) return;
+    panels.forEach(pid => {
+      const el = document.getElementById(pid);
+      if (!el) return;
+      if (pid === id) el.classList.remove('hidden'); else el.classList.add('hidden');
+    });
+
+    // foco/scroll leve
+    const target = document.getElementById(id);
+    if (target) {
+      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      target.focus?.();
+    }
+
+    // se abriu a aba Agenda, renderiza imediatamente
+    if (id === 'agenda') {
+      try {
+        renderAgendaMonth(agendaRef || new Date());
+        const todayIso = (typeof isoFromDate === 'function') ? isoFromDate(new Date()) : new Date().toISOString().slice(0,10);
+        // se já tiver uma data selecionada, mantém; senão mostra hoje
+        if (selectedAgendaDate) renderAgendaDay(selectedAgendaDate); else renderAgendaDay(todayIso);
+      } catch (e) { /* ignore se funções não existirem ainda */ }
+    }
+
+    // se abriu o formAgendar, garantir que calendário lateral apareça (se existir)
+    if (id === 'formAgendar') {
+      try { calendario?.classList.remove('hidden'); } catch {}
+    }
+  }
+
+  // intercepta clicks na sidebar que usam hash
+  document.querySelectorAll('.sb-link').forEach(a => {
+    const href = a.getAttribute('href') || '';
+    if (!href.startsWith('#')) return;
+    a.addEventListener('click', (ev) => {
+      ev.preventDefault();
+      const id = href.slice(1);
+      showPanel(id);
+      // atualiza a hash sem fazer jump de navegador
+      history.replaceState(null, '', href);
+    });
+  });
+
+  // ao carregar, abre painel conforme hash se presente
+  window.addEventListener('DOMContentLoaded', () => {
+    const hash = (location.hash || '').slice(1);
+    if (hash && panels.includes(hash)) {
+      showPanel(hash);
+    }
+  });
+})();

@@ -240,6 +240,47 @@
         <div class="resume" id="resume"></div>
       </section> <!-- fim formAgendar -->
 
+      <section id="agenda" class="panel hidden">
+        <h2>Agenda Geral</h2>
+
+        <div class="calendar-card big">
+          <div class="cal-head">
+            <div class="cal-left">
+              <button class="btn btn-muted" id="agendaPrev" aria-label="Mês anterior">
+                <i class="fa-solid fa-chevron-left"></i>
+              </button>
+            </div>
+
+            <div class="cal-title-wrap">
+              <h3 id="agendaTitle">Agenda</h3>
+              <div id="agendaSummary" class="cal-summary">Selecione um dia para ver as sessões.</div>
+            </div>
+
+            <div class="cal-right">
+              <label for="agendaJump" class="cal-jump-label">Ir para data:</label>
+              <input type="date" id="agendaJump">
+              <button class="btn btn-muted" id="agendaGo">Ir</button>
+              <button class="btn btn-muted" id="agendaNext" aria-label="Próximo mês">
+                <i class="fa-solid fa-chevron-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <div class="cal-legend">
+            <span class="chip chip-avail">Sessões</span>
+            <span class="chip chip-off">Feriado</span>
+          </div>
+
+          <div class="cal-grid" id="agendaGrid"></div>
+
+          <div class="cal-side">
+            <h3 id="agendaDayTitle">Sessões do dia</h3>
+            <div id="agendaDayInfo" class="slot-info">Selecione um dia no calendário.</div>
+            <div id="agendaList" class="slot-list"></div>
+          </div>
+        </div>
+      </section>
+
       <section id="posts" class="panel hidden">
         <div class="posts-head">
           <button id="postAddBtn" class="post-add" type="button" aria-label="Novo post">
