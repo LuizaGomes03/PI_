@@ -1,270 +1,267 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Rokuzen</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Totem – Espaço de Massagem</title>
+  <meta name="theme-color" content="#9DB668" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      /* Paleta clara inspirada no site */
+      --brand:#9DB668; /* verde */
+      --brand-600:#87A94F;
+      --bg:#ffffff;
+      --panel:#ffffff;
+      --panel-2:#f7fbf1;
+      --text:#1f2937;  /* cinza escuro */
+      --muted:#6b7280; /* cinza médio */
+      --ring: rgba(157,182,104,.35);
+      --radius:20px;
+      --shadow: 0 10px 25px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.05);
+      --focus: 0 0 0 3px #fff, 0 0 0 6px rgba(157,182,104,.7);
+      --font-size: 16px; /* escala acessível dinâmica */
+    }
+    @media (prefers-color-scheme: dark){
+      :root{ --bg:#0b1020; --panel:#101728; --panel-2:#0f172a; --text:#eef2ff; --muted:#9aa3b2; --ring: rgba(157,182,104,.4); }
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%; margin:0}
+    body{
+      background: var(--bg);
+      color: var(--text);
+      font: var(--font-size)/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    /* Acessibilidade básica */
+    :focus{outline:none}
+    :focus-visible{ box-shadow: var(--focus); border-radius:10px }
+    .sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
 
-  <!-- Bootstrap core CSS (utilitários: d-flex, gap, etc.) -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    /* Layout */
+    .wrap{ display:grid; grid-template-rows: 76px 1fr 82px; height:100%; }
 
-  <!-- Fonte Amatic SC (usada no CSS) -->
-  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
+    header{
+      display:flex; align-items:center; justify-content:space-between; gap:12px;
+      padding: 0 18px; background:var(--panel); border-bottom:1px solid rgba(0,0,0,.06);
+      box-shadow: 0 8px 22px rgba(0,0,0,.04);
+    }
+    .brand{ display:flex; align-items:center; gap:12px; }
+    .brand img{ height:38px; width:auto; border-radius:8px; box-shadow: 0 0 0 3px var(--brand) inset }
+    .brand-name{ font-weight:800; font-size:22px }
 
-  <!-- Font Awesome (para .fa-solid ...) -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+    /* Painel de acessibilidade */
+    .a11y{ display:flex; gap:8px; align-items:center }
+    .btn{ appearance:none; border:1px solid var(--ring); background:#fff; color:#253041; cursor:pointer; padding:8px 12px; border-radius:999px; font-weight:600; transition:.18s transform,.18s box-shadow,.18s background-color }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 6px 16px rgba(0,0,0,.06) }
+    .btn:active{ transform: translateY(0) }
+    .btn.primary{ background:var(--brand); color:#fff; border-color:var(--brand) }
 
-  <!-- Fontes e CSS -->
-  <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="../CSS/menu.css" />
-  <link rel="stylesheet" href="../CSS/rodape.css" />
-  <link rel="stylesheet" href="../CSS/homepage.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
+    main{ display:grid; grid-template-columns: 360px 1fr; gap:18px; padding:18px; }
+
+    /* Coluna esquerda */
+    .card{ background:var(--panel); border:1px solid rgba(0,0,0,.06); border-radius:var(--radius); box-shadow:var(--shadow); overflow:hidden }
+    .clock{ padding:22px; display:flex; flex-direction:column; gap:6px; background:linear-gradient(180deg, rgba(157,182,104,.08), rgba(157,182,104,0)); }
+    .time{ font-size:46px; font-weight:800 }
+    .date{ color:var(--muted) }
+
+    .menu{ padding:16px; display:grid; grid-template-columns:1fr 1fr; gap:12px }
+    .tile{ background:var(--panel-2); border:1px solid rgba(0,0,0,.06); border-radius:16px; padding:14px; display:flex; gap:8px; flex-direction:column; cursor:pointer; transition:.18s transform,.18s box-shadow }
+    .tile:hover{ transform:translateY(-2px); box-shadow: 0 10px 22px rgba(0,0,0,.07) }
+    .tile .title{ font-weight:700 }
+    .tile .desc{ color:var(--muted); font-size:14px }
+
+    /* Hero/Carousel novo, sem data-uri */
+    .hero{ position:relative; height:100%; border-radius:var(--radius); overflow:hidden; }
+    .hero-bg{ position:absolute; inset:0; background:
+      radial-gradient(360px 360px at 84% 12%, rgba(157,182,104,.28), rgba(157,182,104,0) 60%),
+      linear-gradient(180deg, #ecf3e5 0%, #ffffff 65%);
+    }
+    .hero-content{ position:relative; z-index:1; padding:34px; display:flex; flex-direction:column; gap:10px }
+    .hero h1{ margin:0; font-family:"Amatic SC", cursive; font-size:88px; line-height:1.02; letter-spacing:.5px }
+    .hero p{ margin:0; font-size:20px; color:#4b5563 }
+
+    /* Cards de destaque (rolagem horizontal acessível) */
+    .scroller{ position:relative; padding:0 6px }
+    .row{ display:flex; gap:14px; overflow:auto; scroll-snap-type:x mandatory; padding: 10px 10px 18px }
+    .row:focus-visible{ outline:none; box-shadow: var(--focus) }
+    .item{ min-width: 280px; scroll-snap-align:start; background:var(--panel); border:1px solid rgba(0,0,0,.06); border-radius:18px; box-shadow:var(--shadow); overflow:hidden }
+    .item-media{ height:140px; background:linear-gradient(180deg, #eef6e6, #ffffff); display:flex; align-items:center; justify-content:center }
+    .item h3{ margin:12px 14px 0; font-size:20px }
+    .item p{ margin:6px 14px 14px; color:var(--muted); font-size:14px }
+
+    /* Rodapé */
+    footer{ display:flex; justify-content:space-between; align-items:center; gap:12px; padding:0 18px; border-top:1px solid rgba(0,0,0,.06); background:var(--panel) }
+    .ticker{ white-space:nowrap; overflow:hidden; mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent) }
+    .ticker span{ display:inline-block; padding-left:100%; animation: marquee 18s linear infinite; color:#4b5563 }
+    @keyframes marquee{ to{ transform: translateX(-100%) } }
+
+    /* Diálogo base acessível */
+    dialog{ border:none; border-radius:16px; background:#fff; color:var(--text); box-shadow: 0 24px 60px rgba(0,0,0,.2); padding:0; width:min(720px, 92vw) }
+    dialog::backdrop{ background:rgba(0,0,0,.45) }
+    .modal-head{ display:flex; align-items:center; justify-content:space-between; gap:10px; padding:12px 14px; border-bottom:1px solid rgba(0,0,0,.06) }
+    .modal-body{ padding:14px }
+
+    /* Preferência do usuário: reduz movimento */
+    @media (prefers-reduced-motion: reduce){
+      .ticker span{ animation: none }
+      .btn:hover{ transform:none }
+    }
+
+    /* Responsivo */
+    @media (max-width: 980px){
+      .wrap{ grid-template-rows: 64px 1fr 76px }
+      main{ grid-template-columns: 1fr }
+      .hero h1{ font-size:56px }
+    }
+
+    /* Alto contraste alternável */
+    html[data-contrast="high"]{
+      --bg:#ffffff; --panel:#ffffff; --panel-2:#ffffff; --text:#000; --muted:#222; --ring:#000; --focus: 0 0 0 3px #000, 0 0 0 6px #9DB668;
+    }
+  </style>
 </head>
-
 <body>
-  <div id="menu"></div>
-
-  <section class="features">
-    <a class="feature" href="nossoatendimento.html">
-      <img src="../imagens/massagem5.jpeg" alt="Nosso Atendimento" loading="lazy">
-      <b>Nosso Atendimento</b>
-      <small>Como atendemos e quais técnicas utilizamos em cada serviço.</small>
-    </a>
-
-    <a class="feature" href="agendamento_unidades.html">
-      <img src="../imagens/agendamento.jpg" alt="Agendamento online" loading="lazy">
-      <b>Agendamento Online</b>
-      <small>Agende agora mesmo com poucos cliques!</small>
-    </a>
-
-    <a class="feature" href="giftcard.html">
-      <img src="../imagens/v_gift.jpg" alt="Gift Card" loading="lazy">
-      <b>Gift Card</b>
-      <small>Dê um presente especial.</small>
-    </a>
-  </section>
-
-  <section class="posts-section" aria-labelledby="postsHeading">
-    <h2 id="postsHeading">Nossos Posts</h2>
-
-    <div class="posts-container" role="region" aria-label="Carrossel de posts">
-      <!-- Botão anterior -->
-      <button class="posts-btn" id="postsPrev" type="button" aria-controls="postsRow" aria-label="Anterior">
-        <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
-      </button>
-
-      <!-- Faixa -->
-      <div class="posts-row" id="postsRow" tabindex="0">
-        <article class="post">
-          <a href="ficardolorido.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 16.png" alt="Ficar Dolorido Após Massagem..." loading="lazy">
-            <div class="post-body mt-2">
-              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
-              </p>
-            </div>
-          </a>
-        </article>
-
-        <article class="post">
-          <a href="novoconceito.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 21.png" alt="Novo conceito terapêutico" loading="lazy">
-            <div class="post-body mt-2">
-              <p class="post-title">Descubra o novo conceito terapêutico do nosso espaço Rokuzen.</p>
-            </div>
-          </a>
-        </article>
-
-        <article class="post">
-          <a href="clima.html" class="text-decoration-none text-dark">
-            <img src="../imagens/Rectangle 22.png" alt="Mudança Climática e Imunidade" loading="lazy">
-            <div class="post-body mt-2">
-              <p class="post-title">Mudança Climática e sua Influência na Imunidade: O Papel Benéfico</p>
-            </div>
-          </a>
-        </article>
-
-        <article class="post">
-          <a href="massagemnao.html" class="text-decoration-none text-dark">
-            <img src="../imagens/MassagemN.jpg" alt="Massagem não é sacanagem" loading="lazy">
-            <div class="post-body mt-2">
-              <p class="post-title">Massagem não é sacanagem</p>
-            </div>
-          </a>
-        </article>
+  <a class="sr-only" href="#conteudo">Pular para o conteúdo</a>
+  <div class="wrap" id="app">
+    <header role="banner">
+      <div class="brand" aria-label="Identidade visual">
+        <img src="https://dummyimage.com/120x120/ffffff/000.png&text=LOGO" alt="Logo do espaço de massagem" />
+        <div class="brand-name">Espaço de Massagem • Totem</div>
       </div>
 
-      <!-- Botão próximo -->
-      <button class="posts-btn" id="postsNext" type="button" aria-controls="postsRow" aria-label="Próximo">
-        <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
-      </button>
-    </div>
-  </section>
-
-
-  </div> <!-- fecha #postsRow -->
-
-  <!-- botão próximo -->
-
-  </div> <!-- fecha .posts-container -->
-  </section>
-
-  <!-- Carregar só o menu -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch("menu.html")
-        .then(r => r.text())
-        .then(h => {
-          document.getElementById("menu").innerHTML = h;
-        });
-    });
-  </script>
-
-  <!-- Carrossel -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('postsRow');
-      const prev = document.getElementById('postsPrev');
-      const next = document.getElementById('postsNext');
-
-      if (!track) return;
-
-      const step = () => Math.round(track.clientWidth * 0.8);
-
-      next?.addEventListener('click', (e) => {
-        e.preventDefault();
-        track.scrollBy({ left: step(), behavior: 'smooth' });
-      });
-
-      prev?.addEventListener('click', (e) => {
-        e.preventDefault();
-        track.scrollBy({ left: -step(), behavior: 'smooth' });
-      });
-
-      track.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          track.scrollBy({ left: step(), behavior: 'smooth' });
-        }
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          track.scrollBy({ left: -step(), behavior: 'smooth' });
-        }
-      });
-
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => step(), 120);
-      });
-    });
-  </script>
-  </main>
-
-  <!-- VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-
-
-  <!-- ===== FOOTER ===== -->
-  <footer class="footer">
-    <div class="footer-container">
-
-      <!-- Unidades -->
-      <div class="footer-section">
-        <h3>Unidades</h3>
-        <ul class="unidades">
-          <li>
-            <a class="link" href="https://maps.app.goo.gl/xEmYJiYuSQi1qvD88" target="_blank">Golden Square Shopping -
-              SBC</a><br>
-            <span><a class="whatsapp" href="https://wa.me/5511947495306" target="_blank">(11) 94749-5306</a></span>
-          </li>
-          <li>
-            <a class="link" href="https://maps.app.goo.gl/FProysErrBT6BpoZ9" target="_blank">Mooca Plaza Shopping -
-              SP</a><br>
-            <span><a class="whatsapp" href="https://wa.me/5511950841087" target="_blank">(11) 95084-1087</a></span>
-          </li>
-          <li>
-            <a class="link" href="https://maps.app.goo.gl/Sqc99tERM5vv2TU46" target="_blank">Grand Plaza Shopping -
-              Santo André</a><br>
-            <span><a class="whatsapp" href="https://wa.me/5511916657900" target="_blank">(11) 91665-7900</a></span>
-          </li>
-          <li>
-            <a class="link" href="https://maps.app.goo.gl/EbEqTRTz2pe1YdGv8" target="_blank">Shopping West Plaza -
-              SP</a><br>
-            <span><a class="whatsapp" href="https://wa.me/5511919427901" target="_blank">(11) 91942-7901</a></span>
-          </li>
-        </ul>
+      <div class="a11y" aria-label="Ferramentas de acessibilidade">
+        <button class="btn" id="btnFontDown" aria-label="Diminuir fonte" title="Diminuir fonte">A-</button>
+        <button class="btn" id="btnFontUp" aria-label="Aumentar fonte" title="Aumentar fonte">A+</button>
+        <button class="btn" id="btnContrast" aria-pressed="false" aria-label="Alternar alto contraste" title="Alto contraste">Contraste</button>
+        <button class="btn primary" id="btnFull" aria-label="Alternar tela cheia">Tela cheia</button>
       </div>
+    </header>
 
-      <!-- Pagamento -->
-      <div class="footer-section">
-        <h3>Formas de Pagamento</h3>
-        <ul class="payment-icons">
-          <li><img src="https://www.svgrepo.com/show/328144/visa.svg" alt="Visa"></li>
-          <li><img src="https://www.svgrepo.com/show/508701/mastercard-full.svg" alt="Mastercard"></li>
-          <li><img src="https://www.svgrepo.com/show/266068/american-express.svg" alt="American Express"></li>
-          <li><img src="https://www.svgrepo.com/show/361993/elo-3.svg" alt="Elo"></li>
-        </ul>
+    <main id="conteudo">
+      <section class="card" aria-labelledby="relogioTitulo">
+        <div class="clock" role="group" aria-live="polite">
+          <h2 id="relogioTitulo" class="sr-only">Relógio</h2>
+          <div class="time" id="time">00:00</div>
+          <div class="date" id="date">segunda-feira, 1 jan</div>
+        </div>
+        <div class="menu" role="navigation" aria-label="Menu principal">
+          <button class="tile" data-open="infoModal"><span class="title">Sobre</span><span class="desc">Nossa filosofia</span></button>
+          <button class="tile" data-open="servicosModal"><span class="title">Serviços</span><span class="desc">Massagens & terapias</span></button>
+          <button class="tile" data-open="mapaModal"><span class="title">Como chegar</span><span class="desc">Mapa do espaço</span></button>
+          <button class="tile" data-open="agendaModal"><span class="title">Agenda</span><span class="desc">Horários de hoje</span></button>
+        </div>
+      </section>
+
+      <section class="hero card" aria-labelledby="heroTitulo">
+        <div class="hero-bg" aria-hidden="true"></div>
+        <div class="hero-content">
+          <h1 id="heroTitulo">Bem-vinde ao seu momento zen</h1>
+          <p>Respire fundo. Toque nos cartões para descobrir experiências.</p>
+        </div>
+        <div class="scroller" role="region" aria-label="Destaques">
+          <div class="row" tabindex="0">
+            <article class="item" aria-label="Massagem Relaxante">
+              <div class="item-media" aria-hidden="true">🫧</div>
+              <h3>Massagem Relaxante</h3>
+              <p>Toque suave + óleos essenciais. 50 min.</p>
+            </article>
+            <article class="item" aria-label="Terapia Miofascial">
+              <div class="item-media" aria-hidden="true">🌀</div>
+              <h3>Terapia Miofascial</h3>
+              <p>Liberação de tensões profundas. 45 min.</p>
+            </article>
+            <article class="item" aria-label="Reflexologia Podal">
+              <div class="item-media" aria-hidden="true">🦶</div>
+              <h3>Reflexologia Podal</h3>
+              <p>Equilíbrio e bem-estar pelos pés. 30 min.</p>
+            </article>
+            <article class="item" aria-label="Aromaterapia">
+              <div class="item-media" aria-hidden="true">🌿</div>
+              <h3>Aromaterapia</h3>
+              <p>Blend personalizado com foco em relax.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer role="contentinfo">
+      <div class="ticker" aria-live="polite"><span>Bem-vinde! • Chegue 10 min antes para avaliação inicial • Água aromatizada disponível • Fale conosco para necessidades específicas de acessibilidade.</span></div>
+      <div class="a11y">
+        <button class="btn" data-open="acessModal" aria-label="Abrir central de acessibilidade">Acessibilidade</button>
       </div>
-
-      <!-- Redes Sociais -->
-      <div class="footer-section">
-        <h3>Redes Sociais</h3>
-        <ul class="social-icons">
-          <li><a href="https://www.facebook.com/rokuzen.massagem" class="facebook"><i class="bi bi-facebook"></i></a>
-          </li>
-          <li><a href="https://www.instagram.com/rokuzen.massagem/#" class="instagram"><i
-                class="bi bi-instagram"></i></a>
-          </li>
-          <li><a href="https://www.linkedin.com/company/rokuzen?trk=top_nav_home" class="linkedin"><i
-                class="bi bi-linkedin"></i></a></li>
-          <li><a href="mailto:seuemail@example.com" class="email"><i class="bi bi-envelope"></i></a></li>
-        </ul>
-      </div>
-
-
-      <!-- Políticas -->
-      <div class="footer-section">
-        <h3>Políticas</h3>
-        <ul>
-          <li><a class="link" href="politica_privacidade.html">Política de Privacidade</a></li>
-          <li><a class="link" href="termos_uso.html">Termos de Uso</a></li>
-        </ul>
-      </div>
-    </div>
-  </footer>
-
-  <div class="footer-bottom">
-    <p>&copy; 2025 Rokuzen. Todos os direitos reservados.</p>
-
-    <!-- login discreto -->
-    <a href="login.html" class="login-link" aria-label="Área de login">
-      <i class="bi bi-person"></i>
-      <span class="login-text">Entrar</span>
-    </a>
+    </footer>
   </div>
 
+  <!-- Diálogos -->
+  <dialog id="infoModal" aria-labelledby="infoTitulo" aria-modal="true" role="dialog">
+    <div class="modal-head">
+      <strong id="infoTitulo">Sobre o Espaço</strong>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+    <div class="modal-body">
+      <p>Nossa missão é restaurar seu bem-estar com técnicas baseadas em evidências e um toque humano acolhedor.</p>
+    </div>
+  </dialog>
 
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const menu = document.querySelector('nav ul');
+  <dialog id="servicosModal" aria-labelledby="servicosTitulo" aria-modal="true" role="dialog">
+    <div class="modal-head">
+      <strong id="servicosTitulo">Serviços</strong>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+    <div class="modal-body">
+      <ul>
+        <li>Massagem Relaxante — 50 min</li>
+        <li>Miofascial Terapêutica — 45 min</li>
+        <li>Reflexologia — 30 min</li>
+        <li>Percussiva (gun) — 15 min</li>
+      </ul>
+    </div>
+  </dialog>
 
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      hamburger.classList.toggle('open');
-    });
-  </script>
-  <script src="https://app.embed.im/accessibility.js" defer></script>
+  <dialog id="mapaModal" aria-labelledby="mapaTitulo" aria-modal="true" role="dialog">
+    <div class="modal-head">
+      <strong id="mapaTitulo">Mapa</strong>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+    <div class="modal-body">
+      <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='420'><rect width='100%25' height='100%25' fill='%23f4f6f1'/><circle cx='120' cy='120' r='40' fill='%239DB668'/><text x='80' y='200' font-size='18' fill='%23333' font-family='Arial'>Recepção</text><rect x='300' y='60' width='180' height='120' rx='16' fill='%239DB668' opacity='.2'/><text x='310' y='140' font-size='18' fill='%23333' font-family='Arial'>Sala 1</text></svg>" alt="Mapa ilustrativo do espaço" style="width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.06)"/>
+    </div>
+  </dialog>
+
+  <dialog id="agendaModal" aria-labelledby="agendaTitulo" aria-modal="true" role="dialog">
+    <div class="modal-head">
+      <strong id="agendaTitulo">Agenda de Hoje</strong>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+    <div class="modal-body">
+      <ul id="agendaList">
+        <li>10:00 — Avaliação e boas-vindas</li>
+        <li>14:00 — Workshop de autocuidado</li>
+        <li>17:30 — Sessão guiada de relaxamento</li>
+      </ul>
+    </div>
+  </dialog>
+
+  <dialog id="acessModal" aria-labelledby="acessTitulo" aria-modal="true" role="dialog">
+    <div class="modal-head">
+      <strong id="acessTitulo">Central de Acessibilidade</strong>
+      <button class="btn" data-close>Fechar</button>
+    </div>
+    <div class="modal-body">
+      <p>Recursos:</p>
+      <ul>
+        <li>Contraste alto alternável</li>
+        <li>Fonte ajustável</li>
+        <li>Conteúdo compatível com leitor de tela</li>
+        <li>Respeito ao <em>prefers-reduced-motion</em></li>
+        <li>Foco visível e navegação por teclado</li>
+      </ul>
+    </div>
+  </dialog>
+
+
 </body>
-
 </html>

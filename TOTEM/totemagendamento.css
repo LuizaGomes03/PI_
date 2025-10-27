@@ -1,0 +1,75 @@
+
+    :root{
+      --brand:#9DB668;            /* verde principal */
+      --brand-dark:#87A94F;       /* verde secundário */
+      --bg:#ffffff;               /* fundo branco */
+      --panel:#ffffff;            /* cartões/paineis */
+      --muted:#6b7280;            /* texto secundário */
+      --text:#1f2937;             /* texto */
+      --radius:20px;              /* cantos */
+      --shadow:0 10px 25px rgba(0,0,0,.06), 0 2px 6px rgba(0,0,0,.05);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0}
+    body{background:var(--bg);color:var(--text);font:16px/1.45 Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif}
+
+    /* Layout */
+    .wrap{display:grid;grid-template-rows:76px 1fr 80px;height:100%}
+
+    /* Header clean (sem controles de acessibilidade) */
+    header{display:flex;align-items:center;justify-content:space-between;padding:0 18px;background:var(--panel);border-bottom:1px solid rgba(0,0,0,.06);box-shadow:0 8px 22px rgba(0,0,0,.04)}
+    .brand{display:flex;align-items:center;gap:12px}
+    .brand img{height:40px;width:auto;border-radius:8px;box-shadow:0 0 0 3px var(--brand) inset}
+    .brand-name{font-weight:800;font-size:22px}
+
+    .btn{appearance:none;border:1px solid var(--brand);background:#fff;color:#253041;cursor:pointer;padding:8px 12px;border-radius:999px;font-weight:600;transition:.18s transform,.18s box-shadow}
+    .btn:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,0,0,.06)}
+    .btn.primary{background:var(--brand);color:#fff}
+
+    main{display:grid;grid-template-columns:360px 1fr;gap:18px;padding:18px}
+
+    /* Coluna esquerda */
+    .card{background:var(--panel);border:1px solid rgba(0,0,0,.06);border-radius:var(--radius);box-shadow:var(--shadow);overflow:hidden}
+    .clock{padding:22px;display:flex;flex-direction:column;gap:6px;background:linear-gradient(180deg, rgba(157,182,104,.08), rgba(157,182,104,0))}
+    .time{font-size:46px;font-weight:800}
+    .date{color:var(--muted)}
+
+    .menu{padding:16px;display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .tile{background:#f7fbf1;border:1px solid rgba(0,0,0,.06);border-radius:16px;padding:14px;display:flex;gap:6px;flex-direction:column;cursor:pointer;transition:.18s transform,.18s box-shadow}
+    .tile:hover{transform:translateY(-2px);box-shadow:0 10px 22px rgba(0,0,0,.07)}
+    .tile .title{font-weight:700}
+    .tile .desc{color:var(--muted);font-size:14px}
+
+    /* Hero (branco e verde) */
+    .hero{position:relative;height:100%;border-radius:var(--radius);overflow:hidden}
+    .hero-bg{position:absolute;inset:0;background:
+      radial-gradient(360px 360px at 84% 12%, rgba(157,182,104,.28), rgba(157,182,104,0) 60%),
+      linear-gradient(180deg, #ecf3e5 0%, #ffffff 65%);
+    }
+    .hero-content{position:relative;z-index:1;padding:34px;display:flex;flex-direction:column;gap:10px}
+    .hero h1{margin:0;font-family:"Amatic SC", cursive;font-size:88px;line-height:1.02;letter-spacing:.5px}
+    .hero p{margin:0;font-size:20px;color:#4b5563}
+
+    /* Destaques */
+    .row{display:flex;gap:14px;overflow:auto;padding:10px 10px 18px}
+    .item{min-width:280px;background:var(--panel);border:1px solid rgba(0,0,0,.06);border-radius:18px;box-shadow:var(--shadow);overflow:hidden}
+    .item-media{height:140px;background:linear-gradient(180deg,#eef6e6,#ffffff);display:flex;align-items:center;justify-content:center}
+    .item h3{margin:12px 14px 0;font-size:20px}
+    .item p{margin:6px 14px 14px;color:var(--muted);font-size:14px}
+
+    footer{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:0 18px;border-top:1px solid rgba(0,0,0,.06);background:var(--panel)}
+    .ticker{white-space:nowrap;overflow:hidden;mask-image:linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)}
+    .ticker span{display:inline-block;padding-left:100%;animation:marquee 18s linear infinite;color:#4b5563}
+    @keyframes marquee{to{transform:translateX(-100%)}}
+
+    /* Diálogos */
+    dialog{border:none;border-radius:16px;background:#fff;color:var(--text);box-shadow:0 24px 60px rgba(0,0,0,.2);padding:0;width:min(720px,92vw)}
+    dialog::backdrop{background:rgba(0,0,0,.45)}
+    .modal-head{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:12px 14px;border-bottom:1px solid rgba(0,0,0,.06)}
+    .modal-body{padding:14px}
+
+    @media (max-width:980px){
+      .wrap{grid-template-rows:64px 1fr 76px}
+      main{grid-template-columns:1fr}
+      .hero h1{font-size:56px}
+    }

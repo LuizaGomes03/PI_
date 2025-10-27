@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Totem – Espaço de Massagem</title>
+    <meta name="theme-color" content="#9DB668" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="totemagendamento.css" />
+    <script src="totemagendamento.js" defer></script>
+</head>
+
+<body>
+    <div class="wrap" id="app">
+        <header>
+            <div class="brand">
+                <img src="https://dummyimage.com/120x120/ffffff/000.png&text=LOGO" alt="Logo" />
+                <div class="brand-name">Espaço de Massagem • Totem</div>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button class="btn" id="btnFull">Tela cheia</button>
+            </div>
+        </header>
+
+        <main>
+            <section class="card">
+                <div class="clock">
+                    <div class="time" id="time">00:00</div>
+                    <div class="date" id="date">segunda, 1 jan</div>
+                </div>
+                <div class="menu">
+                    <button class="tile" data-open="infoModal"><span class="title">Sobre</span><span class="desc">Nossa
+                            filosofia</span></button>
+                    <button class="tile" data-open="servicosModal"><span class="title">Serviços</span><span
+                            class="desc">Massagens & terapias</span></button>
+                    <button class="tile" data-open="agendaModal"><span class="title">Agenda</span><span
+                            class="desc">Horários de hoje</span></button>
+                </div>
+            </section>
+
+            <section class="hero card">
+                <div class="hero-bg"></div>
+                <div class="hero-content">
+                    <h1>BEM-VINDO(A) AO SEU MOMENTO ZEN</h1>
+                    <p>Respire fundo. Toque nos cartões para descobrir experiências.</p>
+                </div>
+                <div class="row">
+                    <article class="item">
+                        <div class="item-media">🫧</div>
+                        <h3>Massagem Relaxante</h3>
+                        <p>Toque suave + óleos essenciais. 50 min.</p>
+                    </article>
+                    <article class="item">
+                        <div class="item-media">🌀</div>
+                        <h3>Terapia Miofascial</h3>
+                        <p>Liberação de tensões profundas. 45 min.</p>
+                    </article>
+                    <article class="item">
+                        <div class="item-media">🦶</div>
+                        <h3>Reflexologia Podal</h3>
+                        <p>Equilíbrio e bem-estar pelos pés. 30 min.</p>
+                    </article>
+                    <article class="item">
+                        <div class="item-media">🌿</div>
+                        <h3>Aromaterapia</h3>
+                        <p>Blend personalizado com foco em relax.</p>
+                    </article>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="ticker"><span>Bem-vinde! • Chegue 10 min antes para avaliação inicial • Água aromatizada
+                    disponível • Fale conosco para necessidades específicas.</span></div>
+            <div style="display:flex;gap:8px"></div>
+        </footer>
+    </div>
+
+    <!-- Modais simples -->
+    <dialog id="infoModal">
+        <div class="modal-head"><strong>Sobre</strong><button class="btn" data-close>Fechar</button></div>
+        <div class="modal-body">
+            <p>Nossa missão é restaurar seu bem-estar com técnicas baseadas em evidências e um toque acolhedor.</p>
+        </div>
+    </dialog>
+    <dialog id="servicosModal">
+        <div class="modal-head"><strong>Serviços</strong><button class="btn" data-close>Fechar</button></div>
+        <div class="modal-body">
+            <ul>
+                <li>Massagem Relaxante — 50 min</li>
+                <li>Miofascial — 45 min</li>
+                <li>Reflexologia — 30 min</li>
+                <li>Aromaterapia — 30 min</li>
+            </ul>
+        </div>
+    </dialog>
+    <dialog id="mapaModal">
+        <div class="modal-head"><strong>Mapa</strong><button class="btn" data-close>Fechar</button></div>
+        <div class="modal-body"><img alt="Mapa" style="width:100%;border-radius:12px;border:1px solid rgba(0,0,0,.06)"
+                src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='420'><rect width='100%25' height='100%25' fill='%23f4f6f1'/><circle cx='120' cy='120' r='40' fill='%239DB668'/><text x='80' y='200' font-size='18' fill='%23333' font-family='Arial'>Recepção</text><rect x='300' y='60' width='180' height='120' rx='16' fill='%239DB668' opacity='.2'/><text x='310' y='140' font-size='18' fill='%23333' font-family='Arial'>Sala 1</text></svg>">
+        </div>
+    </dialog>
+    <dialog id="agendaModal">
+        <div class="modal-head"><strong>Agenda de Hoje</strong><button class="btn" data-close>Fechar</button></div>
+        <div class="modal-body">
+            <ul id="agendaList">
+                <li>10:00 — Avaliação</li>
+                <li>14:00 — Workshop</li>
+                <li>17:30 — Relax guiado</li>
+            </ul>
+        </div>
+    </dialog>
+
+
+</body>
+
+</html>

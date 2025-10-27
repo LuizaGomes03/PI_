@@ -1,66 +1,30 @@
-/* ===== MODAL ===== */
-.modal-backdrop {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, .55);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 99;
-}
+/* ===========================
+   Rokuzen Master — Responsive CSS
+   =========================== */
 
-.modal {
-    width: min(640px, 92vw);
-    background: rgba(20, 20, 20, .9);
-    border: 1px solid rgba(255, 255, 255, .18);
-    border-radius: 16px;
-    padding: 16px;
-    backdrop-filter: blur(10px);
-}
-
-.modal h3 {
-    margin-bottom: 10px;
-    display: flex;
-    gap: 8px;
-    align-items: center
-    
-}
-
-.modal .grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px
-}
-
-.modal .grid-3 {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    gap: 10px
-}
-
-.modal .row {
-    margin-top: 10px
-}
-
-.modal .actions {
-    display: flex;
-    gap: 8px;
-    justify-content: flex-end;
-    margin-top: 12px
-}
-
+/* Vars */
 :root {
-    --green: #9DB668;
-    --green-600: #7D9950;
+    --bg: #000;
+    --fg: #fff;
     --muted: #ffffffcc;
-    --sidew: 320px;
+    --accent: #9DB668;
+    --accent-600: #7D9950;
+    --card-bg: rgba(255, 255, 255, .08);
+    --card-bd: rgba(255, 255, 255, .16);
+    --pill: rgba(255, 255, 255, .06);
+    --pill-bd: rgba(255, 255, 255, .14);
     --shadow: 0 10px 30px rgba(0, 0, 0, .15);
+
+    --space-1: .5rem;
+    --space-2: .75rem;
+    --space-3: 1rem;
+    --radius: 16px;
+    --side: 280px;
 }
 
+/* Base */
 * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0
+    box-sizing: border-box
 }
 
 html,
@@ -70,97 +34,77 @@ body {
 
 body {
     font-family: Inter, system-ui, Arial, sans-serif;
-    color: #fff;
-    background: #000;
-    overflow-x: hidden
+    background: var(--bg);
+    color: var(--fg);
+    overflow-x: hidden;
 }
 
-/* --- vídeo de fundo atrás de tudo e ignorando cliques --- */
-#bg-video{
-  position: fixed;
-  inset: 0;           /* top:0; right:0; bottom:0; left:0 */
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -1;        /* fica atrás */
-  pointer-events: none; /* não captura cliques */
+img {
+    max-width: 100%;
+    display: block
 }
 
-/* garante que o app está acima do vídeo */
-.app{
-  position: relative;
-  z-index: 1;
+/* Background video atrás e sem bloquear clique */
+#bg-video {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+    pointer-events: none;
 }
-
-/* se existir algum overlay genérico, ele não bloqueia clique sem precisar */
-[aria-hidden="true"]{
-  pointer-events: none;
-}
-
 
 body::before {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 1;
+    z-index: 0;
     pointer-events: none;
-    background: linear-gradient(to bottom, rgba(0, 0, 0, .20), rgba(0, 0, 0, .35))
+    background: linear-gradient(180deg, rgba(0, 0, 0, .18), rgba(0, 0, 0, .35));
 }
 
+/* App layout */
 .app {
     position: relative;
-    z-index: 2;
+    z-index: 1;
     display: grid;
-    grid-template-columns: var(--sidew) 1fr;
-    min-height: 100dvh
+    grid-template-columns: var(--side) 1fr;
+    gap: var(--space-3);
+    min-height: 100dvh;
+    padding: var(--space-3);
 }
 
 /* Sidebar */
 .sidebar {
     backdrop-filter: blur(10px);
     background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .35));
-    border-right: 1px solid rgba(255, 255, 255, .08);
-    padding: 18px
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: var(--radius);
+    padding: 18px;
+    height: fit-content;
 }
 
 .sb-block {
-    background: rgba(255, 255, 255, .06);
-    border: 1px solid rgba(255, 255, 255, .14);
-    border-radius: 16px;
-    padding: 14px 16px;
-    margin-bottom: 14px
+    background: var(--pill);
+    border: 1px solid var(--pill-bd);
+    border-radius: 14px;
+    padding: 14px 12px;
+    margin-bottom: 12px;
 }
 
 .sb-title {
     font-weight: 700;
-    margin: 0 0 10px;
     display: flex;
     gap: 8px;
-    align-items: center
-}
-
-.sb-link {
-    display: flex;
-    gap: 10px;
     align-items: center;
-    padding: 10px 12px;
-    border-radius: 12px;
-    text-decoration: none;
-    color: #fff;
-    border: 1px solid rgba(255, 255, 255, .14);
-    background: rgba(255, 255, 255, .06);
-    margin-bottom: 8px
-}
-
-.sb-link.active,
-.sb-link:hover {
-    background: rgba(255, 255, 255, .12)
+    margin-bottom: 8px;
 }
 
 .unit-pill {
     display: flex;
-    gap: 8px;
-    flex-wrap: wrap
+    flex-wrap: wrap;
+    gap: 8px
 }
 
 .unit-pill button {
@@ -169,17 +113,52 @@ body::before {
     color: #fff;
     padding: 6px 10px;
     border-radius: 999px;
-    cursor: pointer
+    cursor: pointer;
 }
 
 .unit-pill button.active {
-    background: #7D9950;
+    background: var(--accent-600);
     border-color: #6f8848
+}
+
+/* Navegação (tabs) */
+.sb-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer;
+    background: var(--pill);
+    color: #fff;
+    border: 1px solid var(--pill-bd);
+    transition: transform .12s ease, background .2s ease, box-shadow .2s ease;
+}
+
+.sb-link:hover {
+    background: rgba(255, 255, 255, .12);
+    transform: translateY(-1px)
+}
+
+.sb-link[aria-selected="true"] {
+    background: rgba(255, 255, 255, .16);
+    box-shadow: 0 0 0 2px rgba(157, 182, 104, .45) inset, 0 6px 16px rgba(0, 0, 0, .25);
+}
+
+/* Avatar */
+.avatar-img,
+.avatar-sm {
+    width: 42px;
+    height: 42px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(255, 255, 255, .28)
 }
 
 /* Main */
 .main {
-    padding: 26px
+    padding: 8px
 }
 
 .head {
@@ -187,7 +166,7 @@ body::before {
     justify-content: space-between;
     align-items: center;
     gap: 16px;
-    margin-bottom: 16px
+    margin-bottom: 12px;
 }
 
 .logo {
@@ -200,6 +179,11 @@ h1 {
     line-height: 1
 }
 
+.muted {
+    opacity: .85
+}
+
+/* Cards / grids */
 .cards {
     display: grid;
     grid-template-columns: 1.2fr .8fr;
@@ -207,12 +191,12 @@ h1 {
 }
 
 .card {
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .16);
+    background: var(--card-bg);
+    border: 1px solid var(--card-bd);
     border-radius: 18px;
     padding: 16px;
     backdrop-filter: blur(8px);
-    box-shadow: var(--shadow)
+    box-shadow: var(--shadow);
 }
 
 .card h2 {
@@ -222,7 +206,67 @@ h1 {
     margin-bottom: 10px
 }
 
-/* Tables */
+.grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px
+}
+
+/* Rows / buttons / inputs */
+.row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    align-items: center
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 8px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .08);
+    font-size: 12px;
+}
+
+.btn {
+    --bg: rgba(255, 255, 255, .10);
+    --bd: rgba(255, 255, 255, .20);
+    background: var(--bg);
+    border: 1px solid var(--bd);
+    color: #fff;
+    padding: 10px 12px;
+    border-radius: 12px;
+    cursor: pointer
+}
+
+.btn.ghost {
+    --bg: rgba(255, 255, 255, .06);
+    --bd: rgba(255, 255, 255, .12)
+}
+
+.btn.primary {
+    --bg: var(--accent-600);
+    --bd: #6f8848
+}
+
+input,
+select {
+    background: rgba(255, 255, 255, .08);
+    border: 1px solid rgba(255, 255, 255, .2);
+    color: #fff;
+    padding: 8px 10px;
+    border-radius: 10px
+}
+
+/* Tables + wrapper p/ mobile scroll */
+.table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch
+}
+
 .table {
     width: 100%;
     border-collapse: separate;
@@ -251,68 +295,14 @@ h1 {
     border-radius: 0 10px 10px 0
 }
 
-/* Buttons / Inputs */
-.row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    align-items: center
+.table .empty {
+    text-align: center;
+    opacity: .8;
+    padding: 18px 0;
+    font-style: italic
 }
 
-.btn {
-    --bg: rgba(255, 255, 255, .10);
-    --bd: rgba(255, 255, 255, .20);
-    background: var(--bg);
-    border: 1px solid var(--bd);
-    color: #fff;
-    padding: 10px 12px;
-    border-radius: 12px;
-    cursor: pointer
-}
-
-.btn.primary {
-    --bg: #7D9950;
-    --bd: #6f8848
-}
-
-.btn.warn {
-    --bg: #b86b4b;
-    --bd: #a4583a
-}
-
-.btn.ghost {
-    --bg: rgba(255, 255, 255, .06);
-    --bd: rgba(255, 255, 255, .12)
-}
-
-input,
-select {
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .2);
-    color: #fff;
-    padding: 8px 10px;
-    border-radius: 10px
-}
-
-.badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    padding: 4px 8px;
-    border-radius: 999px;
-    border: 1px solid rgba(255, 255, 255, .18);
-    background: rgba(255, 255, 255, .08);
-    font-size: 12px
-}
-
-/* Grid for dashboard */
-.grid-2 {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px
-}
-
-/* Sections visibility */
+/* Views */
 .view {
     display: none
 }
@@ -321,16 +311,31 @@ select {
     display: block
 }
 
-/* Responsivo */
-@media (max-width:1100px) {
+/* ===== Breakpoints ===== */
+
+/* >= 1400 — respira mais */
+@media (min-width: 1400px) {
+    .app {
+        grid-template-columns: 320px 1fr
+    }
+
+    .card {
+        padding: 20px
+    }
+}
+
+/* <= 1200 — pilha as cards, grid empleados 2 col se usar */
+@media (max-width:1200px) {
     .cards {
         grid-template-columns: 1fr
     }
 }
 
-@media (max-width:860px) {
+/* <= 992 — tablet: sidebar em 2 colunas, app vira 1 col */
+@media (max-width:992px) {
     .app {
-        grid-template-columns: 1fr
+        grid-template-columns: 1fr;
+        padding: var(--space-2)
     }
 
     .sidebar {
@@ -340,142 +345,298 @@ select {
     .main {
         order: 1
     }
+
+    .sidebar,
+    .sb-block {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: var(--space-2);
+    }
+
+    .sb-link {
+        width: 100%;
+        justify-content: flex-start;
+        font-size: .95rem
+    }
+
+    .card {
+        padding: 14px
+    }
+
+    h1 {
+        font-size: 36px
+    }
 }
 
-.modal input,
-.modal select {
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .2);
-    color: #fff;
-    padding: 10px;
-    border-radius: 10px;
-    width: 100%;
+/* <= 768 — celular: tudo 1 coluna, botões maiores, tabelas com respiro */
+@media (max-width:768px) {
+
+    .sidebar,
+    .sb-block {
+        grid-template-columns: 1fr
+    }
+
+    .grid-2 {
+        grid-template-columns: 1fr
+    }
+
+    .btn,
+    .sb-link {
+        min-height: 44px
+    }
+
+    .table-wrap {
+        margin: 0 -8px;
+        padding: 0 8px
+    }
+
+    .head {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px
+    }
+
+    h1 {
+        font-size: 32px
+    }
+
+    .logo {
+        height: 44px
+    }
+
+    .cards {
+        gap: 12px
+    }
 }
 
-.modal .help {
-    font-size: 12px;
-    opacity: .85
+/* <= 480 — mini */
+@media (max-width:480px) {
+    .app {
+        gap: var(--space-2)
+    }
+
+    .card {
+        padding: 12px;
+        border-radius: 14px
+    }
+
+    h1 {
+        font-size: 28px
+    }
+
+    .badge {
+        font-size: .8rem;
+        padding: .35rem .55rem
+    }
 }
 
-.modal .danger {
-    color: #ff9c9c
+/* Altura baixa (paisagem mobile) */
+@media (max-height:540px) {
+    .sidebar {
+        position: sticky;
+        top: 8px;
+        max-height: calc(100dvh - 16px);
+        overflow: auto
+    }
 }
 
-.modal-backdrop.open {
-    display: flex
+/* Acessibilidade */
+.sb-link:focus-visible,
+.tab:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px
 }
 
-/* ===== Accounts / Avatars ===== */
-.avatar-sm {
-    width: 34px;
-    height: 34px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 1px solid rgba(255, 255, 255, .28)
-}
-
-.input-file {
-    display: inline-block;
-    position: relative;
-    overflow: hidden
-}
-
-.input-file input[type=file] {
-    position: absolute;
-    inset: 0;
-    opacity: 0;
-    cursor: pointer
-}
-
-.help-sm {
-    font-size: 12px;
-    opacity: .8
-}
-
-/* Reaproveita o modal que já existe */
-.modal .thumb {
-    width: 72px;
-    height: 72px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid rgba(255, 255, 255, .24)
-}
-
-/* sidebar como tablist acessível */
-.sb-block:has(.sb-link[role="tab"]) { display: grid; gap: 8px; }
-.sb-link[role="tab"]{
-  display:flex; align-items:center; gap:10px;
-  width:100%; padding:10px 12px; border-radius:14px;
-  background: rgba(255,255,255,.06); color:#fff; border:1px solid rgba(255,255,255,.15);
-  cursor:pointer; transition:transform .12s ease, background .2s ease, box-shadow .2s ease;
-}
-.sb-link[role="tab"][aria-selected="true"]{
-  background: rgba(255,255,255,.16);
-  box-shadow: 0 0 0 2px rgba(157,182,104,.45) inset, 0 6px 16px rgba(0,0,0,.25);
-}
-.sb-link[role="tab"]:hover{ background: rgba(255,255,255,.12); transform: translateY(-1px); }
-.sb-link[role="tab"]:focus-visible{ outline: 2px solid #9DB668; outline-offset: 2px; }
-
-/* Tabs (sub-abas) */
-.tabs{ display:flex; gap:8px; flex-wrap:wrap; margin:8px 0 12px; }
-.tab{
-  padding:8px 12px; border-radius:999px; background:rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.18); color:#fff; cursor:pointer;
-  display:flex; align-items:center; gap:8px;
-}
-.tab.active{ background:rgba(255,255,255,.18); box-shadow:0 0 0 2px rgba(157,182,104,.45) inset; }
-.tab:focus-visible{ outline:2px solid #9DB668; outline-offset:2px; }
-
-.tabpanels{ margin-top:6px; }
-.tabpanel{ display:none; }
-.tabpanel.active{ display:block; }
-
-/* Forms */
-.field{ display:flex; flex-direction:column; gap:6px; }
-.field input, .field select, .field textarea{
-  background:rgba(255,255,255,.08); color:#fff; border:1px solid rgba(255,255,255,.18);
-  padding:10px 12px; border-radius:12px;
-}
-.field textarea{ resize:vertical; }
-.field label{ opacity:.9; font-size:.95rem; }
-.divider{
-  font-weight:600; opacity:.9; padding:6px 0; border-bottom:1px dashed rgba(255,255,255,.2);
-  margin:10px 0;
-}
-.actions{ display:flex; gap:10px; justify-content:flex-end; }
-
-.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:12px; }
-.col-2{ grid-column:1 / -1; }
-@media (max-width: 900px){ .grid-2{ grid-template-columns:1fr; } }
-
-/* Tabelas */
-.table tbody tr:hover{ background:rgba(255,255,255,.05); }
-.table .empty{ text-align:center; opacity:.8; padding:18px 0; font-style:italic; }
-
-/* Utils */
-.mb-2{ margin-bottom:.5rem; }
-.badge b{ font-weight:700; }
-
-/* acessibilidade invisível porém lida por leitores */
-.sr-only{ position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
-/* ===== Ajuste de contraste dos <select> dropdown ===== */
+/* Selects (contraste melhor) */
 select {
-  background: rgba(255, 255, 255, 0.08);
-  color: #fff;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: 12px;
-  padding: 8px 12px;
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, .18);
+    border-radius: 12px
 }
 
-/* forçar fundo sólido no menu aberto */
 select option {
-  background-color: rgba(35, 45, 35, 0.95); /* verde escuro translúcido */
-  color: #fff;
+    background-color: rgba(35, 45, 35, .95);
+    color: #fff
 }
 
-/* quando o mouse passa, dá realce Rokuzen */
 select option:checked,
 select option:hover {
-  background-color: #9DB668;
-  color: #111;
+    background-color: var(--accent);
+    color: #111
+}
+
+/* Preferência de menos movimento */
+@media (prefers-reduced-motion: reduce) {
+    .sb-link {
+        transition: none
+    }
+}
+
+/* ===== Clientes (filtros) ===== */
+#view-clients .row input[type="search"] {
+    min-width: 220px;
+    flex: 1 1 240px
+}
+
+#view-clients .row input[type="month"] {
+    min-width: 160px
+}
+
+#view-clients .table td:nth-child(3) {
+    white-space: nowrap
+}
+
+/* ===== Pontos Eletrônicos (Master) ===== */
+#view-pontos .table td:nth-child(3) {
+    white-space: nowrap
+}
+
+/* Utilidades */
+.hide-sm {
+    display: none !important
+}
+
+@media (min-width:769px) {
+    .hide-sm {
+        display: initial !important
+    }
+}
+
+.hide-lg {
+    display: initial !important
+}
+
+@media (min-width:769px) {
+    .hide-lg {
+        display: none !important
+    }
+}
+/* =========================
+   RWD – Ajustes finais 💚
+   (colar no FINAL do master.css)
+   ========================= */
+
+/* tokens fluidos */
+:root{
+  --space-1: .5rem;
+  --space-2: .75rem;
+  --space-3: 1rem;
+  --radius: 14px;
+}
+
+/* Layout base: sidebar + conteúdo */
+.app{
+  display:grid;
+  grid-template-columns: minmax(220px, 280px) 1fr;
+  gap: clamp(12px,2vw,18px);
+  align-items:start;
+}
+
+/* Conteúdo com padding fluido (evita “apertar” no mobile) */
+.main{
+  padding: clamp(12px, 2.5vw, 26px);
+}
+
+/* Cards: padding e raio fluidos */
+.card{
+  border-radius: var(--radius);
+  padding: clamp(12px, 2vw, 16px);
+  overflow: hidden; /* evita estourar sombra/blur no mobile */
+}
+
+/* Grid dos cards do dashboard quebra certinho */
+.cards{
+  display:grid;
+  grid-template-columns: 1.2fr .8fr;
+  gap: clamp(10px,2vw,16px);
+}
+
+/* Tipografia fluida pro título */
+h1{ font-size: clamp(28px, 4.2vw, 46px); }
+
+/* Badges e inputs com boas áreas de toque */
+.badge{ font-size: clamp(11px,.9rem,12px); padding: .35rem .6rem; }
+.btn, input, select{ min-height: 40px; }
+
+/* Tabelas: sempre seguras no mobile */
+.card .table{ font-size: clamp(12px,.95rem,14px); }
+.card .table { width: 100%; }
+.card .table:where(thead, tbody){ display: table-row-group; }
+.card .table-responsive, .table-wrap{ overflow-x:auto; -webkit-overflow-scrolling:touch; }
+.card .table{ min-width: 640px; } /* ativa scroll quando faltar largura */
+
+/* Sidebar */
+.sidebar{ padding: clamp(12px,2vw,18px); }
+.sb-link{ padding: .6rem .9rem; border-radius: 12px; }
+.unit-pill{ gap: 6px; }
+.unit-pill button{ padding: 6px 10px; }
+
+/* =========================
+   Breakpoints
+   ========================= */
+
+/* <= 1200px: dashboard vira 1 coluna */
+@media (max-width:1200px){
+  .cards{ grid-template-columns: 1fr; }
+}
+
+/* <= 992px: sidebar em cima, conteúdo embaixo */
+@media (max-width:992px){
+  .app{ grid-template-columns: 1fr; }
+  .sidebar{ order:2; }
+  .main{ order:1; }
+
+  /* botões da sidebar em duas colunas pra caber melhor */
+  .sidebar .sb-block:last-of-type{
+    display:grid;
+    grid-template-columns: repeat(2, minmax(0,1fr));
+    gap: 8px;
+  }
+  .sidebar .sb-block:last-of-type .sb-link{ width:100%; }
+}
+
+/* <= 768px: mobile raiz */
+@media (max-width:768px){
+  /* unidade pills quebram linha bonitinho */
+  .unit-pill{ gap: 8px; }
+  .unit-pill button{ flex: 0 1 auto; }
+
+  /* linhas com filtros viram coluna */
+  .row{ gap: 8px; }
+  .row > *{ flex: 1 1 100%; min-width: 0; }
+
+  /* tabelas: adiciona respiro lateral + scroll */
+  .table-responsive, .table-wrap{
+    margin: 0 -8px;
+    padding: 0 8px;
+  }
+
+  /* títulos mais compactos */
+  h2{ font-size: clamp(18px,3.6vw,22px); }
+}
+
+/* >= 1400px: dá um respiro maior */
+@media (min-width:1400px){
+  .app{ grid-template-columns: 300px 1fr; }
+  .card{ padding: 20px; }
+}
+
+/* Telas muito baixas (landscape no cel) */
+@media (max-height: 540px){
+  .card{ backdrop-filter: none; } /* leveza de render */
+}
+
+/* Acessibilidade: foco visível sempre fofinho */
+.sb-link:focus-visible,
+.btn:focus-visible,
+input:focus-visible,
+select:focus-visible{
+  outline: 2px solid #9DB668;
+  outline-offset: 2px;
+}
+
+/* Extras: evita blur pesado no mobile por perf */
+@media (max-width:768px){
+  .card{ backdrop-filter: none; background: rgba(0,0,0,.25); }
 }
