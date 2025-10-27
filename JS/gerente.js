@@ -117,6 +117,28 @@ function renderClients(){
       <td class="ta-r"><button class="btn btn--ghost" data-edit-client="${c.id}"><i class="fa-solid fa-pen"></i></button></td>
     </tr>`).join('') : `<tr><td class="empty" colspan="4">Sem clientes</td></tr>`;
 }
+// Botão "Novo Cliente"
+const btnNewClient = document.querySelector("#btnNewClient");
+btnNewClient?.addEventListener("click", () => {
+  const name = prompt("Nome do cliente:");
+  if (!name) return alert("Nome é obrigatório!");
+
+  const wa = prompt("WhatsApp do cliente (opcional):", "");
+  const email = prompt("E-mail do cliente (opcional):", "");
+
+  const newClient = {
+    id: "C" + Math.random().toString(36).slice(2, 7).toUpperCase(),
+    name,
+    wa: wa || "-",
+    email: email || "-"
+  };
+
+  db.clients.push(newClient);
+  save(db); // salva no localStorage
+  renderClients(); // atualiza tabela
+  alert(`Cliente "${name}" adicionado com sucesso!`);
+});
+
 
 /* ===== Agenda (stub) ===== */
 function renderAgenda(){
