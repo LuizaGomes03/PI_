@@ -204,6 +204,7 @@ btnNewClient?.addEventListener("click", () => {
 });
 
 
+
 /* ===== Agenda (stub) ===== */
 function renderAgenda() {
   const tb = $('#tblAgenda .table__body') || $('#tblAgenda tbody'); if (!tb) return;
@@ -465,13 +466,12 @@ boot();
   window.__saveConfigHandler = saveConfigHandler;
 })();
 
-// ======== Módulo: EQUIPE ========
+/// ======== Módulo: EQUIPE ========
 (function manageEmployees(){
   const btnAddEmp = document.querySelector('#btnAddEmp');
   const tbl = document.querySelector('#tblEmployees tbody');
   const roleFilter = document.querySelector('#roleFilter');
 
-  // Carrega db ou cria se não existir
   const STORAGE_KEY = 'rokuzen-db';
   function loadDB() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
@@ -481,40 +481,45 @@ boot();
     localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
   }
 
-  // Cria modal dinâmico acessível
-  function createModal() {
+  // ---------- MODAL DE CADASTRO / EDIÇÃO ----------
+  function openModal(employee = null) {
     const modal = document.createElement('div');
     modal.className = 'modal-backdrop';
+    const isEdit = !!employee;
+
     modal.innerHTML = `
       <div class="modal">
-        <h3 class="modal__title"><i class="fa-solid fa-user-plus"></i> Novo Colaborador</h3>
-        <form id="formAddEmp" class="grid grid--2">
+        <h3 class="modal__title">
+          <i class="fa-solid ${isEdit ? 'fa-user-pen' : 'fa-user-plus'}"></i> 
+          ${isEdit ? 'Editar Colaborador' : 'Novo Colaborador'}
+        </h3>
+        <form id="formEmp" class="grid grid--2">
           <div class="field">
             <label class="field__label" for="empName">Nome</label>
-            <input id="empName" class="input" required placeholder="Ex: Ana Souza">
+            <input id="empName" class="input" required placeholder="Ex: Ana Souza" value="${employee?.nome || ''}">
           </div>
           <div class="field">
             <label class="field__label" for="empRole">Papel</label>
             <select id="empRole" class="input" required>
               <option value="">Selecione...</option>
-              <option value="massagista">Massagista</option>
-              <option value="recepcao">Recepção</option>
-              <option value="admin">Admin</option>
+              <option value="massagista" ${employee?.papel === 'massagista' ? 'selected' : ''}>Massagista</option>
+              <option value="recepcao" ${employee?.papel === 'recepcao' ? 'selected' : ''}>Recepção</option>
+              <option value="admin" ${employee?.papel === 'admin' ? 'selected' : ''}>Admin</option>
             </select>
           </div>
           <div class="field">
             <label class="field__label" for="empUnit">Unidade</label>
-            <input id="empUnit" class="input" placeholder="Ex: Mooca Plaza">
+            <input id="empUnit" class="input" placeholder="Ex: Mooca Plaza" value="${employee?.unidade || ''}">
           </div>
           <div class="field">
             <label class="field__label" for="empTel">Telefone</label>
-            <input id="empTel" class="input" placeholder="(11) 90000-0000">
+            <input id="empTel" class="input" placeholder="(11) 90000-0000" value="${employee?.telefone || ''}">
           </div>
           <div class="field grid__col--2">
             <label class="field__label" for="empStatus">Status</label>
             <select id="empStatus" class="input">
-              <option value="Ativo">Ativo</option>
-              <option value="Inativo">Inativo</option>
+              <option value="Ativo" ${employee?.status === 'Ativo' ? 'selected' : ''}>Ativo</option>
+              <option value="Inativo" ${employee?.status === 'Inativo' ? 'selected' : ''}>Inativo</option>
             </select>
           </div>
           <div class="actions actions--end grid__col--2">
@@ -525,8 +530,6 @@ boot();
       </div>
     `;
     document.body.appendChild(modal);
-
-    // Acessibilidade e animação básica
     requestAnimationFrame(() => modal.classList.add('show'));
 
     // Eventos
@@ -535,38 +538,46 @@ boot();
       if (e.target === modal) modal.remove();
     });
 
-    // Salvamento
-    const form = modal.querySelector('#formAddEmp');
+    const form = modal.querySelector('#formEmp');
     form.addEventListener('submit', e => {
       e.preventDefault();
       const db = loadDB();
       db.employees = db.employees || [];
-      const newEmp = {
-        id: Date.now(),
+
+      const newData = {
+        id: isEdit ? employee.id : Date.now(),
         nome: form.empName.value.trim(),
         papel: form.empRole.value,
         unidade: form.empUnit.value.trim(),
         telefone: form.empTel.value.trim(),
         status: form.empStatus.value
       };
-      if (!newEmp.nome || !newEmp.papel) {
-        alert('⚠️ Preencha pelo menos nome e papel.');
+
+      if (!newData.nome || !newData.papel) {
+        alert('⚠️ Preencha nome e papel obrigatoriamente.');
         return;
       }
-      db.employees.push(newEmp);
+
+      if (isEdit) {
+        const idx = db.employees.findIndex(e => e.id === employee.id);
+        if (idx !== -1) db.employees[idx] = newData;
+      } else {
+        db.employees.push(newData);
+      }
+
       saveDB(db);
       modal.remove();
       renderEmployees();
     });
   }
 
-  // Renderiza tabela
+  // ---------- RENDERIZA TABELA ----------
   function renderEmployees(){
     const db = loadDB();
     const data = db.employees || [];
     const role = roleFilter?.value || '';
-
     const filtered = role ? data.filter(e => e.papel === role) : data;
+
     tbl.innerHTML = filtered.length ? filtered.map(e => `
       <tr>
         <td>${e.nome}</td>
@@ -574,30 +585,46 @@ boot();
         <td>${e.unidade || '—'}</td>
         <td>${e.telefone || '—'}</td>
         <td>${e.status || 'Ativo'}</td>
-        <td><button class="btn btn--ghost btn-del" data-id="${e.id}"><i class="fa-solid fa-trash"></i></button></td>
+        <td>
+          <button class="btn btn--ghost btn-edit" data-id="${e.id}" title="Editar">
+            <i class="fa-solid fa-pen-to-square"></i>
+          </button>
+          <button class="btn btn--ghost btn-del" data-id="${e.id}" title="Excluir">
+            <i class="fa-solid fa-trash"></i>
+          </button>
+        </td>
       </tr>
     `).join('') : `<tr><td colspan="6" class="empty">Nenhum colaborador cadastrado.</td></tr>`;
 
-    // Botão de deletar
+    // Eventos de editar/excluir
+    tbl.querySelectorAll('.btn-edit').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = +btn.dataset.id;
+        const emp = (loadDB().employees || []).find(e => e.id === id);
+        if (emp) openModal(emp);
+      });
+    });
+
     tbl.querySelectorAll('.btn-del').forEach(btn=>{
       btn.addEventListener('click', ()=>{
         const id = +btn.dataset.id;
-        const db = loadDB();
-        db.employees = (db.employees || []).filter(e=>e.id!==id);
-        saveDB(db);
-        renderEmployees();
+        if (confirm('Deseja realmente excluir este colaborador?')) {
+          const db = loadDB();
+          db.employees = (db.employees || []).filter(e=>e.id!==id);
+          saveDB(db);
+          renderEmployees();
+        }
       });
     });
   }
 
-  // Bind inicial
-  if (btnAddEmp) btnAddEmp.addEventListener('click', createModal);
+  // ---------- EVENTOS PRINCIPAIS ----------
+  if (btnAddEmp) btnAddEmp.addEventListener('click', () => openModal());
   if (roleFilter) roleFilter.addEventListener('change', renderEmployees);
 
-  // Primeira renderização
   renderEmployees();
 
-  // ===== CSS básico do modal =====
+  // ---------- CSS BÁSICO DO MODAL ----------
   const modalStyle = document.createElement('style');
   modalStyle.textContent = `
     .modal-backdrop {
@@ -624,3 +651,5 @@ boot();
   `;
   document.head.appendChild(modalStyle);
 })();
+
+

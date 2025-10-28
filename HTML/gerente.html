@@ -136,7 +136,11 @@
           <h2 class="card__title" id="clientsTitle"><i class="fa-solid fa-user"></i> Clientes</h2>
           <div class="row row--gap-sm">
             <input type="search" id="searchClient" class="input" placeholder="Buscar cliente...">
-            <button class="btn" id="btnNewClient"><i class="fa-solid fa-user-plus"></i> Novo</button>
+            <div class="row row--gap-sm">
+              <button id="btnNewClient" class="btn btn-add">
+                <i class="fa-solid fa-user-plus"></i> Novo Cliente
+              </button>
+            </div>            
           </div>
           <table class="table" id="tblClients">
             <thead class="table__head">
@@ -208,6 +212,7 @@
           <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
           <div class="row row--gap-sm">
             <button class="btn" id="btnAddEmp"><i class="fa-solid fa-user-plus"></i> Adicionar</button>
+
             <select id="roleFilter" class="input">
               <option value="">Todos os papéis</option>
               <option value="massagista">Massagista</option>
