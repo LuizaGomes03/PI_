@@ -1,12 +1,13 @@
 body {
   font-family: 'Quicksand', sans-serif;
-  color: #222;  
+  color: #4f5b30;  
   background: #fff;
   font-size: 20px;
 }
 
 .container {
   padding: 40px 70px;
+  text-align: center;
 }
 
 h2 {
@@ -39,7 +40,7 @@ h2 {
 }
 
 .contato-right a {
-  color: #000;
+  color: #4f5b30;
   text-decoration: none;
   font-weight: bold;
 }

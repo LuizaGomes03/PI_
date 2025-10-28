@@ -1,124 +1,71 @@
-/* Força a fonte correta do WhatsApp FA Brands só para o ícone no conteúdo principal */
 .container i.fa-brands.fa-whatsapp,
-.contato-left i.fa-brands.fa-whatsapp,
-.contato i.fa-brands.fa-whatsapp {
+.coluna i.fa-brands.fa-whatsapp {
   font-family: "Font Awesome 6 Brands" !important;
   font-weight: 400 !important;
   font-style: normal !important;
-  font-variant: normal !important;
   text-rendering: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
-/* Forçar a fonte correta do Font Awesome para todos os ícones */
-i.fa-brands, i.fa, i.fab, i.fas, i.far, i.fal, i.fad, i.fa-solid, i.fa-regular, i.fa-light, i.fa-thin, i.fa-duotone, i.fa-sharp {
-  font-family: "Font Awesome 6 Brands", "Font Awesome 6 Free", "FontAwesome", sans-serif !important;
-  font-weight: 400 !important;
-  font-style: normal !important;
-  font-variant: normal !important;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-/* Garantir que ícones Font Awesome usem a fonte correta mesmo dentro do conteúdo Amatic SC */
-.container i, .contato i, .contato-left i, .contato-right i, .form-contato i {
-  font-family: var(--fa-style-family, "Font Awesome 6 Free") !important;
-  font-weight: var(--fa-style, 900) !important;
+
+i.fa, i.fas, i.fa-solid {
+  font-family: "Font Awesome 6 Free" !important;
+  font-weight: 900 !important;
 }
 
 body {
   background: #fff;
-  color: #222;  
-
+  color: #4f5b30;  ;
 }
 
-  /* Fonte Amatic SC apenas no conteúdo principal e rodapé */
-  .container, .container *, .contato, .contato *, .contato-left, .contato-left *, .contato-right, .contato-right *, .form-contato, .form-contato *, .copy {
-    font-family: 'Amatic SC', cursive;
-  }
-    .container {
-      padding: 40px 70px;
-    }
 
-    h2 {
-      font-size: 35px;
-      margin-bottom: 20px;
-      font-weight: 700;
-      text-transform: uppercase;
-    }
+.container, .container *, .coluna, .coluna * {
+  font-family: 'Amatic SC', cursive;
+}
 
-    .contato {
-      display: flex;
-      justify-content: space-between;
-      gap: 40px;
-    }
+.container {
+  padding: 40px 70px;
+}
 
-    .contato-left {
-      width: 55%;
-      font-size: 22px;
-    }
+h2 {
+  font-size: 35px;
+  margin-bottom: 20px;
+  font-weight: 700;
+  text-transform: uppercase;
+}
 
-    .contato-left p {
-      margin: 18px 0;
-      line-height: 1.5;
-    }
+.contato {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 50px;
+}
 
-    .contato-left a {
-      color: #1a8f2c;
-      text-decoration: none;
-      font-weight: 700;
-    }
+.coluna {
+  width: 48%;
+  font-size: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
 
-    .contato-left a:hover {
-      text-decoration: underline;
-    }
+.coluna p {
+  margin: 18px 0;
+  line-height: 1.5;
+}
 
-    .contato-left i {
-      color: #6a9547;
-      margin-right: 6px;
-    }
+.coluna a {
+  color: #1a8f2c;
+  text-decoration: none;
+  font-weight: 700;
+}
 
-    .contato-right {
-      width: 40%;
-      font-size: 22px;
-    }
+.coluna a:hover {
+  text-decoration: underline;
+}
 
-    .contato-right a {
-      color: #000;
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    .form-contato input, 
-    .form-contato textarea {
-      width: 100%;
-      margin-bottom: 12px;
-      padding: 10px;
-      border: 1px solid #bbb;
-      border-radius: 4px;
-      background: #f7f7f7;
-      font-size: 20px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    .form-contato textarea {
-      height: 120px;
-      resize: none;
-    }
-
-    .form-contato button {
-      background: #6a9547;
-      color: #fff;
-      font-weight: bold;
-      padding: 12px 22px;
-      border: none;
-      border-radius: 4px;
-      cursor: pointer;
-      transition: background 0.3s;
-      font-size: 22px;
-      font-family: 'Amatic SC', cursive;
-    }
-
-    .form-contato button:hover {
-      background: #4a7135;
-    }
+.coluna i {
+  color: #6a9547;
+  margin-right: 6px;
+  font-size: 22px;
+}
