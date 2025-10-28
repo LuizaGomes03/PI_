@@ -46,7 +46,24 @@ h2 {
   font-weight: bold;
 }
 
-/* Responsividade: Tablets e celulares médios */
+/* ---------------- RESPONSIVIDADE ---------------- */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 35px 60px;
+  }
+
+  h2 {
+    font-size: 32px;
+  }
+
+  body,
+  .contato-left,
+  .contato-right {
+    font-size: 19px;
+  }
+}
+
 @media (max-width: 768px) {
   .container {
     padding: 30px 40px;
@@ -63,7 +80,6 @@ h2 {
   }
 }
 
-/* Celulares pequenos */
 @media (max-width: 480px) {
   .container {
     padding: 25px;
