@@ -44,3 +44,70 @@ h2 {
   text-decoration: none;
   font-weight: bold;
 }
+
+/* ---------------- RESPONSIVIDADE ---------------- */
+
+@media (max-width: 1024px) {
+  .container {
+    padding: 30px 50px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  .contato-left,
+  .contato-right {
+    font-size: 19px;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 25px 25px;
+  }
+
+  h2 {
+    font-size: 28px;
+  }
+
+  .contato-left,
+  .contato-right {
+    font-size: 18px;
+    display: block;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+  .contato-left i {
+    font-size: 18px;
+  }
+
+  .contato-right a {
+    display: inline-block;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  h2 {
+    font-size: 24px;
+  }
+
+  body {
+    font-size: 18px;
+  }
+
+  .contato-left,
+  .contato-right {
+    font-size: 17px;
+  }
+
+  .contato-left i {
+    font-size: 16px;
+  }
+}
