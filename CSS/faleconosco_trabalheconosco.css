@@ -1,16 +1,18 @@
 body {
   font-family: 'Quicksand', sans-serif;
-  color: #222;  
+  color: #4f5b30;  
   background: #fff;
   font-size: 20px;
 }
 
 .container {
   padding: 40px 70px;
+  text-align: center;
 }
 
 h2 {
   font-family: 'Amatic SC', cursive;
+  text-align: center;
   font-size: 35px;
   margin-bottom: 20px;
   font-weight: 700;
@@ -44,6 +46,45 @@ h2 {
   font-weight: bold;
 }
 
+/* Responsividade: Tablets e celulares médios */
+@media (max-width: 768px) {
+  .container {
+    padding: 30px 40px;
+  }
+
+  h2 {
+    font-size: 30px;
+  }
+
+  body,
+  .contato-left,
+  .contato-right {
+    font-size: 18px;
+  }
+}
+
+/* Celulares pequenos */
+@media (max-width: 480px) {
+  .container {
+    padding: 25px;
+  }
+
+  h2 {
+    font-size: 26px;
+  }
+
+  body,
+  .contato-left,
+  .contato-right {
+    font-size: 17px;
+  }
+
+  .contato-left a,
+  .contato-right a {
+    display: inline-block;
+    word-wrap: break-word;
+  }
+}
 
 
 
