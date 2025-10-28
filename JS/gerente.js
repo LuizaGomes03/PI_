@@ -465,3 +465,162 @@ boot();
   window.__saveConfigHandler = saveConfigHandler;
 })();
 
+// ======== Módulo: EQUIPE ========
+(function manageEmployees(){
+  const btnAddEmp = document.querySelector('#btnAddEmp');
+  const tbl = document.querySelector('#tblEmployees tbody');
+  const roleFilter = document.querySelector('#roleFilter');
+
+  // Carrega db ou cria se não existir
+  const STORAGE_KEY = 'rokuzen-db';
+  function loadDB() {
+    try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+    catch { return {}; }
+  }
+  function saveDB(db) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+  }
+
+  // Cria modal dinâmico acessível
+  function createModal() {
+    const modal = document.createElement('div');
+    modal.className = 'modal-backdrop';
+    modal.innerHTML = `
+      <div class="modal">
+        <h3 class="modal__title"><i class="fa-solid fa-user-plus"></i> Novo Colaborador</h3>
+        <form id="formAddEmp" class="grid grid--2">
+          <div class="field">
+            <label class="field__label" for="empName">Nome</label>
+            <input id="empName" class="input" required placeholder="Ex: Ana Souza">
+          </div>
+          <div class="field">
+            <label class="field__label" for="empRole">Papel</label>
+            <select id="empRole" class="input" required>
+              <option value="">Selecione...</option>
+              <option value="massagista">Massagista</option>
+              <option value="recepcao">Recepção</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+          <div class="field">
+            <label class="field__label" for="empUnit">Unidade</label>
+            <input id="empUnit" class="input" placeholder="Ex: Mooca Plaza">
+          </div>
+          <div class="field">
+            <label class="field__label" for="empTel">Telefone</label>
+            <input id="empTel" class="input" placeholder="(11) 90000-0000">
+          </div>
+          <div class="field grid__col--2">
+            <label class="field__label" for="empStatus">Status</label>
+            <select id="empStatus" class="input">
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </div>
+          <div class="actions actions--end grid__col--2">
+            <button type="button" class="btn btn--ghost" id="cancelEmp">Cancelar</button>
+            <button type="submit" class="btn"><i class="fa-solid fa-save"></i> Salvar</button>
+          </div>
+        </form>
+      </div>
+    `;
+    document.body.appendChild(modal);
+
+    // Acessibilidade e animação básica
+    requestAnimationFrame(() => modal.classList.add('show'));
+
+    // Eventos
+    modal.querySelector('#cancelEmp').addEventListener('click', () => modal.remove());
+    modal.addEventListener('click', e => {
+      if (e.target === modal) modal.remove();
+    });
+
+    // Salvamento
+    const form = modal.querySelector('#formAddEmp');
+    form.addEventListener('submit', e => {
+      e.preventDefault();
+      const db = loadDB();
+      db.employees = db.employees || [];
+      const newEmp = {
+        id: Date.now(),
+        nome: form.empName.value.trim(),
+        papel: form.empRole.value,
+        unidade: form.empUnit.value.trim(),
+        telefone: form.empTel.value.trim(),
+        status: form.empStatus.value
+      };
+      if (!newEmp.nome || !newEmp.papel) {
+        alert('⚠️ Preencha pelo menos nome e papel.');
+        return;
+      }
+      db.employees.push(newEmp);
+      saveDB(db);
+      modal.remove();
+      renderEmployees();
+    });
+  }
+
+  // Renderiza tabela
+  function renderEmployees(){
+    const db = loadDB();
+    const data = db.employees || [];
+    const role = roleFilter?.value || '';
+
+    const filtered = role ? data.filter(e => e.papel === role) : data;
+    tbl.innerHTML = filtered.length ? filtered.map(e => `
+      <tr>
+        <td>${e.nome}</td>
+        <td>${e.papel}</td>
+        <td>${e.unidade || '—'}</td>
+        <td>${e.telefone || '—'}</td>
+        <td>${e.status || 'Ativo'}</td>
+        <td><button class="btn btn--ghost btn-del" data-id="${e.id}"><i class="fa-solid fa-trash"></i></button></td>
+      </tr>
+    `).join('') : `<tr><td colspan="6" class="empty">Nenhum colaborador cadastrado.</td></tr>`;
+
+    // Botão de deletar
+    tbl.querySelectorAll('.btn-del').forEach(btn=>{
+      btn.addEventListener('click', ()=>{
+        const id = +btn.dataset.id;
+        const db = loadDB();
+        db.employees = (db.employees || []).filter(e=>e.id!==id);
+        saveDB(db);
+        renderEmployees();
+      });
+    });
+  }
+
+  // Bind inicial
+  if (btnAddEmp) btnAddEmp.addEventListener('click', createModal);
+  if (roleFilter) roleFilter.addEventListener('change', renderEmployees);
+
+  // Primeira renderização
+  renderEmployees();
+
+  // ===== CSS básico do modal =====
+  const modalStyle = document.createElement('style');
+  modalStyle.textContent = `
+    .modal-backdrop {
+      position: fixed; inset: 0; background: rgba(0,0,0,.6);
+      display: flex; align-items: center; justify-content: center;
+      z-index: 9999; opacity: 0; transition: opacity .25s ease;
+    }
+    .modal-backdrop.show { opacity: 1; }
+    .modal {
+      background: var(--card-bg);
+      border: 1px solid var(--card-bd);
+      border-radius: 16px;
+      padding: 20px;
+      width: min(500px, 90%);
+      backdrop-filter: blur(8px);
+      box-shadow: var(--shadow);
+    }
+    .modal__title {
+      font-family: "Amatic SC";
+      font-size: 28px;
+      margin-bottom: 12px;
+      display: flex; align-items: center; gap: 8px;
+    }
+  `;
+  document.head.appendChild(modalStyle);
+})();
