@@ -69,6 +69,13 @@
                         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                         Atual: <b id="currentUnitName">—</b>
                     </small>
+
+                    <a href="#notificacao" class="shortcut-item" role="tab" data-view="procedimentos"
+                        aria-controls="view-notificacao" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-list-check"></i></span>
+                        <span class="shortcut-label">Notificação</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
                     <a href="#atendimentos" class="shortcut-item" role="tab" data-view="atendimentos"
                         aria-controls="view-atendimentos" aria-selected="false">
                         <span class="shortcut-icon"><i class="fa-solid fa-clipboard-list"></i></span>
@@ -248,26 +255,50 @@
                         <div class="muted">Cadastre e visualize clientes da unidade: <b class="unitName">—</b></div>
                     </div>
 
+                    <!-- Barra de aniversariantes do dia -->
+                    <div id="bdayBar" class="birthday-bar" hidden>
+                        <i class="fa-solid fa-cake-candles"></i>
+                        <span id="bdayMsg">Aniversariantes de hoje: —</span>
+                        <button id="bdayNotifyAll" class="btn ghost btn-sm"><i class="fa-regular fa-bell"></i>
+                            Notificar</button>
+                    </div>
+
+                    <!-- Form -->
                     <form id="cliForm" class="atd-form" autocomplete="off">
-                        <div class="field"><input type="text" id="cliNome" placeholder="Nome do cliente" required></div>
-                        <div class="field"><input type="tel" id="cliFone" placeholder="Celular" required></div>
-                        <div class="field"><input type="email" id="cliEmail" placeholder="E-mail (opcional)"></div>
+                        <div class="field">
+                            <span class="label">Nome</span>
+                            <input type="text" id="cliNome" placeholder="Nome do cliente" required>
+                        </div>
+                        <div class="field">
+                            <span class="label">Celular</span>
+                            <input type="tel" id="cliFone" placeholder="(11) 9 9999-9999" required>
+                        </div>
+                        <div class="field">
+                            <span class="label">E-mail</span>
+                            <input type="email" id="cliEmail" placeholder="nome@exemplo.com">
+                        </div>
+                        <div class="field">
+                            <span class="label">Aniversário</span>
+                            <input type="date" id="cliNiver" required>
+                        </div>
                         <button class="btn atd-add" type="submit"><i class="fa-solid fa-plus"></i> Adicionar</button>
                     </form>
 
+                    <!-- Tabela -->
                     <div class="atd-table-wrap">
                         <table class="table atd-table" id="tblClientes">
-                          
                             <thead>
                                 <tr>
                                     <th>Nome</th>
                                     <th>Celular</th>
                                     <th>E-mail</th>
+                                    <th>Aniversário</th>
                                     <th></th>
                                 </tr>
                             </thead>
-                            <tbody></tbody> 
+                            <tbody></tbody>
                         </table>
+
                         <div class="atd-empty" id="cliEmpty" hidden>
                             <i class="fa-regular fa-face-meh-blank"></i>
                             <p>Sem clientes por enquanto.</p>
@@ -344,110 +375,434 @@
                 <div class="card">
                     <div class="atd-head">
                         <h2 id="giftTitle"><i class="fa-solid fa-gift"></i> Gift Card</h2>
-                        <div class="muted">Tabelas e emissões por unidade: <b class="unitName">—</b></div>
+                        <div class="muted">Tabela valores Gift Card: <b class="unitName">—</b></div>
+                        <form id="atdForm" class="atd-form" autocomplete="off">
+                            <div class="field"><label class="sr-only" for="atdCliente">Gift Card</label><input
+                                    type="text" id="atdCliente" placeholder="Gift Card" required></div>
+                            <div class="field"><label class="sr-only" for="atdCel">Valor</label><input type="tel"
+                                    id="atdCel" placeholder="Valor" required></div>
+                            <button class="btn atd-add" type="submit"><i class="fa-solid fa-plus"></i>
+                                Adicionar</button>
+                        </form>
+
+                        <div class="atd-table-wrap">
+                            <table class="table atd-table" id="tblAtendimentos">
+                                <thead>
+                                    <tr>
+                                        <th>Gift Card</th>
+                                        <th>Valor</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody></tbody>
+                            </table>
+                            <div id="atdEmpty" class="atd-empty" hidden>
+                                <i class="fa-regular fa-calendar-xmark"></i>
+                                <p>Sem gifts cards por enquanto.</p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
+            </section>
             </section>
 
-            <!-- ========== COLABORADORES ========== -->
-            <section id="view-colaboradores" class="view" aria-labelledby="colabTitle">
-                <div class="card">
+            <!-- ========= MENU / AÇÕES DE COLABORADORES ========= -->
+            <!-- ========= COLABORADORES ========= -->
+            <section id="view-colaboradores" class="view active" aria-labelledby="colabTitle">
+                <div class="card colaboradores-card">
                     <div class="atd-head">
                         <h2 id="colabTitle"><i class="fa-solid fa-user-tie"></i> Colaboradores</h2>
                         <div class="muted">Cadastro e permissões: <b class="unitName">—</b></div>
                     </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
 
-            <!-- ========== CONTROLE DE LOGIN ========== -->
-            <section id="view-controle-login" class="view" aria-labelledby="loginTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="loginTitle"><i class="fa-solid fa-user-lock"></i> Controle de Login</h2>
-                        <div class="muted">Acessos e auditoria: <b class="unitName">—</b></div>
+                    <div class="colab-grid">
+                        <a href="#" data-view="colab-novo" class="colab-item">
+                            <i class="fa-solid fa-user-plus icon"></i>
+                            <h3>Novo Colaborador</h3>
+                            <p>Adicione um novo membro à equipe</p>
+                        </a>
+
+                        <a href="#" data-view="colab-lista" class="colab-item">
+                            <i class="fa-solid fa-list icon"></i>
+                            <h3>Lista de Colaboradores</h3>
+                            <p>Veja todos os colaboradores cadastrados</p>
+                        </a>
+
+                        <a href="#" data-view="colab-ponto" class="colab-item">
+                            <i class="fa-regular fa-clock icon"></i>
+                            <h3>Controle de Ponto</h3>
+                            <p>Acompanhe os registros de entrada e saída</p>
+                        </a>
+
+                        <a href="#" data-view="colab-pagamentos" class="colab-item">
+                            <i class="fa-solid fa-file-invoice-dollar icon"></i>
+                            <h3>Controle de Pagamentos</h3>
+                            <p>Gerencie salários e lançamentos</p>
+                        </a>
                     </div>
-                    <p class="muted">Coming soon…</p>
                 </div>
             </section>
 
-            <!-- ========== CALENDÁRIO ========== -->
+
+            <!-- ========= NOVO COLABORADOR ========= -->
+            <section id="view-colab-novo" class="view" aria-labelledby="novoColabTitle">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                    <div class="atd-head">
+                        <h2 id="novoColabTitle"><i class="fa-solid fa-user-plus"></i> Adicionar Novo Colaborador</h2>
+
+                        <div class="muted">Cadastro e criação automática de e-mail</div>
+                    </div>
+
+                    <form id="colabForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="colabNome">Nome</label>
+                            <input type="text" id="colabNome" placeholder="" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colabSobrenome">Sobrenome</label>
+                            <input type="text" id="colabSobrenome" placeholder="" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colabFuncao">Função</label>
+                            <select id="colabFuncao" required>
+                                <option value="">Selecione</option>
+                                <option value="recepcionista">Recepcionista</option>
+                                <option value="massoterapeuta">Massoterapeuta</option>
+                                <option value="gerente">Gerente</option>
+                                <option value="financeiro">Financeiro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>E-mail gerado</label>
+                            <input type="text" id="colabEmail" readonly>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Senha temporária</label>
+                            <input type="text" id="colabSenha" readonly>
+                        </div>
+
+                        <button type="submit" class="btn primary"><i class="fa-solid fa-save"></i> Criar Conta</button>
+                    </form>
+                </div>
+            </section>
+
+
+            <!-- ========= LISTA ========= -->
+            <section id="view-colab-lista" class="view" aria-labelledby="listaColabTitle">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                    <div class="atd-head">
+                        <h2 id="listaColabTitle"><i class="fa-solid fa-users"></i> Lista de Colaboradores</h2>
+                        <div class="muted">Cadastro e permissões: <b class="unitName">—</b></div>
+                    </div>
+
+                    <div id="colabListContainer">
+                        <table class="colab-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Função</th>
+                                    <th>E-mail</th>
+                                    <th>Senha</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="colabTableBody">
+                                <!-- Os colaboradores aparecerão aqui -->
+                            </tbody>
+                        </table>
+
+                        <p id="colabEmpty" class="muted" style="text-align:center; padding:20px;">
+                            Nenhum colaborador cadastrado ainda
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========= CONTROLE DE PONTO ========= -->
+            <!-- ========= CONTROLE DE PONTO (MASTER) ========= -->
+            <section id="view-colab-ponto" class="view" aria-labelledby="pontosTitle">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+
+                    <div class="atd-head">
+                        <h2 id="pontosTitle"><i class="fa-regular fa-clock"></i> Controle de Ponto</h2>
+                        <div class="muted">Visualização dos registros de ponto dos colaboradores</div>
+                    </div>
+
+                    <!-- filtros -->
+                    <div class="filtros-ponto">
+                        <div class="form-group">
+                            <label for="filtroFuncionario">Funcionário</label>
+                            <select id="filtroFuncionario">
+                                <option value="">Todos</option>
+                                <option value="">West Plaza</option>
+                                <option value="">Mooca Plaza</option>
+                                <option value="">Golden Square</option>
+                                <option value="">Grand Plaza</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="filtroData">Data</label>
+                            <input type="date" id="filtroData">
+                        </div>
+
+                        <button id="limparFiltro" class="btn ghost">Limpar Filtro</button>
+                    </div>
+
+                    <!-- tabela -->
+                    <div class="ponto-list">
+                        <table class="ponto-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Pontos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pontoTableBody"></tbody>
+                        </table>
+                        <p id="pontoEmpty" class="muted" style="text-align:center; padding:20px;">Nenhum ponto
+                            registrado</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========= PAGAMENTOS ========= -->
+            <section id="view-colab-pagamentos" class="view" aria-labelledby="pagTitle">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+                    <div class="atd-head">
+                        <h2 id="pagTitle"><i class="fa-solid fa-file-invoice-dollar"></i> Controle de Pagamentos</h2>
+                        <div class="muted">Financeiro e folha: <b class="unitName">—</b></div>
+                    </div>
+
+                    <!-- Filtros / Ações -->
+                    <div class="pay-toolbar">
+                        <div class="form-group">
+                            <label for="compRef">Competência</label>
+                            <input type="month" id="compRef">
+                        </div>
+                        <button id="btnGerar" class="btn primary">
+                            <i class="fa-solid fa-wand-magic-sparkles"></i> Gerar Folha do Mês
+                        </button>
+                        <button id="btnSalvar" class="btn ghost">Salvar alterações</button>
+                        <button id="btnPagarTodos" class="btn success">Marcar todos como Pago</button>
+                        <button id="btnExportar" class="btn ghost"><i class="fa-solid fa-file-export"></i> Exportar
+                            CSV</button>
+                    </div>
+
+                    <!-- Tabela -->
+                    <div class="pay-table-wrap">
+                        <table class="pay-table">
+                            <thead>
+                                <tr>
+                                    <th>Funcionário</th>
+                                    <th>Função</th>
+                                    <th>Salário Base (R$)</th>
+                                    <th>Adicionais (R$)</th>
+                                    <th>Descontos (R$)</th>
+                                    <th>Líquido (R$)</th>
+                                    <th>Status</th>
+                                    <th>Pago em</th>
+                                    <th>Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody id="folhaBody"></tbody>
+                            <tfoot>
+                                <tr>
+                                    <th colspan="2">Totais</th>
+                                    <th id="totBase">R$ 0,00</th>
+                                    <th id="totAdd">R$ 0,00</th>
+                                    <th id="totDesc">R$ 0,00</th>
+                                    <th id="totLiq">R$ 0,00</th>
+                                    <th colspan="3"></th>
+                                </tr>
+                            </tfoot>
+                        </table>
+                        <p id="folhaEmpty" class="muted" style="text-align:center; padding:16px;">Sem lançamentos nessa
+                            competência 👀</p>
+                    </div>
+                </div>
+
+            </section>
+            <!-- ========== CONTROLE DE LOGIN  ========== -->
+            <!-- ========== PONTO (MASTER) — TODOS OS FUNCIONÁRIOS ========== -->
+            <section id="view-controle-login" class="view" aria-labelledby="pontoMasterTitle">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
+
+                    <div class="atd-head">
+                        <h2 id="pontoMasterTitle"><i class="fa-regular fa-clock"></i> Controle de Login — Todos os
+                            Funcionários</h2>
+                        <div class="muted">Visão master de Entrada / Intervalo / Saída</div>
+                    </div>
+
+                    <!-- Filtros -->
+                    <div class="filtros-ponto">
+                        <div class="form-group">
+                            <label for="pontoData">Data</label>
+                            <input type="date" id="pontoData">
+                        </div>
+                        <div class="form-group">
+                            <label for="pontoBusca">Buscar</label>
+                            <input type="text" id="pontoBusca" placeholder="Nome, função ou e-mail">
+                        </div>
+                        <button id="pontoLimpar" class="btn ghost">Limpar</button>
+                        <div class="summary">
+                            <span id="sumTotal">0</span> funcionários •
+                            <span id="sumAtivos">0</span> em serviço •
+                            <span id="sumIntervalo">0</span> em intervalo •
+                            <span id="sumSaida">0</span> já saíram
+                        </div>
+                    </div>
+
+                    <!-- Tabela -->
+                    <div class="ponto-list">
+                        <table class="ponto-table">
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Função</th>
+                                    <th>E-mail</th>
+                                    <th>Entrada</th>
+                                    <th>Intervalo</th>
+                                    <th>Saída</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pontoMasterBody"></tbody>
+                        </table>
+                        <p id="pontoMasterEmpty" class="muted" style="text-align:center; padding:18px;">Sem registros
+                            para esta data 👀</p>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ========== CALENDÁRIO ========= -->
             <section id="view-calendario" class="view" aria-labelledby="calTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="calTitle"><i class="fa-solid fa-calendar-days"></i> Calendário</h2>
-                        <div class="muted">Eventos e agenda: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+                    <div class="calendar-card">
+                        <button class="btn-voltar" data-view="colaboradores">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
 
-            <!-- ========== RELATÓRIO ========== -->
-            <section id="view-relatorio" class="view" aria-labelledby="relTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="relTitle"><i class="fa-solid fa-chart-line"></i> Relatório</h2>
-                        <div class="muted">Indicadores da unidade: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+                        <div class="atd-head">
+                            <h2 id="calTitle"><i class="fa-solid fa-calendar-days"></i> Calendário</h2>
+                            <div class="muted">Eventos e agenda: <b class="unitName">—</b></div>
+                        </div>
 
-            <!-- ========== BIBLIOTECA ========== -->
-            <section id="view-biblioteca" class="view" aria-labelledby="bibTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="bibTitle"><i class="fa-solid fa-book-open"></i> Biblioteca</h2>
-                        <div class="muted">Arquivos e manuais: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+                        <div id="calendarApp">
+                            <div class="cal-toolbar">
+                                <div class="left">
+                                    <button id="calPrev" class="btn ghost">◀</button>
+                                    <button id="calToday" class="btn ghost">Hoje</button>
+                                    <button id="calNext" class="btn ghost">▶</button>
+                                </div>
+                                <div class="center" id="calTitleBar">—</div>
+                                <div class="right">
+                                    <input type="month" id="calPicker">
+                                </div>
+                            </div>
 
-            <!-- ========== PARCEIROS ========== -->
-            <section id="view-parceiros" class="view" aria-labelledby="parTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="parTitle"><i class="fa-solid fa-handshake"></i> Parceiros</h2>
-                        <div class="muted">Convênios e contatos: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+                            <div class="cal-grid" id="calGrid" aria-label="Calendário mensal"></div>
+                            <p id="calEmpty" class="muted" style="text-align:center; padding:12px; display:none;">
+                                Sem eventos neste mês 👀
+                            </p>
 
-            <!-- ========== ESCALA ========== -->
-            <section id="view-escala" class="view" aria-labelledby="escTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="escTitle"><i class="fa-solid fa-users-gear"></i> Escala Compartilhada</h2>
-                        <div class="muted">Distribuição de equipes: <b class="unitName">—</b></div>
+                            <div class="legend">
+                                <span class="dot dot-meeting"></span> Reunião
+                                <span class="dot dot-holiday"></span> Feriado
+                                <span class="dot dot-leave"></span> Folga/Férias
+                                <span class="dot dot-other"></span> Outros
+                            </div>
+                        </div>
                     </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
 
-            <!-- ========== MENSAGEM ========== -->
-            <section id="view-mensagem" class="view" aria-labelledby="msgTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="msgTitle"><i class="fa-solid fa-envelope"></i> Mensagem</h2>
-                        <div class="muted">Avisos internos por unidade: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+                    <!-- FullCalendar CDN -->
+                    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
+                    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
 
-            <!-- ========== PROCEDIMENTOS ========== -->
-            <section id="view-procedimentos" class="view" aria-labelledby="procTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="procTitle"><i class="fa-solid fa-list-check"></i> Procedimentos</h2>
-                        <div class="muted">POP e instruções: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
+
+                    <!-- ========== RELATÓRIO ========== -->
+                    <section id="view-relatorio" class="view" aria-labelledby="relTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="relTitle"><i class="fa-solid fa-chart-line"></i> Relatório</h2>
+                                <div class="muted">Indicadores da unidade: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
+
+                    <!-- ========== BIBLIOTECA ========== -->
+                    <section id="view-biblioteca" class="view" aria-labelledby="bibTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="bibTitle"><i class="fa-solid fa-book-open"></i> Biblioteca</h2>
+                                <div class="muted">Arquivos e manuais: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
+
+                    <!-- ========== PARCEIROS ========== -->
+                    <section id="view-parceiros" class="view" aria-labelledby="parTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="parTitle"><i class="fa-solid fa-handshake"></i> Parceiros</h2>
+                                <div class="muted">Convênios e contatos: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
+
+                    <!-- ========== ESCALA ========== -->
+                    <section id="view-escala" class="view" aria-labelledby="escTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="escTitle"><i class="fa-solid fa-users-gear"></i> Escala Compartilhada</h2>
+                                <div class="muted">Distribuição de equipes: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
+
+                    <!-- ========== MENSAGEM ========== -->
+                    <section id="view-mensagem" class="view" aria-labelledby="msgTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="msgTitle"><i class="fa-solid fa-envelope"></i> Mensagem</h2>
+                                <div class="muted">Avisos internos por unidade: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
+
+                    <!-- ========== PROCEDIMENTOS ========== -->
+                    <section id="view-procedimentos" class="view" aria-labelledby="procTitle">
+                        <div class="card">
+                            <div class="atd-head">
+                                <h2 id="procTitle"><i class="fa-solid fa-list-check"></i> Procedimentos</h2>
+                                <div class="muted">POP e instruções: <b class="unitName">—</b></div>
+                            </div>
+                            <p class="muted">Coming soon…</p>
+                        </div>
+                    </section>
         </main>
 
     </div>
