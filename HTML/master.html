@@ -5,35 +5,44 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Recepção • Serviços & Agendamento</title>
+
+    <!-- Fonts & Icons -->
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+
+    <!-- Seu CSS/JS -->
     <link rel="stylesheet" href="../CSS/master.css" />
     <script src="../JS/master.js" defer></script>
-
-
 </head>
 
-<!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
-<div id="logoutPopup" class="popup-overlay" aria-hidden="true">
-    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
-        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
-        <div class="popup-actions">
-            <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
-            <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+<body>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menu">
+        <i class="fa-solid fa-bars"></i>
+    </button>
+    <div class="menu-backdrop" id="menuBackdrop"></div>
+
+    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT (deve ficar DENTRO do body) -->
+    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+            <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+            <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+            <div class="popup-actions">
+                <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+                <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+            </div>
         </div>
     </div>
-</div>
 
-<body>
+    <!-- BG -->
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
     </video>
+
     <div class="app">
         <!-- ===== SIDEBAR ===== -->
         <aside class="sidebar">
-            <!-- Perfil + Pontos -->
+            <!-- Perfil -->
             <div class="sb-block" style="display:flex;align-items:center;gap:12px">
                 <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
                     alt="avatar"
@@ -44,45 +53,119 @@
             </div>
 
             <!-- ATALHOS -->
-             
             <div class="sb-block shortcuts">
                 <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
                 <nav class="shortcut-list" aria-label="Atalhos rápidos">
 
+                    <!-- Selecionar Unidade -->
                     <div class="sb-block unit-picker">
-                        <div class="sb-title">
-                            <i class="fa-solid fa-building"></i>
-                            Selecionar Unidade
-                        </div>
-
+                        <div class="sb-title"><i class="fa-solid fa-building"></i> Selecionar Unidade</div>
                         <div class="unit-row">
                             <select id="unitPicker" aria-label="Selecionar unidade"></select>
                         </div>
-                        </small>
                     </div>
-
 
                     <small class="help-sm">
                         <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
                         Atual: <b id="currentUnitName">—</b>
                     </small>
-
-                
-                    <a href="#atendimentos" class="shortcut-item">
-                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                    <a href="#atendimentos" class="shortcut-item" role="tab" data-view="atendimentos"
+                        aria-controls="view-atendimentos" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-clipboard-list"></i></span>
                         <span class="shortcut-label">Atendimentos</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
 
-                    <a href="#controle-login" class="shortcut-item">
+
+                    <a href="#clientes" class="shortcut-item" role="tab" data-view="clientes"
+                        aria-controls="view-clientes" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
+                        <span class="shortcut-label">Clientes</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#tabela-precos" class="shortcut-item" role="tab" data-view="tabela-precos"
+                        aria-controls="view-tabela-precos" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-tags"></i></span>
+                        <span class="shortcut-label">Tabela de Preços</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#formularios" class="shortcut-item" role="tab" data-view="formularios"
+                        aria-controls="view-formularios" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
+                        <span class="shortcut-label">Formulários</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+
+                    <a href="#gift-card" class="shortcut-item" role="tab" data-view="gift-card"
+                        aria-controls="view-gift-card" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-gift"></i></span>
+                        <span class="shortcut-label">Gift Card</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#colaboradores" class="shortcut-item" role="tab" data-view="colaboradores"
+                        aria-controls="view-colaboradores" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-user-tie"></i></span>
+                        <span class="shortcut-label">Colaboradores</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#controle-login" class="shortcut-item" role="tab" data-view="controle-login"
+                        aria-controls="view-controle-login" aria-selected="false">
                         <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
                         <span class="shortcut-label">Controle de Login</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
 
-                    <a href="#calendario-anual" class="shortcut-item">
+                    <a href="#calendario" class="shortcut-item" role="tab" data-view="calendario"
+                        aria-controls="view-calendario" aria-selected="false">
                         <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
-                        <span class="shortcut-label">Calendário Anual</span>
+                        <span class="shortcut-label">Calendário</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#relatorio" class="shortcut-item" role="tab" data-view="relatorio"
+                        aria-controls="view-relatorio" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-chart-line"></i></span>
+                        <span class="shortcut-label">Relatório</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#biblioteca" class="shortcut-item" role="tab" data-view="biblioteca"
+                        aria-controls="view-biblioteca" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-book-open"></i></span>
+                        <span class="shortcut-label">Biblioteca</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#parceiros" class="shortcut-item" role="tab" data-view="parceiros"
+                        aria-controls="view-parceiros" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-handshake"></i></span>
+                        <span class="shortcut-label">Parceiros</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#escala" class="shortcut-item" role="tab" data-view="escala" aria-controls="view-escala"
+                        aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-users-gear"></i></span>
+                        <span class="shortcut-label">Escala Compartilhada</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#mensagem" class="shortcut-item" role="tab" data-view="mensagem"
+                        aria-controls="view-mensagem" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-envelope"></i></span>
+                        <span class="shortcut-label">Mensagem</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#procedimentos" class="shortcut-item" role="tab" data-view="procedimentos"
+                        aria-controls="view-procedimentos" aria-selected="false">
+                        <span class="shortcut-icon"><i class="fa-solid fa-list-check"></i></span>
+                        <span class="shortcut-label">Procedimentos</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
                 </nav>
@@ -102,6 +185,7 @@
                             href="tel:11955556666">(11) 95555-6666</a></div>
                 </div>
             </div>
+
             <!-- BOTÃO DE LOGOUT -->
             <div class="sb-block logout-block">
                 <button id="logoutBtn" class="btn-logout">
@@ -113,11 +197,265 @@
             <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
         </aside>
 
-        </aside>
+        <!-- ===== MAIN ===== -->
+        <main class="main-content">
+            <!-- ========== ATENDIMENTOS ========== -->
+            <section id="view-atendimentos" class="view" aria-labelledby="atdTitle">
+                <div class="atd card">
+                    <div class="atd-head">
+                        <h2 id="atdTitle"><i class="fa-solid fa-clipboard-list"></i> Atendimentos</h2>
+                        <div class="muted">Cadastre e visualize atendimentos da unidade: <b id="atdUnitName">—</b></div>
+                    </div>
 
-        <style>
-            /* ===== LAYOUT ===== */
-        </style>
+                    <form id="atdForm" class="atd-form" autocomplete="off">
+                        <div class="field"><label class="sr-only" for="atdDateTime">Data/Hora</label><input
+                                type="datetime-local" id="atdDateTime" required></div>
+                        <div class="field"><label class="sr-only" for="atdCliente">Cliente</label><input type="text"
+                                id="atdCliente" placeholder="Cliente" required></div>
+                        <div class="field"><label class="sr-only" for="atdCel">Celular</label><input type="tel"
+                                id="atdCel" placeholder="Celular" required></div>
+                        <div class="field"><label class="sr-only" for="atdTer">Terapeuta</label><input type="text"
+                                id="atdTer" placeholder="Terapeuta" required></div>
+                        <button class="btn atd-add" type="submit"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    </form>
+
+                    <div class="atd-table-wrap">
+                        <table class="table atd-table" id="tblAtendimentos">
+                            <thead>
+                                <tr>
+                                    <th>Data/Hora</th>
+                                    <th>Cliente</th>
+                                    <th>Celular</th>
+                                    <th>Terapeuta</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                        <div id="atdEmpty" class="atd-empty" hidden>
+                            <i class="fa-regular fa-calendar-xmark"></i>
+                            <p>Sem atendimentos por enquanto.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== CLIENTES ========== -->
+            <section id="view-clientes" class="view" aria-labelledby="cliTitle">
+                <div class="atd card">
+                    <div class="atd-head">
+                        <h2 id="cliTitle"><i class="fa-solid fa-user-group"></i> Clientes</h2>
+                        <div class="muted">Cadastre e visualize clientes da unidade: <b class="unitName">—</b></div>
+                    </div>
+
+                    <form id="cliForm" class="atd-form" autocomplete="off">
+                        <div class="field"><input type="text" id="cliNome" placeholder="Nome do cliente" required></div>
+                        <div class="field"><input type="tel" id="cliFone" placeholder="Celular" required></div>
+                        <div class="field"><input type="email" id="cliEmail" placeholder="E-mail (opcional)"></div>
+                        <button class="btn atd-add" type="submit"><i class="fa-solid fa-plus"></i> Adicionar</button>
+                    </form>
+
+                    <div class="atd-table-wrap">
+                        <table class="table atd-table" id="tblClientes">
+                          
+                            <thead>
+                                <tr>
+                                    <th>Nome</th>
+                                    <th>Celular</th>
+                                    <th>E-mail</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody> 
+                        </table>
+                        <div class="atd-empty" id="cliEmpty" hidden>
+                            <i class="fa-regular fa-face-meh-blank"></i>
+                            <p>Sem clientes por enquanto.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== TABELA DE PREÇOS ========== -->
+            <section id="view-tabela-precos" class="view" aria-labelledby="pricesTitle">
+                <div class="prices card">
+                    <div class="prices-head">
+                        <h2 id="pricesTitle"><i class="fa-solid fa-tags"></i> Tabela de Preços</h2>
+                        <p class="muted">Gerencie os serviços e valores da unidade: <b id="priceUnitName">—</b></p>
+                    </div>
+
+                    <form id="priceForm" class="prices-form" autocomplete="off">
+                        <label class="field">
+                            <span class="label">Serviço</span>
+                            <input type="text" id="svcNome" placeholder="Ex.: Quick Massage" required>
+                        </label>
+                        <label class="field">
+                            <span class="label">Duração</span>
+                            <div class="input-with-addon">
+                                <input type="number" id="svcDur" placeholder="0" min="0" step="5" required>
+                                <span class="addon">min</span>
+                            </div>
+                        </label>
+                        <label class="field">
+                            <span class="label">Preço</span>
+                            <div class="input-with-addon">
+                                <span class="addon left">R$</span>
+                                <input type="number" id="svcPreco" placeholder="0,00" min="0" step="0.01" required>
+                            </div>
+                        </label>
+                        <button class="btn primary atd-add" type="submit">
+                            <i class="fa-solid fa-plus"></i> <span id="priceFormAction">Adicionar</span>
+                        </button>
+                    </form>
+
+                    <div class="prices-table-wrap">
+                        <table class="table prices-table" id="tblPrecos">
+                            <thead>
+                                <tr>
+                                    <th>Serviço</th>
+                                    <th>Duração</th>
+                                    <th>Preço</th>
+                                    <th class="actions-col"></th>
+                                </tr>
+                            </thead>
+                            <tbody></tbody>
+                        </table>
+                    </div>
+
+                    <p id="priceEmpty" class="empty" style="display:none">
+                        <i class="fa-regular fa-face-meh-blank"></i> Sem itens na tabela por enquanto.
+                    </p>
+                </div>
+            </section>
+
+            <!-- ========== FORMULÁRIOS ========== -->
+            <section id="view-formularios" class="view" aria-labelledby="formTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="formTitle"><i class="fa-solid fa-file-lines"></i> Formulários</h2>
+                        <div class="muted">Modelos e registros da unidade: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== GIFT CARD ========== -->
+            <section id="view-gift-card" class="view" aria-labelledby="giftTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="giftTitle"><i class="fa-solid fa-gift"></i> Gift Card</h2>
+                        <div class="muted">Tabelas e emissões por unidade: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== COLABORADORES ========== -->
+            <section id="view-colaboradores" class="view" aria-labelledby="colabTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="colabTitle"><i class="fa-solid fa-user-tie"></i> Colaboradores</h2>
+                        <div class="muted">Cadastro e permissões: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== CONTROLE DE LOGIN ========== -->
+            <section id="view-controle-login" class="view" aria-labelledby="loginTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="loginTitle"><i class="fa-solid fa-user-lock"></i> Controle de Login</h2>
+                        <div class="muted">Acessos e auditoria: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== CALENDÁRIO ========== -->
+            <section id="view-calendario" class="view" aria-labelledby="calTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="calTitle"><i class="fa-solid fa-calendar-days"></i> Calendário</h2>
+                        <div class="muted">Eventos e agenda: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== RELATÓRIO ========== -->
+            <section id="view-relatorio" class="view" aria-labelledby="relTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="relTitle"><i class="fa-solid fa-chart-line"></i> Relatório</h2>
+                        <div class="muted">Indicadores da unidade: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== BIBLIOTECA ========== -->
+            <section id="view-biblioteca" class="view" aria-labelledby="bibTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="bibTitle"><i class="fa-solid fa-book-open"></i> Biblioteca</h2>
+                        <div class="muted">Arquivos e manuais: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== PARCEIROS ========== -->
+            <section id="view-parceiros" class="view" aria-labelledby="parTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="parTitle"><i class="fa-solid fa-handshake"></i> Parceiros</h2>
+                        <div class="muted">Convênios e contatos: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== ESCALA ========== -->
+            <section id="view-escala" class="view" aria-labelledby="escTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="escTitle"><i class="fa-solid fa-users-gear"></i> Escala Compartilhada</h2>
+                        <div class="muted">Distribuição de equipes: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== MENSAGEM ========== -->
+            <section id="view-mensagem" class="view" aria-labelledby="msgTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="msgTitle"><i class="fa-solid fa-envelope"></i> Mensagem</h2>
+                        <div class="muted">Avisos internos por unidade: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+
+            <!-- ========== PROCEDIMENTOS ========== -->
+            <section id="view-procedimentos" class="view" aria-labelledby="procTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="procTitle"><i class="fa-solid fa-list-check"></i> Procedimentos</h2>
+                        <div class="muted">POP e instruções: <b class="unitName">—</b></div>
+                    </div>
+                    <p class="muted">Coming soon…</p>
+                </div>
+            </section>
+        </main>
+
+    </div>
+
+    <!-- estilos locais opcionais -->
+    <style>
+        /* espaço para ajustes locais rápidos se precisar */
+    </style>
 </body>
 
 </html>
