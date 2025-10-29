@@ -1,198 +1,369 @@
-// ========= DADOS MOCK =========
-const therapist = { id: 'T001', name: 'Luly' }; // <- aqui você seta o massagista logado
-const ferias = [ // intervalos (YYYY-MM-DD)
-    { start: '2025-01-20', end: '2025-02-02' },
-    { start: '2025-07-08', end: '2025-07-21' }
-];
-const feriadosBR2025 = [
-    { date: '2025-01-01', name: 'Confraternização Universal' },
-    { date: '2025-03-04', name: 'Carnaval' },
-    { date: '2025-04-18', name: 'Sexta-feira Santa' },
-    { date: '2025-04-21', name: 'Tiradentes' },
-    { date: '2025-05-01', name: 'Dia do Trabalho' },
-    { date: '2025-06-19', name: 'Corpus Christi' },
-    { date: '2025-09-07', name: 'Independência do Brasil' },
-    { date: '2025-10-12', name: 'Nossa Senhora Aparecida' },
-    { date: '2025-11-02', name: 'Finados' },
-    { date: '2025-11-15', name: 'Proclamação da República' },
-    { date: '2025-12-25', name: 'Natal' }
-];
-const appts = [
-    // apenas exemplos — cada item tem therapistId e só renderizamos os do logado
-    { date: '2025-10-13', time: '09:00', client: 'Ana Souza', phone: '(11) 90000-1111', service: 'Shiatsu 50min', therapistId: 'T001', room: 'Sala 2' },
-    { date: '2025-10-13', time: '10:10', client: 'Bruno Dias', phone: '(11) 90000-2222', service: 'Liberação Miofascial', therapistId: 'T001', room: 'Sala 1' },
-    { date: '2025-10-13', time: '14:00', client: 'Carla Lima', phone: '(11) 90000-3333', service: 'Reflexologia', therapistId: 'T002', room: 'Sala 3' }, // outro terapeuta (não aparece no massagista)
-    { date: '2025-10-13', time: '15:30', client: 'Diego Marques', phone: '(11) 90000-4444', service: 'Ventosaterapia', therapistId: 'T001', room: 'Sala 2' },
-    { date: '2025-10-14', time: '11:00', client: 'Érica Nunes', phone: '(11) 90000-5555', service: 'Shiatsu 50min', therapistId: 'T001', room: 'Sala 1' },
-];
-
-// ========= UTILS =========
-const $ = (s, el = document) => el.querySelector(s);
-const $$ = (s, el = document) => [...el.querySelectorAll(s)];
-const fmtDateBR = (iso) => new Date(iso + 'T00:00:00').toLocaleDateString('pt-BR', { timeZone: 'America/Sao_Paulo' });
-const todayISO = () => new Date().toISOString().slice(0, 10);
-const inRange = (d, start, end) => d >= start && d <= end;
-
-// ========= RENDER UI =========
-function renderUser() {
-    $('#userName').textContent = therapist.name;
-    $('#whoami').textContent = therapist.name;
-}
-
-function renderAgendaSidebar() {
-    const box = $('#agendaSidebar'); box.innerHTML = '';
-    const now = new Date();
-    const upcoming = appts
-        .filter(a => a.therapistId === therapist.id && new Date(a.date + 'T' + a.time) >= now)
-        .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time))
-        .slice(0, 6);
-    if (!upcoming.length) { box.innerHTML = '<div class="meta">Sem próximos atendimentos ✨</div>'; return; }
-    for (const a of upcoming) {
-        const el = document.createElement('div');
-        el.className = 'appt';
-        el.innerHTML = `
-          <div class="time">${a.time}</div>
-          <div>
-            <div class="name">${a.client}</div>
-            <div class="meta">${fmtDateBR(a.date)} • ${a.service} • ${a.room}</div>
-            <div class="meta"><i class="fa-brands fa-whatsapp"></i> ${a.phone}</div>
-          </div>`;
-        box.appendChild(el);
-    }
-}
-
-function renderApptsOfDay(iso) {
-    const list = $('#apptDay'); list.innerHTML = '';
-    const mine = appts
-        .filter(a => a.therapistId === therapist.id && a.date === iso)
-        .sort((a, b) => a.time.localeCompare(b.time));
-    if (!mine.length) {
-        list.innerHTML = `<div class="meta">Nenhum atendimento em ${fmtDateBR(iso)}.</div>`;
-        return;
-    }
-    for (const a of mine) {
-        const el = document.createElement('div');
-        el.className = 'appt';
-        el.innerHTML = `
-          <div class="time">${a.time}</div>
-          <div>
-            <div class="name">${a.client}</div>
-            <div class="meta">${a.service} • ${a.room}</div>
-            <div class="meta"><i class="fa-brands fa-whatsapp"></i> ${a.phone}</div>
-          </div>`;
-        list.appendChild(el);
-    }
-}
-
-// Calendário Anual (simplificado: lista dos meses + marcações textuais)
-function renderYearSelector() {
-    const y = new Date().getFullYear();
-    const sel = $('#yearSelect');
-    for (let i = y - 1; i <= y + 1; i++) {
-        const opt = document.createElement('option');
-        opt.value = i; opt.textContent = i; if (i === y) opt.selected = true;
-        sel.appendChild(opt);
-    }
-    sel.addEventListener('change', () => renderMiniCalendars(+sel.value));
-}
-
-function renderMiniCalendars(year) {
-    const wrap = $('#miniCalendars'); wrap.innerHTML = '';
-    for (let m = 0; m < 12; m++) {
-        const monthName = new Date(year, m, 1).toLocaleString('pt-BR', { month: 'long' });
-        const feriadosMes = feriadosBR2025.filter(f => f.date.startsWith(year + '-' + String(m + 1).padStart(2, '0')));
-        // algum dia em férias?
-        const first = `${year}-${String(m + 1).padStart(2, '0')}-01`;
-        const lastDate = new Date(year, m + 1, 0).getDate();
-        const last = `${year}-${String(m + 1).padStart(2, '0')}-${String(lastDate).padStart(2, '0')}`;
-        const hasFerias = ferias.some(fr => inRange(first, fr.start, fr.end) || inRange(fr.start, first, last) || inRange(last, fr.start, fr.end));
-
-        const div = document.createElement('div');
-        div.className = 'mini';
-        div.innerHTML = `
-          <b>${monthName[0].toUpperCase() + monthName.slice(1)}</b>
-          ${hasFerias ? `<div><span class="dot d-ferias"></span> Férias neste mês</div>` : ''}
-          ${feriadosMes.length ? feriadosMes.map(f => `<div><span class="dot d-feriado"></span> ${fmtDateBR(f.date)} • ${f.name}</div>`).join('') : '<div class="meta">Sem feriados</div>'}
-        `;
-        wrap.appendChild(div);
-    }
-}
-
-// Pontos (localStorage)
-
-<section class="card" id="pontosCenter" style="margin-top:24px;">
-    <h2><i class="fa-regular fa-clock"></i> Pontos</h2>
-    <div class="ponto">
-        <div>Status: <span class="chip" id="pontoStatus">Fora do expediente</span></div>
-        <div class="row">
-            <button class="btn" id="btnEntrada"><i class="fa-solid fa-door-open"></i> Entrada</button>
-            <button class="btn alt" id="btnIntervalo"><i class="fa-regular fa-pause-circle"></i> Intervalo</button>
-            <button class="btn alt" id="btnSaida"><i class="fa-solid fa-door-closed"></i> Saída</button>
-        </div>
-        <div class="log" id="pontoLog"></div>
-    </div>
-</section>
-
-function loadPonto() {
-    const log = JSON.parse(localStorage.getItem('rokuzen.ponto.log') || '[]');
-    const status = localStorage.getItem('rokuzen.ponto.status') || 'Fora do expediente';
-    $('#pontoStatus').textContent = status;
-    renderPontoLog(log);
-}
-function renderPontoLog(items) {
-    const box = $('#pontoLog'); box.innerHTML = items.map(i => `• [${i.when}] ${i.what}`).join('<br>') || 'Sem registros ainda.';
-}
-function pushPonto(what) {
-    const now = new Date();
-    const when = now.toLocaleString('pt-BR', { hour12: false });
-    const key = 'rokuzen.ponto.log';
-    const log = JSON.parse(localStorage.getItem(key) || '[]');
-    log.unshift({ when, what });
-    localStorage.setItem(key, JSON.stringify(log));
-    renderPontoLog(log);
-    const statusMap = {
-        'Entrada registrada': 'Em expediente',
-        'Início de intervalo': 'Em intervalo',
-        'Fim de intervalo': 'Em expediente',
-        'Saída registrada': 'Fora do expediente'
+// AGENDA — calendário alinhado por dia da semana (insere slots vazios antes do dia 1)
+// Mantém destaques, navegação entre meses e painel de atendimentos
+(() => {
+    // --- dados de exemplo (substitua pela sua API/DB) ---
+    const appointments = {
+        "2025-10-28": [{ time: "09:00", client: "João Silva", notes: "Reavaliação" }, { time: "14:30", client: "Maria Costa" }],
+        "2025-10-30": [{ time: "11:00", client: "Ana Pereira" }],
+        "2025-11-03": [{ time: "08:30", client: "Lucas Ferreira" }],
     };
-    const status = statusMap[what] || 'Em expediente';
-    localStorage.setItem('rokuzen.ponto.status', status);
-    $('#pontoStatus').textContent = status;
-}
 
-// Notas rápidas
-function loadNotes() {
-    $('#quickNotes').value = localStorage.getItem('rokuzen.notes') || '';
-}
+    // Seletores / elementos do DOM (devem existir no HTML que você já tem)
+    const shortcuts = document.querySelectorAll('.shortcut-item');
+    const atendShortcut = Array.from(shortcuts).find(a => a.getAttribute('href') === '#atendimentos');
 
-// ========= INIT =========
-(function init() {
-    renderUser();
-    renderYearSelector();
-    renderMiniCalendars(new Date().getFullYear());
-    renderAgendaSidebar();
+    const agendaCard = document.getElementById('agendaCard');
+    const closeBtn = agendaCard && agendaCard.querySelector('.btn-close');
 
-    const d = $('#dayPicker');
-    d.value = todayISO();
-    renderApptsOfDay(d.value);
-    $('#btnHoje').addEventListener('click', () => { d.value = todayISO(); renderApptsOfDay(d.value); });
-    d.addEventListener('change', () => renderApptsOfDay(d.value));
+    const monthLabel = document.getElementById('monthLabel');
+    const calendarGrid = document.getElementById('calendarGrid');
+    const prevMonthBtn = document.getElementById('prevMonth');
+    const nextMonthBtn = document.getElementById('nextMonth');
+    const appointmentsPanel = document.getElementById('appointmentsPanel');
+    const appointmentsContent = document.getElementById('appointmentsContent');
 
-    // Ponto
-    loadPonto();
-    $('#btnEntrada').addEventListener('click', () => pushPonto('Entrada registrada'));
-    $('#btnIntervalo').addEventListener('click', () => {
-        // alterna começo/fim de intervalo automaticamente
-        const st = $('#pontoStatus').textContent;
-        pushPonto(st === 'Em intervalo' ? 'Fim de intervalo' : 'Início de intervalo');
+    // Estado da visualização (mês/ano atual do calendário)
+    let viewDate = new Date(); // ex: 2025-10-xx
+
+    // Helpers
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function formatKeyFromParts(year, monthZeroIndex, day) {
+        return `${year}-${pad(monthZeroIndex + 1)}-${pad(day)}`; // YYYY-MM-DD
+    }
+    function localMonthLabel(date) {
+        return date.toLocaleString('pt-BR', { month: 'long', year: 'numeric' });
+    }
+
+    // Limpa painel lateral
+    function clearAppointmentsPanel() {
+        appointmentsContent.innerHTML = '<p class="empty">Selecione um dia com marcação verde para ver os atendimentos.</p>';
+    }
+
+    // Preenche painel lateral com atendimentos de uma chave YYYY-MM-DD
+    function renderAppointmentsForKey(key) {
+        appointmentsContent.innerHTML = '';
+        const list = appointments[key] || [];
+        if (!list.length) {
+            appointmentsContent.innerHTML = '<p class="empty">Nenhum atendimento para este dia.</p>';
+            return;
+        }
+        list.forEach(item => {
+            const el = document.createElement('div');
+            el.className = 'appt-item';
+            el.innerHTML = `<div class="appt-time">${item.time}</div>
+                      <div class="appt-client">${item.client}</div>
+                      ${item.notes ? `<div class="appt-notes">${item.notes}</div>` : ''}`;
+            appointmentsContent.appendChild(el);
+        });
+    }
+
+    // RENDER: gera slots vazios antes para alinhar o dia 1 ao dia da semana correto,
+    // cria dias 1..lastDay e adiciona trailing slots para completar a última semana (multiplo de 7).
+    function renderCalendar() {
+        calendarGrid.innerHTML = '';
+        const year = viewDate.getFullYear();
+        const month = viewDate.getMonth(); // zero-index
+
+        // label do mês
+        monthLabel.textContent = localMonthLabel(viewDate);
+
+        // Primeiro dia do mês (JS: 0=Dom,1=Seg,...6=Sab)
+        const firstOfMonth = new Date(year, month, 1);
+        // converter para índice com 0=Seg ... 6=Dom (já que seu cabeçalho começa em Seg)
+        // Se for domingo (0), queremos 6 slots vazios; senão subtrair 1.
+        let leadingEmpty = (firstOfMonth.getDay() === 0) ? 6 : firstOfMonth.getDay() - 1;
+
+        // quantos dias no mês
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        // --- criar slots vazios iniciais ---
+        for (let i = 0; i < leadingEmpty; i++) {
+            const emptyCell = document.createElement('div');
+            emptyCell.className = 'day out'; // reutiliza estilo 'out' para aparência desativada
+            // manter consistência de acessibilidade
+            emptyCell.setAttribute('aria-hidden', 'true');
+            calendarGrid.appendChild(emptyCell);
+        }
+
+        // --- criar dias do mês ---
+        for (let day = 1; day <= daysInMonth; day++) {
+            const cellDate = new Date(year, month, day);
+            const key = formatKeyFromParts(year, month, day);
+
+            const cell = document.createElement('button');
+            cell.className = 'day';
+            cell.setAttribute('role', 'gridcell');
+            cell.setAttribute('tabindex', 0);
+            cell.setAttribute('aria-label', `${day} de ${viewDate.toLocaleString('pt-BR', { month: 'long' })} ${year}`);
+            // inner: número e dot de presença de atendimento
+            cell.innerHTML = `<div class="date-num">${day}</div><div class="dot" aria-hidden="true"></div>`;
+
+            // destacar hoje
+            const today = new Date();
+            if (cellDate.toDateString() === today.toDateString()) {
+                cell.classList.add('today');
+            }
+
+            // marcar se há atendimentos
+            if (appointments[key] && appointments[key].length) {
+                cell.classList.add('has-appointments');
+            }
+
+            // clique: abre painel com atendimentos daquele dia
+            cell.addEventListener('click', (e) => {
+                e.preventDefault();
+                renderAppointmentsForKey(key);
+                appointmentsPanel.scrollTop = 0;
+            });
+
+            // keyboard accessibility (Enter / Space)
+            cell.addEventListener('keydown', (ev) => {
+                if (ev.key === 'Enter' || ev.key === ' ') {
+                    ev.preventDefault();
+                    cell.click();
+                }
+            });
+
+            calendarGrid.appendChild(cell);
+        }
+
+        // --- trailing empty slots: para completar a última linha até múltiplo de 7 ---
+        const totalCells = calendarGrid.children.length;
+        const remainder = totalCells % 7;
+        if (remainder !== 0) {
+            const toAdd = 7 - remainder;
+            for (let j = 0; j < toAdd; j++) {
+                const trailing = document.createElement('div');
+                trailing.className = 'day out';
+                trailing.setAttribute('aria-hidden', 'true');
+                calendarGrid.appendChild(trailing);
+            }
+        }
+    }
+
+    // abrir/fechar agenda
+    function openAgenda() {
+        // esconder outros cards (se existirem)
+        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => {
+            c.setAttribute('aria-hidden', 'true');
+        });
+
+        if (!agendaCard) return;
+        agendaCard.setAttribute('aria-hidden', 'false');
+        agendaCard.classList.add('fade-in');
+        clearAppointmentsPanel();
+        renderCalendar();
+        // foco no fechar (acessibilidade)
+        setTimeout(() => {
+            agendaCard.querySelector('.btn-close')?.focus();
+        }, 80);
+    }
+    function closeAgenda() {
+        if (!agendaCard) return;
+        agendaCard.setAttribute('aria-hidden', 'true');
+    }
+
+    // Navegação entre meses
+    prevMonthBtn?.addEventListener('click', () => {
+        viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() - 1, 1);
+        renderCalendar();
+        clearAppointmentsPanel();
     });
-    $('#btnSaida').addEventListener('click', () => pushPonto('Saída registrada'));
-
-    // Notas rápidas
-    loadNotes();
-    $('#saveNotes').addEventListener('click', () => {
-        localStorage.setItem('rokuzen.notes', $('#quickNotes').value);
-        const t = $('#saveToast'); t.style.display = 'block'; setTimeout(() => t.style.display = 'none', 1400);
+    nextMonthBtn?.addEventListener('click', () => {
+        viewDate = new Date(viewDate.getFullYear(), viewDate.getMonth() + 1, 1);
+        renderCalendar();
+        clearAppointmentsPanel();
     });
+
+    // fechar botão
+    closeBtn?.addEventListener('click', () => closeAgenda());
+    // ESC fecha
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeAgenda();
+    });
+
+    // atalho do sidebar para abrir
+    if (atendShortcut) {
+        atendShortcut.addEventListener('click', (e) => {
+            e.preventDefault();
+            openAgenda();
+        });
+    }
+
+    // render inicial (garante que o calendário foi desenhado ao menos uma vez)
+    renderCalendar();
+
+    // Exponha funções no window se quiser manipular externamente (opcional)
+    window.ROKUAgenda = {
+        open: openAgenda,
+        close: closeAgenda,
+        setDate: (d) => { viewDate = new Date(d); renderCalendar(); }
+    };
+
 })();
+
+// --- CONTROLE DE LOGIN / BATE PONTO ---
+(() => {
+    const loginShortcut = document.querySelector('.shortcut-item[href="#controle-login"]');
+    const loginCard = document.getElementById('loginCard');
+    const closeLoginBtn = loginCard?.querySelector('.btn-close');
+    const punchBtn = document.getElementById('punchBtn');
+    const punchStatus = document.getElementById('punchStatus');
+    const punchContent = document.getElementById('punchContent');
+
+    // dados simulados
+    const punchRecords = {}; // ex: {"2025-10-28": [{time:"09:00", type:"Entrada"}]}
+
+    function todayKey() {
+        const d = new Date();
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    }
+
+    function updateHistory() {
+        const key = todayKey();
+        punchContent.innerHTML = '';
+        const list = punchRecords[key] || [];
+        if (!list.length) {
+            punchContent.innerHTML = '<p class="empty">Nenhum registro até o momento.</p>';
+            return;
+        }
+        list.forEach(r => {
+            const el = document.createElement('div');
+            el.className = 'punch-item';
+            el.innerHTML = `<span>${r.time}</span> - ${r.type}`;
+            punchContent.appendChild(el);
+        });
+    }
+
+    function markPunch() {
+        const now = new Date();
+        const timeStr = now.toTimeString().slice(0, 5);
+        const key = todayKey();
+
+        if (!punchRecords[key]) punchRecords[key] = [];
+
+        const last = punchRecords[key][punchRecords[key].length - 1];
+        let type = "Entrada";
+        if (last && last.type === "Entrada") type = "Saída";
+
+        punchRecords[key].push({ time: timeStr, type });
+        punchStatus.textContent = `Último ponto marcado: ${timeStr} (${type})`;
+        updateHistory();
+
+        // alternar texto do botão
+        punchBtn.textContent = (type === "Entrada") ? "Marcar Saída" : "Marcar Entrada";
+    }
+
+    punchBtn?.addEventListener('click', markPunch);
+
+    function openLoginCard() {
+        // esconder outros cards
+        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
+
+        if (!loginCard) return;
+        loginCard.setAttribute('aria-hidden', 'false');
+        loginCard.classList.add('fade-in');
+        updateHistory();
+        setTimeout(() => loginCard.querySelector('.btn-close')?.focus(), 80);
+    }
+
+    function closeLoginCard() {
+        if (!loginCard) return;
+        loginCard.setAttribute('aria-hidden', 'true');
+    }
+
+    closeLoginBtn?.addEventListener('click', closeLoginCard);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeLoginCard(); });
+
+    loginShortcut?.addEventListener('click', e => { e.preventDefault(); openLoginCard(); });
+
+    window.ROKULogin = {
+        open: openLoginCard,
+        close: closeLoginCard
+    };
+})();
+
+(() => {
+    const calShortcut = document.querySelector('.shortcut-item[href="#calendario-anual"]');
+    const annualCard = document.getElementById('annualCalendarCard');
+    const closeBtn = annualCard?.querySelector('.btn-close');
+    const monthsGrid = document.getElementById('monthsGrid');
+    const yearLabel = document.getElementById('yearLabel');
+
+    const year = new Date().getFullYear();
+
+    // Exemplo de feriados nacionais (pode adicionar mais)
+    const holidays = {
+        "2025-01-01": "Ano Novo",
+        "2025-04-21": "Tiradentes",
+        "2025-05-01": "Dia do Trabalhador",
+        "2025-09-07": "Independência",
+        "2025-10-12": "Nossa Senhora Aparecida",
+        "2025-11-02": "Finados",
+        "2025-11-15": "Proclamação da República",
+        "2025-12-25": "Natal"
+    };
+
+    function pad(n) { return String(n).padStart(2, '0'); }
+
+    function renderAnnualCalendar() {
+        monthsGrid.innerHTML = '';
+        yearLabel.textContent = year;
+
+        for (let m = 0; m < 12; m++) {
+            const monthCard = document.createElement('div');
+            monthCard.className = 'month-card';
+
+            const monthName = new Date(year, m).toLocaleString('pt-BR', { month: 'long' });
+            monthCard.innerHTML = `<h4>${monthName}</h4>`;
+
+            const daysGrid = document.createElement('div');
+            daysGrid.className = 'days-grid';
+
+            const daysInMonth = new Date(year, m + 1, 0).getDate();
+            for (let d = 1; d <= daysInMonth; d++) {
+                const dayCell = document.createElement('div');
+                dayCell.className = 'day-cell';
+                const key = `${year}-${pad(m + 1)}-${pad(d)}`;
+                dayCell.textContent = d;
+
+                if (holidays[key]) {
+                    dayCell.classList.add('holiday');
+                    dayCell.setAttribute('title', holidays[key]);
+                }
+
+                daysGrid.appendChild(dayCell);
+            }
+
+            monthCard.appendChild(daysGrid);
+            monthsGrid.appendChild(monthCard);
+        }
+    }
+
+    function openAnnualCard() {
+        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
+        annualCard.setAttribute('aria-hidden', 'false');
+        annualCard.classList.add('fade-in');
+        renderAnnualCalendar();
+        setTimeout(() => closeBtn?.focus(), 80);
+    }
+
+    function closeAnnualCard() {
+        annualCard.setAttribute('aria-hidden', 'true');
+    }
+
+    closeBtn?.addEventListener('click', closeAnnualCard);
+    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAnnualCard(); });
+    calShortcut?.addEventListener('click', e => { e.preventDefault(); openAnnualCard(); });
+
+    window.ROKUAnnualCalendar = { open: openAnnualCard, close: closeAnnualCard };
+})();
+
+
+
+
+
+
+
+
+

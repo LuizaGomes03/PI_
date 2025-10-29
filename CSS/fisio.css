@@ -64,6 +64,81 @@ body::before {
     overflow: auto;
 }
 
+/* ===== ATALHOS (sidebar) ===== */
+.shortcuts .sb-title {
+    gap: 10px;
+}
+
+.shortcut-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.shortcut-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    text-decoration: none;
+    color: var(--muted);
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 10px 12px;
+    border-radius: 12px;
+    transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+    position: relative;
+}
+
+.shortcut-item:focus,
+.shortcut-item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    transform: translateY(-2px);
+    box-shadow: var(--shadow);
+    outline: none;
+}
+
+.shortcut-icon {
+    display: inline-grid;
+    place-items: center;
+    min-width: 36px;
+    min-height: 36px;
+    border-radius: 8px;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    font-size: 16px;
+    color: var(--green);
+}
+
+.shortcut-label {
+    flex: 1;
+    font-weight: 600;
+    color: var(--muted);
+}
+
+.shortcut-arrow {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 14px;
+}
+
+/* small screens: compact */
+@media (max-width:420px) {
+    .shortcut-item {
+        gap: 8px;
+        padding: 8px;
+    }
+
+    .shortcut-icon {
+        min-width: 32px;
+        min-height: 32px;
+        font-size: 14px;
+    }
+
+    .sb-title {
+        font-size: 16px;
+    }
+}
+
 .main {
     padding: 28px 32px;
 }
@@ -96,12 +171,6 @@ h1 {
 .subtitle {
     color: var(--muted);
     margin-top: 4px;
-}
-
-.cards {
-    display: grid;
-    grid-template-columns: 1.05fr .95fr;
-    gap: 22px;
 }
 
 /* ===== BLOCKS ===== */
@@ -160,233 +229,6 @@ h1 {
     text-decoration: none;
 }
 
-/* ===== CALENDÁRIO ANUAL ===== */
-.year-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-}
-
-.year-head select {
-    background: rgba(255, 255, 255, .1);
-    border: 1px solid rgba(255, 255, 255, .2);
-    color: #fff;
-    padding: 6px 8px;
-    border-radius: 8px;
-}
-
-.legend {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-top: 10px;
-}
-
-.dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 6px;
-}
-
-.d-ferias {
-    background: #5cc18f;
-}
-
-.d-feriado {
-    background: #ff6464;
-}
-
-.mini-list {
-    display: grid;
-    gap: 8px;
-}
-
-.mini {
-    background: rgba(0, 0, 0, .25);
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-radius: 10px;
-    padding: 8px;
-}
-
-.mini b {
-    display: block;
-    margin-bottom: 4px;
-}
-
-/* ===== CARDS ===== */
-.card {
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .16);
-    border-radius: 20px;
-    padding: 18px;
-    backdrop-filter: blur(8px);
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
-    transition: transform .18s, box-shadow .18s, border-color .18s;
-}
-
-.card:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 14px 34px rgba(0, 0, 0, .24);
-    border-color: rgba(255, 255, 255, .24);
-}
-
-.card h2 {
-    font-size: 20px;
-    font-weight: 700;
-    margin: 0 0 14px;
-    letter-spacing: .2px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-/* ===== AGENDA ===== */
-.toolbar {
-    display: flex;
-    gap: 12px;
-    align-items: center;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-    padding: 8px;
-    border-radius: 12px;
-    background: rgba(0, 0, 0, .18);
-    border: 1px solid rgba(255, 255, 255, .12);
-}
-
-.toolbar .btn {
-    --btn-bg: rgba(255, 255, 255, .10);
-    --btn-bd: rgba(255, 255, 255, .20);
-    display: inline-flex;
-    gap: 8px;
-    align-items: center;
-    background: var(--btn-bg);
-    border: 1px solid var(--btn-bd);
-    color: #fff;
-    padding: 10px 14px;
-    border-radius: 12px;
-    cursor: pointer;
-    transition: transform .08s, background .15s, border-color .15s, box-shadow .15s;
-}
-
-.toolbar .btn:hover {
-    background: rgba(255, 255, 255, .16);
-    border-color: rgba(255, 255, 255, .28);
-    transform: translateY(-1px);
-}
-
-.toolbar input[type="date"] {
-    background: rgba(255, 255, 255, .1);
-    border: 1px solid rgba(255, 255, 255, .24);
-    color: #fff;
-    padding: 10px 12px;
-    border-radius: 10px;
-    outline: none;
-    transition: border-color .15s, box-shadow .15s;
-}
-
-.toolbar input[type="date"]:focus {
-    border-color: #b9d98a;
-    box-shadow: 0 0 0 3px rgba(157, 182, 104, .25);
-}
-
-.appt-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    max-height: 420px;
-    overflow: auto;
-    padding-right: 6px;
-}
-
-.appt {
-    display: grid;
-    grid-template-columns: 84px 1fr;
-    gap: 10px;
-    align-items: center;
-    background: rgba(0, 0, 0, .25);
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-left: 6px solid var(--green);
-    padding: 10px;
-    border-radius: 14px;
-}
-
-.appt .time {
-    font-weight: 800;
-    text-align: center;
-    background: rgba(255, 255, 255, .10);
-    border: 1px solid rgba(255, 255, 255, .16);
-    padding: 6px 8px;
-    border-radius: 10px;
-}
-
-.time {
-    font-weight: 700;
-}
-
-.name {
-    font-weight: 600;
-}
-
-.meta {
-    opacity: .9;
-    font-size: 13px;
-}
-
-/* ===== BAT PONTO ===== */
-#pontosCenter {
-    max-width: 640px;
-    margin: 0 auto;
-}
-
-.ponto {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-}
-
-.ponto .row {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-}
-
-.ponto .btn {
-    background: var(--green-600);
-    border: none;
-    color: #fff;
-    padding: 10px 12px;
-    border-radius: 10px;
-    cursor: pointer;
-}
-
-.ponto .btn.alt {
-    background: rgba(255, 255, 255, .08);
-    border: 1px solid rgba(255, 255, 255, .16);
-}
-
-#btnEntrada {
-    background: #7D9950;
-    border: 1px solid #6f8848;
-}
-
-#btnEntrada:hover {
-    filter: brightness(1.05);
-}
-
-.log {
-    margin-top: 8px;
-    max-height: 180px;
-    overflow: auto;
-    background: rgba(0, 0, 0, .24);
-    border: 1px dashed rgba(255, 255, 255, .26);
-    border-radius: 12px;
-    padding: 12px;
-    font-size: 13px;
-}
-
 /* ===== A11y ===== */
 :focus-visible {
     outline: none !important;
@@ -415,12 +257,6 @@ h1 {
 }
 
 /* ===== Responsivo ===== */
-@media (max-width:1100px) {
-    .cards {
-        grid-template-columns: 1fr;
-    }
-}
-
 @media (max-width:860px) {
     .app {
         grid-template-columns: 1fr;
@@ -433,4 +269,405 @@ h1 {
     .main {
         order: 1;
     }
+}
+
+/* ===== AGENDA CARD ===== */
+.card.agenda-card {
+    width: min(980px, 96%);
+    max-width: 1100px;
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+/* header */
+.agenda-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.agenda-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.agenda-sub {
+    color: var(--muted);
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+/* close button */
+.btn-close {
+    background: transparent;
+    border: none;
+    color: var(--muted);
+    font-size: 28px;
+    line-height: 1;
+    cursor: pointer;
+    padding: 6px 10px;
+}
+
+.btn-close:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(157, 182, 104, .18);
+}
+
+/* body layout */
+.agenda-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 14px;
+    align-items: start;
+}
+
+/* calendar top */
+.calendar-top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+
+.month-nav {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 6px 10px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.month-nav:focus {
+    outline: none;
+    box-shadow: 0 0 0 4px rgba(157, 182, 104, .18);
+}
+
+.month-label {
+    font-weight: 700;
+    color: var(--muted);
+    min-width: 180px;
+    text-align: center;
+}
+
+/* weekdays */
+.weekdays {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 6px;
+    font-size: 13px;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 6px;
+}
+
+/* calendar grid */
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 8px;
+    min-height: 280px;
+}
+
+/* day cell */
+.day {
+    background: rgba(255, 255, 255, 0.02);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 10px;
+    border-radius: 10px;
+    min-height: 64px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    cursor: pointer;
+    transition: transform .12s, box-shadow .12s, background .12s;
+}
+
+.day:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow);
+}
+
+.day .date-num {
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--muted);
+}
+
+.day .dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    margin-left: auto;
+    opacity: .6;
+}
+
+/* days without current month */
+.day.out {
+    opacity: .28;
+    filter: grayscale(.2);
+}
+
+/* highlighted day (tem atendimento) */
+.day.has-appointments {
+    border: 1px solid rgba(157, 182, 104, 0.25);
+    background: linear-gradient(180deg, rgba(157, 182, 104, 0.06), rgba(157, 182, 104, 0.02));
+}
+
+.day.has-appointments .dot {
+    background: var(--green);
+    box-shadow: 0 6px 18px rgba(157, 182, 104, 0.12);
+    opacity: 1;
+}
+
+/* today */
+.day.today {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.35) inset;
+}
+
+/* appointments panel */
+.appointments-panel {
+    background: rgba(0, 0, 0, 0.35);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    height: 100%;
+}
+
+.appointments-panel h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+}
+
+.appointments-content .empty {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.appt-item {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+}
+
+.appt-time {
+    font-weight: 700;
+}
+
+.appt-client {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* responsivo */
+@media (max-width:980px) {
+    .agenda-body {
+        grid-template-columns: 1fr;
+    }
+
+    .appointments-panel {
+        order: 2;
+    }
+}
+
+/* hidden helper */
+[aria-hidden="true"].card {
+    display: none;
+}
+
+/* CARD LOGIN */
+.card.login-card {
+    width: min(980px, 96%);
+    max-width: 1100px;
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+/* header */
+.login-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.login-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.login-sub {
+    color: var(--muted);
+    margin-top: 4px;
+    font-size: 13px;
+}
+
+.login-body {
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 14px;
+    align-items: start;
+}
+
+.login-action {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.btn-punch {
+    background: var(--green);
+    border: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-weight: 700;
+    color: #fff;
+    cursor: pointer;
+    transition: background .2s, transform .12s;
+}
+
+.btn-punch:hover {
+    background: var(--green-600);
+    transform: translateY(-2px);
+}
+
+.status-text {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+/* painel histórico */
+.punch-history {
+    background: rgba(0, 0, 0, .35);
+    border-radius: 12px;
+    padding: 12px;
+    border: 1px solid rgba(255, 255, 255, .06);
+    min-height: 280px;
+}
+
+.punch-history h3 {
+    margin: 0 0 8px 0;
+    font-size: 16px;
+}
+
+.punch-item {
+    background: rgba(255, 255, 255, .03);
+    border: 1px solid rgba(255, 255, 255, .05);
+    padding: 8px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.punch-item span {
+    font-weight: 700;
+}
+
+/* responsivo */
+@media (max-width:980px) {
+    .login-body {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* CARD CALENDÁRIO ANUAL */
+.card.annual-calendar-card {
+    width: min(980px, 96%);
+    max-width: 1100px;
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+/* header */
+.annual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.annual-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.annual-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* label do ano */
+.year-label {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: var(--muted);
+}
+
+/* grid de meses */
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+}
+
+/* mês */
+.month-card {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.month-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.day-cell {
+    padding: 4px 0;
+    border-radius: 6px;
+}
+
+.day-cell.holiday {
+    background: var(--green);
+    color: #000;
+    font-weight: 700;
 }

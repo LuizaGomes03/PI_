@@ -10,7 +10,7 @@
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="stylesheet" href="../CSS/fisio.css">
-    <script src="JS/fisio.js" defer></script>
+    <script src="../JS/fisio.js" defer></script>
 
 </head>
 
@@ -33,18 +33,28 @@
                 </div>
             </div>
 
-            <!-- Calendário Anual -->
-            <div class="sb-block">
-                <div class="sb-title"><i class="fa-solid fa-calendar"></i> Calendário Anual</div>
-                <div class="year-head">
-                    <div>Férias & Feriados</div>
-                    <select id="yearSelect"></select>
-                </div>
-                <div class="mini-list" id="miniCalendars"></div>
-                <div class="legend">
-                    <span><span class="dot d-ferias"></span>Férias</span>
-                    <span><span class="dot d-feriado"></span>Feriado</span>
-                </div>
+            <!-- ATALHOS -->
+            <div class="sb-block shortcuts">
+                <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+                <nav class="shortcut-list" aria-label="Atalhos rápidos">
+                    <a href="#atendimentos" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                        <span class="shortcut-label">Atendimentos</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#controle-login" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+                        <span class="shortcut-label">Controle de Login</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#calendario-anual" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <span class="shortcut-label">Calendário Anual</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </nav>
             </div>
 
             <!-- Telefones -->
@@ -68,43 +78,92 @@
         <!-- ===== MAIN ===== -->
         <main class="main">
             <header class="head">
-                <img src="../imagens/logo.png" class="logo" alt="Rokuzen">
-                <div>
-                    <h1>Painel do Massagista</h1>
-                    <p class="subtitle">Veja seus atendimentos e gerencie seu dia sem stress ✨</p>
-                </div>
-            </header>
-
-            <section class="cards">
-                <!-- Agenda de Atendimentos -->
-                <div class="card">
-                    <h2><i class="fa-solid fa-calendar-day"></i> Agenda de Atendimentos</h2>
-                    <div class="toolbar">
-                        <label for="dayPicker" style="opacity:.9">Data:</label>
-                        <input type="date" id="dayPicker">
-                        <button class="btn" id="btnHoje">Hoje</button>
-                        <div class="chip"><i class="fa-solid fa-user-check"></i> Você: <b id="whoami">—</b></div>
-                    </div>
-                    <div class="appt-list" id="apptDay"></div>
-                </div>
-
-                <!-- Bat Ponto -->
-                <div class="card" id="pontosCenter">
-                    <h2><i class="fa-regular fa-clock"></i> Bat Ponto</h2>
-                    <div class="ponto">
-                        <div>Status: <span class="chip" id="pontoStatus">Fora do expediente</span></div>
-                        <div class="row">
-                            <button class="btn" id="btnEntrada"><i class="fa-solid fa-door-open"></i> Entrada</button>
-                            <button class="btn alt" id="btnIntervalo"><i class="fa-regular fa-pause-circle"></i>
-                                Intervalo</button>
-                            <button class="btn alt" id="btnSaida"><i class="fa-solid fa-door-closed"></i> Saída</button>
+                <!-- AGENDA / CARD DE ATENDIMENTOS -->
+                <section id="agendaCard" class="card agenda-card" aria-hidden="true" role="dialog"
+                    aria-label="Agenda de atendimentos">
+                    <div class="agenda-header">
+                        <div>
+                            <h2>Agenda • Atendimentos</h2>
+                            <p class="agenda-sub">Veja os dias com atendimentos e clique para ver horários e clientes.
+                            </p>
                         </div>
-                        <div class="log" id="pontoLog"></div>
+                        <div class="agenda-controls">
+                            <button class="btn-close" aria-label="Fechar agenda">&times;</button>
+                        </div>
                     </div>
-                </div>
-            </section>
+
+                    <div class="agenda-body">
+                        <div class="calendar-shell" aria-hidden="false">
+                            <div class="calendar-top">
+                                <button class="month-nav" id="prevMonth" aria-label="Mês anterior">&lsaquo;</button>
+                                <div class="month-label" id="monthLabel" aria-live="polite"></div>
+                                <button class="month-nav" id="nextMonth" aria-label="Próximo mês">&rsaquo;</button>
+                            </div>
+
+                            <div class="weekdays" aria-hidden="true">
+                                <div>Seg</div>
+                                <div>Ter</div>
+                                <div>Qua</div>
+                                <div>Qui</div>
+                                <div>Sex</div>
+                                <div>Sáb</div>
+                                <div>Dom</div>
+                            </div>
+
+                            <div class="calendar-grid" id="calendarGrid" role="grid" aria-label="Dias do mês"></div>
+                        </div>
+
+                        <aside class="appointments-panel" id="appointmentsPanel" aria-live="polite">
+                            <h3>Atendimentos</h3>
+                            <div id="appointmentsContent" class="appointments-content">
+                                <p class="empty">Selecione um dia com marcação verde para ver os atendimentos.</p>
+                            </div>
+                        </aside>
+                    </div>
+                </section>
+                <!-- CARD DE CONTROLE DE LOGIN / BATE PONTO -->
+                <section id="loginCard" class="card login-card" aria-hidden="true" role="dialog"
+                    aria-label="Controle de Login / Bate Ponto">
+                    <div class="login-header">
+                        <div>
+                            <h2>Controle de Login • Bate Ponto</h2>
+                            <p class="login-sub">Marque seu ponto de entrada e saída, e veja seu histórico.</p>
+                        </div>
+                        <div class="login-controls">
+                            <button class="btn-close" aria-label="Fechar controle de login">&times;</button>
+                        </div>
+                    </div>
+
+                    <div class="login-body">
+                        <div class="login-action">
+                            <button id="punchBtn" class="btn-punch">Marcar Entrada</button>
+                            <p id="punchStatus" class="status-text">Você ainda não marcou ponto hoje.</p>
+                        </div>
+                        <aside class="punch-history" aria-live="polite">
+                            <h3>Histórico de Pontos</h3>
+                            <div id="punchContent">
+                                <p class="empty">Nenhum registro até o momento.</p>
+                            </div>
+                        </aside>
+                    </div>
+                </section>
+                <!-- CARD CALENDÁRIO ANUAL -->
+                <section id="annualCalendarCard" class="card annual-calendar-card" aria-hidden="true" role="dialog"
+                    aria-label="Calendário Anual com Feriados">
+                    <div class="annual-header">
+                        <h2>Calendário Anual • Feriados</h2>
+                        <button class="btn-close" aria-label="Fechar calendário anual">&times;</button>
+                    </div>
+                    <div class="annual-body">
+                        <div class="year-label" id="yearLabel"></div>
+                        <div class="months-grid" id="monthsGrid"></div>
+                    </div>
+                </section>
+
+            </header>
         </main>
     </div>
+
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
