@@ -1261,3 +1261,55 @@ footer {
 }
 #agenda .cal-grid { margin-top: 12px; }
 #agenda .slot-list .pro-row { margin-bottom: 8px; }
+
+/* Estilo geral da sidebar */
+.sidebar {
+  width: 76px;
+  transition: width .3s ease;
+}
+
+/* Ícones e links mais próximos e centralizados quando sidebar fechada */
+/* Sidebar fechada - ícones próximos e centralizados */
+.sidebar:not(:hover) .sb-link {
+  padding: 8px 8px;
+  gap: 6px;
+  justify-content: center;
+}
+
+/* Ocultar textos na sidebar fechada */
+.sidebar:not(:hover) .sb-link span,
+.sidebar:not(:hover) .sb-contacts .small {
+  display: none;
+}
+
+/* Espaçamento dos ícones da seção contatos na sidebar fechada */
+.sidebar:not(:hover) .sb-contacts .sb-link {
+  padding: 6px 8px;
+  gap: 6px;
+  justify-content: center;
+}
+
+/* Ajuste no tamanho e margem dos ícones */
+.sb-link i {
+  width: 22px;
+  margin: 10px 6px; /* margens menores para abrir */
+}
+
+/* Sidebar aberta ao hover - ícones mais próximos */
+.sidebar:hover {
+  width: 280px;
+}
+
+.sidebar:hover .sb-link {
+  padding: 6px 8px;   /* padding menos generoso para aproximar */
+  gap: 8px;           /* menos gap entre ícone e texto */
+  justify-content: flex-start;
+}
+
+.sidebar:hover .sb-link span,
+.sidebar:hover .sb-contacts .small {
+  display: inline;
+  opacity: 1;
+  pointer-events: auto;
+  margin: 0;
+}
