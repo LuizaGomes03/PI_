@@ -4,559 +4,120 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Master • Rokuzen</title>
-
+    <title>Recepção • Serviços & Agendamento</title>
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;500;600&display=swap"
         rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="stylesheet" href="../CSS/master.css">
+    <link rel="stylesheet" href="../CSS/master.css" />
     <script src="../JS/master.js" defer></script>
+
+
 </head>
 
-<body>
-    <!-- BG video -->
-    <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg"
-        aria-hidden="true">
-        <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
-    </video>
-
-    <!-- APP -->
-    <div class="app">
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <!-- avatar / role -->
-            <div class="sb-block avatar" style="display:flex; gap:12px; align-items:center;">
-                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
-                    alt="Foto do usuário" class="avatar-img avatar-sm">
-                <div>
-                    <div class="fw-700">Master Console</div>
-                    <div class="badge"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span
-                            id="roleChip">Admin</span></div>
-                </div>
-            </div>
-
-            <!-- unidades -->
-            <div class="sb-block">
-                <div class="sb-title"><i class="fa-solid fa-building" aria-hidden="true"></i> Unidades</div>
-                <div class="unit-pill" id="unitPills"></div>
-            </div>
-
-            <!-- navegação -->
-            <div class="sb-block" role="tablist" aria-label="Navegação principal">
-                <button class="sb-link active" data-view="dashboard" aria-controls="view-dashboard" type="button"
-                    role="tab" aria-selected="true">
-                    <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Dashboard
-                </button>
-
-                <button class="sb-link" data-view="pontos" aria-controls="view-pontos" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-regular fa-id-card" aria-hidden="true"></i> Pontos eletrônicos
-                </button>
-
-                <button class="sb-link" data-view="attendance" aria-controls="view-attendance" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-regular fa-clock" aria-hidden="true"></i> Controle de ponto
-                </button>
-
-                <button class="sb-link" data-view="calendar-unit" aria-controls="view-calendar-unit" type="button"
-                    role="tab" aria-selected="false">
-                    <i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário (Unidade)
-                </button>
-
-                <button class="sb-link" data-view="calendar-annual" aria-controls="view-calendar-annual" type="button"
-                    role="tab" aria-selected="false">
-                    <i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário (Anual)
-                </button>
-
-                <button class="sb-link" data-view="employees" aria-controls="view-employees" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-solid fa-user-group" aria-hidden="true"></i> Funcionários
-                </button>
-
-                <button class="sb-link" data-view="clients" aria-controls="view-clients" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-solid fa-users" aria-hidden="true"></i> Clientes
-                </button>
-
-                <button class="sb-link" data-view="contacts" aria-controls="view-contacts" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos
-                </button>
-
-                <button class="sb-link" data-view="settings" aria-controls="view-settings" type="button" role="tab"
-                    aria-selected="false">
-                    <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
-                </button>
-            </div>
-
-            <div class="row" style="justify-content:space-between; align-items:center;">
-                <small class="help-sm">© 2025 Rokuzen – Master</small>
-                <button id="btnWipe" class="btn ghost btn-sm" type="button" title="Limpar dados locais">
-                    <i class="fa-solid fa-broom"></i>
-                </button>
-            </div>
-        </aside>
-
-        <!-- Main -->
-        <main class="main">
-            <!-- header -->
-            <div class="head">
-                <div class="row">
-                    <img src="../imagens/logo.png" class="logo" alt="Rokuzen">
-                    <div>
-                        <h1>Painel Master</h1>
-                        <div class="muted">Controle de ponto, agenda e operações das unidades.</div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="badge"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span
-                            id="currentUnitName">—</span></div>
-                </div>
-            </div>
-
-            <!-- DASHBOARD -->
-            <section id="view-dashboard" class="view active" aria-labelledby="dashTitle">
-                <div class="cards">
-                    <div class="card">
-                        <h2 id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do Dia
-                            (unidade)</h2>
-                        <div class="grid-2">
-                            <div class="sb-block">
-                                <div class="sb-title">Atendimentos</div>
-                                <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-calendar-day"></i> Hoje: <b
-                                            id="kpiToday">0</b></div>
-                                    <div class="badge"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
-                                            id="kpiActiveTherapists">0</b></div>
-                                </div>
-                            </div>
-                            <div class="sb-block">
-                                <div class="sb-title">Ponto</div>
-                                <div class="row">
-                                    <div class="badge"><i class="fa-solid fa-door-open"></i> Entradas: <b
-                                            id="kpiIns">0</b></div>
-                                    <div class="badge"><i class="fa-solid fa-door-closed"></i> Saídas: <b
-                                            id="kpiOuts">0</b></div>
-                                    <div class="badge"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b
-                                            id="kpiBreaks">0</b></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="card">
-                        <h2><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos</h2>
-                        <div class="table-wrap">
-                            <table class="table" id="tblNextAppts">
-                                <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
-                                <thead>
-                                    <tr>
-                                        <th>Hora</th>
-                                        <th>Cliente</th>
-                                        <th>Serviço</th>
-                                        <th>Terapeuta</th>
-                                        <th>Sala</th>
-                                    </tr>
-                                </thead>
-                                <tbody></tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- PONTOS ELETRÔNICOS (visão master) -->
-            <section id="view-pontos" class="view" aria-labelledby="pontosTitle">
-                <div class="card">
-                    <div class="card-body">
-                        <h2 id="pontosTitle" class="h5 mb-3">
-                            <i class="fa-regular fa-id-card"></i> Pontos eletrônicos (todas as unidades)
-                        </h2>
-
-                        <div class="row mb-2">
-                            <input type="date" id="filterDateMaster" class="form-control" style="max-width:200px;">
-                            <button class="btn ghost" id="btnTodayMaster" type="button">Hoje</button>
-                        </div>
-
-                        <div class="table-wrap">
-                            <table class="table table-sm align-middle" id="tblMasterPontos">
-                                <thead>
-                                    <tr>
-                                        <th>Funcionário</th>
-                                        <th>Ação</th>
-                                        <th>Data/Hora</th>
-                                        <th>Unidade</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td colspan="4" class="text-center text-muted small">Carregando...</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONTROLE DE PONTO (por unidade) -->
-            <section id="view-attendance" class="view" aria-labelledby="pontoTitle">
-                <div class="card">
-                    <h2 id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle de Ponto</h2>
-                    <div class="row mb-2">
-                        <select id="filterEmp"></select>
-                        <input type="date" id="filterDate">
-                        <button class="btn ghost" id="btnToday" type="button">Hoje</button>
-                        <button class="btn" id="btnNewEntry" type="button"><i class="fa-solid fa-plus"></i> Lançar
-                            manual</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table class="table" id="tblPonto">
-                            <thead>
-                                <tr>
-                                    <th>Quando</th>
-                                    <th>Quem</th>
-                                    <th>Ação</th>
-                                    <th>Origem</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CALENDÁRIO (UNIDADE) -->
-            <section id="view-calendar-unit" class="view" aria-labelledby="calUnitTitle">
-                <div class="card">
-                    <h2 id="calUnitTitle"><i class="fa-solid fa-calendar-days" aria-hidden="true"></i> Calendário
-                        (Unidade)</h2>
-                    <div class="row mb-2">
-                        <label class="sr-only" for="monthPickerUnit">Selecionar mês</label>
-                        <input type="month" id="monthPickerUnit">
-                        <button class="btn ghost" id="btnMonthTodayUnit" type="button">Mês atual</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table class="table" id="tblCalendarUnit">
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Eventos</th>
-                                    <th>Observações</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CALENDÁRIO (ANUAL) -->
-            <section id="view-calendar-annual" class="view" aria-labelledby="calAnnualTitle">
-                <div class="card">
-                    <h2 id="calAnnualTitle"><i class="fa-solid fa-calendar" aria-hidden="true"></i> Calendário Anual
-                    </h2>
-                    <div class="row mb-2">
-                        <label class="sr-only" for="monthPickerAnnual">Selecionar mês</label>
-                        <input type="month" id="monthPickerAnnual">
-                        <button class="btn ghost" id="btnMonthTodayAnnual" type="button">Mês atual</button>
-                    </div>
-                    <div class="table-wrap">
-                        <table class="table" id="tblCalendarAnnual">
-                            <thead>
-                                <tr>
-                                    <th>Data</th>
-                                    <th>Eventos</th>
-                                    <th>Observações</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- FUNCIONÁRIOS -->
-            <section id="view-employees" class="view" aria-labelledby="empTitle">
-                <div class="card">
-                    <h2 id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Funcionários</h2>
-                    <div class="row mb-2">
-                        <button class="btn" id="btnAddEmp" type="button"><i class="fa-solid fa-user-plus"></i>
-                            Adicionar</button>
-                        <select id="roleFilter">
-                            <option value="">Todos os papéis</option>
-                            <option value="massagista">Massagista</option>
-                            <option value="recepcao">Recepção</option>
-                            <option value="admin">Admin</option>
-                        </select>
-                    </div>
-                    <div class="table-wrap">
-                        <table class="table" id="tblEmployees">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>Papel</th>
-                                    <th>Unidade</th>
-                                    <th>Telefone</th>
-                                    <th>Status</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CLIENTES -->
-            <section id="view-clients" class="view" aria-labelledby="clientsTitle">
-                <div class="card">
-                    <h2 id="clientsTitle"><i class="fa-solid fa-users" aria-hidden="true"></i> Clientes</h2>
-
-                    <div class="row mb-2">
-                        <input type="search" id="clientSearch" placeholder="Buscar cliente...">
-                        <input type="month" id="clientBirthMonth" title="Filtrar por mês de aniversário">
-                        <button class="btn ghost" id="clientClearFilters" type="button">Limpar filtros</button>
-                    </div>
-
-                    <div class="table-wrap">
-                        <table class="table" id="tblClients">
-                            <thead>
-                                <tr>
-                                    <th>Nome</th>
-                                    <th>E-mail</th>
-                                    <th>Aniversário</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONTATOS -->
-            <section id="view-contacts" class="view" aria-labelledby="contactsTitle">
-                <div class="card">
-                    <h2 id="contactsTitle"><i class="fa-solid fa-phone-volume" aria-hidden="true"></i> Contatos das
-                        Unidades</h2>
-                    <div class="table-wrap">
-                        <table class="table" id="tblContacts">
-                            <thead>
-                                <tr>
-                                    <th>Unidade</th>
-                                    <th>Endereço</th>
-                                    <th>WhatsApp</th>
-                                    <th>Gestor</th>
-                                </tr>
-                            </thead>
-                            <tbody></tbody>
-                        </table>
-                    </div>
-                </div>
-            </section>
-
-            <!-- CONFIGURAÇÕES -->
-            <section id="view-settings" class="view" aria-labelledby="settingsTitle">
-                <div class="card">
-                    <h2 id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações</h2>
-
-                    <!-- sub-abas -->
-                    <div class="tabs" role="tablist" aria-label="Seções de Configurações">
-                        <button class="tab active" role="tab" aria-selected="true" aria-controls="tab-org"
-                            data-tab="org" type="button">
-                            <i class="fa-solid fa-building"></i> Organização
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-units" data-tab="units"
-                            type="button">
-                            <i class="fa-solid fa-store"></i> Unidades
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users"
-                            type="button">
-                            <i class="fa-solid fa-user-shield"></i> Usuários & Permissões
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-services"
-                            data-tab="services" type="button">
-                            <i class="fa-solid fa-spa"></i> Serviços & Pontos
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-notify"
-                            data-tab="notify" type="button">
-                            <i class="fa-solid fa-bell"></i> Notificações
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-security"
-                            data-tab="security" type="button">
-                            <i class="fa-solid fa-lock"></i> Segurança
-                        </button>
-                        <button class="tab" role="tab" aria-selected="false" aria-controls="tab-lgpd" data-tab="lgpd"
-                            type="button">
-                            <i class="fa-solid fa-scale-balanced"></i> LGPD & Auditoria
-                        </button>
-                    </div>
-
-                    <!-- painéis -->
-                    <div class="tabpanels">
-                        <!-- Organização -->
-                        <div id="tab-org" class="tabpanel active" role="tabpanel">
-                            <form id="formOrg" class="grid-2">
-                                <div class="field">
-                                    <label>Razão Social</label>
-                                    <input type="text" id="orgName" placeholder="Rokuzen Spa & Terapias Ltda">
-                                </div>
-                                <div class="field">
-                                    <label>CNPJ</label>
-                                    <input type="text" id="orgCnpj" placeholder="34.758.604/0001-13">
-                                </div>
-                                <div class="field col-2">
-                                    <label>Endereço Fiscal</label>
-                                    <input type="text" id="orgAddr"
-                                        placeholder="Rua Cap. Pacheco e Chaves, 313 – Vila Prudente, São Paulo/SP">
-                                </div>
-
-                                <div class="divider col-2">Branding</div>
-                                <div class="field">
-                                    <label>Logo (claro)</label>
-                                    <input type="url" id="logoLight" placeholder="URL da imagem">
-                                </div>
-                                <div class="field">
-                                    <label>Logo (escuro)</label>
-                                    <input type="url" id="logoDark" placeholder="URL da imagem">
-                                </div>
-                                <div class="field">
-                                    <label>Cor Primária</label>
-                                    <input type="color" id="brandColor" value="#9DB668">
-                                </div>
-                                <div class="field">
-                                    <label>Favicon</label>
-                                    <input type="url" id="faviconUrl" placeholder="URL do favicon">
-                                </div>
-
-                                <div class="actions col-2">
-                                    <button class="btn" type="button" id="saveOrg"><i
-                                            class="fa-solid fa-floppy-disk"></i> Salvar</button>
-                                </div>
-                            </form>
-                        </div>
-
-                        <!-- Unidades -->
-                        <div id="tab-units" class="tabpanel" role="tabpanel">
-                            <div class="row mb-2">
-                                <button class="btn" id="btnAddUnit" type="button"><i class="fa-solid fa-plus"></i> Nova
-                                    Unidade</button>
-                                <input type="search" id="unitSearch" placeholder="Buscar unidade...">
-                            </div>
-                            <div class="table-wrap">
-                                <table class="table" id="tblUnits">
-                                    <thead>
-                                        <tr>
-                                            <th>Unidade</th>
-                                            <th>Endereço</th>
-                                            <th>WhatsApp</th>
-                                            <th>Funcionamento</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Usuários & Permissões -->
-                        <div id="tab-users" class="tabpanel" role="tabpanel">
-                            <div class="row mb-2">
-                                <button class="btn" id="btnInviteUser" type="button"><i
-                                        class="fa-solid fa-user-plus"></i> Convidar Usuário</button>
-                                <select id="filterRole">
-                                    <option value="">Todos os papéis</option>
-                                    <option value="gerente">Gerente</option>
-                                    <option value="recepcao">Recepção</option>
-                                    <option value="massagista">Massagista</option>
-                                    <option value="admin">Admin</option>
-                                </select>
-                                <select id="filterUnit"></select>
-                            </div>
-                            <div class="table-wrap">
-                                <table class="table" id="tblUsers">
-                                    <thead>
-                                        <tr>
-                                            <th>Nome</th>
-                                            <th>Papel</th>
-                                            <th>Unidade</th>
-                                            <th>Telefone</th>
-                                            <th>Status</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Serviços & Pontos -->
-                        <div id="tab-services" class="tabpanel" role="tabpanel">
-                            <div class="row mb-2">
-                                <button class="btn" id="btnAddService" type="button"><i class="fa-solid fa-plus"></i>
-                                    Novo Serviço</button>
-                                <div class="badge">Regra: <b>Quick Massage = 1 ponto</b></div>
-                            </div>
-                            <div class="table-wrap">
-                                <table class="table" id="tblServices">
-                                    <thead>
-                                        <tr>
-                                            <th>Serviço</th>
-                                            <th>Duração</th>
-                                            <th>Preço</th>
-                                            <th>Pontos</th>
-                                            <th>Ativo</th>
-                                            <th></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody></tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <!-- Notificações -->
-                        <div id="tab-notify" class="tabpanel" role="tabpanel">
-                            <div class="row">
-                                <button class="btn" id="saveNotify" type="button"><i
-                                        class="fa-solid fa-floppy-disk"></i> Salvar</button>
-                                <button class="btn ghost" id="btnExportData" type="button"><i
-                                        class="fa-solid fa-file-export"></i> Exportar dados</button>
-                                <button class="btn ghost" id="btnAnonymize" type="button"><i
-                                        class="fa-solid fa-user-secret"></i> Anonimizar</button>
-                                <button class="btn ghost" id="btnAuditLog" type="button"><i
-                                        class="fa-solid fa-notes-medical"></i> Log de Auditoria</button>
-                            </div>
-                        </div>
-
-                        <!-- Segurança -->
-                        <div id="tab-security" class="tabpanel" role="tabpanel">
-                            <div class="row">
-                                <button class="btn" id="saveSecurity" type="button"><i
-                                        class="fa-solid fa-floppy-disk"></i> Salvar</button>
-                            </div>
-                        </div>
-
-                        <!-- LGPD -->
-                        <div id="tab-lgpd" class="tabpanel" role="tabpanel">
-                            <p class="help-sm">Configurações de privacidade e auditoria.</p>
-                        </div>
-                    </div>
-            </section>
-        </main>
-    </div>
-
-    <!-- VLibras - Acessibilidade em Libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
+<!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+<div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+        <div class="popup-actions">
+            <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+            <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
         </div>
     </div>
+</div>
 
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
-    <script src="https://app.embed.im/accessibility.js" defer></script>
+<body>
+    <video id="bg-video" autoplay muted loop playsinline>
+        <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
+    </video>
+    <div class="app">
+        <!-- ===== SIDEBAR ===== -->
+        <aside class="sidebar">
+            <!-- Perfil + Pontos -->
+            <div class="sb-block" style="display:flex;align-items:center;gap:12px">
+                <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
+                    alt="avatar"
+                    style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
+                <div>
+                    <div style="font-weight:700">Olá, <span id="userName">Pietra</span> 👋</div>
+                </div>
+            </div>
+
+            <!-- ATALHOS -->
+             
+            <div class="sb-block shortcuts">
+                <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+                <nav class="shortcut-list" aria-label="Atalhos rápidos">
+
+                    <div class="sb-block unit-picker">
+                        <div class="sb-title">
+                            <i class="fa-solid fa-building"></i>
+                            Selecionar Unidade
+                        </div>
+
+                        <div class="unit-row">
+                            <select id="unitPicker" aria-label="Selecionar unidade"></select>
+                        </div>
+                        </small>
+                    </div>
+
+
+                    <small class="help-sm">
+                        <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+                        Atual: <b id="currentUnitName">—</b>
+                    </small>
+
+                
+                    <a href="#atendimentos" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+                        <span class="shortcut-label">Atendimentos</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#controle-login" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+                        <span class="shortcut-label">Controle de Login</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+
+                    <a href="#calendario-anual" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
+                        <span class="shortcut-label">Calendário Anual</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
+                </nav>
+            </div>
+
+            <!-- Telefones -->
+            <div class="sb-block">
+                <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
+                <div class="phone-list">
+                    <div class="phone"><span><i class="fa-solid fa-shield-heart"></i> Segurança</span><a
+                            href="tel:11900000000">(11) 90000-0000</a></div>
+                    <div class="phone"><span><i class="fa-solid fa-kit-medical"></i> Ambulatório</span><a
+                            href="tel:11911112222">(11) 91111-2222</a></div>
+                    <div class="phone"><span><i class="fa-solid fa-fire-extinguisher"></i> Brigada</span><a
+                            href="tel:11933334444">(11) 93333-4444</a></div>
+                    <div class="phone"><span><i class="fa-solid fa-user-group"></i> RH</span><a
+                            href="tel:11955556666">(11) 95555-6666</a></div>
+                </div>
+            </div>
+            <!-- BOTÃO DE LOGOUT -->
+            <div class="sb-block logout-block">
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sair da Conta</span>
+                </button>
+            </div>
+
+            <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
+        </aside>
+
+        </aside>
+
+        <style>
+            /* ===== LAYOUT ===== */
+        </style>
 </body>
 
 </html>
