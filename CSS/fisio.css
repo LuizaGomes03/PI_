@@ -671,3 +671,130 @@ h1 {
     color: #000;
     font-weight: 700;
 }
+
+/* ===== LOGOUT BUTTON ===== */
+.logout-block {
+    text-align: center;
+    margin-top: 10px;
+}
+
+.btn-logout {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    color: var(--muted);
+    font-weight: 600;
+    padding: 10px 14px;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background .2s, transform .15s, color .2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn-logout:hover {
+    background: rgba(255, 80, 80, 0.25);
+    color: #fff;
+    transform: translateY(-2px);
+}
+
+.btn-logout i {
+    color: #ff6666;
+    font-size: 16px;
+}
+
+/* ===== POPUP DE LOGOUT ===== */
+.popup-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.25s ease;
+}
+
+.popup-overlay.active {
+    opacity: 1;
+    pointer-events: all;
+}
+
+.popup-box {
+    background: rgba(20, 20, 20, 0.95);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 24px 28px;
+    max-width: 380px;
+    width: 90%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+    animation: popupFade 0.25s ease both;
+}
+
+@keyframes popupFade {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.popup-box h3 {
+    font-size: 18px;
+    margin-bottom: 8px;
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.popup-text {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 18px;
+}
+
+.popup-actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.popup-btn {
+    padding: 8px 14px;
+    border-radius: 10px;
+    font-weight: 600;
+    border: none;
+    cursor: pointer;
+    transition: transform 0.15s, background 0.2s;
+}
+
+.popup-btn.confirm {
+    background: #e74c3c;
+    color: #fff;
+}
+
+.popup-btn.confirm:hover {
+    background: #c0392b;
+    transform: translateY(-2px);
+}
+
+.popup-btn.cancel {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--muted);
+}
+
+.popup-btn.cancel:hover {
+    background: rgba(255, 255, 255, 0.18);
+    transform: translateY(-2px);
+}

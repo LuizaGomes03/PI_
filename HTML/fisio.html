@@ -71,6 +71,13 @@
                             href="tel:11955556666">(11) 95555-6666</a></div>
                 </div>
             </div>
+            <!-- BOTÃO DE LOGOUT -->
+            <div class="sb-block logout-block">
+                <button id="logoutBtn" class="btn-logout">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <span>Sair da Conta</span>
+                </button>
+            </div>
 
             <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
         </aside>
@@ -178,6 +185,18 @@
     </script>
 
     <script src="https://app.embed.im/accessibility.js" defer></script>
+    
+    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+        <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+            <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+            <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+            <div class="popup-actions">
+                <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+                <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+            </div>
+        </div>
+    </div>
 
 </body>
 

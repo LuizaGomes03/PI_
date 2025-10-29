@@ -359,6 +359,56 @@
     window.ROKUAnnualCalendar = { open: openAnnualCard, close: closeAnnualCard };
 })();
 
+// ==== LOGOUT ==== 
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.getElementById("logoutBtn");
+    const popup = document.getElementById("logoutPopup");
+    const confirmBtn = document.getElementById("confirmLogout");
+    const cancelBtn = document.getElementById("cancelLogout");
+
+    if (!logoutBtn || !popup) return;
+
+    // Abre o popup ao clicar no botão de sair
+    logoutBtn.addEventListener("click", () => {
+        popup.classList.add("active");
+        document.body.style.overflow = "hidden"; // bloqueia o scroll de fundo
+    });
+
+    // Fecha o popup ao clicar em "Cancelar"
+    cancelBtn.addEventListener("click", () => {
+        popup.classList.remove("active");
+        document.body.style.overflow = "";
+    });
+
+    // Confirma o logout
+    confirmBtn.addEventListener("click", () => {
+        popup.classList.remove("active");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "../login.html"; // redireciona para tela de login
+        }, 200);
+    });
+
+    // Fecha o popup se clicar fora da caixa
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            popup.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    });
+
+    // Fecha com tecla ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && popup.classList.contains("active")) {
+            popup.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    });
+});
+
+
 
 
 
