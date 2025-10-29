@@ -689,20 +689,7 @@ document.addEventListener('DOMContentLoaded', () => {
   (function seedIfEmpty() {
     const cur = loadPosts();
     if (cur.length) return;
-    savePosts([
-      {
-        id: Date.now(),
-        title: 'Ficar dolorido após massagem…',
-        image: '../imagens/Rectangle 16.png',
-        excerpt: 'É normal sentir uma leve dor após a sessão — seu corpo está se ajustando.'
-      },
-      {
-        id: Date.now()+1,
-        title: 'Descubra o novo conceito terapêutico…',
-        image: '../imagens/Rectangle 17.png',
-        excerpt: 'Técnicas integradas para restaurar o equilíbrio e reduzir o estresse.'
-      }
-    ]);
+  
   })();
 
   // Render
