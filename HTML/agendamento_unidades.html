@@ -112,16 +112,21 @@
 
             cards.forEach(card => {
                 card.addEventListener("click", () => {
-                    // remove a seleção dos outros cards
+                    // Remove a seleção dos outros cards
                     cards.forEach(c => c.classList.remove("selected"));
 
-                    // adiciona a seleção no card clicado
+                    // Adiciona a seleção no card clicado
                     card.classList.add("selected");
+
+                    // Redireciona direto para a página desejada
+                    if (card.dataset.unit === "sbc") window.location.href = "agendamento_serviços.html";
+                    else if (card.dataset.unit === "sa") window.location.href = "agendamento_serviços.html";
+                    else if (card.dataset.unit === "ab") window.location.href = "agendamento_serviços.html";
+                    else if (card.dataset.unit === "mooca") window.location.href = "agendamento_serviços.html";
                 });
             });
         });
     </script>
-
 
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
