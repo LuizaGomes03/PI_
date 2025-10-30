@@ -59,40 +59,23 @@
     <div class="dot"></div>
   </div>
 
-  <!-- ====== Botão confirmar ====== -->
-  <button class="rk-btn" id="confirmarBtn">CONFIRMAR</button>
-
-  <!-- ====== JS: seleção + redirecionamento ====== -->
   <script>
-    (function () {
-      const servicos = document.querySelectorAll('.servico');
-      const confirmarBtn = document.getElementById('confirmarBtn');
-  
-      // Remove seleção anterior
-      function clearSelected() {
-        servicos.forEach(s => s.classList.remove('selected'));
-      }
-  
-      // Marca o serviço clicado
-      servicos.forEach(servico => {
-        servico.addEventListener('click', () => {
-          clearSelected();
-          servico.classList.add('selected');
-        });
-      });
-  
-      // Redireciona ao confirmar
-      confirmarBtn.addEventListener('click', () => {
-        const selecionado = document.querySelector('.servico.selected');
-        if (selecionado) {
-          const destino = selecionado.getAttribute('data-url');
+    // Seleciona todos os elementos de serviço
+    const servicos = document.querySelectorAll('.servico');
+
+    servicos.forEach(servico => {
+      servico.addEventListener('click', () => {
+        // Pega a URL do atributo data-url
+        const destino = servico.getAttribute('data-url');
+
+        // Redireciona para a página desejada
+        if (destino) {
           window.location.href = destino;
-        } else {
-          alert("Por favor, selecione um serviço antes de confirmar.");
         }
       });
-    })();
-  </script>  
+    });
+  </script>
+
   <!-- VLibras - Acessibilidade em Libras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>

@@ -22,7 +22,7 @@ body {
 /* ===== Título agendamento (ajustado) ===== */
 .titulo-agendamento {
   max-width: 1100px;
-  margin: 44px auto;
+  margin: 44px auto 10px;
   padding: 0 20px;
   text-align: left;
 }
@@ -30,7 +30,6 @@ body {
 .titulo-agendamento h2 {
   font-family: 'Amatic SC', cursive;
   font-size: 30px;
-  margin-bottom: 34px;
   color: #222;
   font-weight: 700;
 }
@@ -106,8 +105,8 @@ body {
 }
 
 .rk-btn {
-  display: inline-block;
-  width: 100%;
+  display: block;
+  width: 480px;
   background-color: #9db668;
   color: white;
   font-size: 14px;
@@ -116,7 +115,7 @@ body {
   border-radius: 8px;
   padding: 14px;
   cursor: pointer;
-  margin-top: 25px;
+   margin: 25px auto 0; 
   transition: all 0.3s ease;
   text-transform: uppercase;
 }
