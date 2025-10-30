@@ -27,10 +27,9 @@
             <article class="unit">
                 <button class="card" type="button" data-unit="sbc" data-name="São Bernardo do Campo"
                     data-mall="Golden Square Shopping">
-                    <img src="https://rokuzen.com.br/atendentes/fachada_golden.jpg" alt="Unidade São Bernardo do Campo">
+                    <img src="../imagens/goldensquare.png" alt="Unidade São Bernardo do Campo">
                     <div class="ribbon">
                         <strong>Golden Square Shopping</strong>
-                        <small>Piso L1</small>
                     </div>
                 </button>
                 <div class="city">São Bernardo do Campo</div>
@@ -40,11 +39,9 @@
             <article class="unit">
                 <button class="card" type="button" data-unit="sa" data-name="Santo André"
                     data-mall="Grand Plaza Shopping">
-                    <img src="https://rokuzen.com.br/wp-content/uploads/2023/08/fachada_gps2@2x.jpg"
-                        alt="Unidade Santo André">
+                    <img src="../imagens/grandplaza.png" alt="Unidade Santo André">
                     <div class="ribbon">
                         <strong>Grand Plaza Shopping</strong>
-                        <small>Piso Térreo</small>
                     </div>
                 </button>
                 <div class="city">Santo André</div>
@@ -54,10 +51,9 @@
             <article class="unit">
                 <button class="card" type="button" data-unit="ab" data-name="São Paulo - Água Branca"
                     data-mall="Shopping West Plaza">
-                    <img src="https://rokuzen.com.br/agendamento/west3.jpg" alt="Unidade Água Branca">
+                    <img src="../imagens/westplaza.png" alt="Unidade Água Branca">
                     <div class="ribbon">
                         <strong>Shopping West Plaza</strong>
-                        <small>2º Piso</small>
                     </div>
                 </button>
                 <div class="city">São Paulo - Água Branca</div>
@@ -67,60 +63,65 @@
             <article class="unit">
                 <button class="card" type="button" data-unit="mooca" data-name="São Paulo - Mooca"
                     data-mall="Mooca Plaza Shopping">
-                    <img src="../imagens/Imagem do WhatsApp de 2025-10-25 à(s) 14.52.51_fa52942b.jpg" alt="Unidade Mooca">
+                    <img src="../imagens/mooca.png" alt="Unidade Mooca">
                     <div class="ribbon">
                         <strong>Mooca Plaza Shopping</strong>
-                        <small>Piso Térreo</small>
                     </div>
                 </button>
                 <div class="city">São Paulo - Mooca</div>
             </article>
         </section>
 
-
-        <button class="rk-btn" id="confirmarBtn">CONFIRMAR</button>
-
         <div class="dots">
-            <div class="dot active"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
-            <div class="dot"></div>
+            <div class="dot active" data-step="1"></div>
+            <div class="dot" data-step="2"></div>
+            <div class="dot" data-step="3"></div>
+            <div class="dot" data-step="4"></div>
+            <div class="dot" data-step="5"></div>
+            <div class="dot" data-step="6"></div>
         </div>
+
     </main>
 
-
-
-
-    <!-- ===== JS: seleção + redirecionamento ===== -->
     <script>
-        (function () {
-            const cards = document.querySelectorAll('.card');
-            const confirmarBtn = document.getElementById('confirmarBtn');
+        document.addEventListener("DOMContentLoaded", () => {
+            const dots = document.querySelectorAll(".dot");
 
-            function clearSelected() {
-                cards.forEach(c => c.classList.remove('selected'));
-            }
+            dots.forEach((dot) => {
+                dot.addEventListener("click", () => {
+                    // muda o estado visual
+                    dots.forEach(d => d.classList.remove("active"));
+                    dot.classList.add("active");
 
-            cards.forEach(card => {
-                card.addEventListener('click', () => {
-                    clearSelected();
-                    card.classList.add('selected');
+                    // redireciona para a etapa correspondente
+                    const etapa = dot.dataset.step;
+                    if (etapa === "1") window.location.href = "agendamento_unidades.html";
+                    if (etapa === "2") window.location.href = "agendamento_serviços.html";
+                    if (etapa === "3") window.location.href = "#";
+                    if (etapa === "4") window.location.href = "agendamento_condicoes_med.html";
+                    if (etapa === "5") window.location.href = "selecionar_data.html";
+                    if (etapa === "6") window.location.href = "agendamento_dados.html";
                 });
             });
-
-            confirmarBtn.addEventListener('click', () => {
-                const selecionado = document.querySelector('.card.selected');
-                if (selecionado) {
-                    // redireciona apenas se houver seleção
-                    window.location.href = "agendamento_serviços.html";
-                } else {
-                    alert("Por favor, selecione uma unidade antes de confirmar.");
-                }
-            });
-        })();
+        });
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".card");
+
+            cards.forEach(card => {
+                card.addEventListener("click", () => {
+                    // remove a seleção dos outros cards
+                    cards.forEach(c => c.classList.remove("selected"));
+
+                    // adiciona a seleção no card clicado
+                    card.classList.add("selected");
+                });
+            });
+        });
+    </script>
+
 
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
@@ -137,7 +138,6 @@
 
     <!-- carrega menu e rodapé -->
     <script>
-        // Ajuste o caminho conforme a pasta real dos arquivos
         fetch("menu.html")
             .then(r => r.text())
             .then(html => { document.getElementById("menu").innerHTML = html; });
