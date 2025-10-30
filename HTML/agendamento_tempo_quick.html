@@ -8,30 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="../CSS/tempo_quick.css">
-
-    <style>
-        .rk-btn {
-            display: block;
-            width: 800px;
-            margin: 25px auto 0;
-            background-color: #7D9950;
-            color: white;
-            font-size: 14px;
-            font-weight: 600;
-            border: none;
-            border-radius: 8px;
-            padding: 14px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-transform: uppercase;
-            text-align: center;
-        }
-
-        .rk-btn:hover {
-            background-color: #6f8747;
-            transform: translateY(-1px);
-        }
-    </style>
 </head>
 
 <body>
@@ -59,8 +35,6 @@
             </div>
         </div>
 
-        <button class="rk-btn" id="confirmarBtn">CONFIRMAR</button>
-
         <!-- dots -->
         <div class="dots">
             <div class="dot"></div>
@@ -71,6 +45,19 @@
             <div class="dot"></div>
         </div>
     </main>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const cards = document.querySelectorAll(".massage-card");
+
+            cards.forEach(card => {
+                card.addEventListener("click", () => {
+                    // Redireciona todos os cards para a mesma página
+                    window.location.href = "agendamento_condicoes_med.html"; // altere o nome se precisar
+                });
+            });
+        });
+    </script>
 
     <footer>
         <div id="rodape"></div>
@@ -88,43 +75,7 @@
                 });
         </script>
     </footer>
-    <!-- ===== JS: seleção única + acessibilidade ===== -->
-    <script>
-        (function () {
-            const cards = document.querySelectorAll('.massage-card');
 
-            function clearSelected() {
-                cards.forEach(c => c.classList.remove('selected'));
-            }
-
-            cards.forEach(card => {
-                // clique com mouse
-                card.addEventListener('click', () => {
-                    clearSelected();
-                    card.classList.add('selected');
-                });
-
-                // teclado: Enter ou Espaço
-                card.addEventListener('keydown', (e) => {
-                    if (e.key === 'Enter' || e.key === ' ') {
-                        e.preventDefault();
-                        clearSelected();
-                        card.classList.add('selected');
-                    }
-                });
-            });
-
-            confirmarBtn.addEventListener('click', () => {
-                const selecionado = document.querySelector('.massage-card.selected');
-                if (selecionado) {
-                    // redirecionar apenas se houver seleção
-                    window.location.href = "agendamento_condicoes_med.html";
-                } else {
-                    alert("Por favor, selecione um tempo de Quick Massage antes de confirmar.");
-                }
-            });
-        })();
-    </script>
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
