@@ -300,7 +300,12 @@
                                     <th>Nome</th>
                                     <th>Celular</th>
                                     <th>E-mail</th>
+                                    <th>Sexo</th>
                                     <th>Aniversário</th>
+                                    <th>Primeiro Atendimento</th>
+                                    <th>Saúde</th>
+                                    <th>Observações</th>
+                                    
                                     <th></th>
                                 </tr>
                             </thead>
@@ -358,23 +363,6 @@
                                 </label>
 
                                 <label class="cli-field">
-                                    <span class="cli-label">Necessidades especiais</span>
-                                    <select id="fCliNec">
-                                        <option>Sem Deficiência</option>
-                                        <option>Auditiva</option>
-                                        <option>Física</option>
-                                        <option>Visual</option>
-                                        <option>Intelectual</option>
-                                        <option>Outra</option>
-                                    </select>
-                                </label>
-
-                                <label class="cli-field cli-full">
-                                    <span class="cli-label">Observações</span>
-                                    <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
-                                </label>
-
-                                <label class="cli-field">
                                     <span class="cli-label">Como nos conheceu?</span>
                                     <select id="fCliOrigem">
                                         <option value="">Selecione…</option>
@@ -386,34 +374,42 @@
                                     </select>
                                 </label>
 
-                                <label class="cli-field">
-                                    <span class="cli-label">Outros (origem)</span>
-                                    <input type="text" id="fCliOrigemOutros" placeholder="Descreva se necessário" />
-                                </label>
-
                                 <!-- mini-bloco 'informações para atendimento' (versão resumida) -->
                                 <fieldset class="cli-field cli-full cli-box">
                                     <legend>Informações para atendimento</legend>
                                     <div class="cli-two">
-                                        <label>Cirurgia 6 meses?
-                                            <input type="checkbox" id="fCliCirurgia" />
-                                        </label>
-
-                                        <label>Pressão sanguínea
-                                            <select id="fCliPressao">
+                                        <label>Condições Médicas
+                                            <select id="fCliCondMed">
                                                 <option value="">Selecione…</option>
-                                                <option>Normal</option>
-                                                <option>Alta</option>
-                                                <option>Baixa</option>
+                                                <option>Gravidez</option>
+                                                <option>Trombose</option>
+                                                <option>Gripe</option>
+                                                <option>Câncer</option>
+                                                <option>Alterações de pressão arterial</option>
+                                                <option>Nenhum</option>
                                             </select>
                                         </label>
 
-                                        <label>Osteoporose?
-                                            <input type="checkbox" id="fCliOsteo" />
+                                        <label>Alergias
+                                            <select id="fCliAlergias">
+                                                <option value="">Selecione…</option>
+                                                <option>Alergia a óleos corporais ou cremes</option>
+                                                <option>Nenhum</option>
+                                            </select>
                                         </label>
 
-                                        <label>Hérnia de disco?
-                                            <input type="checkbox" id="fCliHernia" />
+                                        <label>Histórico de Saúde
+                                            <select id="fCliAlergias">
+                                                <option value="">Selecione…</option>
+                                                <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
+                                                <option>Cirurgias recentes (últimos 6 meses)</option>
+                                                <option>Nenhum</option>
+                                            </select>
+                                        </label>
+
+                                        <label class="cli-field cli-full">
+                                            <span class="cli-label">Observações</span>
+                                            <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
                                         </label>
                                     </div>
                                 </fieldset>
