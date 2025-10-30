@@ -85,25 +85,21 @@
 
     <script>
         document.addEventListener("DOMContentLoaded", () => {
-            const dots = document.querySelectorAll(".dot");
+            const cards = document.querySelectorAll(".card");
 
-            dots.forEach((dot) => {
-                dot.addEventListener("click", () => {
-                    // muda o estado visual
-                    dots.forEach(d => d.classList.remove("active"));
-                    dot.classList.add("active");
+            cards.forEach(card => {
+                card.addEventListener("click", () => {
+                    const unidade = card.dataset.unit;
 
-                    // redireciona para a etapa correspondente
-                    const etapa = dot.dataset.step;
-                    if (etapa === "1") window.location.href = "agendamento_unidades.html";
-                    if (etapa === "2") window.location.href = "agendamento_serviços.html";
-                    if (etapa === "3") window.location.href = "#";
-                    if (etapa === "4") window.location.href = "agendamento_condicoes_med.html";
-                    if (etapa === "5") window.location.href = "selecionar_data.html";
-                    if (etapa === "6") window.location.href = "agendamento_dados.html";
+                    // Redireciona direto sem adicionar/remover classe
+                    if (unidade === "sbc") window.location.href = "agendamento_serviços.html";
+                    else if (unidade === "sa") window.location.href = "agendamento_serviços.html";
+                    else if (unidade === "ab") window.location.href = "agendamento_serviços.html";
+                    else if (unidade === "mooca") window.location.href = "agendamento_serviços.html";
                 });
             });
         });
+
     </script>
 
     <script>
