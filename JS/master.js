@@ -1,53 +1,102 @@
 document.addEventListener('DOMContentLoaded', () => {
   // =========================
-  // NAVIGAÇÃO ENTRE VIEWS
+  // NAVIGAÇÃO ENTRE VIEWS (versão unificada)
   // =========================
   const views = Array.from(document.querySelectorAll('.view'));
 
-  function activateView(viewId) {
-    const targetId = `view-${viewId}`;
+  function normToSectionId(input) {
+    // aceita "relatorio" ou "view-relatorio" e retorna SEMPRE "view-relatorio"
+    if (!input) return null;
+    return input.startsWith('view-') ? input : `view-${input}`;
+  }
+  function normToHash(input) {
+    // hash SEM o prefixo "view-": "view-relatorio" -> "relatorio"
+    return input.replace(/^view-/, '');
+  }
+
+  function activateView(viewKeyOrId) {
+    const sectionId = normToSectionId(viewKeyOrId);
+    if (!sectionId) return false;
+
     let found = false;
 
-    // ativa view
+    // mostra/oculta views (ambos: .active e [hidden])
     views.forEach(v => {
-      const isTarget = v.id === targetId;
+      const isTarget = v.id === sectionId;
       v.classList.toggle('active', isTarget);
-      if (isTarget) found = true;
-    });
-
-    // ativa link
-    document.querySelectorAll('[data-view]').forEach(link => {
-      const active = link.dataset.view === viewId;
-      link.classList.toggle('active', active);
-      if (link.getAttribute('role') === 'tab') {
-        link.setAttribute('aria-selected', String(active));
+      if (isTarget) {
+        v.removeAttribute('hidden');
+        found = true;
+      } else {
+        v.setAttribute('hidden', '');
       }
     });
 
-    // sincroniza hash
-    if (found) history.replaceState(null, '', `#${viewId}`);
+  // estado dos links (data-view / role="tab")
+    document.querySelectorAll('[data-view], [role="tab"]').forEach(link => {
+      const dv   = link.getAttribute('data-view') || '';
+      const aria = link.getAttribute('aria-controls') || '';
+      const href = (link.getAttribute('href') || '').replace('#', '');
+
+      const match =
+        normToSectionId(dv)   === sectionId ||
+        normToSectionId(aria) === sectionId ||
+        normToSectionId(href) === sectionId;
+
+      link.classList.toggle('active', match);
+      if (link.getAttribute('role') === 'tab') {
+        link.setAttribute('aria-selected', String(match));
+      }
+    });
+
+    // sincroniza hash no formato SEM "view-"
+    if (found) history.replaceState(null, '', `#${normToHash(sectionId)}`);
+    // notifica que uma view foi ativada (útil p/ componentes que precisam renderizar ao ficar visível)
+    if (found) document.dispatchEvent(new CustomEvent('view:activated', { detail: sectionId }));
+    // debug
+    try { console.debug && console.debug('activateView ->', sectionId, 'found=', found); } catch (e) {}
+
+    // Se a view estiver aninhada dentro de outras .view, garanta que os ancestrais também fiquem visíveis
+    if (found) {
+      const targetEl = document.getElementById(sectionId);
+      let p = targetEl && targetEl.parentElement;
+      while (p && p !== document.body) {
+        if (p.classList && p.classList.contains('view')) {
+          p.classList.add('active');
+          p.removeAttribute('hidden');
+        }
+        p = p.parentElement;
+      }
+    }
     return found;
   }
 
-  // delegação de clique p/ links data-view
+  // delegação de clique (aceita data-view, aria-controls ou href="#...")
   document.addEventListener('click', (e) => {
-    const link = e.target.closest('[data-view]');
+    const link = e.target.closest('[data-view], [role="tab"], a[href^="#"]');
     if (!link) return;
+
+    const dv   = link.getAttribute('data-view');
+    const aria = link.getAttribute('aria-controls');
+    const href = (link.getAttribute('href') || '').replace('#', '');
+
+    const target = normToSectionId(dv || aria || href);
+    if (!target || !document.getElementById(target)) return;
+
     e.preventDefault();
-    const target = link.dataset.view;
     activateView(target);
   });
 
-  // abre view pela hash na carga / mudança
+  // rota inicial / mudanças de hash
   function initialRoute() {
-    const hash = (location.hash || '').replace('#', '');
-    if (hash && activateView(hash)) return;
-    // fallback se hash não bate: mantém a que já está .active ou abre a primeira
+    const raw = (location.hash || '').replace('#', '');
+    // aceita "#relatorio" ou "#view-relatorio"
+    const target = normToSectionId(raw || 'relatorio'); // mude 'relatorio' se quiser outra default
+    if (activateView(target)) return;
+
+    // fallback se nada bateu: mantém a .active ou abre a primeira
     const current = document.querySelector('.view.active');
-    if (!current && views[0]) {
-      const id = views[0].id.replace('view-', '');
-      activateView(id);
-    }
+    if (!current && views[0]) activateView(views[0].id);
   }
   window.addEventListener('hashchange', initialRoute);
   initialRoute();
@@ -450,9 +499,64 @@ document.addEventListener('DOMContentLoaded', () => {
       updateBirthdayBar();
     }
 
+    // ===== Modal: cadastro rápido de cliente (sheet/dialog)
+    const cliModal = document.getElementById('cliModal');
+    const cliOpenBtn = document.getElementById('cliOpenCadastro');
+    const cliCloseBtn = document.getElementById('cliClose');
+    const cliCancelBtn = document.getElementById('cliCancel');
+    const cliFormCad = document.getElementById('cliFormCad');
+
+    function openCliModal() {
+      if (!cliModal) return;
+      try { cliModal.showModal?.(); } catch { cliModal.classList.add('open'); }
+    }
+    function closeCliModal() {
+      if (!cliModal) return;
+      try { cliModal.close?.(); } catch { cliModal.classList.remove('open'); }
+    }
+
+    cliOpenBtn?.addEventListener('click', (e) => { e.preventDefault(); openCliModal(); });
+    cliCloseBtn?.addEventListener('click', closeCliModal);
+    cliCancelBtn?.addEventListener('click', (e) => { e.preventDefault(); closeCliModal(); });
+
+    // submit do formulário de cadastro rápido
+    cliFormCad?.addEventListener('submit', (e) => {
+      e.preventDefault();
+      if (!cliFormCad) return;
+      const nome = (document.getElementById('fCliNome')?.value || '').trim();
+      const fone = (document.getElementById('fCliFone')?.value || '').trim();
+      const email = (document.getElementById('fCliEmail')?.value || '').trim();
+      const niver = (document.getElementById('fCliNiver')?.value || '').trim();
+      if (!nome || !fone || !niver) { alert('Preencha Nome, Telefone e Data de Nascimento.'); return; }
+
+      const novo = {
+        id: uid(),
+        nome,
+        fone: fone.replace(/\D/g,''),
+        email,
+        niver,
+        sexo: document.getElementById('fCliSexo')?.value || '',
+        necessidades: document.getElementById('fCliNec')?.value || '',
+        obs: document.getElementById('fCliObs')?.value || '',
+        origem: document.getElementById('fCliOrigem')?.value || '',
+        origemOutros: document.getElementById('fCliOrigemOutros')?.value || '',
+        cirurgia6m: Boolean(document.getElementById('fCliCirurgia')?.checked),
+        pressao: document.getElementById('fCliPressao')?.value || '',
+        osteo: Boolean(document.getElementById('fCliOsteo')?.checked),
+        hernia: Boolean(document.getElementById('fCliHernia')?.checked)
+      };
+
+      clients = clients || [];
+      clients.push(novo);
+      save(clients);
+      render();
+      closeCliModal();
+      cliFormCad.reset();
+    });
+
     // pagamento folha de colaboradores
 
-    document.addEventListener('DOMContentLoaded', () => {
+    (function initFolha() {
       const LS_COLABS = 'rokuzen.colaboradores';
       const LS_SALARIOS = 'rokuzen.salarios'; // { [email]: base }
       const folhaKey = (comp) => `rokuzen.folha.${comp}`; // comp = YYYY-MM
@@ -653,11 +757,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // init
       render(loadFolha()); // tenta carregar se já existir
-    });
+    })();
 
-    document.addEventListener('DOMContentLoaded', function () {
+    (function initCalendar() {
       const calendarEl = document.getElementById('calendar');
-      const calendar = new FullCalendar.Calendar(calendarEl, {
+      if (!calendarEl) return;
+  const calendar = new FullCalendar.Calendar(calendarEl, {
         initialView: 'dayGridMonth',
         locale: 'pt-br',
         themeSystem: 'standard',
@@ -688,7 +793,20 @@ document.addEventListener('DOMContentLoaded', () => {
         },
       });
 
-      calendar.render();
+
+      // only render if the calendar view is currently visible; otherwise render when activated
+      if (document.getElementById('view-calendario')?.classList.contains('active')) {
+        calendar.render();
+      } else {
+        const onShow = (ev) => {
+          if (ev.detail === 'view-calendario') {
+            // small timeout to let layout settle
+            setTimeout(() => calendar.render(), 0);
+            document.removeEventListener('view:activated', onShow);
+          }
+        };
+        document.addEventListener('view:activated', onShow);
+      }
 
       function salvarEvento(evt) {
         const eventos = JSON.parse(localStorage.getItem('rokuzen.eventos') || '[]');
@@ -701,9 +819,11 @@ document.addEventListener('DOMContentLoaded', () => {
         eventos = eventos.filter(e => e.title !== title || e.start !== start);
         localStorage.setItem('rokuzen.eventos', JSON.stringify(eventos));
       }
-    });
 
+      
+    })();
 
 
   })();
 });
+
