@@ -77,28 +77,52 @@
         (function () {
             const services = document.querySelectorAll('.service');
 
+            // função que limpa seleção visual
             function clearSelected() {
                 services.forEach(s => s.classList.remove('selected'));
             }
 
+            // mapeamento do nome do serviço → página de destino
+            const serviceLinks = {
+                "Quick Massage": "giftcard_tempo_quick.html",
+                "Maca (Shiatsu / Anmá / Ventosa / Relaxante)": "giftcard_tempo_maca.html",
+                "Auriculoterapia": "giftcard_tempo_auriculoterapia.html",
+                "Reflexologia Podal": "giftcard_tempo_reflexologia.html"
+            };
+
             services.forEach(service => {
-                // clique com mouse
                 service.addEventListener('click', () => {
                     clearSelected();
                     service.classList.add('selected');
+
+                    // pega o nome do serviço e redireciona
+                    const nome = service.dataset.service;
+                    const destino = serviceLinks[nome];
+
+                    if (destino) {
+                        window.location.href = destino;
+                    }
                 });
 
-                // teclado: Enter ou Espaço
+                // acessibilidade: Enter ou Espaço
                 service.addEventListener('keydown', (e) => {
                     if (e.key === 'Enter' || e.key === ' ') {
                         e.preventDefault();
                         clearSelected();
                         service.classList.add('selected');
+
+                        const nome = service.dataset.service;
+                        const destino = serviceLinks[nome];
+
+                        if (destino) {
+                            window.location.href = destino;
+                        }
                     }
                 });
             });
         })();
     </script>
+
 
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
