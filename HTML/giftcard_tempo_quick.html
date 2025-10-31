@@ -64,6 +64,7 @@
     <script>
         (function () {
             const cards = document.querySelectorAll('.massage-card');
+            const destino = "giftcard_dados.html"; // <-- página para onde todos vão
 
             function clearSelected() {
                 cards.forEach(c => c.classList.remove('selected'));
@@ -74,6 +75,9 @@
                 card.addEventListener('click', () => {
                     clearSelected();
                     card.classList.add('selected');
+
+                    // redirecionar para a próxima página
+                    window.location.href = destino;
                 });
 
                 // teclado: Enter ou Espaço
@@ -82,11 +86,13 @@
                         e.preventDefault();
                         clearSelected();
                         card.classList.add('selected');
+                        window.location.href = destino;
                     }
                 });
             });
         })();
     </script>
+
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
