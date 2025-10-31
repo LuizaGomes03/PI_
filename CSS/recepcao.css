@@ -52,173 +52,7 @@ body::before {
   z-index: -1;
 }
 
-.sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  width: 76px;
-  background: rgba(15, 19, 13, .85);
-  border-right: 1px solid rgba(255, 255, 255, .12);
-  backdrop-filter: blur(6px);
-  transition: width .3s ease;
-  z-index: 9999;
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-width: none;
-}
-
-.sidebar::-webkit-scrollbar {
-  display: none;
-}
-
-.sidebar:hover {
-  width: 280px;
-}
-
-.sb-inner {
-  display: flex;
-  flex-direction: column;
-  height: 100%
-}
-
-.sb-user {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 16px 14px;
-  border-bottom: 1px solid rgba(255, 255, 255, .1);
-  overflow: hidden;
-  white-space: nowrap;
-}
-
-.avatar {
-  width: 42px;
-  height: 42px;
-  border-radius: 999px;
-  object-fit: cover;
-  border: 2px solid var(--green);
-}
-
-.sb-user .name,
-.sb-user .pts,
-.collapse-hint {
-  opacity: 0;
-  transition: .3s;
-  pointer-events: none;
-}
-
-.sidebar:hover .sb-user .name,
-.sidebar:hover .sb-user .pts,
-.sidebar:hover .collapse-hint {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.collapse-hint {
-  margin-left: auto;
-  color: var(--green);
-}
-
-.sb-menu,
-.sb-contacts {
-  padding: 10px 8px
-}
-
-.sb-title {
-  font: 700 28px/1 'Amatic SC', cursive;
-  color: #dff1c7;
-  margin: 10px 10px 6px;
-  opacity: 0;
-  transition: .3s;
-  white-space: nowrap;
-}
-
-.sidebar:hover .sb-title {
-  opacity: 1;
-}
-
-.sb-link {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  color: #eaf6db;
-  text-decoration: none;
-  padding: 10px 12px;
-  border-radius: 10px;
-  transition: background .2s, color .2s;
-  white-space: nowrap;
-  overflow: hidden;
-}
-
-.sb-link:hover {
-  background: rgba(255, 255, 255, .08);
-}
-
-.sb-link i {
-  width: 22px;
-  text-align: center;
-  color: var(--green);
-}
-
-.sb-link span {
-  opacity: 0;
-  transition: .3s;
-  pointer-events: none;
-}
-
-.sidebar:hover .sb-link span {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.sb-contacts {
-  padding-top: 4px;
-  padding-bottom: 6px;
-}
-
-.sb-contacts .group {
-  margin-top: 2px;
-}
-
-.sb-contacts .sb-link {
-  padding: 8px 12px;
-}
-
-.sb-contacts .small {
-  font-size: 12px;
-  color: #cfe5b1;
-  margin-left: 34px;
-  opacity: 0;
-  transition: .3s;
-  margin-bottom: 2px;
-}
-
-.sidebar:hover .sb-contacts .small {
-  opacity: 1;
-}
-
-.sb-foot {
-  margin-top: auto;
-  padding: 6px;
-  font-size: 12px;
-  color: #b9d3a1;
-  opacity: 0;
-  transition: .3s;
-}
-
-.sidebar:hover .sb-foot {
-  opacity: 1;
-}
-
-.main {
-  margin-left: 76px;
-  transition: margin-left .3s ease;
-}
-
-.sidebar:hover~.main {
-  margin-left: 280px;
-}
+/* -- SIDEBAR ANTIGO REMOVIDO -- */
 
 .shell {
   border: 1px solid var(--glass-b);
@@ -1229,7 +1063,7 @@ footer {
   background: linear-gradient(135deg, var(--green), var(--green-600));
   border-color: var(--green);
   color: #fff;
-  box-shadow: 0 4px 18px rgba(0,0,0,0.18);
+  box-shadow: 0 4px 18px rgba(0, 0, 0, 0.18);
 }
 
 /* Corrige o retângulo claro no texto do chip */
@@ -1251,65 +1085,329 @@ footer {
 
 /* FILE: RECEPCAO.CSS - adicione ao final */
 #agenda .cal-day.off {
-  background: rgba(231, 76, 60, 0.85); /* feriado */
+  background: rgba(231, 76, 60, 0.85);
+  /* feriado */
   color: #fff;
   border-color: rgba(231, 76, 60, 0.9);
 }
+
 #agenda .cal-day.full {
-  background: rgba(255,255,255,0.06);
+  background: rgba(255, 255, 255, 0.06);
   color: #fff;
 }
-#agenda .cal-grid { margin-top: 12px; }
-#agenda .slot-list .pro-row { margin-bottom: 8px; }
 
-/* Estilo geral da sidebar */
-.sidebar {
-  width: 76px;
-  transition: width .3s ease;
+#agenda .cal-grid {
+  margin-top: 12px;
 }
 
-/* Ícones e links mais próximos e centralizados quando sidebar fechada */
-/* Sidebar fechada - ícones próximos e centralizados */
-.sidebar:not(:hover) .sb-link {
-  padding: 8px 8px;
-  gap: 6px;
-  justify-content: center;
+#agenda .slot-list .pro-row {
+  margin-bottom: 8px;
 }
 
-/* Ocultar textos na sidebar fechada */
-.sidebar:not(:hover) .sb-link span,
-.sidebar:not(:hover) .sb-contacts .small {
-  display: none;
+/* ===== SIDEBAR (BLOCO MANTIDO — ÚLTIMO DO ARQUIVO) ===== */
+
+:root {
+  --green: #9DB668;
+  --green-600: #7D9950;
+  --muted: #ffffffcc;
+  --sidew: 340px;
+  --shadow: 0 10px 30px rgba(0, 0, 0, .15);
 }
 
-/* Espaçamento dos ícones da seção contatos na sidebar fechada */
-.sidebar:not(:hover) .sb-contacts .sb-link {
-  padding: 6px 8px;
-  gap: 6px;
-  justify-content: center;
-}
-
-/* Ajuste no tamanho e margem dos ícones */
-.sb-link i {
-  width: 22px;
-  margin: 10px 6px; /* margens menores para abrir */
-}
-
-/* Sidebar aberta ao hover - ícones mais próximos */
-.sidebar:hover {
-  width: 280px;
-}
-
-.sidebar:hover .sb-link {
-  padding: 6px 8px;   /* padding menos generoso para aproximar */
-  gap: 8px;           /* menos gap entre ícone e texto */
-  justify-content: flex-start;
-}
-
-.sidebar:hover .sb-link span,
-.sidebar:hover .sb-contacts .small {
-  display: inline;
-  opacity: 1;
-  pointer-events: auto;
+* {
+  box-sizing: border-box;
   margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  font-family: Inter, system-ui, Arial, sans-serif;
+  color: #fff;
+  background: #000;
+  overflow-x: hidden;
+}
+
+/* ===== BG VIDEO + OVERLAY ===== */
+#bg-video {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  object-fit: cover;
+  z-index: 0;
+  filter: brightness(.55);
+  pointer-events: none;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background:
+    radial-gradient(1200px 600px at 70% -10%, rgba(0, 0, 0, .18), transparent 60%),
+    linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .35));
+}
+
+/* ===== LAYOUT ===== */
+.app {
+  position: relative;
+  z-index: 2;
+  display: grid;
+  grid-template-columns: var(--sidew) 1fr;
+  min-height: 100dvh;
+}
+
+.sidebar {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .35));
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  padding: 20px 18px;
+  overflow: auto;
+}
+
+/* ===== ATALHOS (sidebar) ===== */
+.shortcuts .sb-title {
+  gap: 10px;
+}
+
+.shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+  position: relative;
+}
+
+.shortcut-item:focus,
+.shortcut-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.shortcut-icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 16px;
+  color: var(--green);
+}
+
+.shortcut-label {
+  flex: 1;
+  font-weight: 600;
+  color: var(--muted);
+}
+
+.shortcut-arrow {
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 14px;
+}
+
+/* ===== BLOCKS ===== */
+.sb-block {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid rgba(255, 255, 255, .14);
+  border-radius: 18px;
+  padding: 14px 16px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, .14) inset, 0 6px 18px rgba(0, 0, 0, .08);
+  margin-bottom: 14px;
+}
+
+.sb-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 2px 0 10px;
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.chip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255, 255, 255, .10);
+  border: 1px solid rgba(255, 255, 255, .22);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px;
+}
+
+.phone-list {
+  display: grid;
+  gap: 8px;
+}
+
+.phone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, .25);
+  border: 1px solid rgba(255, 255, 255, .12);
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background .15s;
+}
+
+.phone:hover {
+  background: rgba(255, 255, 255, .12);
+}
+
+.phone a {
+  color: #fff;
+  text-decoration: none;
+}
+
+/* ===== LOGOUT BUTTON ===== */
+.logout-block {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.btn-logout {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--muted);
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background .2s, transform .15s, color .2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.btn-logout:hover {
+  background: rgba(255, 80, 80, 0.25);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-logout i {
+  color: #ff6666;
+  font-size: 16px;
+}
+
+/* ===== POPUP DE LOGOUT ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+.popup-box {
+  background: rgba(20, 20, 20, 0.95);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 24px 28px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  animation: popupFade 0.25s ease both;
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(0.92);
+    opacity: 0;
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.popup-box h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup-text {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+}
+
+.popup-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.15s, background 0.2s;
+}
+
+.popup-btn.confirm {
+  background: #e74c3c;
+  color: #fff;
+}
+
+.popup-btn.confirm:hover {
+  background: #c0392b;
+  transform: translateY(-2px);
+}
+
+.popup-btn.cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+}
+
+.popup-btn.cancel:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
 }

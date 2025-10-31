@@ -16,348 +16,357 @@
     <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
   </video>
 
-  <aside class="sidebar">
-    <div class="sb-inner">
-      <div class="sb-user">
-        <img class="avatar"
-          src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=200&auto=format&fit=crop" alt="user">
+  <div class="app">
+    <!-- ===== SIDEBAR ===== -->
+    <aside class="sidebar">
+      <!-- Perfil + Pontos -->
+      <div class="sb-block" style="display:flex;align-items:center;gap:12px">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
+          alt="avatar"
+          style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
         <div>
-          <div class="name">Olá, Luly</div>
-          <div class="pts">Pontos: <strong id="pts">1280</strong></div>
-        </div>
-        <i class="fa-solid fa-angles-right collapse-hint"></i>
-      </div>
-
-      <div class="sb-menu">
-        <div class="sb-title">Atalhos</div>
-        <a class="sb-link" href="#formAgendar"><i class="fa-solid fa-calendar-plus"></i><span> Agendamento</span></a>
-        <a class="sb-link" href="#posts"><i class="fa-solid fa-pen-to-square"></i><span> Nossos Posts</span></a>
-        <a class="sb-link" href="#agenda"><i class="fa-solid fa-calendar"></i><span> Agenda Geral</span></a>
-      </div>
-
-      <div class="sb-contacts">
-        <div class="sb-title">Contatos</div>
-        <div class="group">
-          <a class="sb-link" href="mailto:suporte@rokuzen.com"><i class="fa-solid fa-headset"></i><span> Suporte
-              TI</span></a>
-          <div class="small">whatsapp: (11) 90000-0000</div>
-        </div>
-        <div class="group">
-          <a class="sb-link" href="mailto:juridico@rokuzen.com"><i class="fa-solid fa-scale-balanced"></i><span>
-              Jurídico</span></a>
-          <div class="small">orientações contratuais</div>
-        </div>
-        <div class="group">
-          <a class="sb-link" href="mailto:facilities@rokuzen.com"><i class="fa-solid fa-screwdriver-wrench"></i><span>
-              Facilities</span></a>
-          <div class="small">equipamentos e salas</div>
-        </div>
-        <div class="group">
-          <a class="sb-link" href="mailto:rh@rokuzen.com"><i class="fa-solid fa-user-group"></i><span> RH</span></a>
-          <div class="small">escala, benefícios e ponto</div>
-        </div>
-        <div class="group">
-          <a class="sb-link" href="mailto:seguranca@rokuzen.com"><i class="fa-solid fa-shield-heart"></i><span>
-              Segurança</span></a>
-          <div class="small">ocorrências e achados</div>
-        </div>
-        <div class="group">
-          <a class="sb-link" href="mailto:imprensa@rokuzen.com"><i class="fa-regular fa-newspaper"></i><span>
-              Imprensa</span></a>
-          <div class="small">parcerias e mídia</div>
+          <div style="font-weight:700">Olá, <span id="userName">Massagista</span> 👋</div>
+          <div class="chip"><i class="fa-solid fa-star"></i> Pontos: <strong id="pts">1280</strong></div>
         </div>
       </div>
 
-    </div>
-  </aside>
+      <!-- ATALHOS -->
+      <div class="sb-block shortcuts">
+        <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+        <nav class="shortcut-list" aria-label="Atalhos rápidos">
+          <a href="#atendimentos" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+            <span class="shortcut-label">Agendamento</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
 
-  <div class="main">
-    <div class="shell">
-      <header class="head">
-        <img src="../imagens/logo.png" class="logo" alt="Rokuzen" id="logo">
-        <div>
-          <h1>Nossos Serviços</h1>
+          <a href="#controle-login" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+            <span class="shortcut-label">Nossos Posts</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#calendario-anual" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
+            <span class="shortcut-label">Agenda Geral</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Telefones -->
+      <div class="sb-block">
+        <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
+        <div class="phone-list">
+          <div class="phone"><span><i class="fa-solid fa-shield-heart"></i> Segurança</span><a
+              href="tel:11900000000">(11) 90000-0000</a></div>
+          <div class="phone"><span><i class="fa-solid fa-kit-medical"></i> Ambulatório</span><a
+              href="tel:11911112222">(11) 91111-2222</a></div>
+          <div class="phone"><span><i class="fa-solid fa-fire-extinguisher"></i> Brigada</span><a
+              href="tel:11933334444">(11) 93333-4444</a></div>
+          <div class="phone"><span><i class="fa-solid fa-user-group"></i> RH</span><a href="tel:11955556666">(11)
+              95555-6666</a></div>
         </div>
-      </header>
+      </div>
 
-      <section id="catalogo" class="services"></section>
+      <!-- BOTÃO DE LOGOUT -->
+      <div class="sb-block logout-block">
+        <button id="logoutBtn" class="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair da Conta</span>
+        </button>
+      </div>
 
-      <section id="calendario" class="calendar-card big hidden">
-        <div class="cal-head">
-          <div class="cal-left">
-            <button class="btn btn-muted" id="calPrev" aria-label="Mês anterior">
-              <i class="fa-solid fa-chevron-left"></i>
-            </button>
+      <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
+    </aside>
+
+    <div class="main">
+      <div class="shell">
+        <header class="head">
+          <img src="../imagens/logo.png" class="logo" alt="Rokuzen" id="logo">
+          <div>
+            <h1>Nossos Serviços</h1>
           </div>
+        </header>
 
-          <div class="cal-title-wrap">
-            <h2 id="calTitle">Calendário</h2>
-            <div id="calSummary" class="cal-summary">Selecione um serviço para abrir o calendário.</div>
-          </div>
+        <section id="catalogo" class="services"></section>
 
-
-          <div class="cal-right">
-            <label for="calJump" class="cal-jump-label">Ir para data:</label>
-            <input type="date" id="calJump">
-            <button class="btn btn-muted" id="calGo">Ir</button>
-            <button class="btn btn-muted" id="calNext" aria-label="Próximo mês">
-              <i class="fa-solid fa-chevron-right"></i>
-            </button>
-          </div>
-        </div>
-
-        <div class="cal-legend">
-          <span class="chip chip-avail">Disponível</span>
-          <span class="chip chip-full">Lotado</span>
-          <span class="chip chip-off">Indisponível</span>
-        </div>
-
-        <div class="cal-grid" id="calGrid"></div>
-
-        <div class="cal-side">
-          <h3>Disponibilidade do dia</h3>
-          <div id="slotInfo" class="slot-info">Selecione uma data no calendário.</div>
-          <div id="slotList" class="slot-list"></div>
-        </div>
-      </section>
-
-      <section id="formAgendar" class="form-card">
-        <form id="bookingForm" class="booking-form">
-          <h3>Novo Agendamento</h3>
-
-          <div class="row">
-            <div class="col">
-              <label>Serviço
-                <input id="bkService" placeholder="Escolha um serviço">
-              </label>
-            </div>
-            <div class="col">
-              <label>Cliente
-                <input id="bkClient" placeholder="Nome completo">
-              </label>
-            </div>
-            <div class="col">
-              <label>Telefone/WhatsApp
-                <input id="bkPhone" placeholder="(11) 99999-9999">
-              </label>
-            </div>
-            <div class="col">
-              <label>E-mail
-                <input id="bkEmail" type="email" placeholder="cliente@gmail.com">
-              </label>
-            </div>
-            <div class="col">
-              <label>Valor (R$)
-                <input id="bkPrice" type="number" min="0" step="1" value="0">
-              </label>
-            </div>
-            <div class="col">
-              <label>Profissional
-                <input id="bkPro" readonly placeholder="Selecione no calendário">
-              </label>
-            </div>
-            <div class="col">
-              <label>Horário Selecionado:
-                <input type="text" id="bkTimeDisplay" readonly>
-              </label>
-            </div>
-            <div class="col">
-              <label>Duração (min)
-                <input id="bkDuration" type="number" min="1" step="1">
-              </label>
-            </div>
-          </div>
-
-          <div class="form-group" id="bkConditionWrapper">
-            <div class="row-head">
-              <label class="label">Condições de Saúde</label>
-              <button type="button" class="link-clear" id="clearConditions">Limpar</button>
-            </div>
-            <p class="help">Selecione todas que se aplicam.</p>
-
-            <div class="cond-grid" role="group" aria-label="Condições de saúde">
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Lesão">
-                <span>Lesão</span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Gravidez">
-                <span><i aria-hidden="true">✔</i> Gravidez</span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Pressão alta">
-                <span><i aria-hidden="true">✔</i> Trombose </span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Diabetes">
-                <span><i aria-hidden="true">✔</i> Gripe </span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                <span><i aria-hidden="true">✔</i> Câncer</span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                <span><i aria-hidden="true">✔</i> Cirurgias recentes </span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                <span><i aria-hidden="true">✔</i> Fraturas, hérnias, osteoporose ou osteopenia </span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Pressão alta">
-                <span><i aria-hidden="true">✔</i> Alergia a óleos corporais ou cremes </span>
-              </label>
-
-              <label class="hchip">
-                <input type="checkbox" name="bkCondition" value="Nenhuma">
-                <span><i aria-hidden="true">✔</i> Nenhuma das opções</span>
-              </label>
-
-
-            </div>
-          </div>
-
-
-
-          <!-- hidden inputs (mantém ids usados no JS) -->
-          <input type="hidden" id="bkDate">
-          <input type="hidden" id="bkTime">
-
-          <div class="row actions">
-            <button id="btnSubmit" class="btn btn-primary" type="submit" disabled>Agendar</button>
-            <div id="resume" class="resume"></div>
-          </div>
-        </form>
-
-        <div class="resume" id="resume"></div>
-      </section> <!-- fim formAgendar -->
-
-      <section id="agenda" class="panel hidden">
-        <h2>Agenda Geral</h2>
-
-        <div class="calendar-card big">
+        <section id="calendario" class="calendar-card big hidden">
           <div class="cal-head">
             <div class="cal-left">
-              <button class="btn btn-muted" id="agendaPrev" aria-label="Mês anterior">
+              <button class="btn btn-muted" id="calPrev" aria-label="Mês anterior">
                 <i class="fa-solid fa-chevron-left"></i>
               </button>
             </div>
 
             <div class="cal-title-wrap">
-              <h3 id="agendaTitle">Agenda</h3>
-              <div id="agendaSummary" class="cal-summary">Selecione um dia para ver as sessões.</div>
+              <h2 id="calTitle">Calendário</h2>
+              <div id="calSummary" class="cal-summary">Selecione um serviço para abrir o calendário.</div>
             </div>
 
+
             <div class="cal-right">
-              <label for="agendaJump" class="cal-jump-label">Ir para data:</label>
-              <input type="date" id="agendaJump">
-              <button class="btn btn-muted" id="agendaGo">Ir</button>
-              <button class="btn btn-muted" id="agendaNext" aria-label="Próximo mês">
+              <label for="calJump" class="cal-jump-label">Ir para data:</label>
+              <input type="date" id="calJump">
+              <button class="btn btn-muted" id="calGo">Ir</button>
+              <button class="btn btn-muted" id="calNext" aria-label="Próximo mês">
                 <i class="fa-solid fa-chevron-right"></i>
               </button>
             </div>
           </div>
 
           <div class="cal-legend">
-            <span class="chip chip-avail">Sessões</span>
-            <span class="chip chip-off">Feriado</span>
+            <span class="chip chip-avail">Disponível</span>
+            <span class="chip chip-full">Lotado</span>
+            <span class="chip chip-off">Indisponível</span>
           </div>
 
-          <div class="cal-grid" id="agendaGrid"></div>
+          <div class="cal-grid" id="calGrid"></div>
 
           <div class="cal-side">
-            <h3 id="agendaDayTitle">Sessões do dia</h3>
-            <div id="agendaDayInfo" class="slot-info">Selecione um dia no calendário.</div>
-            <div id="agendaList" class="slot-list"></div>
+            <h3>Disponibilidade do dia</h3>
+            <div id="slotInfo" class="slot-info">Selecione uma data no calendário.</div>
+            <div id="slotList" class="slot-list"></div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      <section id="posts" class="panel hidden">
-        <div class="posts-head">
-          <button id="postAddBtn" class="post-add" type="button" aria-label="Novo post">
-            <i class="fa-solid fa-plus"></i>
-            <span>Novo</span>
-          </button>
-        </div>
+        <section id="formAgendar" class="form-card">
+          <form id="bookingForm" class="booking-form">
+            <h3>Novo Agendamento</h3>
 
-        <div class="posts-container">
-          <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
-            <i class="fa-solid fa-arrow-left"></i>
-          </button>
-
-          <div class="posts-track">
-            <div class="posts-row" id="postsRow">
-              <!-- renderizado dinamicamente via JS -->
+            <div class="row">
+              <div class="col">
+                <label>Serviço
+                  <input id="bkService" placeholder="Escolha um serviço">
+                </label>
+              </div>
+              <div class="col">
+                <label>Cliente
+                  <input id="bkClient" placeholder="Nome completo">
+                </label>
+              </div>
+              <div class="col">
+                <label>Telefone/WhatsApp
+                  <input id="bkPhone" placeholder="(11) 99999-9999">
+                </label>
+              </div>
+              <div class="col">
+                <label>E-mail
+                  <input id="bkEmail" type="email" placeholder="cliente@gmail.com">
+                </label>
+              </div>
+              <div class="col">
+                <label>Valor (R$)
+                  <input id="bkPrice" type="number" min="0" step="1" value="0">
+                </label>
+              </div>
+              <div class="col">
+                <label>Profissional
+                  <input id="bkPro" readonly placeholder="Selecione no calendário">
+                </label>
+              </div>
+              <div class="col">
+                <label>Horário Selecionado:
+                  <input type="text" id="bkTimeDisplay" readonly>
+                </label>
+              </div>
+              <div class="col">
+                <label>Duração (min)
+                  <input id="bkDuration" type="number" min="1" step="1">
+                </label>
+              </div>
             </div>
-          </div>
 
-          <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
-            <i class="fa-solid fa-arrow-right"></i>
-          </button>
-        </div>
+            <div class="form-group" id="bkConditionWrapper">
+              <div class="row-head">
+                <label class="label">Condições de Saúde</label>
+                <button type="button" class="link-clear" id="clearConditions">Limpar</button>
+              </div>
+              <p class="help">Selecione todas que se aplicam.</p>
 
-        <!-- Editor (modal simples) -->
-        <dialog id="postEditor">
-          <form id="postForm" method="dialog">
-            <h3 id="postEditorTitle">Novo Post</h3>
+              <div class="cond-grid" role="group" aria-label="Condições de saúde">
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Lesão">
+                  <span>Lesão</span>
+                </label>
 
-            <input type="hidden" id="postId">
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Gravidez">
+                  <span><i aria-hidden="true">✔</i> Gravidez</span>
+                </label>
 
-            <label>
-              Título
-              <input type="text" id="postTitle" required placeholder="ex.: Benefícios da Reflexologia">
-            </label>
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Pressão alta">
+                  <span><i aria-hidden="true">✔</i> Trombose </span>
+                </label>
 
-            <label>
-              URL da imagem (opcional)
-              <input type="url" id="postImage" placeholder="https://...">
-            </label>
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Diabetes">
+                  <span><i aria-hidden="true">✔</i> Gripe </span>
+                </label>
 
-            <label>
-              Resumo (opcional)
-              <textarea id="postExcerpt" rows="3" placeholder="Uma breve descrição do post..."></textarea>
-            </label>
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
+                  <span><i aria-hidden="true">✔</i> Câncer</span>
+                </label>
 
-            <div class="post-form-actions">
-              <button type="button" id="postDelete" class="btn-danger" hidden>
-                <i class="fa-solid fa-trash"></i> Excluir
-              </button>
-              <span class="spacer"></span>
-              <button type="button" id="postCancel" class="btn-muted">Cancelar</button>
-              <button type="submit" class="btn-primary">Salvar</button>
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
+                  <span><i aria-hidden="true">✔</i> Cirurgias recentes </span>
+                </label>
+
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
+                  <span><i aria-hidden="true">✔</i> Fraturas, hérnias, osteoporose ou osteopenia </span>
+                </label>
+
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Pressão alta">
+                  <span><i aria-hidden="true">✔</i> Alergia a óleos corporais ou cremes </span>
+                </label>
+
+                <label class="hchip">
+                  <input type="checkbox" name="bkCondition" value="Nenhuma">
+                  <span><i aria-hidden="true">✔</i> Nenhuma das opções</span>
+                </label>
+
+
+              </div>
+            </div>
+
+
+
+            <!-- hidden inputs (mantém ids usados no JS) -->
+            <input type="hidden" id="bkDate">
+            <input type="hidden" id="bkTime">
+
+            <div class="row actions">
+              <button id="btnSubmit" class="btn btn-primary" type="submit" disabled>Agendar</button>
+              <div id="resume" class="resume"></div>
             </div>
           </form>
-        </dialog>
-      </section>
+
+          <div class="resume" id="resume"></div>
+        </section> <!-- fim formAgendar -->
+
+        <section id="agenda" class="panel hidden">
+          <h2>Agenda Geral</h2>
+
+          <div class="calendar-card big">
+            <div class="cal-head">
+              <div class="cal-left">
+                <button class="btn btn-muted" id="agendaPrev" aria-label="Mês anterior">
+                  <i class="fa-solid fa-chevron-left"></i>
+                </button>
+              </div>
+
+              <div class="cal-title-wrap">
+                <h3 id="agendaTitle">Agenda</h3>
+                <div id="agendaSummary" class="cal-summary">Selecione um dia para ver as sessões.</div>
+              </div>
+
+              <div class="cal-right">
+                <label for="agendaJump" class="cal-jump-label">Ir para data:</label>
+                <input type="date" id="agendaJump">
+                <button class="btn btn-muted" id="agendaGo">Ir</button>
+                <button class="btn btn-muted" id="agendaNext" aria-label="Próximo mês">
+                  <i class="fa-solid fa-chevron-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <div class="cal-legend">
+              <span class="chip chip-avail">Sessões</span>
+              <span class="chip chip-off">Feriado</span>
+            </div>
+
+            <div class="cal-grid" id="agendaGrid"></div>
+
+            <div class="cal-side">
+              <h3 id="agendaDayTitle">Sessões do dia</h3>
+              <div id="agendaDayInfo" class="slot-info">Selecione um dia no calendário.</div>
+              <div id="agendaList" class="slot-list"></div>
+            </div>
+          </div>
+        </section>
+
+        <section id="posts" class="panel hidden">
+          <div class="posts-head">
+            <button id="postAddBtn" class="post-add" type="button" aria-label="Novo post">
+              <i class="fa-solid fa-plus"></i>
+              <span>Novo</span>
+            </button>
+          </div>
+
+          <div class="posts-container">
+            <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
+              <i class="fa-solid fa-arrow-left"></i>
+            </button>
+
+            <div class="posts-track">
+              <div class="posts-row" id="postsRow">
+                <!-- renderizado dinamicamente via JS -->
+              </div>
+            </div>
+
+            <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
+              <i class="fa-solid fa-arrow-right"></i>
+            </button>
+          </div>
+
+          <!-- Editor (modal simples) -->
+          <dialog id="postEditor">
+            <form id="postForm" method="dialog">
+              <h3 id="postEditorTitle">Novo Post</h3>
+
+              <input type="hidden" id="postId">
+
+              <label>
+                Título
+                <input type="text" id="postTitle" required placeholder="ex.: Benefícios da Reflexologia">
+              </label>
+
+              <label>
+                URL da imagem (opcional)
+                <input type="url" id="postImage" placeholder="https://...">
+              </label>
+
+              <label>
+                Resumo (opcional)
+                <textarea id="postExcerpt" rows="3" placeholder="Uma breve descrição do post..."></textarea>
+              </label>
+
+              <div class="post-form-actions">
+                <button type="button" id="postDelete" class="btn-danger" hidden>
+                  <i class="fa-solid fa-trash"></i> Excluir
+                </button>
+                <span class="spacer"></span>
+                <button type="button" id="postCancel" class="btn-muted">Cancelar</button>
+                <button type="submit" class="btn-primary">Salvar</button>
+              </div>
+            </form>
+          </dialog>
+        </section>
 
 
-      <footer>© 2025 Rokuzen – Recepção</footer>
+        <footer>© 2025 Rokuzen – Recepção</footer>
+      </div>
     </div>
-  </div>
 
-  <script src="../JS/recepcao.js"></script>
-  <!-- VLibras - Acessibilidade em Libras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
+    <script src="../JS/recepcao.js"></script>
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
     </div>
-  </div>
 
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <script src="https://app.embed.im/accessibility.js" defer></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
 
 </html>
