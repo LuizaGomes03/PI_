@@ -1920,66 +1920,591 @@ input[type="text"] {
         z-index: 2 !important;
     }
 }
+
 /* ==== FIX: sidebar clicável no mobile ==== */
-@media (max-width:1024px){
+@media (max-width:1024px) {
 
-  /* não deixa a .app “prender” as camadas internas */
-  .app{
-    z-index: auto !important;   /* ou remove o z-index dela de vez */
-  }
+    /* não deixa a .app “prender” as camadas internas */
+    .app {
+        z-index: auto !important;
+        /* ou remove o z-index dela de vez */
+    }
 
-  /* blur global sempre lá atrás */
-  body::before{
-    z-index: 0 !important;
-  }
+    /* blur global sempre lá atrás */
+    body::before {
+        z-index: 0 !important;
+    }
 
-  /* ordem clara das camadas */
-  .menu-backdrop{
-    z-index: 1000 !important;
-    pointer-events: none;                /* só liga quando abrir */
-    /* se ainda embaçar a sidebar, força SEM blur: */
-    backdrop-filter: none !important;
-  }
-  .menu-backdrop.is-open{ pointer-events: auto; }
+    /* ordem clara das camadas */
+    .menu-backdrop {
+        z-index: 1000 !important;
+        pointer-events: none;
+        /* só liga quando abrir */
+        /* se ainda embaçar a sidebar, força SEM blur: */
+        backdrop-filter: none !important;
+    }
 
-  .sidebar{
-    position: fixed !important;
-    z-index: 1001 !important;            /* acima do backdrop */
-    pointer-events: auto;
-    contain: paint;                       /* evita “vazamento” de blur */
-  }
+    .menu-backdrop.is-open {
+        pointer-events: auto;
+    }
 
-  .menu-toggle{ z-index: 1002 !important; }
-}
-/* ==== FIX: sidebar clicável no mobile ==== */
-@media (max-width:1024px){
+    .sidebar {
+        position: fixed !important;
+        z-index: 1001 !important;
+        /* acima do backdrop */
+        pointer-events: auto;
+        contain: paint;
+        /* evita “vazamento” de blur */
+    }
 
-  /* não deixa a .app “prender” as camadas internas */
-  .app{
-    z-index: auto !important;   /* ou remove o z-index dela de vez */
-  }
-
-  /* blur global sempre lá atrás */
-  body::before{
-    z-index: 0 !important;
-  }
-
-  /* ordem clara das camadas */
-  .menu-backdrop{
-    z-index: 1000 !important;
-    pointer-events: none;                /* só liga quando abrir */
-    /* se ainda embaçar a sidebar, força SEM blur: */
-    backdrop-filter: none !important;
-  }
-  .menu-backdrop.is-open{ pointer-events: auto; }
-
-  .sidebar{
-    position: fixed !important;
-    z-index: 1001 !important;            /* acima do backdrop */
-    pointer-events: auto;
-    contain: paint;                       /* evita “vazamento” de blur */
-  }
-
-  .menu-toggle{ z-index: 1002 !important; }
+    .menu-toggle {
+        z-index: 1002 !important;
+    }
 }
 
+/* ==== FIX: sidebar clicável no mobile ==== */
+@media (max-width:1024px) {
+
+    /* não deixa a .app “prender” as camadas internas */
+    .app {
+        z-index: auto !important;
+        /* ou remove o z-index dela de vez */
+    }
+
+    /* blur global sempre lá atrás */
+    body::before {
+        z-index: 0 !important;
+    }
+
+    /* ordem clara das camadas */
+    .menu-backdrop {
+        z-index: 1000 !important;
+        pointer-events: none;
+        /* só liga quando abrir */
+        /* se ainda embaçar a sidebar, força SEM blur: */
+        backdrop-filter: none !important;
+    }
+
+    .menu-backdrop.is-open {
+        pointer-events: auto;
+    }
+
+    .sidebar {
+        position: fixed !important;
+        z-index: 1001 !important;
+        /* acima do backdrop */
+        pointer-events: auto;
+        contain: paint;
+        /* evita “vazamento” de blur */
+    }
+
+    .menu-toggle {
+        z-index: 1002 !important;
+    }
+}
+
+/* RELATÓRIO */
+
+/* GRID responsivo que se adapta sozinho */
+.relatorios-buttons {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+}
+
+/* Botão acessível com alvo confortável no touch */
+.rel-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+    min-height: 44px;
+    /* alvo mínimo recomendado */
+    padding: 12px 14px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    background: #f8fafc;
+    font-size: clamp(0.95rem, 0.6vw + 0.85rem, 1rem);
+    line-height: 1.1;
+    text-align: left;
+    cursor: pointer;
+    transition: transform .08s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+    white-space: normal;
+    /* permite quebra do título grande */
+}
+
+.rel-btn i {
+    font-size: 1.05em;
+    opacity: .8;
+}
+
+/* Hover/active/focus vibes */
+.rel-btn:hover {
+    background: #2563eb;
+    color: #fff;
+    border-color: #2563eb;
+}
+
+.rel-btn:hover i {
+    opacity: 1;
+    color: #fff;
+}
+
+.rel-btn:active {
+    transform: translateY(1px) scale(0.995);
+}
+
+/* Foco visível pra teclado */
+.rel-btn:focus-visible {
+    outline: 3px solid #2563eb;
+    outline-offset: 2px;
+}
+
+/* MOBILE tweaks – colunas menores quando faltar espaço */
+@media (max-width: 480px) {
+    .relatorios-buttons {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 10px;
+    }
+
+    .rel-btn {
+        padding: 12px;
+    }
+}
+
+/* CONTAINER QUERY opcional (se o .card for estreito, reduz colunas) */
+@container (max-width: 520px) {
+    .relatorios-buttons {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Dark mode de respeito */
+@media (prefers-color-scheme: dark) {
+    .rel-btn {
+        background: #0b1020;
+        border-color: #1f2937;
+        color: #e5e7eb;
+    }
+
+    .rel-btn:hover {
+        background: #2563eb;
+        border-color: #2563eb;
+        color: #fff;
+    }
+}
+
+/* Respeita quem não curte animação */
+@media (prefers-reduced-motion: reduce) {
+    .rel-btn {
+        transition: none;
+    }
+}
+
+
+/* CONTROLE DE PAGAMENTO */
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-bar select,
+.btn-filtrar {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-filtrar {
+    background: #2563eb;
+    transition: 0.2s;
+}
+
+.btn-filtrar:hover {
+    background: #1e40af;
+}
+
+/* ====== RESUMO ====== */
+.pag-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.resumo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.resumo-card:hover {
+    transform: translateY(-4px);
+}
+
+.resumo-card i {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+}
+
+.resumo-card.pago i {
+    color: #22c55e;
+}
+
+.resumo-card.pendente i {
+    color: #eab308;
+}
+
+.resumo-card.vencido i {
+    color: #ef4444;
+}
+
+/* ====== TABELA ====== */
+.pag-table table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f1f5f9;
+    font-size: 0.95rem;
+}
+
+.pag-table th {
+    text-align: left;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.pag-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.status.pago {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.status.pendente {
+    background: rgba(234, 179, 8, 0.2);
+    color: #eab308;
+}
+
+.status.vencido {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+
+/* EXTRATO FINANCEIRO*/
+
+.filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.filter-bar select,
+.filter-bar input,
+.btn-filtrar {
+    padding: 8px 12px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.1);
+    color: #fff;
+    cursor: pointer;
+}
+
+.btn-filtrar {
+    background: #2563eb;
+    transition: 0.2s;
+}
+
+.btn-filtrar:hover {
+    background: #1e40af;
+}
+
+/* ==== RESUMO ==== */
+.extrato-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.resumo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.resumo-card:hover {
+    transform: translateY(-4px);
+}
+
+.resumo-card.entrada i {
+    color: #22c55e;
+}
+
+.resumo-card.saida i {
+    color: #ef4444;
+}
+
+.resumo-card.saldo i {
+    color: #38bdf8;
+}
+
+/* ==== TABELA ==== */
+.extrato-table table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f1f5f9;
+    font-size: 0.95rem;
+}
+
+.extrato-table th {
+    text-align: left;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.extrato-table td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.status {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+}
+
+.status.entrada {
+    background: rgba(34, 197, 94, 0.2);
+    color: #22c55e;
+}
+
+.status.saida {
+    background: rgba(239, 68, 68, 0.2);
+    color: #ef4444;
+}
+
+
+/* ATDS X TERAPEUTAS RELATÓRIO*/
+.terap-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.terap-resumo .resumo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    text-align: center;
+    color: #fff;
+    transition: transform 0.2s;
+}
+
+.terap-resumo .resumo-card:hover {
+    transform: translateY(-4px);
+}
+
+.ranking {
+    margin-bottom: 30px;
+}
+
+.ranking h3 {
+    margin-bottom: 10px;
+    color: #f1f5f9;
+}
+
+.ranking table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f1f5f9;
+}
+
+.ranking th {
+    text-align: left;
+    padding: 8px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ranking td {
+    padding: 8px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.grafico-wrap {
+    margin-top: 30px;
+}
+
+.grafico-wrap h3 {
+    margin-bottom: 10px;
+    color: #f1f5f9;
+}
+
+
+.ponto-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.ponto-resumo .resumo-card {
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    transition: transform .2s;
+}
+
+.ponto-resumo .resumo-card:hover {
+    transform: translateY(-4px);
+}
+
+.resumo-card.ok i {
+    color: #22c55e;
+}
+
+.resumo-card.warn i {
+    color: #eab308;
+}
+
+.resumo-card.danger i {
+    color: #ef4444;
+}
+
+.resumo-card.info i {
+    color: #38bdf8;
+}
+
+.graf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+}
+
+.grafico-wrap h3 {
+    color: #f1f5f9;
+    margin: 0 0 8px;
+}
+
+.ponto-table-wrap .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f1f5f9;
+}
+
+.ponto-table-wrap th {
+    text-align: left;
+    padding: 10px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.ponto-table-wrap td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.badge {
+    display: inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: .85rem;
+}
+
+.badge.presente {
+    background: rgba(34, 197, 94, .2);
+    color: #22c55e;
+}
+
+.badge.atraso {
+    background: rgba(234, 179, 8, .2);
+    color: #eab308;
+}
+
+.badge.falta {
+    background: rgba(239, 68, 68, .2);
+    color: #ef4444;
+}
+
+
+/* CONTROLE DE PONTOS RELATÓRIO */
+.ponto-resumo {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  .ponto-resumo .resumo-card {
+    background: rgba(255,255,255,0.05);
+    border-radius: 12px;
+    padding: 15px;
+    color: #fff;
+    text-align: center;
+    transition: transform .2s;
+  }
+  .ponto-resumo .resumo-card:hover { transform: translateY(-4px); }
+  .resumo-card.ok i { color:#22c55e; }
+  .resumo-card.warn i { color:#eab308; }
+  .resumo-card.danger i { color:#ef4444; }
+  .resumo-card.info i { color:#38bdf8; }
+  
+  .graf-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 18px;
+    margin-bottom: 20px;
+  }
+  .grafico-wrap h3 { color:#f1f5f9; margin: 0 0 8px; }
+  
+  .ponto-table-wrap .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #f1f5f9;
+  }
+  .ponto-table-wrap th {
+    text-align: left;
+    padding: 10px;
+    background: rgba(255,255,255,0.1);
+  }
+  .ponto-table-wrap td {
+    padding: 10px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+  }
+  
+  .badge {
+    display:inline-block;
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: .85rem;
+  }
+  .badge.presente { background: rgba(34,197,94,.2); color:#22c55e; }
+  .badge.atraso   { background: rgba(234,179,8,.2); color:#eab308; }
+  .badge.falta    { background: rgba(239,68,68,.2); color:#ef4444; }
+  
