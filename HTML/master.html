@@ -305,7 +305,7 @@
                                     <th>Primeiro Atendimento</th>
                                     <th>Saúde</th>
                                     <th>Observações</th>
-                                    
+
                                     <th></th>
                                 </tr>
                             </thead>
@@ -853,37 +853,497 @@
 
 
             </section>
+
             <!-- ========== RELATÓRIO ========== -->
             <section id="view-relatorio" class="view" aria-labelledby="relTitle">
-                <div class="card">
+                <div class="card colaboradores-card">
                     <div class="atd-head">
                         <h2 id="relTitle"><i class="fa-solid fa-chart-line"></i> Relatório</h2>
                         <div class="muted">Indicadores da unidade: <b class="unitName">—</b></div>
                     </div>
 
-                    <ul class="relatorios-list">
-                        <li><i class="fa-solid fa-money-bill-wave"></i> Controle de Pagamentos</li>
-                        <li><i class="fa-solid fa-file-invoice-dollar"></i> Extrato Financeiro</li>
-                        <li><i class="fa-solid fa-chart-line"></i> Atds X Terapeutas</li>
-                        <li><i class="fa-solid fa-globe"></i> Atds X Parceiros</li>
-                        <li><i class="fa-solid fa-user-check"></i> Acessos X Terapeutas</li>
-                        <li><i class="fa-regular fa-clock"></i> Controle de Ponto</li>
-                        <li><i class="fa-solid fa-user-plus"></i> Novos Clientes</li>
-                        <li><i class="fa-solid fa-notes-medical"></i> Atendimentos</li>
-                        <li><i class="fa-regular fa-hourglass-half"></i> Tempo Terapeutas</li>
-                        <li><i class="fa-solid fa-clock-rotate-left"></i> Minutos Atendidos</li>
-                        <li><i class="fa-solid fa-gift"></i> Gifts</li>
-                        <li><i class="fa-solid fa-file-medical"></i> Prontuários</li>
-                        <li><i class="fa-solid fa-file-circle-xmark"></i> Prontuários não preenchidos</li>
-                        <li><i class="fa-solid fa-list-check"></i> Relatório Pontos Unidades</li>
-                        <li><i class="fa-solid fa-calendar-check"></i> Relatório Controle de Ponto/Escala</li>
-                        <li><i class="fa-solid fa-list-ul"></i> Relatório Controle de Ponto/Tipo</li>
-                    </ul>
+                    <div class="colab-grid">
+                        <a href="" data-view="rel-pagamentos" class="colab-item">
+                            <i class="fa-solid fa-money-bill-wave icon"></i>
+                            <h3>Controle de Pagamentos</h3>
+                            <p>Gerencie boletos, repasses e pendências</p>
+                        </a>
+
+                        <a href="#" data-view="rel-extrato" class="colab-item">
+                            <i class="fa-solid fa-file-invoice-dollar icon"></i>
+                            <h3>Extrato Financeiro</h3>
+                            <p>Visualize entradas e saídas por período</p>
+                        </a>
+
+                        <a href="#" data-view="rel-atds-parceiros" class="colab-item">
+                            <i class="fa-solid fa-globe icon"></i>
+                            <h3>Atds × Parceiros</h3>
+                            <p>Desempenho por convênio e parceria</p>
+                        </a>
+
+                        <a href="#" data-view="rel-ponto" class="colab-item">
+                            <i class="fa-regular fa-clock icon"></i>
+                            <h3>Controle de Ponto</h3>
+                            <p>Registros de entrada e saída</p>
+                        </a>
+
+                        <a href="#" data-view="rel-novos-clientes" class="colab-item">
+                            <i class="fa-solid fa-user-plus icon"></i>
+                            <h3>Novos Clientes</h3>
+                            <p>Cadastros recentes e origem</p>
+                        </a>
+
+                        <a href="#" data-view="rel-atendimentos" class="colab-item">
+                            <i class="fa-solid fa-notes-medical icon"></i>
+                            <h3>Atendimentos</h3>
+                            <p>Resumo de sessões realizadas</p>
+                        </a>
+
+                        <a href="#" data-view="rel-tempo-terapeutas" class="colab-item">
+                            <i class="fa-regular fa-hourglass-half icon"></i>
+                            <h3>Tempo Terapeutas</h3>
+                            <p>Métricas de tempo por profissional</p>
+                        </a>
+
+                        <a href="#" data-view="rel-minutos-atendidos" class="colab-item">
+                            <i class="fa-solid fa-clock-rotate-left icon"></i>
+                            <h3>Minutos Atendidos</h3>
+                            <p>Total e média por período</p>
+                        </a>
+
+                        <a href="#" data-view="rel-prontuarios" class="colab-item">
+                            <i class="fa-solid fa-file-medical icon"></i>
+                            <h3>Prontuários</h3>
+                            <p>Registros e atualizações</p>
+                        </a>
+
+                        <a href="#" data-view="rel-prontuarios-pendentes" class="colab-item">
+                            <i class="fa-solid fa-file-circle-xmark icon"></i>
+                            <h3>Prontuários não preenchidos</h3>
+                            <p>Itens pendentes por terapeuta</p>
+                        </a>
+
+                        <a href="#" data-view="rel-pontos-unidades" class="colab-item">
+                            <i class="fa-solid fa-list-check icon"></i>
+                            <h3>Pontos por Unidade</h3>
+                            <p>Métricas e ranking por unidade</p>
+                        </a>
+
+                        <a href="#" data-view="rel-escala" class="colab-item">
+                            <i class="fa-solid fa-calendar-check icon"></i>
+                            <h3>Ctrl. Ponto / Escala</h3>
+                            <p>Escalas e presenças</p>
+                        </a>
+
+                        <a href="#" data-view="rel-tipo-ponto" class="colab-item">
+                            <i class="fa-solid fa-list-ul icon"></i>
+                            <h3>Ctrl. Ponto / Tipo</h3>
+                            <p>Classificação dos registros</p>
+                        </a>
+                    </div>
+                </div>
+
+            </section>
+
+
+            <!-- ========== RELATÓRIO: CONTROLE DE PAGAMENTOS ========== -->
+            <section id="view-rel-pagamentos" class="view" aria-labelledby="RelatoriorelPagTitle">
+                <div class="card rel-card">
+                    <div class="atd-head">
+                        <h2 id="relPagTitle"><i class="fa-solid fa-money-bill-wave"></i> Controle de Pagamentos</h2>
+                        <div class="muted">
+                            Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
+                        </div>
+                    </div>
+
+                    <!-- FILTROS -->
+                    <div class="filter-bar">
+                        <select>
+                            <option>Todos os Status</option>
+                            <option>Pago</option>
+                            <option>Pendente</option>
+                            <option>Vencido</option>
+                        </select>
+
+                        <select>
+                            <option>Todas as Unidades</option>
+                            <option>Unidade 1</option>
+                            <option>Unidade 2</option>
+                            <option>Unidade 3</option>
+                        </select>
+
+                        <button class="btn-filtrar"><i class="fa-solid fa-filter"></i> Filtrar</button>
+                    </div>
+
+                    <!-- RESUMO GERAL -->
+                    <div class="pag-resumo">
+                        <div class="resumo-card pago">
+                            <i class="fa-solid fa-circle-check"></i>
+                            <h3>Pagos</h3>
+                            <p>R$ 45.300,00</p>
+                        </div>
+
+                        <div class="resumo-card pendente">
+                            <i class="fa-solid fa-clock"></i>
+                            <h3>Pendentes</h3>
+                            <p>R$ 12.450,00</p>
+                        </div>
+
+                        <div class="resumo-card vencido">
+                            <i class="fa-solid fa-triangle-exclamation"></i>
+                            <h3>Vencidos</h3>
+                            <p>R$ 4.800,00</p>
+                        </div>
+                    </div>
+
+                    <!-- TABELA DETALHADA -->
+                    <div class="pag-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Unidade</th>
+                                    <th>Status</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01/10/2025</td>
+                                    <td>Repasses Terapeutas</td>
+                                    <td>Unidade 1</td>
+                                    <td><span class="status pago">Pago</span></td>
+                                    <td>R$ 8.500,00</td>
+                                </tr>
+                                <tr>
+                                    <td>03/10/2025</td>
+                                    <td>Parceria Clínica Azul</td>
+                                    <td>Unidade 3</td>
+                                    <td><span class="status pendente">Pendente</span></td>
+                                    <td>R$ 1.200,00</td>
+                                </tr>
+                                <tr>
+                                    <td>05/10/2025</td>
+                                    <td>Mensalidade Plataforma</td>
+                                    <td>Unidade 2</td>
+                                    <td><span class="status vencido">Vencido</span></td>
+                                    <td>R$ 350,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ========== RELATÓRIO: EXTRATO FINANCEIRO ========== -->
+            <section id="view-rel-extrato" class="view" aria-labelledby="RelatoriorelPagTitle">
+                <div class="card rel-card">
+                    <div class="atd-head">
+                        <h2 id="relExtratoTitle"><i class="fa-solid fa-file-invoice-dollar"></i> Extrato Financeiro</h2>
+                        <div class="muted">
+                            Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
+                        </div>
+                    </div>
+
+                    <!-- FILTROS -->
+                    <div class="filter-bar">
+                        <select id="extratoTipo">
+                            <option value="">Todos os Tipos</option>
+                            <option value="entrada">Entradas</option>
+                            <option value="saida">Saídas</option>
+                        </select>
+
+                        <select id="extratoUnidade">
+                            <option>Todas as Unidades</option>
+                            <option>Unidade 1</option>
+                            <option>Unidade 2</option>
+                            <option>Unidade 3</option>
+                            <option>Unidade 4</option>
+                            <option>Unidade 5</option>
+                        </select>
+
+                        <input type="month" id="extratoPeriodo" value="2025-10">
+
+                        <button class="btn-filtrar"><i class="fa-solid fa-filter"></i> Filtrar</button>
+                    </div>
+
+                    <!-- RESUMO -->
+                    <div class="extrato-resumo">
+                        <div class="resumo-card entrada">
+                            <i class="fa-solid fa-arrow-trend-up"></i>
+                            <h3>Entradas</h3>
+                            <p>R$ 68.900,00</p>
+                        </div>
+
+                        <div class="resumo-card saida">
+                            <i class="fa-solid fa-arrow-trend-down"></i>
+                            <h3>Saídas</h3>
+                            <p>R$ 43.200,00</p>
+                        </div>
+
+                        <div class="resumo-card saldo">
+                            <i class="fa-solid fa-scale-balanced"></i>
+                            <h3>Saldo</h3>
+                            <p>R$ 25.700,00</p>
+                        </div>
+                    </div>
+
+                    <!-- TABELA -->
+                    <div class="extrato-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Data</th>
+                                    <th>Descrição</th>
+                                    <th>Unidade</th>
+                                    <th>Tipo</th>
+                                    <th>Valor</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>01/10/2025</td>
+                                    <td>Repasses Terapeutas</td>
+                                    <td>Unidade 1</td>
+                                    <td><span class="status saida">Saída</span></td>
+                                    <td>R$ 8.500,00</td>
+                                </tr>
+                                <tr>
+                                    <td>02/10/2025</td>
+                                    <td>Venda de Pacote 10 Sessões</td>
+                                    <td>Unidade 2</td>
+                                    <td><span class="status entrada">Entrada</span></td>
+                                    <td>R$ 2.000,00</td>
+                                </tr>
+                                <tr>
+                                    <td>03/10/2025</td>
+                                    <td>Mensalidade Plataforma</td>
+                                    <td>Unidade 3</td>
+                                    <td><span class="status saida">Saída</span></td>
+                                    <td>R$ 350,00</td>
+                                </tr>
+                                <tr>
+                                    <td>05/10/2025</td>
+                                    <td>Repasse Parceiro Clínica Azul</td>
+                                    <td>Unidade 1</td>
+                                    <td><span class="status saida">Saída</span></td>
+                                    <td>R$ 1.200,00</td>
+                                </tr>
+                                <tr>
+                                    <td>06/10/2025</td>
+                                    <td>Atendimento Terapêutico</td>
+                                    <td>Unidade 4</td>
+                                    <td><span class="status entrada">Entrada</span></td>
+                                    <td>R$ 250,00</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
 
 
+            <!-- ========== ATDS X TERAPEUTAS ========== -->
+            <section id="view-rel-atds-parceiros" class="view" aria-labelledby="RelatoriorelPagTitle">
+                <div class="card rel-card">
+                    <div class="atd-head">
+                        <h2 id="relAtdsTitle"><i class="fa-solid fa-chart-line"></i> Atds × Terapeutas</h2>
+                        <div class="muted">
+                            Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
+                        </div>
+                    </div>
 
+                    <!-- FILTROS -->
+                    <div class="filter-bar">
+                        <select id="filtroUnidade">
+                            <option>Todas as Unidades</option>
+                            <option>Unidade 1</option>
+                            <option>Unidade 2</option>
+                            <option>Unidade 3</option>
+                            <option>Unidade 4</option>
+                            <option>Unidade 5</option>
+                        </select>
+
+                        <input type="month" id="filtroMes" value="2025-10">
+
+                        <button class="btn-filtrar"><i class="fa-solid fa-filter"></i> Filtrar</button>
+                    </div>
+
+                    <!-- RESUMO GERAL -->
+                    <div class="terap-resumo">
+                        <div class="resumo-card">
+                            <i class="fa-solid fa-users"></i>
+                            <h3>Total de Terapeutas</h3>
+                            <p>14</p>
+                        </div>
+
+                        <div class="resumo-card">
+                            <i class="fa-solid fa-notes-medical"></i>
+                            <h3>Total de Atendimentos</h3>
+                            <p>356</p>
+                        </div>
+
+                        <div class="resumo-card">
+                            <i class="fa-regular fa-clock"></i>
+                            <h3>Horas Totais</h3>
+                            <p>482h</p>
+                        </div>
+                    </div>
+
+                    <!-- RANKING -->
+                    <div class="ranking">
+                        <h3><i class="fa-solid fa-trophy"></i> Top 5 Terapeutas do Mês</h3>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Posição</th>
+                                    <th>Nome</th>
+                                    <th>Unidade</th>
+                                    <th>Atendimentos</th>
+                                    <th>Horas Totais</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>🥇</td>
+                                    <td>Ana Souza</td>
+                                    <td>Unidade 1</td>
+                                    <td>62</td>
+                                    <td>82h</td>
+                                </tr>
+                                <tr>
+                                    <td>🥈</td>
+                                    <td>Lucas Martins</td>
+                                    <td>Unidade 3</td>
+                                    <td>59</td>
+                                    <td>75h</td>
+                                </tr>
+                                <tr>
+                                    <td>🥉</td>
+                                    <td>Marina Lima</td>
+                                    <td>Unidade 4</td>
+                                    <td>55</td>
+                                    <td>71h</td>
+                                </tr>
+                                <tr>
+                                    <td>4º</td>
+                                    <td>Rafaela Gomes</td>
+                                    <td>Unidade 2</td>
+                                    <td>49</td>
+                                    <td>63h</td>
+                                </tr>
+                                <tr>
+                                    <td>5º</td>
+                                    <td>Diego Costa</td>
+                                    <td>Unidade 5</td>
+                                    <td>47</td>
+                                    <td>60h</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <!-- GRÁFICO -->
+                    <div class="grafico-wrap">
+                        <h3><i class="fa-solid fa-chart-column"></i> Atendimentos por Terapeuta</h3>
+                        <canvas id="graficoAtdsTerapeutas" height="150"></canvas>
+                    </div>
+                </div>
+            </section>
+            <!-- COTROLE DE PONTOS  -->
+            <section id="view-rel-ponto" class="view" aria-labelledby="RelatoriorelPagTitle">
+                <div class="card rel-card">
+                    <div class="atd-head">
+                        <h2 id="relPontoTitle"><i class="fa-regular fa-clock"></i> Controle de Ponto</h2>
+                        <div class="muted">
+                            Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
+                        </div>
+                    </div>
+
+                    <!-- FILTROS -->
+                    <div class="filter-bar">
+                        <select id="pontoUnidade">
+                            <option value="">Todas as Unidades</option>
+                            <option>Unidade 1</option>
+                            <option>Unidade 2</option>
+                            <option>Unidade 3</option>
+                            <option>Unidade 4</option>
+                            <option>Unidade 5</option>
+                        </select>
+
+                        <select id="pontoStatus">
+                            <option value="">Todos os Status</option>
+                            <option value="presente">Presente</option>
+                            <option value="atraso">Atraso</option>
+                            <option value="falta">Falta</option>
+                        </select>
+
+                        <input type="month" id="pontoMes" value="2025-10">
+                        <button id="pontoFiltrar" class="btn-filtrar"><i class="fa-solid fa-filter"></i>
+                            Filtrar</button>
+                    </div>
+
+                    <!-- RESUMO -->
+                    <div class="ponto-resumo">
+                        <div class="resumo-card ok">
+                            <i class="fa-solid fa-user-check"></i>
+                            <h3>Presenças</h3>
+                            <p id="kpiPresencas">—</p>
+                        </div>
+                        <div class="resumo-card warn">
+                            <i class="fa-solid fa-hourglass-half"></i>
+                            <h3>Atrasos</h3>
+                            <p id="kpiAtrasos">—</p>
+                        </div>
+                        <div class="resumo-card danger">
+                            <i class="fa-solid fa-user-xmark"></i>
+                            <h3>Faltas</h3>
+                            <p id="kpiFaltas">—</p>
+                        </div>
+                        <div class="resumo-card info">
+                            <i class="fa-regular fa-clock"></i>
+                            <h3>Horas Totais</h3>
+                            <p id="kpiHoras">—</p>
+                        </div>
+                    </div>
+
+                    <!-- GRÁFICOS -->
+                    <div class="graf-grid">
+                        <div class="grafico-wrap">
+                            <h3><i class="fa-solid fa-chart-column"></i> Status por Unidade</h3>
+                            <canvas id="chartStatusPorUnidade" height="160"></canvas>
+                        </div>
+                        <div class="grafico-wrap">
+                            <h3><i class="fa-solid fa-chart-line"></i> Horas por Dia (mês)</h3>
+                            <canvas id="chartHorasDia" height="160"></canvas>
+                        </div>
+                    </div>
+
+                    <!-- TABELA -->
+                    <div class="ponto-table-wrap">
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>Unidade</th>
+                                    <th>Entrada</th>
+                                    <th>Intervalo</th>
+                                    <th>Saída</th>
+                                    <th>Horas</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pontoBody">
+                                <!-- Linhas geradas via JS -->
+                            </tbody>
+                        </table>
+                        <p id="pontoEmpty" class="muted" style="display:none; text-align:center; padding:12px;">
+                            Nenhum registro para os filtros selecionados 👀
+                        </p>
+                    </div>
+                </div>
+            </section>
 
 
             <!-- ========== PARCEIROS ========== -->
