@@ -1,47 +1,127 @@
-const db = require('../config/db');
+import db from '../config/db.js';
 
-async function listarClientesPorUnidade(req, res) {
-  const { idUnidade } = req.params;
+export const listarClientesPorUnidade = async (req, res) => {
+  const { unidadeId } = req.params;
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        c.cliente_id,
+        c.nome_cliente,
+        c.telefone_cliente,
+        c.email_cliente,
+        c.data_nascimento,
+        c.primeiro_atendimento,
+        c.observacoes,
+        c.sexo,
+        GROUP_CONCAT(DISTINCT cm.nome SEPARATOR ', ') AS condicoes,
+        GROUP_CONCAT(DISTINCT a.nome SEPARATOR ', ') AS alergias,
+        GROUP_CONCAT(DISTINCT h.nome SEPARATOR ', ') AS historico
+      FROM clientes c
+      JOIN cliente_unidade cu ON c.cliente_id = cu.cliente_id
+      LEFT JOIN cliente_condicoes cc ON c.cliente_id = cc.cliente_id
+      LEFT JOIN condicoes_medicas cm ON cc.condicao_id = cm.id
+      LEFT JOIN cliente_alergias ca ON c.cliente_id = ca.cliente_id
+      LEFT JOIN alergias a ON ca.alergia_id = a.id
+      LEFT JOIN cliente_historico_saude ch ON c.cliente_id = ch.cliente_id
+      LEFT JOIN historico_saude h ON ch.historico_id = h.id
+      WHERE cu.unidade_id = ?
+      GROUP BY c.cliente_id
+      ORDER BY c.nome_cliente;
+    `, [unidadeId]);
 
-  const clientes = await db.query(`
-    SELECT c.*, cu.id_unidade
-    FROM clientes c
-    JOIN cliente_unidade cu ON cu.id_cliente = c.id_cliente
-    WHERE cu.id_unidade = ?
-  `, [idUnidade]);
+    // substitui nulls por 'Nenhum'
+    const formatted = rows.map(r => ({
+      ...r,
+      condicoes: r.condicoes || 'Nenhum',
+      alergias: r.alergias || 'Nenhum',
+      historico: r.historico || 'Nenhum'
+    }));
 
-  const clientesComSaude = await Promise.all(clientes.map(async cliente => {
-    const condicoes = await db.query(`
-      SELECT cm.nome_condicao
-      FROM condicoes_medicas cm
-      JOIN cliente_condicoes_medicas ccm ON ccm.id_condicao = cm.id_condicao
-      WHERE ccm.id_cliente = ?
-    `, [cliente.id_cliente]);
+    res.json(formatted);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao buscar clientes.' });
+  }
+};
 
-    const alergias = await db.query(`
-      SELECT a.nome_alergia
-      FROM alergias a
-      JOIN cliente_alergias ca ON ca.id_alergia = a.id_alergia
-      WHERE ca.id_cliente = ?
-    `, [cliente.id_cliente]);
+export const cadastrarCliente = async (req, res) => {
+  const {
+    nome_cliente,
+    telefone_cliente,
+    email_cliente,
+    data_nascimento,
+    sexo,
+    observacoes,
+    unidade_id
+  } = req.body;
 
-    const historico = await db.query(`
-      SELECT h.descricao
-      FROM historico_saude h
-      JOIN cliente_historico_saude chs ON chs.id_historico = h.id_historico
-      WHERE chs.id_cliente = ?
-    `, [cliente.id_cliente]);
+  if (!nome_cliente || !telefone_cliente || !unidade_id) {
+    return res.status(400).json({ error: 'Nome, telefone e unidade são obrigatórios.' });
+  }
 
-    cliente.saude = [
-      condicoes.map(c => c.nome_condicao).join(', '),
-      alergias.map(a => a.nome_alergia).join(', '),
-      historico.map(h => h.descricao).join(', ')
-    ].filter(Boolean).join(' | ') || 'Nenhum';
+  const conn = await db.getConnection();
+  await conn.beginTransaction();
 
-    return cliente;
-  }));
+  try {
+    const [result] = await conn.query(
+      `INSERT INTO clientes (nome_cliente, telefone_cliente, email_cliente, data_nascimento, sexo, observacoes)
+       VALUES (?, ?, ?, ?, ?, ?)`,
+      [nome_cliente, telefone_cliente, email_cliente, data_nascimento, sexo, observacoes]
+    );
 
-  res.json(clientesComSaude);
-}
+    const clienteId = result.insertId;
 
-module.exports = { listarClientesPorUnidade };
+    await conn.query(
+      `INSERT INTO cliente_unidade (cliente_id, unidade_id) VALUES (?, ?)`,
+      [clienteId, unidade_id]
+    );
+
+    await conn.commit();
+    res.status(201).json({ message: 'Cliente cadastrado com sucesso!', cliente_id: clienteId });
+  } catch (err) {
+    await conn.rollback();
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao cadastrar cliente.' });
+  } finally {
+    conn.release();
+  }
+};
+
+export const atualizarCliente = async (req, res) => {
+  const { id } = req.params;
+  const {
+    nome_cliente,
+    telefone_cliente,
+    email_cliente,
+    data_nascimento,
+    sexo,
+    observacoes
+  } = req.body;
+
+  try {
+    const [result] = await db.query(
+      `UPDATE clientes 
+       SET nome_cliente=?, telefone_cliente=?, email_cliente=?, data_nascimento=?, sexo=?, observacoes=? 
+       WHERE cliente_id=?`,
+      [nome_cliente, telefone_cliente, email_cliente, data_nascimento, sexo, observacoes, id]
+    );
+    if (!result.affectedRows) return res.status(404).json({ error: 'Cliente não encontrado' });
+    res.json({ message: 'Cliente atualizado com sucesso!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao atualizar cliente.' });
+  }
+};
+
+export const removerCliente = async (req, res) => {
+  const { id } = req.params;
+  try {
+    await db.query('DELETE FROM cliente_unidade WHERE cliente_id=?', [id]);
+    const [result] = await db.query('DELETE FROM clientes WHERE cliente_id=?', [id]);
+    if (!result.affectedRows) return res.status(404).json({ error: 'Cliente não encontrado' });
+    res.json({ message: 'Cliente removido com sucesso!' });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: 'Erro ao remover cliente.' });
+  }
+};
