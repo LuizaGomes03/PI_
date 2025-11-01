@@ -1,12 +1,15 @@
 const express = require('express');
 const cors = require('cors');
-const pool = require('./config/db'); // importa a conexão
+const pool = require('./config/db');
+const clientesRoutes = require('./routes/clientes');
+
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
-// testa conexão assim que o servidor sobe
+app.use('/api/clientes', clientesRoutes);
+
 (async () => {
   try {
     const [rows] = await pool.query('SELECT NOW() AS data');
@@ -16,10 +19,7 @@ app.use(express.json());
   }
 })();
 
-const clientesRoutes = require('./routes/clientes');
-app.use('/api', clientesRoutes);
-
-app.get('/', (req, res) => res.send('API rodando'));
+app.get('/', (req, res) => res.send('API rodando 🚀'));
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => console.log(`Servidor rodando na porta ${PORT}`));
