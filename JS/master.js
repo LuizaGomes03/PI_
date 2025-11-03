@@ -912,4 +912,24 @@ cliFormCad?.addEventListener('submit', async (e) => {
     console.error('Erro ao salvar cliente:', err);
     alert('Falha ao salvar cliente. Verifique o console.');
   }
+
+
+
+  document.getElementById("baixarRelatorio").addEventListener("click", () => {
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF();
+
+    doc.text("Relatório - Serviços e Pacotes", 14, 15);
+    doc.autoTable({
+      html: "#tabelaPacotes",
+      startY: 25,
+      theme: "grid",
+      styles: { fontSize: 10, halign: "center" },
+      headStyles: { fillColor: [46, 125, 50] },
+    });
+
+    doc.save("relatorio-pacotes.pdf");
+  });
+
+
 });
