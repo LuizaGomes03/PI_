@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rokuzen — Condições Médicas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="..\TOTEM\CSS\totem_cond_med.css">
+</head>
+
+<body>
+    <div class="rk-shell">
+        <!-- Topo -->
+        <header class="rk-bar">
+            <div class="rk-brand">
+                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
+                <div class="name">Rokuzen • Condições Médicas – Passo 3</div>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button class="btn" onclick="history.back()">Voltar</button>
+                <button class="btn primary" id="btnFull">Tela cheia</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Coluna esquerda: título/instruções -->
+            <section class="card">
+                <div class="inner">
+                    <div class="step"><span class="pill">PASSO 3</span> Condições Médicas</div>
+                    <h1 class="title-xl">Condições Médicas</h1>
+                    <p class="subtitle">Selecione as condições médicas que se aplicam a você ou clique em nenhuma das
+                        opções. Depois clique em <b>Continuar</b>.</p>
+                    <div class="divider"></div>
+                    <div style="color:var(--muted);font-size:14px">Valores válidos para este espaço. Sujeito à agenda.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna direita: Seleção de Condições -->
+            <section class="card">
+                <div class="conditions">
+                    <div class="group">
+                        <h3>Condições Médicas</h3>
+                        <div class="chips">
+                            <label><input type="checkbox" value="Gravidez"><span>Gravidez</span></label>
+                            <label><input type="checkbox" value="Trombose"><span>Trombose</span></label>
+                            <label><input type="checkbox" value="Gripe"><span>Gripe</span></label>
+                            <label><input type="checkbox" value="Câncer"><span>Câncer</span></label>
+                            <label><input type="checkbox" value="Alterações de Pressão Arterial"><span>Alterações de
+                                    Pressão Arterial</span></label>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <h3>Alergias</h3>
+                        <div class="chips">
+                            <label><input type="checkbox" value="Alergia a Óleos Corporais ou Cremes"><span>Alergia a
+                                    Óleos Corporais ou Cremes</span></label>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <h3>Histórico de Saúde</h3>
+                        <div class="chips">
+                            <label><input type="checkbox"
+                                    value="Fraturas, Hérnias, Osteoporose ou Osteopenia"><span>Fraturas, Hérnias,
+                                    Osteoporose ou Osteopenia</span></label>
+                            <label><input type="checkbox" value="Cirurgias Recentes"><span>Cirurgias
+                                    Recentes</span></label>
+                        </div>
+                    </div>
+
+                    <div class="group">
+                        <h3>Outros</h3>
+                        <div class="chips">
+                            <label><input type="checkbox" value="Nenhuma das opções acima"><span>Nenhuma das opções
+                                    acima</span></label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn" onclick="history.back()">Cancelar</button>
+                    <button class="btn primary" id="goNext">Continuar</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="ticker"><span>Selecione as condições médicas e clique em continuar.</span></div>
+            <div></div>
+        </footer>
+    </div>
+
+    <script>
+        // Tela cheia
+        document.getElementById('btnFull').addEventListener('click', async () => {
+            try {
+                if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+                else await document.exitFullscreen();
+            } catch (e) { }
+        });
+
+        // Seleção de condições médicas
+        const chips = [...document.querySelectorAll('.chips label')];
+        let nenhumaOpcao = document.querySelector('.chips input[value="Nenhuma das opções acima"]');
+        let selectedConditions = [];
+
+        chips.forEach(chip => {
+            const input = chip.querySelector("input");
+            const span = chip.querySelector("span");
+
+            if (!input || !span) return;
+
+            input.addEventListener('change', () => {
+                if (nenhumaOpcao && input === nenhumaOpcao && input.checked) {
+                    document.querySelectorAll('.chips input').forEach(outro => {
+                        if (outro === nenhumaOpcao) return;
+                        outro.checked = false;
+                        outro.closest('label').querySelector('span').style.backgroundColor = "#e6edd7";
+                        outro.closest('label').querySelector('span').style.color = "#222";
+                    });
+                }
+                if (input.checked) {
+                    span.style.backgroundColor = "#9DB668";
+                    span.style.color = "#fff";
+                    selectedConditions.push(input.value);
+                } else {
+                    span.style.backgroundColor = "#e6edd7";
+                    span.style.color = "#222";
+                    selectedConditions = selectedConditions.filter(cond => cond !== input.value);
+                }
+            });
+        });
+
+        // Próxima etapa
+        document.getElementById('goNext').addEventListener('click', () => {
+            if (selectedConditions.length === 0) {
+                alert('Selecione ao menos uma condição ou marque "Nenhuma das opções acima"');
+                return;
+            }
+            // Exemplo: Envia as condições selecionadas para a próxima página
+            window.location.href = `agendamento_condicoes_med.html?condicoes=${selectedConditions.join(',')}`;
+        });
+
+    </script>
+</body>
+
+</html>
