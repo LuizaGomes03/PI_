@@ -127,13 +127,62 @@ function renderCalendar(date) {
 
 // Inicializa calendário
 renderCalendar(currentDate);
-
-// Submissão do formulário
+// Submissão do formulário — mostra popup em vez de alert
 bookingForm.addEventListener('submit', function (e) {
   e.preventDefault();
-  alert(`Agendamento confirmado:\nCliente: ${clientName.value}\nTelefone: ${clientPhone.value}\nData: ${selectedDateInput.value}\nHorário: ${selectedTimeInput.value}`);
-  bookingForm.reset();
-  bookingForm.style.display = 'none';
+
+  // valores do formulário (pega os ids existentes)
+  const nome = document.getElementById('clientName').value || '(sem nome)';
+  const tel = document.getElementById('clientPhone').value || '(sem telefone)';
+  const data = selectedDateInput.value || '(data não selecionada)';
+  const hora = selectedTimeInput.value || '(horário não selecionado)';
+
+  // montar texto de confirmação
+  const texto = `Cliente: ${nome}\nTelefone: ${tel}\nData: ${data}\nHorário: ${hora}`;
+
+  // preencher popup e abrir
+  const bookingPopup = document.getElementById('bookingPopup');
+  const bookingPopupText = document.getElementById('bookingPopupText');
+  bookingPopupText.innerText = texto;
+  bookingPopup.classList.add('active');
+  bookingPopup.setAttribute('aria-hidden', 'false');
+  document.body.style.overflow = 'hidden';
+
+  // opcional: manter o formulário visível até o usuário fechar o popup
+});
+
+// fechar popup ao clicar no botão "Fechar"
+document.addEventListener('DOMContentLoaded', () => {
+  const bookingPopup = document.getElementById('bookingPopup');
+  const closeBookingPopup = document.getElementById('closeBookingPopup');
+
+  if (closeBookingPopup && bookingPopup) {
+    closeBookingPopup.addEventListener('click', () => {
+      bookingPopup.classList.remove('active');
+      bookingPopup.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+
+      // limpar formulário e esconder
+      bookingForm.reset();
+      bookingForm.style.display = 'none';
+      // opcional: remover seleção visual de time-slot
+      document.querySelectorAll('.time-slot.selected').forEach(s => s.classList.remove('selected'));
+    });
+
+    // fechar clicando fora da caixa
+    bookingPopup.addEventListener('click', (e) => {
+      if (e.target === bookingPopup) {
+        closeBookingPopup.click();
+      }
+    });
+
+    // fechar com ESC
+    document.addEventListener('keydown', (e) => {
+      if (e.key === "Escape" && bookingPopup.classList.contains('active')) {
+        closeBookingPopup.click();
+      }
+    });
+  }
 });
 
 // ==== LOGOUT ==== 
@@ -196,6 +245,8 @@ document.querySelectorAll('.checkbox-btn').forEach(label => {
     }
   });
 });
+
+
 
 
 
