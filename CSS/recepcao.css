@@ -613,3 +613,92 @@ body::before {
   background: #9DB668;
   color: #fff;
 }
+
+/* POPUP DE CONFIRMAÇÃO DE AGENDAMENTO ESTILIZADO */
+#bookingPopup .popup-box {
+  max-width: 420px;
+  width: 90%;
+  padding: 28px 32px;
+  border-radius: 20px;
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(157, 182, 104, 0.2);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  text-align: center;
+  position: relative;
+  animation: popupFade 0.3s ease both;
+}
+
+#bookingPopup .popup-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: rgba(157, 182, 104, 0.5);
+  border-radius: 3px;
+  margin-top: 8px;
+}
+
+#bookingPopup .popup-box h3 {
+  font-size: 22px;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--green);
+  font-family: 'Amatic SC', cursive;
+}
+
+#bookingPopup .popup-box h3 i {
+  font-size: 24px;
+  color: var(--green-600);
+}
+
+#bookingPopup .popup-text {
+  font-size: 15px;
+  margin-bottom: 22px;
+  color: var(--muted);
+  line-height: 1.5;
+  white-space: pre-line;
+  /* mantém quebras de linha do JS */
+}
+
+#bookingPopup .popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+#bookingPopup .popup-btn.confirm {
+  background: #e74c3c;
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+#bookingPopup .popup-btn.confirm:hover {
+  background: #c0392b;
+}
+
+#bookingPopup .popup-btn.cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+#bookingPopup .popup-btn.cancel:hover {
+  background: rgba(157, 182, 104, 0.2);
+  color: #fff;
+}

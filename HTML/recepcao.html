@@ -141,7 +141,7 @@
             <label class="checkbox-btn"><input type="checkbox" name="others" value="Nenhuma das opções acima"> Nenhuma
               das opções acima</label>
           </div>
-          
+
           <button type="submit">Confirmar Agendamento</button>
         </form>
       </div>
@@ -172,6 +172,18 @@
         </div>
       </div>
     </div>
+
+    <!-- POPUP DE CONFIRMAÇÃO DE AGENDAMENTO -->
+    <div id="bookingPopup" class="popup-overlay" aria-hidden="true">
+      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="bookingPopupTitle">
+        <h3 id="bookingPopupTitle"><i class="fa-solid fa-circle-check"></i> Agendamento Confirmado</h3>
+        <p id="bookingPopupText" class="popup-text"></p>
+        <div class="popup-actions">
+          <button id="closeBookingPopup" class="popup-btn confirm">Fechar</button>
+        </div>
+      </div>
+    </div>
+
 </body>
 
 </html>
