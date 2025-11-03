@@ -9,6 +9,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="../CSS/recepcao.css">
+  <script src="../JS/recepcao.js" defer></script>
 </head>
 
 <body>
@@ -80,280 +81,65 @@
       <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
     </aside>
 
-    <div class="main">
-      <div class="shell">
-        <header class="head">
-          <img src="../imagens/logo.png" class="logo" alt="Rokuzen" id="logo">
-          <div>
-            <h1>Nossos Serviços</h1>
-          </div>
-        </header>
+    <!-- Seção de Agendamento -->
+    <div id="agendamento" class="calendar-section" style="display:none;">
+      <div class="calendar-card">
+        <div id="calendar"></div>
+        <div id="details" class="details"></div>
 
-        <section id="catalogo" class="services"></section>
-
-        <section id="calendario" class="calendar-card big hidden">
-          <div class="cal-head">
-            <div class="cal-left">
-              <button class="btn btn-muted" id="calPrev" aria-label="Mês anterior">
-                <i class="fa-solid fa-chevron-left"></i>
-              </button>
-            </div>
-
-            <div class="cal-title-wrap">
-              <h2 id="calTitle">Calendário</h2>
-              <div id="calSummary" class="cal-summary">Selecione um serviço para abrir o calendário.</div>
-            </div>
-
-
-            <div class="cal-right">
-              <label for="calJump" class="cal-jump-label">Ir para data:</label>
-              <input type="date" id="calJump">
-              <button class="btn btn-muted" id="calGo">Ir</button>
-              <button class="btn btn-muted" id="calNext" aria-label="Próximo mês">
-                <i class="fa-solid fa-chevron-right"></i>
-              </button>
-            </div>
-          </div>
-
-          <div class="cal-legend">
-            <span class="chip chip-avail">Disponível</span>
-            <span class="chip chip-full">Lotado</span>
-            <span class="chip chip-off">Indisponível</span>
+        <!-- Formulário de agendamento -->
+        <form id="bookingForm" class="booking-form" style="display:none;">
+          <h3>Agendamento do Cliente</h3>
+          <label>Data:
+            <input type="text" id="selectedDate" name="date" readonly>
+          </label>
+          <label>Horário:
+            <input type="text" id="selectedTime" name="time" readonly>
+          </label>
+          <label>Nome do Cliente:
+            <input type="text" id="clientName" name="name" placeholder="Digite o nome do cliente" required>
+          </label>
+          <label>Telefone:
+            <input type="tel" id="clientPhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
+          </label>
+          <label>Observações:
+            <textarea id="observations" name="observations" placeholder="Alguma observação"></textarea>
+          </label>
+          <!-- Condições Médicas -->
+          <label>Condições Médicas:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Gravidez"> Gravidez</label>
+            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Trombose"> Trombose</label>
+            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Gripe"> Gripe</label>
+            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Câncer"> Câncer</label>
+            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Alterações de Pressão Arterial">
+              Alterações de Pressão Arterial</label>
           </div>
 
-          <div class="cal-grid" id="calGrid"></div>
-
-          <div class="cal-side">
-            <h3>Disponibilidade do dia</h3>
-            <div id="slotInfo" class="slot-info">Selecione uma data no calendário.</div>
-            <div id="slotList" class="slot-list"></div>
-          </div>
-        </section>
-
-        <section id="formAgendar" class="form-card">
-          <form id="bookingForm" class="booking-form">
-            <h3>Novo Agendamento</h3>
-
-            <div class="row">
-              <div class="col">
-                <label>Serviço
-                  <input id="bkService" placeholder="Escolha um serviço">
-                </label>
-              </div>
-              <div class="col">
-                <label>Cliente
-                  <input id="bkClient" placeholder="Nome completo">
-                </label>
-              </div>
-              <div class="col">
-                <label>Telefone/WhatsApp
-                  <input id="bkPhone" placeholder="(11) 99999-9999">
-                </label>
-              </div>
-              <div class="col">
-                <label>E-mail
-                  <input id="bkEmail" type="email" placeholder="cliente@gmail.com">
-                </label>
-              </div>
-              <div class="col">
-                <label>Valor (R$)
-                  <input id="bkPrice" type="number" min="0" step="1" value="0">
-                </label>
-              </div>
-              <div class="col">
-                <label>Profissional
-                  <input id="bkPro" readonly placeholder="Selecione no calendário">
-                </label>
-              </div>
-              <div class="col">
-                <label>Horário Selecionado:
-                  <input type="text" id="bkTimeDisplay" readonly>
-                </label>
-              </div>
-              <div class="col">
-                <label>Duração (min)
-                  <input id="bkDuration" type="number" min="1" step="1">
-                </label>
-              </div>
-            </div>
-
-            <div class="form-group" id="bkConditionWrapper">
-              <div class="row-head">
-                <label class="label">Condições de Saúde</label>
-                <button type="button" class="link-clear" id="clearConditions">Limpar</button>
-              </div>
-              <p class="help">Selecione todas que se aplicam.</p>
-
-              <div class="cond-grid" role="group" aria-label="Condições de saúde">
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Lesão">
-                  <span>Lesão</span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Gravidez">
-                  <span><i aria-hidden="true">✔</i> Gravidez</span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Pressão alta">
-                  <span><i aria-hidden="true">✔</i> Trombose </span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Diabetes">
-                  <span><i aria-hidden="true">✔</i> Gripe </span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                  <span><i aria-hidden="true">✔</i> Câncer</span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                  <span><i aria-hidden="true">✔</i> Cirurgias recentes </span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Problemas cardíacos">
-                  <span><i aria-hidden="true">✔</i> Fraturas, hérnias, osteoporose ou osteopenia </span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Pressão alta">
-                  <span><i aria-hidden="true">✔</i> Alergia a óleos corporais ou cremes </span>
-                </label>
-
-                <label class="hchip">
-                  <input type="checkbox" name="bkCondition" value="Nenhuma">
-                  <span><i aria-hidden="true">✔</i> Nenhuma das opções</span>
-                </label>
-
-
-              </div>
-            </div>
-
-
-
-            <!-- hidden inputs (mantém ids usados no JS) -->
-            <input type="hidden" id="bkDate">
-            <input type="hidden" id="bkTime">
-
-            <div class="row actions">
-              <button id="btnSubmit" class="btn btn-primary" type="submit" disabled>Agendar</button>
-              <div id="resume" class="resume"></div>
-            </div>
-          </form>
-
-          <div class="resume" id="resume"></div>
-        </section> <!-- fim formAgendar -->
-
-        <section id="agenda" class="panel hidden">
-          <h2>Agenda Geral</h2>
-
-          <div class="calendar-card big">
-            <div class="cal-head">
-              <div class="cal-left">
-                <button class="btn btn-muted" id="agendaPrev" aria-label="Mês anterior">
-                  <i class="fa-solid fa-chevron-left"></i>
-                </button>
-              </div>
-
-              <div class="cal-title-wrap">
-                <h3 id="agendaTitle">Agenda</h3>
-                <div id="agendaSummary" class="cal-summary">Selecione um dia para ver as sessões.</div>
-              </div>
-
-              <div class="cal-right">
-                <label for="agendaJump" class="cal-jump-label">Ir para data:</label>
-                <input type="date" id="agendaJump">
-                <button class="btn btn-muted" id="agendaGo">Ir</button>
-                <button class="btn btn-muted" id="agendaNext" aria-label="Próximo mês">
-                  <i class="fa-solid fa-chevron-right"></i>
-                </button>
-              </div>
-            </div>
-
-            <div class="cal-legend">
-              <span class="chip chip-avail">Sessões</span>
-              <span class="chip chip-off">Feriado</span>
-            </div>
-
-            <div class="cal-grid" id="agendaGrid"></div>
-
-            <div class="cal-side">
-              <h3 id="agendaDayTitle">Sessões do dia</h3>
-              <div id="agendaDayInfo" class="slot-info">Selecione um dia no calendário.</div>
-              <div id="agendaList" class="slot-list"></div>
-            </div>
-          </div>
-        </section>
-
-        <section id="posts" class="panel hidden">
-          <div class="posts-head">
-            <button id="postAddBtn" class="post-add" type="button" aria-label="Novo post">
-              <i class="fa-solid fa-plus"></i>
-              <span>Novo</span>
-            </button>
+          <!-- Histórico de Saúde -->
+          <label>Histórico de Saúde:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-btn"><input type="checkbox" name="history" value="Fraturas"> Fraturas</label>
+            <label class="checkbox-btn"><input type="checkbox" name="history" value="Hérnias"> Hérnias</label>
+            <label class="checkbox-btn"><input type="checkbox" name="history" value="Osteoporose"> Osteoporose</label>
+            <label class="checkbox-btn"><input type="checkbox" name="history" value="Osteopenia"> Osteopenia</label>
+            <label class="checkbox-btn"><input type="checkbox" name="history" value="Cirurgias Recentes"> Cirurgias
+              Recentes</label>
           </div>
 
-          <div class="posts-container">
-            <button class="posts-btn" id="postsPrev" type="button" aria-label="Anterior">
-              <i class="fa-solid fa-arrow-left"></i>
-            </button>
-
-            <div class="posts-track">
-              <div class="posts-row" id="postsRow">
-                <!-- renderizado dinamicamente via JS -->
-              </div>
-            </div>
-
-            <button class="posts-btn" id="postsNext" type="button" aria-label="Próximo">
-              <i class="fa-solid fa-arrow-right"></i>
-            </button>
+          <!-- Alergias -->
+          <label>Alergias:</label>
+          <div class="checkbox-group">
+            <label class="checkbox-btn"><input type="checkbox" name="allergies" value="Óleos Corporais"> Óleos
+              Corporais</label>
+            <label class="checkbox-btn"><input type="checkbox" name="allergies" value="Cremes"> Cremes</label>
           </div>
 
-          <!-- Editor (modal simples) -->
-          <dialog id="postEditor">
-            <form id="postForm" method="dialog">
-              <h3 id="postEditorTitle">Novo Post</h3>
-
-              <input type="hidden" id="postId">
-
-              <label>
-                Título
-                <input type="text" id="postTitle" required placeholder="ex.: Benefícios da Reflexologia">
-              </label>
-
-              <label>
-                URL da imagem (opcional)
-                <input type="url" id="postImage" placeholder="https://...">
-              </label>
-
-              <label>
-                Resumo (opcional)
-                <textarea id="postExcerpt" rows="3" placeholder="Uma breve descrição do post..."></textarea>
-              </label>
-
-              <div class="post-form-actions">
-                <button type="button" id="postDelete" class="btn-danger" hidden>
-                  <i class="fa-solid fa-trash"></i> Excluir
-                </button>
-                <span class="spacer"></span>
-                <button type="button" id="postCancel" class="btn-muted">Cancelar</button>
-                <button type="submit" class="btn-primary">Salvar</button>
-              </div>
-            </form>
-          </dialog>
-        </section>
-
-
-        <footer>© 2025 Rokuzen – Recepção</footer>
+          <button type="submit">Confirmar Agendamento</button>
+        </form>
       </div>
     </div>
 
-    <script src="../JS/recepcao.js"></script>
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
       <div vw-access-button class="active"></div>
@@ -367,6 +153,18 @@
       new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
+
+    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+        <div class="popup-actions">
+          <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+          <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+        </div>
+      </div>
+    </div>
 </body>
 
 </html>
