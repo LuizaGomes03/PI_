@@ -1,8 +1,8 @@
-const mysql = require('mysql2/promise');
-const fs = require('fs');
-require('dotenv').config();
+import mysql from 'mysql2/promise';
+import fs from 'fs';
+import dotenv from 'dotenv';
+dotenv.config();
 
-// Caminho do certificado
 let sslConfig = undefined;
 try {
   sslConfig = {
@@ -25,4 +25,4 @@ const pool = mysql.createPool({
 
 console.log('🌐 Conectando ao banco:', process.env.DB_NAME);
 
-module.exports = pool;
+export default pool;
