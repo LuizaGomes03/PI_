@@ -378,18 +378,18 @@ function boot() {
 boot();
 
 // ======= Fix robusto para o botão "Salvar" da aba Configurações =======
-(function bindSaveOrg(){
+(function bindSaveOrg() {
   // normalize storage key used pelo script
   const STORAGE_KEY = 'rokuzen-db';
 
   // garante que existam funções load/save consistentes
-  function _load(){
+  function _load() {
     try { return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}'); }
-    catch(e){ return {}; }
+    catch (e) { return {}; }
   }
-  function _save(payload){
+  function _save(payload) {
     try { localStorage.setItem(STORAGE_KEY, JSON.stringify(payload)); return true; }
-    catch(e){ console.error('Erro ao gravar localStorage', e); return false; }
+    catch (e) { console.error('Erro ao gravar localStorage', e); return false; }
   }
 
   // expõe db local atual (mantém compatibilidade com seu objeto db se existir)
@@ -402,7 +402,7 @@ boot();
   // procura o botão por múltiplos seletores possíveis
   const btnSelectors = ['#saveOrg', '#btnSalvarConfig', '#btnSaveConfig', '[data-save-org]'];
   let saveBtn = null;
-  for (const s of btnSelectors){
+  for (const s of btnSelectors) {
     saveBtn = document.querySelector(s);
     if (saveBtn) break;
   }
@@ -411,17 +411,17 @@ boot();
   const form = document.querySelector('#formOrg') || (saveBtn ? saveBtn.closest('form') : null);
 
   // função que realmente salva as configurações
-  function saveConfigHandler(e){
+  function saveConfigHandler(e) {
     if (e && e.preventDefault) e.preventDefault();
     const nameInput = document.querySelector('#orgName');
-    const waInput   = document.querySelector('#orgWa');
+    const waInput = document.querySelector('#orgWa');
     if (!nameInput || !waInput) {
       // fallback: tentar ler por outros nomes
       showToast?.('Campos de configuração não encontrados.', 'error');
       return;
     }
     const unidade = nameInput.value.trim();
-    const numero  = waInput.value.trim();
+    const numero = waInput.value.trim();
     if (!unidade || !numero) {
       showToast?.('⚠️ Preencha todos os campos antes de salvar!', 'warning');
       return;
@@ -449,7 +449,7 @@ boot();
   if (form) {
     // garante que o botão exista dentro do form — se não houver, cria um listener no form
     if (saveBtn) {
-      try { saveBtn.setAttribute('type','submit'); } catch(e){}
+      try { saveBtn.setAttribute('type', 'submit'); } catch (e) { }
     }
     form.removeEventListener('submit', saveConfigHandler);
     form.addEventListener('submit', saveConfigHandler);
@@ -467,7 +467,7 @@ boot();
 })();
 
 /// ======== Módulo: EQUIPE ========
-(function manageEmployees(){
+(function manageEmployees() {
   const btnAddEmp = document.querySelector('#btnAddEmp');
   const tbl = document.querySelector('#tblEmployees tbody');
   const roleFilter = document.querySelector('#roleFilter');
@@ -572,7 +572,7 @@ boot();
   }
 
   // ---------- RENDERIZA TABELA ----------
-  function renderEmployees(){
+  function renderEmployees() {
     const db = loadDB();
     const data = db.employees || [];
     const role = roleFilter?.value || '';
@@ -597,20 +597,20 @@ boot();
     `).join('') : `<tr><td colspan="6" class="empty">Nenhum colaborador cadastrado.</td></tr>`;
 
     // Eventos de editar/excluir
-    tbl.querySelectorAll('.btn-edit').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
+    tbl.querySelectorAll('.btn-edit').forEach(btn => {
+      btn.addEventListener('click', () => {
         const id = +btn.dataset.id;
         const emp = (loadDB().employees || []).find(e => e.id === id);
         if (emp) openModal(emp);
       });
     });
 
-    tbl.querySelectorAll('.btn-del').forEach(btn=>{
-      btn.addEventListener('click', ()=>{
+    tbl.querySelectorAll('.btn-del').forEach(btn => {
+      btn.addEventListener('click', () => {
         const id = +btn.dataset.id;
         if (confirm('Deseja realmente excluir este colaborador?')) {
           const db = loadDB();
-          db.employees = (db.employees || []).filter(e=>e.id!==id);
+          db.employees = (db.employees || []).filter(e => e.id !== id);
           saveDB(db);
           renderEmployees();
         }
@@ -652,4 +652,152 @@ boot();
   document.head.appendChild(modalStyle);
 })();
 
+/* ===== Função genérica de modal ===== */
+function openModalGeneric({ title, icon = 'fa-circle-plus', fields = [], onSubmit }) {
+  const modal = document.createElement('div');
+  modal.className = 'modal-backdrop';
+
+  modal.innerHTML = `
+    <div class="modal">
+      <h3 class="modal__title"><i class="fa-solid ${icon}"></i> ${title}</h3>
+      <form id="modalForm" class="grid grid--2">
+        ${fields.map(f => `
+          <div class="field">
+            <label class="field__label" for="${f.id}">${f.label}</label>
+            ${f.type === 'select'
+      ? `<select id="${f.id}" class="input" required>${f.options.map(o => `<option value="${o.value}" ${o.selected ? 'selected' : ''}>${o.label}</option>`).join('')}</select>`
+      : `<input id="${f.id}" class="input" type="${f.type || 'text'}" placeholder="${f.placeholder || ''}" value="${f.value || ''}" ${f.required ? 'required' : ''}>`
+    }
+          </div>
+        `).join('')}
+        <div class="actions actions--end grid__col--2">
+          <button type="button" class="btn btn--ghost" id="cancelModal">Cancelar</button>
+          <button type="submit" class="btn"><i class="fa-solid fa-save"></i> Salvar</button>
+        </div>
+      </form>
+    </div>
+  `;
+
+  document.body.appendChild(modal);
+  requestAnimationFrame(() => modal.classList.add('show'));
+
+  // Eventos
+  modal.querySelector('#cancelModal').addEventListener('click', () => modal.remove());
+  modal.addEventListener('click', e => { if (e.target === modal) modal.remove(); });
+
+  modal.querySelector('#modalForm').addEventListener('submit', e => {
+    e.preventDefault();
+    const values = {};
+    fields.forEach(f => {
+      values[f.id] = document.getElementById(f.id).value.trim();
+    });
+    onSubmit(values);
+    modal.remove();
+  });
+}
+
+/* ===== Botão Novo Cliente ===== */
+document.querySelector('#btnNewClient')?.addEventListener('click', () => {
+  openModalGeneric({
+    title: 'Novo Cliente',
+    icon: 'fa-user-plus',
+    fields: [
+      { id: 'cliName', label: 'Nome', placeholder: 'Ex: Ana Lima', required: true },
+      { id: 'cliWa', label: 'WhatsApp', placeholder: '(11) 90000-0000' },
+      { id: 'cliEmail', label: 'E-mail', placeholder: 'cliente@email.com' }
+    ],
+    onSubmit: (vals) => {
+      const newClient = {
+        id: 'C' + Math.random().toString(36).slice(2, 7).toUpperCase(),
+        name: vals.cliName,
+        wa: vals.cliWa || '-',
+        email: vals.cliEmail || '-'
+      };
+      db.clients.push(newClient);
+      save(db);
+      renderClients();
+      alert(`Cliente "${vals.cliName}" adicionado com sucesso!`);
+    }
+  });
+});
+
+/* ===== Botão Agendar ===== */
+document.querySelector('#btnNewAppt')?.addEventListener('click', () => {
+  openModalGeneric({
+    title: 'Novo Agendamento',
+    icon: 'fa-calendar-plus',
+    fields: [
+      { id: 'apptDate', label: 'Data', type: 'date', value: todayISO() },
+      { id: 'apptTime', label: 'Hora', type: 'time', value: '14:00', required: true },
+      { id: 'apptClient', label: 'Cliente', placeholder: 'Nome do Cliente', required: true },
+      { id: 'apptService', label: 'Serviço', placeholder: 'Ex: Quick Massage', required: true },
+      { id: 'apptRoom', label: 'Sala', placeholder: 'Ex: 1', value: '1' }
+    ],
+    onSubmit: (vals) => {
+      const therapistId = db.employees.find(e => e.role !== 'recepcao')?.id || db.employees[0]?.id;
+      db.appts.push({
+        id: Math.random().toString(36).slice(2),
+        date: vals.apptDate,
+        time: vals.apptTime,
+        client: vals.apptClient,
+        service: vals.apptService,
+        therapistId,
+        room: vals.apptRoom
+      });
+      save(db); renderAgenda(); renderDashboard();
+    }
+  });
+});
+
+/* ===== Botão Lançar Manual ===== */
+document.querySelector('#btnNewEntry')?.addEventListener('click', () => {
+  openModalGeneric({
+    title: 'Lançamento Manual',
+    icon: 'fa-pen-to-square',
+    fields: [
+      { id: 'entryEmp', label: 'Funcionário', type: 'select', options: [{ value: '', label: 'Selecione...' }].concat(db.employees.map(e => ({ value: e.id, label: e.name }))) },
+      {
+        id: 'entryAction', label: 'Ação', type: 'select', options: [
+          { value: 'in', label: 'Entrada' },
+          { value: 'break_start', label: 'Início intervalo' },
+          { value: 'break_end', label: 'Fim intervalo' },
+          { value: 'out', label: 'Saída' }
+        ]
+      }
+    ],
+    onSubmit: (vals) => {
+      if (!vals.entryEmp || !vals.entryAction) return alert('Selecione funcionário e ação!');
+      db.attendance.push({ id: Math.random().toString(36).slice(2), empId: vals.entryEmp, whenISO: nowISO(), action: vals.entryAction, source: 'manual' });
+      save(db); renderAttendance(); renderDashboard();
+    }
+  });
+});
+
+/* ===== Estilo do Modal ===== */
+const modalStyle = document.createElement('style');
+modalStyle.textContent = `
+.modal-backdrop {
+  position: fixed; inset: 0; background: rgba(0,0,0,.6);
+  display: flex; align-items: center; justify-content: center;
+  z-index: 9999; opacity: 0; transition: opacity .25s ease;
+}
+.modal-backdrop.show { opacity: 1; }
+.modal {
+  background: rgba(30,30,30,0.85);
+  border-radius: 16px;
+  padding: 20px;
+  width: min(500px, 90%);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+  color: #fff;
+}
+.modal__title { font-family: "Amatic SC"; font-size: 28px; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+.field { margin-bottom: 12px; display: flex; flex-direction: column; }
+.input { padding: 8px 10px; border-radius: 8px; border: 1px solid #555; background: rgba(255,255,255,0.1); color: #fff; }
+.actions { display: flex; gap: 8px; justify-content: flex-end; margin-top: 12px; }
+.btn--ghost { background: none; border: 1px solid #888; color: #fff; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.btn { background: #4caf50; color: #fff; border: none; border-radius: 8px; padding: 6px 12px; cursor: pointer; }
+.btn:hover, .btn--ghost:hover { opacity: 0.85; }
+`;
+document.head.appendChild(modalStyle);
 
