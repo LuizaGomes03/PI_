@@ -213,24 +213,30 @@ footer {
     justify-content: space-between;
     padding: 0 20px;
     border-top: 1px solid rgba(0, 0, 0, .06);
-    background: var(--panel)
+    background: var(--panel);
 }
 
 .ticker {
+    flex: 1;
     white-space: nowrap;
     overflow: hidden;
-    mask-image: linear-gradient(to right, transparent, #000 10%, #000 90%, transparent)
+    mask-image: linear-gradient(to left, transparent, #000 10%, #000 90%, transparent);
+    -webkit-mask-image: linear-gradient(to left, transparent, #000 10%, #000 90%, transparent);
 }
 
 .ticker span {
     display: inline-block;
-    padding-left: 90%;
-    animation: marquee 40s linear infinite;
-    color: #4b5563
+    padding-left: 100%;
+    animation: marquee 45s linear infinite;
+    color: #4b5563;
 }
 
 @keyframes marquee {
+    from {
+        transform: translateX(0);
+    }
+
     to {
-        transform: translateX(-100%)
+        transform: translateX(-100%);
     }
 }
