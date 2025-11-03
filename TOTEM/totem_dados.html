@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rokuzen — Dados</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="..\TOTEM\CSS\totem_dados.css">
+</head>
+
+<body>
+    <div class="rk-shell">
+        <!-- Topo -->
+        <header class="rk-bar">
+            <div class="rk-brand">
+                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
+                <div class="name">Rokuzen • Dados – Passo 5</div>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button class="btn" onclick="history.back()">Voltar</button>
+                <button class="btn primary" id="btnFull">Tela cheia</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Coluna esquerda: título/instruções -->
+            <section class="card">
+                <div class="inner">
+                    <div class="step"><span class="pill">PASSO 5</span> Preencha seus dados</div>
+                    <h1 class="title-xl">Dados</h1>
+                    <p class="subtitle">Informe seus dados para finalizar o agendamento. Depois clique em
+                        <b>Continuar</b>.</p>
+                    <div class="divider"></div>
+                    <div style="color:var(--muted);font-size:14px">Valores válidos para este espaço. Sujeito à agenda.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna direita: dados -->
+
+            <div class="rk-card">
+                <!-- Formulário de Dados -->
+                <form id="formDados" class="needs-validation" novalidate>
+                    <div class="rk-grid">
+                        <!-- Nome -->
+                        <div class="rk-field">
+                            <label for="nome">Nome completo</label>
+                            <input id="nome" name="nome" type="text" placeholder="Digite seu nome completo" required
+                                autocomplete="name" />
+                        </div>
+
+                        <!-- Email -->
+                        <div class="rk-field">
+                            <label for="email">E-mail</label>
+                            <input id="email" name="email" type="email" placeholder="Digite um e-mail válido" required
+                                autocomplete="email" inputmode="email" />
+                            <small class="rk-hint">*Se for cliente, utilize o e-mail de cadastro</small>
+                        </div>
+
+                        <!-- Celular: DDD + número -->
+                        <div class="rk-field rk-phone">
+                            <label for="ddd">Celular</label>
+                            <div class="rk-phone-row">
+                                <input id="ddd" name="ddd" type="text" placeholder="DDD" inputmode="numeric"
+                                    maxlength="2" required />
+                                <input id="celular" name="celular" type="tel"
+                                    placeholder="Digite o seu número de celular" inputmode="tel" required />
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <button class="rk-btn" type="submit">CONFIRMAR AGENDAMENTO</button>
+                    <small class="rk-footnote">
+                        Após clicar em “Confirmar Agendamento”, verifique seu e-mail cadastrado e finalize pelo link
+                        enviado.
+                        <p>Ao clicar, você concorda com a <a href="../HTML/politica_privacidade.html"
+                                target="_blank">Política de
+                                Privacidade</a> e os <a href="../HTML/termos_uso.html" target="_blank">Termos de
+                                Uso</a>.</p>
+                    </small>
+                </form>
+            </div>
+
+            <div class="actions">
+                    <button class="btn" onclick="history.back()">Voltar</button>
+                </div>
+
+        </main>
+
+        <footer>
+            <div class="ticker"><span>Selecione o tempo • Confirme para avançar • Você pode voltar e trocar o
+                    serviço.</span>
+            </div>
+            <div></div>
+        </footer>
+    </div>
+
+    <script>
+        // Tela cheia
+        document.getElementById('btnFull').addEventListener('click', async () => {
+            try {
+                if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+                else await document.exitFullscreen();
+            } catch (e) { }
+        });
+
+
+
+        // Próxima etapa
+        document.getElementById('goNext').addEventListener('click', () => {
+            if (!selected) { alert('Selecione um tempo para continuar.'); return; }
+            // Exemplo: envia para condições médicas (passo 3)
+            // Você pode passar params na URL (tempo e preço) se quiser usar depois.
+            const tempo = selected.dataset.value;
+            const preco = selected.dataset.price;
+            window.location.href = `../TOTEM/totem_cond_med.html`;
+        });
+
+    </script>
+</body>
+
+</html>
