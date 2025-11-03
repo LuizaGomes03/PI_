@@ -1,11 +1,11 @@
-const express = require('express');
+import express from 'express';
 const router = express.Router();
-const {
+import {
   listarClientesPorUnidade,
   cadastrarCliente,
   atualizarCliente,
   removerCliente
-} = require('../controllers/clientesController');
+} from '../controllers/clientesController.js'; // Mantém o .js obrigatório no ESM
 
 router.get('/unidade/:unidadeId', listarClientesPorUnidade);
 
@@ -15,4 +15,4 @@ router.put('/:id', atualizarCliente);
 
 router.delete('/:id', removerCliente);
 
-module.exports = router;
+export default router;
