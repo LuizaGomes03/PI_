@@ -2740,3 +2740,114 @@ input[type="text"] {
 .table tr:hover {
   background-color: #f9f9f9;
 }
+
+
+/* ===== AÇÕES DA TABELA DE PREÇOS ===== */
+
+/* transforma a última coluna em flex (linha de botões) */
+#tblPrecos tbody td:last-child {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 8px;
+    /* tira qualquer alinhamento estranho */
+    text-align: right;
+}
+
+/* deixa os dois botões com o MESMO tamanho e alinhados */
+#tblPrecos tbody td:last-child .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    min-width: 90px;      /* mesma largura pros dois */
+    white-space: nowrap;  /* não quebra "Editar"/"Remover" */
+}
+
+/* se tiver a classe btn-sm, reforça pra não zoar */
+#tblPrecos tbody td:last-child .btn.btn-sm {
+    padding: 6px 12px;
+    min-width: 90px;
+}
+
+/* espacinho entre eles */
+#tblPrecos tbody td:last-child .btn + .btn {
+    margin-left: 0;
+}
+
+/* ==== BOTÕES EDITAR / REMOVER (AJUSTE FINAL) ==== */
+
+#tblPrecos tbody td:last-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+  padding-right: 12px;
+}
+
+#tblPrecos tbody td:last-child .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  min-width: 100px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: none;
+}
+
+/* BOTÕES DA TABELA DE PREÇOS (EDITAR / REMOVER) */
+#tblPrecos tbody td:last-child {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 8px;
+}
+
+/* estilo base: ghost, sem cor de fundo */
+#tblPrecos .btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  background: none !important;
+  border: 1px solid rgba(255, 255, 255, 0.4) !important;
+  color: #fff !important;
+  box-shadow: none !important;
+}
+
+/* hover suave, só um leve fundinho */
+#tblPrecos .btn:hover:not(:disabled) {
+  background: rgba(255, 255, 255, 0.08) !important;
+  transform: none;
+}
+
+/* REMOVE QUALQUER COR DE CLICK/FOCO */
+#tblPrecos .btn:focus,
+#tblPrecos .btn:active {
+  background: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  transform: none !important;
+}
+
+/* AQUI É O VILÃO: estado desabilitado */
+#tblPrecos .btn:disabled,
+#tblPrecos .btn[disabled] {
+  background: none !important;         /* tira o rosa */
+  color: rgba(255, 255, 255, 0.5) !important;
+  border-color: rgba(255, 255, 255, 0.3) !important;
+  cursor: default;
+}
