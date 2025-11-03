@@ -539,6 +539,53 @@ document.addEventListener('DOMContentLoaded', () => {
       } catch { }
     })();
 
+    async function carregarColaboradores(unidadeId) {
+      const tbody = document.getElementById('colabTableBody');
+      const empty = document.getElementById('colabEmpty');
+      tbody.innerHTML = '<tr><td colspan="5">Carregando...</td></tr>';
+
+      try {
+        const resp = await fetch(`http://localhost:3000/api/colaboradores/unidade/${unidadeId}`);
+        if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+        const data = await resp.json();
+
+        tbody.innerHTML = '';
+        if (!data.length) {
+          empty.hidden = false;
+          return;
+        }
+        empty.hidden = true;
+
+        data.forEach(colab => {
+          const ativo = (colab.ativo === 'S' || colab.ativo === 1 || colab.ativo === true) ? 'Sim' : 'Não';
+          const tr = document.createElement('tr');
+
+          const funcaoNome =
+            colab.tipo_id === 1 || colab.tipo_id === "1"
+              ? "Terapeuta"
+              : colab.tipo_id === 2 || colab.tipo_id === "2"
+                ? "Recepção"
+                : "—";
+
+          tr.innerHTML = `
+        <td>${colab.nome_colaborador}</td>
+        <td>${funcaoNome}</td>
+        <td>${colab.usuario || '—'}</td>
+        <td>${colab.senha || '—'}</td>
+        <td>${ativo}</td>
+      `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error('Erro ao carregar colaboradores:', err);
+        tbody.innerHTML = '<tr><td colspan="5">Erro ao carregar colaboradores.</td></tr>';
+      }
+    }
+
+    document.addEventListener('unit:change', (ev) => {
+      const unidade = ev.detail;
+      if (unidade?.id) carregarColaboradores(unidade.id);
+    });
 
 
     // ===== FOLHA (Controle de pagamentos dos colaboradores)
@@ -931,6 +978,6 @@ cliFormCad?.addEventListener('submit', async (e) => {
     doc.save("relatorio-pacotes.pdf");
   });
 
-  
+
 
 });

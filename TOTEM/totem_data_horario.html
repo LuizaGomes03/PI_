@@ -63,7 +63,7 @@
                 </div>
 
                 <div class="actions">
-                    <button class="btn" onclick="history.back()">Cancelar</button>
+                    <button class="btn" onclick="history.back()">Voltar</button>
                     <button class="btn primary" id="confirmarBtn" style="display:none;">Confirmar</button>
                 </div>
             </section>
@@ -82,9 +82,13 @@
                 else await document.exitFullscreen();
             } catch (e) { }
         });
+        document.getElementById('goNext').addEventListener('click', () => {
+
+            window.location.href = `../TOTEM/totem_cond_med.html`;
+        });
     </script>
 
-    <script src="..\JS\selecionar_data.js"></script>
+    <script src="..\JS\totem_data_horario.js"></script>
 </body>
 
 </html>

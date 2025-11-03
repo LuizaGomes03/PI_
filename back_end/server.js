@@ -2,6 +2,7 @@ import express from 'express';
 import cors from 'cors';
 import pool from './config/db.js';
 import clientesRoutes from './routes/clientes.js';
+import colaboradoresRoutes from './routes/colaboradores.js';
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/clientes', clientesRoutes);
+app.use('/api', colaboradoresRoutes);
 
 (async () => {
   try {
