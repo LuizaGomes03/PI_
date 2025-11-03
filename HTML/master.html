@@ -143,7 +143,7 @@
                     </a>
 
                     <a href="#escala" class="shortcut-item" role="tab" data-view="escala" aria-controls="view-escala"
-                        aria-selected="false">
+                        aria-selected="view-escala-compartida">
                         <span class="shortcut-icon"><i class="fa-solid fa-users-gear"></i></span>
                         <span class="shortcut-label">Escala Compartilhada</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
@@ -157,14 +157,14 @@
                     </a>
 
                     <a href="#pacotes" class="shortcut-item" role="tab" data-view="pacotes" aria-controls="view-pacotes"
-                        aria-selected="false">
+                        aria-selected="view-pacotes">
                         <span class="shortcut-icon"><i class="fa-solid fa-boxes-stacked"></i></span>
                         <span class="shortcut-label">Pacotes</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
 
                     <a href="#postos" class="shortcut-item" role="tab" data-view="postos" aria-controls="view-postos"
-                        aria-selected="false">
+                        aria-selected="view-postos">
                         <span class="shortcut-icon"><i class="fa-solid fa-briefcase"></i></span>
                         <span class="shortcut-label">Postos de Trabalho</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
@@ -319,7 +319,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- MODAL DE CADASTRO DE CLIENTE -->
             <dialog class="cliOpenCadastro" id="cliModal">
                 <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
@@ -842,6 +842,103 @@
 
             </section>
 
+            <!-- ========== PARCEIROS ========== -->
+            <!-- LISTA DE PARCEIROS -->
+            <section id="view-rel-parceiros" class="view" aria-labelledby="parceirosTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="parceirosTitle">
+                            <i class="fa-solid fa-handshake"></i> Lista de Parceiros
+                        </h2>
+                        <div class="muted">Empresas e profissionais parceiros da clínica</div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Parceiro</th>
+                                <th>Tipo</th>
+                                <th>Contato</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Clínica Vida Plena</td>
+                                <td>Convênio</td>
+                                <td>vida.plena@email.com</td>
+                                <td><span class="status-ativo">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Espaço Terapêutico Equilíbrio</td>
+                                <td>Parceria Local</td>
+                                <td>equilibrio@contato.com</td>
+                                <td><span class="status-ativo">Ativo</span></td>
+                            </tr>
+                            <tr>
+                                <td>Academia Corpo e Mente</td>
+                                <td>Convênio</td>
+                                <td>academia@corpoemente.com</td>
+                                <td><span class="status-inativo">Inativo</span></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- ========== ESCALA COMPARTILHADA ========== -->
+            <!-- ESCALA COMPARTILHADA -->
+            <section id="view-escala" class="view" aria-labelledby="escalaCompartilhadaTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <h2 id="escalaCompartilhadaTitle">
+                            <i class="fa-solid fa-users-gear"></i> Escala Compartilhada
+                        </h2>
+                        <div class="muted">Visualização conjunta das escalas de terapeutas</div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Dia</th>
+                                <th>Horário</th>
+                                <th>Terapeuta</th>
+                                <th>Sala</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Segunda-feira</td>
+                                <td>08:00 - 12:00</td>
+                                <td>Mariana Costa</td>
+                                <td>Sala 1</td>
+                            </tr>
+                            <tr>
+                                <td>Segunda-feira</td>
+                                <td>13:00 - 17:00</td>
+                                <td>Lucas Andrade</td>
+                                <td>Sala 2</td>
+                            </tr>
+                            <tr>
+                                <td>Terça-feira</td>
+                                <td>08:00 - 12:00</td>
+                                <td>Camila Rocha</td>
+                                <td>Sala 3</td>
+                            </tr>
+                            <tr>
+                                <td>Terça-feira</td>
+                                <td>13:00 - 17:00</td>
+                                <td>Pedro Lima</td>
+                                <td>Sala 1</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
             <!-- ========== RELATÓRIO ========== -->
             <section id="view-relatorio" class="view" aria-labelledby="relTitle">
                 <div class="card colaboradores-card">
@@ -937,6 +1034,9 @@
             <!-- ========== RELATÓRIO: CONTROLE DE PAGAMENTOS ========== -->
             <section id="view-rel-pagamentos" class="view" aria-labelledby="RelatoriorelPagTitle">
                 <div class="card rel-card">
+                    <button class="btn-voltar" data-view="relatorio">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
                     <div class="atd-head">
                         <h2 id="relPagTitle"><i class="fa-solid fa-money-bill-wave"></i> Controle de Pagamentos</h2>
                         <div class="muted">
@@ -1028,6 +1128,9 @@
             <section id="view-rel-extrato" class="view" aria-labelledby="RelatoriorelPagTitle">
                 <div class="card rel-card">
                     <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
                         <h2 id="relExtratoTitle"><i class="fa-solid fa-file-invoice-dollar"></i> Extrato Financeiro</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
@@ -1136,6 +1239,9 @@
             <section id="view-rel-atds-parceiros" class="view" aria-labelledby="RelatoriorelPagTitle">
                 <div class="card rel-card">
                     <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
                         <h2 id="relAtdsTitle"><i class="fa-solid fa-chart-line"></i> Atds × Terapeutas</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
@@ -1243,6 +1349,9 @@
             <section id="view-rel-ponto" class="view" aria-labelledby="RelatoriorelPagTitle">
                 <div class="card rel-card">
                     <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
                         <h2 id="relPontoTitle"><i class="fa-regular fa-clock"></i> Controle de Ponto</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
@@ -1332,30 +1441,149 @@
                     </div>
                 </div>
             </section>
-
-
-            <!-- ========== PARCEIROS ========== -->
-            <section id="view-parceiros" class="view" aria-labelledby="parTitle">
+            <!-- NOVOS CLIENTES   -->
+            <section id="view-rel-novos-clientes" class="view" aria-labelledby="novosClientesTitle">
                 <div class="card">
                     <div class="atd-head">
-                        <h2 id="parTitle"><i class="fa-solid fa-handshake"></i> Parceiros</h2>
-                        <div class="muted">Convênios e contatos: <b class="unitName">—</b></div>
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="novosClientesTitle"><i class="fa-solid fa-user-plus"></i> Novos Clientes</h2>
+                        <div class="muted">Lista de novos clientes: <b class="unitName">Loja Central</b></div>
                     </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Nome</th>
+                                <th>Data de Cadastro</th>
+                                <th>Origem</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Maria Silva</td>
+                                <td>02/11/2025</td>
+                                <td>Instagram</td>
+                            </tr>
+                            <tr>
+                                <td>João Pereira</td>
+                                <td>01/11/2025</td>
+                                <td>Indicação</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+            <section id="view-rel-atendimentos" class="view" aria-labelledby="atendimentosTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="atendimentosTitle"><i class="fa-solid fa-handshake"></i> Atendimentos</h2>
+                        <div class="muted">Convênios e contatos: <b class="unitName">Loja Central</b></div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Cliente</th>
+                                <th>Data</th>
+                                <th>Tipo</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Maria Silva</td>
+                                <td>03/11/2025</td>
+                                <td>Pass</td>
+                                <td>Concluído</td>
+                            </tr>
+                            <tr>
+                                <td>João Pereira</td>
+                                <td>02/11/2025</td>
+                                <td>Contato</td>
+                                <td>Pendente</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- TEMPO TERAPEUTRAS   -->
+            <section id="view-rel-tempo-terapeutas" class="view" aria-labelledby="tempoTerapeutasTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="tempoTerapeutasTitle"><i class="fa-solid fa-clock"></i> Tempo Terapeutas</h2>
+                        <div class="muted">Monitoramento de tempo: <b class="unitName">Clínica Esperança</b></div>
+                    </div>
+
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Terapeuta</th>
+                                <th>Atendimentos</th>
+                                <th>Média de Duração</th>
+                                <th>Tempo Total</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Mariana Costa</td>
+                                <td>8</td>
+                                <td>45 min</td>
+                                <td>6h</td>
+                            </tr>
+                            <tr>
+                                <td>Lucas Andrade</td>
+                                <td>5</td>
+                                <td>50 min</td>
+                                <td>4h10min</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+
+
+            <!-- PRONTUÁRIOS NÃO PREENCHIDOS -->
+            <section id="view-rel-prontuarios-pendentes" class="view" aria-labelledby="prontuariosNaoPreenchidosTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="prontuariosNaoPreenchidosTitle">
+                            <i class="fa-solid fa-file-invoice"></i> Prontuários Não Preenchidos
+                        </h2>
+                        <div class="muted">
+                            Total de prontuários não preenchidos: <b class="unitName">—</b>
+                        </div>
+                    </div>
+
                     <p class="muted">Coming soon…</p>
                 </div>
             </section>
 
-            <!-- ========== ESCALA ========== -->
-            <section id="view-escala" class="view" aria-labelledby="escTitle">
+            <!-- PONTOS POR UNIDADES -->
+            <section id="view-pontos-unidades" class="view" aria-labelledby="pontosUnidadesTitle">
                 <div class="card">
                     <div class="atd-head">
-                        <h2 id="escTitle"><i class="fa-solid fa-users-gear"></i> Escala Compartilhada</h2>
-                        <div class="muted">Distribuição de equipes: <b class="unitName">—</b></div>
+                        <h2 id="pontosUnidadesTitle"><i class="fa-solid fa-map-pin"></i> Pontos por Unidades
+                        </h2>
+                        <div class="muted">Distribuição de pontos: <b class="unitName">—</b></div>
                     </div>
                     <p class="muted">Coming soon…</p>
                 </div>
             </section>
-
             <!-- ========== MENSAGEM ========== -->
             <section id="view-mensagem" class="view" aria-labelledby="msgTitle">
                 <div class="card">
@@ -1378,16 +1606,128 @@
                 </div>
             </section>
 
-            <!-- ========== PACOTES (repensar futuramente) ========== -->
+            <!-- ========== PACOTES ========== -->
             <section id="view-pacotes" class="view" aria-labelledby="pacotesTitle">
                 <div class="card">
                     <div class="atd-head">
-                        <h2 id="pacotesTitle"><i class="fa-solid fa-boxes-stacked"></i> Pacotes</h2>
-                        <div class="muted">Funcionalidade existente, mas será repensada futuramente.</div>
+                        <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="pacotesTitle"><i class="fa-solid fa-leaf"></i> Serviços e Pacotes</h2>
+                        <div class="muted">Conheça nossos serviços e valores</div>
                     </div>
-                    <p class="muted">Coming soon…</p>
+
+                    <!-- BOTÃO DE DOWNLOAD -->
+                    <button id="baixarRelatorio" class="btn-baixar">
+                        <i class="fa-solid fa-file-arrow-down"></i> Baixar Relatório
+                    </button>
+
+                    <!-- TABELA -->
+                    <table id="tabelaPacotes" class="table">
+                        <thead>
+                            <tr>
+                                <th>Serviço</th>
+                                <th>Duração</th>
+                                <th>Avulso</th>
+                                <th>Pacote 4 Sessões</th>
+                                <th>Pacote 8 Sessões</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <!-- Auriculoterapia -->
+                            <tr>
+                                <td>Auriculoterapia</td>
+                                <td>10–25 min</td>
+                                <td>R$ 69,00</td>
+                                <td>R$ 254,00</td>
+                                <td>R$ 480,00</td>
+                            </tr>
+
+                            <!-- Reflexologia Podal -->
+                            <tr>
+                                <td rowspan="4">Reflexologia Podal</td>
+                                <td>20 min</td>
+                                <td>R$ 83,00</td>
+                                <td>R$ 305,00</td>
+                                <td>R$ 578,00</td>
+                            </tr>
+                            <tr>
+                                <td>30 min</td>
+                                <td>R$ 118,00</td>
+                                <td>R$ 364,00</td>
+                                <td>R$ 689,00</td>
+                            </tr>
+                            <tr>
+                                <td>40 min</td>
+                                <td>R$ 148,00</td>
+                                <td>R$ 434,00</td>
+                                <td>R$ 821,00</td>
+                            </tr>
+                            <tr>
+                                <td>60 min</td>
+                                <td>R$ 159,00</td>
+                                <td>R$ 585,00</td>
+                                <td>R$ 1107,00</td>
+                            </tr>
+
+                            <!-- Maca -->
+                            <tr>
+                                <td rowspan="4">Massagem na Maca</td>
+                                <td>30 min</td>
+                                <td>R$ 114,00</td>
+                                <td>R$ 420,00</td>
+                                <td>R$ 793,00</td>
+                            </tr>
+                            <tr>
+                                <td>45 min</td>
+                                <td>R$ 160,00</td>
+                                <td>R$ 589,00</td>
+                                <td>R$ 1114,00</td>
+                            </tr>
+                            <tr>
+                                <td>60 min</td>
+                                <td>R$ 198,00</td>
+                                <td>R$ 729,00</td>
+                                <td>R$ 1378,00</td>
+                            </tr>
+                            <tr>
+                                <td>90 min</td>
+                                <td>R$ 292,00</td>
+                                <td>R$ 1075,00</td>
+                                <td>R$ 2032,00</td>
+                            </tr>
+
+                            <!-- Quick Massage -->
+                            <tr>
+                                <td rowspan="3">Quick Massage</td>
+                                <td>15 min</td>
+                                <td>R$ 52,00</td>
+                                <td>R$ 195,00</td>
+                                <td>R$ 362,00</td>
+                            </tr>
+                            <tr>
+                                <td>25 min</td>
+                                <td>R$ 73,00</td>
+                                <td>R$ 269,00</td>
+                                <td>R$ 508,00</td>
+                            </tr>
+                            <tr>
+                                <td>35 min</td>
+                                <td>R$ 92,00</td>
+                                <td>R$ 339,00</td>
+                                <td>R$ 640,00</td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </section>
+            <!-- LIBS jsPDF + autoTable (CDN) -->
+            <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+            <script
+                src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
+
+            <!-- SEU JS -->
+            <script src="script.js"></script>
 
             <!-- ========== POSTOS DE TRABALHO (não existe) ========== -->
             <!-- ========== POSTOS DE TRABALHO ========== -->
@@ -1428,6 +1768,10 @@
         <style>
             /* espaço para ajustes locais rápidos se precisar */
         </style>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+        <script
+            src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 </body>
 
 </html>
