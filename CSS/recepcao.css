@@ -552,14 +552,14 @@ body::before {
 
 .time-slot:hover {
   background: rgba(157, 182, 104, 0.9);
-  color: #000;
+  color: #ddd;
   transform: translateY(-3px);
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
 }
 
 .time-slot.selected {
   background: #9DB668;
-  color: #000;
+  color: #ddd;
   border-color: #fff;
   box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
 }
