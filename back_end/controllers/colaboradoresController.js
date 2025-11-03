@@ -28,3 +28,33 @@ export const listarColaboradoresPorUnidade = async (req, res) => {
         res.status(500).json({ error: 'Erro ao buscar colaboradores.' });
     }
 };
+
+export const criarColaborador = async (req, res) => {
+  console.log("📩 Dados recebidos no POST /api/colaboradores:", req.body);
+  const { nome_colaborador, tipo_id, usuario, senha, unidade_id } = req.body;
+
+  if (!nome_colaborador || !tipo_id || !usuario || !senha || !unidade_id) {
+    return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
+  }
+
+  try {
+    const [result] = await db.query(
+      `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
+       VALUES (?, ?, ?, ?, 'S')`,
+      [nome_colaborador, tipo_id, usuario, senha]
+    );
+
+    const colaboradorId = result.insertId;
+
+    // vincula à unidade
+    await db.query(
+      `INSERT INTO colab_unidade (colab_id, unidade_id) VALUES (?, ?)`,
+      [colaboradorId, unidade_id]
+    );
+
+    res.status(201).json({ message: 'Colaborador criado com sucesso!', colaboradorId });
+  } catch (err) {
+    console.error('Erro ao criar colaborador:', err);
+    res.status(500).json({ error: 'Erro ao criar colaborador.' });
+  }
+};

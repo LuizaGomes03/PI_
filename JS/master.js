@@ -587,6 +587,58 @@ document.addEventListener('DOMContentLoaded', () => {
       if (unidade?.id) carregarColaboradores(unidade.id);
     });
 
+    // ===== cadastro colab =====
+    (function initCadastroColab() {
+      const form = document.getElementById('formNovoColab');
+      if (!form) return;
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const nome = document.getElementById('colabNome').value.trim();
+        const usuario = document.getElementById('colabUsuario').value.trim();
+        const senha = document.getElementById('colabSenha').value.trim();
+        let tipo_id = document.getElementById("colabFuncao").value.trim();
+
+        // converte o texto do select para número antes de enviar
+        if (tipo_id.toLowerCase() === "terapeuta") tipo_id = 1;
+        else if (tipo_id.toLowerCase() === "recepcionista") tipo_id = 2;
+        else tipo_id = null;
+
+        const unidadeAtual = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+
+        if (!nome || !tipo_id || !usuario || !senha) {
+          alert('Preencha todos os campos!');
+          return;
+        }
+
+        try {
+          const resp = await fetch('http://localhost:3000/api/colaboradores', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              nome_colaborador: nome,
+              tipo_id,
+              usuario,
+              senha,
+              unidade_id: unidadeAtual.id
+            })
+          });
+
+          if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+
+          alert('Colaborador criado com sucesso!');
+          form.reset();
+
+          // atualiza lista automaticamente
+          document.dispatchEvent(new CustomEvent('unit:change', { detail: unidadeAtual }));
+        } catch (err) {
+          console.error('Erro ao criar colaborador:', err);
+          alert('Falha ao criar colaborador.');
+        }
+      });
+    })();
+
 
     // ===== FOLHA (Controle de pagamentos dos colaboradores)
     (function initFolha() {
@@ -977,7 +1029,4 @@ cliFormCad?.addEventListener('submit', async (e) => {
 
     doc.save("relatorio-pacotes.pdf");
   });
-
-
-
 });

@@ -536,49 +536,44 @@
 
             <!-- ========= NOVO COLABORADOR ========= -->
             <section id="view-colab-novo" class="view" aria-labelledby="novoColabTitle">
-                <div class="card">
-                    <button class="btn-voltar" data-view="colaboradores">
-                        <i class="fa-solid fa-arrow-left"></i> Voltar
-                    </button>
+                <div class="colaboradores-card">
                     <div class="atd-head">
-                        <h2 id="novoColabTitle"><i class="fa-solid fa-user-plus"></i> Adicionar Novo Colaborador</h2>
-
-                        <div class="muted">Cadastro e criação automática de e-mail</div>
+                        <h2>Adicionar Novo Colaborador</h2>
+                        <p class="muted">Preencha as informações abaixo para criar uma nova conta de colaborador.</p>
                     </div>
 
-                    <form id="colabForm" class="form-grid">
-                        <div class="form-group">
-                            <label for="colabNome">Nome</label>
-                            <input type="text" id="colabNome" placeholder="" required>
+                    <form id="formNovoColab">
+                        <div class="form-grid">
+                            <!-- Nome -->
+                            <div class="form-group">
+                                <label for="colabNome">Nome</label>
+                                <input id="colabNome" type="text" placeholder="Nome completo" required>
+                            </div>
+
+                            <!-- Função -->
+                            <div class="form-group">
+                                <label for="colabFuncao">Função</label>
+                                <select id="colabFuncao" required>
+                                    <option value="">Selecione</option>
+                                    <option value="recepcionista">Recepção</option>
+                                    <option value="terapeuta">Terapeuta</option>
+                                </select>
+                            </div>
+
+                            <!-- Usuário -->
+                            <div class="form-group">
+                                <label for="colabUsuario">Usuário (E-mail)</label>
+                                <input id="colabUsuario" type="email" placeholder="usuario@exemplo.com" required>
+                            </div>
+
+                            <!-- Senha temporária -->
+                            <div class="form-group">
+                                <label for="colabSenha">Senha temporária</label>
+                                <input id="colabSenha" type="text" placeholder="Senha inicial" required>
+                            </div>
                         </div>
 
-                        <div class="form-group">
-                            <label for="colabSobrenome">Sobrenome</label>
-                            <input type="text" id="colabSobrenome" placeholder="" required>
-                        </div>
-
-                        <div class="form-group">
-                            <label for="colabFuncao">Função</label>
-                            <select id="colabFuncao" required>
-                                <option value="">Selecione</option>
-                                <option value="recepcionista">Recepcionista</option>
-                                <option value="massoterapeuta">Massoterapeuta</option>
-                                <option value="gerente">Gerente</option>
-                                <option value="financeiro">Financeiro</option>
-                            </select>
-                        </div>
-
-                        <div class="form-group full">
-                            <label>E-mail gerado</label>
-                            <input type="text" id="colabEmail" readonly>
-                        </div>
-
-                        <div class="form-group full">
-                            <label>Senha temporária</label>
-                            <input type="text" id="colabSenha" readonly>
-                        </div>
-
-                        <button type="submit" class="btn primary"><i class="fa-solid fa-save"></i> Criar Conta</button>
+                        <button type="submit" class="btn primary">Criar Conta</button>
                     </form>
                 </div>
             </section>
