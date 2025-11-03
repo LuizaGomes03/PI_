@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Rokuzen — Selecione a data</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet" />
+    <link rel="stylesheet" href="..\TOTEM\CSS\totem_data_horario.css">
+    <link rel="stylesheet" href="..\CSS\selecionar_data.css">
+</head>
+
+<body>
+    <div class="rk-shell">
+        <!-- Topo -->
+        <header class="rk-bar">
+            <div class="rk-brand">
+                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
+                <div class="name">Rokuzen • Selecione a data – Passo 4</div>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button class="btn" onclick="history.back()">Voltar</button>
+                <button class="btn primary" id="btnFull">Tela cheia</button>
+            </div>
+        </header>
+
+        <main class="main-layout">
+            <!-- Coluna esquerda: título/instruções -->
+            <section class="card">
+                <div class="inner">
+                    <div class="step"><span class="pill">PASSO 4</span> Selecione a data</div>
+                    <h1 class="title-xl">Selecione a data</h1>
+                    <p class="subtitle">Selecione a data que você deseja realizar sua sessão. Depois clique em
+                        <b>Continuar</b>.
+                    </p>
+                    <div class="divider"></div>
+                    <div style="color:var(--muted);font-size:14px">
+                        Valores válidos para este espaço. Sujeito à agenda.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna direita: Calendário + Horários -->
+            <section class="calendar-section">
+                <div class="calendar-container">
+                    <div class="calendar-header">
+                        <button id="prevMonthBtn" aria-label="Mês anterior">&lt;</button>
+                        <span class="month-label" id="monthLabel"></span>
+                        <button id="nextMonthBtn" aria-label="Próximo mês">&gt;</button>
+                    </div>
+                    <div class="calendar-grid" id="calendarGrid"></div>
+                </div>
+
+                <div class="horarios-container" id="horariosContainer" style="display:none;">
+                    <label for="horariosList"><strong>Escolha o horário:</strong></label>
+                    <div class="horarios-list" id="horariosList"></div>
+                </div>
+
+                <div class="profissionais-container" id="profissionaisContainer" style="display:none;">
+                    <label for="profissionaisList"><strong>Escolha o profissional:</strong></label>
+                    <div class="profissionais-list" id="profissionaisList"></div>
+                </div>
+
+                <div class="actions">
+                    <button class="btn" onclick="history.back()">Cancelar</button>
+                    <button class="btn primary" id="confirmarBtn" style="display:none;">Confirmar</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="ticker"><span>Selecione a data e o horário, depois clique em confirmar.</span></div>
+        </footer>
+    </div>
+
+    <script>
+        // Tela cheia
+        document.getElementById('btnFull').addEventListener('click', async () => {
+            try {
+                if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+                else await document.exitFullscreen();
+            } catch (e) { }
+        });
+    </script>
+
+    <script src="..\JS\selecionar_data.js"></script>
+</body>
+
+</html>
