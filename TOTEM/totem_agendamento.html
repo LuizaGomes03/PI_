@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Rokuzen — Agendamento</title>
+    <script src="TOTEM/totemagendamento.js" defer></script>
+
+
+    <!-- Fontes do totem -->
+    <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+        rel="stylesheet" />
+
+    <link rel="stylesheet" href="..\TOTEM\CSS\totem_agendamentos.css">
+
+</head>
+
+<body>
+    <div class="rk-shell">
+        <!-- Topo com brand -->
+        <header class="rk-bar">
+            <div class="rk-brand">
+                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
+                <div class="name">Rokuzen • Agendamento</div>
+            </div>
+            <div style="display:flex;gap:8px">
+                <button class="btn" onclick="history.back()">Voltar</button>
+                <button class="btn primary" id="btnFull">Tela cheia</button>
+            </div>
+        </header>
+        </header>
+
+        <main>
+            <!-- Coluna esquerda: instruções -->
+            <section class="rk-card">
+                <div class="inner">
+                    <div class="step"><span class="pill">PASSO 1</span> Escolha o serviço</div>
+                    <h1 class="title-xl">Seu momento zen 🌿</h1>
+                    <p class="subtitle">Toque em um cartão para selecionar. Depois, clique em <b>Continuar</b>.</p>
+                    <div class="divider"></div>
+                    <div style="color:var(--muted); font-size:14px">
+                        Dica: sessões na maca combinam com Shiatsu, Relaxante, Ventosa ou Armá.
+                    </div>
+                </div>
+            </section>
+
+            <!-- Coluna direita: serviços -->
+            <section class="rk-card" style="padding:16px">
+                <div class="services" id="svcList">
+
+
+                    <!-- Quick Massage -->
+                    <article class="svc" data-url="..\TOTEM\totem_tempo_quick.html">
+                        <div class="svc-media">
+                            <img src="https://itiomassagem.com.br/midia/terapias/itio-rokuzen-quick-2.jpg"
+                                alt="Quick Massage" />
+                        </div>
+                        <div class="svc-body">
+                            <h3>Quick Massage</h3>
+                            <p>Cadeira ergonômica. 15–20 min.</p>
+                        </div>
+                    </article>
+
+                    <!-- Maca -->
+                    <article class="svc" data-goto="..\TOTEM\totem_tempo_maca.html">
+                        <div class="svc-media">
+                            <img src="https://rokuzen.com.br/compragift/v_maca.jpg"
+                                alt="Maca — Shiatsu / Relaxante / Ventosa / Armá" />
+                        </div>
+                        <div class="svc-body">
+                            <h3>Maca (Shiatsu / Relaxante / Ventosa / Armá)</h3>
+                            <p>Escolha a técnica na etapa seguinte. 30–60 min.</p>
+                        </div>
+                    </article>
+
+                    <!-- Reflexologia -->
+                    <article class="svc" data-url="..\TOTEM\totem_tempo_reflex.html">
+                        <div class="svc-media">
+                            <img src="https://rokuzen.com.br/eventos/assets/img/product-screen-1.png"
+                                alt="Reflexologia Podal" />
+                        </div>
+                        <div class="svc-body">
+                            <h3>Reflexologia Podal</h3>
+                            <p>Equilíbrio via pontos nos pés. 30 min.</p>
+                        </div>
+                    </article>
+
+                    <!-- Auriculoterapia -->
+                    <article class="svc" data-url="..\TOTEM\totem_tempo_auri.html">
+                        <div class="svc-media">
+                            <img src="https://rokuzen.com.br/eventos/assets/img/product-screen-2.png"
+                                alt="Auriculoterapia" />
+                        </div>
+                        <div class="svc-body">
+                            <h3>Auriculoterapia</h3>
+                            <p>Estimulação com cristais/pontos. 20–30 min.</p>
+                        </div>
+                    </article>
+                </div>
+
+                <div class="actions">
+                    <button class="btn" onclick="history.back()">Cancelar</button>
+                    <button class="btn primary" id="goNext">Continuar</button>
+                </div>
+            </section>
+        </main>
+
+        <footer>
+            <div class="ticker"><span>Bem-vindos! • Chegue 10 min antes para avaliação inicial • Hidrate-se • Fale
+                    conosco para necessidades específicas.</span></div>
+            <div></div>
+        </footer>
+    </div>
+
+    <script>
+        // navegação centralizada: funciona para .svc, .tile, etc.
+        document.addEventListener('click', (e) => {
+            const el = e.target.closest('[data-url],[data-goto]');
+            if (!el) return;
+
+            const raw = el.getAttribute('data-url') || el.getAttribute('data-goto');
+            if (!raw) return;
+
+            // resolve o caminho corretamente (./, ../, /TOTEM/...)
+            const url = new URL(raw, window.location.href).href;
+            console.log('➡️ indo para:', url, 'a partir de', location.pathname);
+
+            e.preventDefault();
+            window.location.assign(url);
+        });
+
+        // acessível no teclado
+        document.addEventListener('keydown', (e) => {
+            if (e.key !== 'Enter' && e.key !== ' ') return;
+            const el = document.activeElement?.closest?.('[data-url],[data-goto]');
+            if (!el) return;
+
+            const raw = el.getAttribute('data-url') || el.getAttribute('data-goto');
+            if (!raw) return;
+
+            const url = new URL(raw, window.location.href).href;
+            e.preventDefault();
+            window.location.assign(url);
+        });
+
+        // Tela cheia
+        document.getElementById('btnFull').addEventListener('click', async () => {
+            try {
+                if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+                else await document.exitFullscreen();
+            } catch (e) { }
+        });
+
+    </script>
+</body>
+
+</html>

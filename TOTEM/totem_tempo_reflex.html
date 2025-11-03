@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Rokuzen — Reflexologia • Tempo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
+    rel="stylesheet" />
+  <link rel="stylesheet" href="..\TOTEM\CSS\totem_tempo.css">
+</head>
+
+<body>
+  <div class="rk-shell">
+    <!-- Topo -->
+    <header class="rk-bar">
+      <div class="rk-brand">
+        <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
+        <div class="name">Rokuzen • Reflexologia – Passo 2</div>
+      </div>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="history.back()">Voltar</button>
+        <button class="btn primary" id="btnFull">Tela cheia</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Coluna esquerda: título/instruções -->
+      <section class="card">
+        <div class="inner">
+          <div class="step"><span class="pill">PASSO 2</span> Selecione o tempo</div>
+          <h1 class="title-xl">Reflexologia</h1>
+          <p class="subtitle">Escolha uma duração. Depois clique em <b>Continuar</b>.</p>
+          <div class="divider"></div>
+          <div style="color:var(--muted);font-size:14px">Valores válidos para este espaço. Sujeito à agenda.</div>
+        </div>
+      </section>
+
+      <!-- Coluna direita: tempos -->
+      <section class="card" style="padding:16px">
+        <div class="times" id="times">
+          <!-- Pode deixar só 10 min se quiser: acrescentei mais opções pra ficar padronizado -->
+          <article class="time-card" data-value="20" data-price="83">
+            <div class="time-min">🕒 20 minutos</div>
+            <div class="time-price">R$ 83,00</div>
+          </article>
+
+          <article class="time-card" data-value="30" data-price="99">
+            <div class="time-min">🕒 30 minutos</div>
+            <div class="time-price">R$ 99,00</div>
+          </article>
+
+          <article class="time-card" data-value="40" data-price="118">
+            <div class="time-min">🕒 40 minutos</div>
+            <div class="time-price">R$ 118,00</div>
+          </article>
+
+          <article class="time-card" data-value="60" data-price="159">
+            <div class="time-min">🕒 60 minutos</div>
+            <div class="time-price">R$ 159,00</div>
+          </article>
+        </div>
+
+        <div class="actions">
+          <button class="btn" onclick="history.back()">Cancelar</button>
+          <button class="btn primary" id="goNext">Continuar</button>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="ticker"><span>Selecione o tempo • Confirme para avançar • Você pode voltar e trocar o serviço.</span>
+      </div>
+      <div></div>
+    </footer>
+  </div>
+
+  <script>
+    // Tela cheia
+    document.getElementById('btnFull').addEventListener('click', async () => {
+      try {
+        if (!document.fullscreenElement) await document.documentElement.requestFullscreen();
+        else await document.exitFullscreen();
+      } catch (e) { }
+    });
+
+    // Seleção de tempo
+    const cards = [...document.querySelectorAll('.time-card')];
+    let selected = null;
+
+    cards.forEach(c => {
+      c.addEventListener('click', () => {
+        selected && selected.classList.remove('active');
+        selected = c;
+        c.classList.add('active');
+      });
+    });
+
+    // Próxima etapa
+    document.getElementById('goNext').addEventListener('click', () => {
+      if (!selected) { alert('Selecione um tempo para continuar.'); return; }
+      // Exemplo: envia para condições médicas (passo 3)
+      // Você pode passar params na URL (tempo e preço) se quiser usar depois.
+      const tempo = selected.dataset.value;
+      const preco = selected.dataset.price;
+      window.location.href = `agendamento_condicoes_med.html?tempo=${tempo}&preco=${preco}`;
+    });
+
+  </script>
+</body>
+
+</html>
