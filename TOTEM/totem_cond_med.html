@@ -105,44 +105,44 @@
 
         // Seleção de condições médicas
         const chips = [...document.querySelectorAll('.chips label')];
-        let nenhumaOpcao = document.querySelector('.chips input[value="Nenhuma das opções acima"]');
+        const nenhumaOpcao = document.querySelector('.chips input[value="Nenhuma das opções acima"]');
         let selectedConditions = [];
 
         chips.forEach(chip => {
             const input = chip.querySelector("input");
-            const span = chip.querySelector("span");
-
-            if (!input || !span) return;
+            if (!input) return;
 
             input.addEventListener('change', () => {
+                // Se selecionar "Nenhuma das opções acima"
                 if (nenhumaOpcao && input === nenhumaOpcao && input.checked) {
                     document.querySelectorAll('.chips input').forEach(outro => {
-                        if (outro === nenhumaOpcao) return;
-                        outro.checked = false;
-                        outro.closest('label').querySelector('span').style.backgroundColor = "#e6edd7";
-                        outro.closest('label').querySelector('span').style.color = "#222";
+                        if (outro !== nenhumaOpcao) outro.checked = false;
                     });
-                }
-                if (input.checked) {
-                    span.style.backgroundColor = "#9DB668";
-                    span.style.color = "#fff";
-                    selectedConditions.push(input.value);
+                    selectedConditions = [input.value];
                 } else {
-                    span.style.backgroundColor = "#e6edd7";
-                    span.style.color = "#222";
-                    selectedConditions = selectedConditions.filter(cond => cond !== input.value);
+                    // Se marcar qualquer outra opção, desmarca "Nenhuma das opções acima"
+                    if (nenhumaOpcao) nenhumaOpcao.checked = false;
+
+                    if (input.checked) {
+                        if (!selectedConditions.includes(input.value))
+                            selectedConditions.push(input.value);
+                    } else {
+                        selectedConditions = selectedConditions.filter(cond => cond !== input.value);
+                    }
                 }
             });
         });
 
         // Próxima etapa
         document.getElementById('goNext').addEventListener('click', () => {
-            if (selectedConditions.length === 0) {
-                alert('Selecione ao menos uma condição ou marque "Nenhuma das opções acima"');
-                return;
+            // Se nada for selecionado, marca automaticamente "Nenhuma das opções acima"
+            if (selectedConditions.length === 0 && nenhumaOpcao) {
+                nenhumaOpcao.checked = true;
+                selectedConditions = [nenhumaOpcao.value];
             }
-            // Exemplo: Envia as condições selecionadas para a próxima página
-            window.location.href = `agendamento_condicoes_med.html?condicoes=${selectedConditions.join(',')}`;
+
+            // Redireciona
+            window.location.href = `../TOTEM/totem_data_horario.html`;
         });
 
     </script>
