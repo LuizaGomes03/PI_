@@ -536,44 +536,49 @@
 
             <!-- ========= NOVO COLABORADOR ========= -->
             <section id="view-colab-novo" class="view" aria-labelledby="novoColabTitle">
-                <div class="colaboradores-card">
+                <div class="card">
+                    <button class="btn-voltar" data-view="colaboradores">
+                        <i class="fa-solid fa-arrow-left"></i> Voltar
+                    </button>
                     <div class="atd-head">
-                        <h2>Adicionar Novo Colaborador</h2>
-                        <p class="muted">Preencha as informações abaixo para criar uma nova conta de colaborador.</p>
+                        <h2 id="novoColabTitle"><i class="fa-solid fa-user-plus"></i> Adicionar Novo Colaborador</h2>
+
+                        <div class="muted">Cadastro e criação automática de e-mail</div>
                     </div>
 
-                    <form id="formNovoColab">
-                        <div class="form-grid">
-                            <!-- Nome -->
-                            <div class="form-group">
-                                <label for="colabNome">Nome</label>
-                                <input id="colabNome" type="text" placeholder="Nome completo" required>
-                            </div>
-
-                            <!-- Função -->
-                            <div class="form-group">
-                                <label for="colabFuncao">Função</label>
-                                <select id="colabFuncao" required>
-                                    <option value="">Selecione</option>
-                                    <option value="recepcionista">Recepção</option>
-                                    <option value="terapeuta">Terapeuta</option>
-                                </select>
-                            </div>
-
-                            <!-- Usuário -->
-                            <div class="form-group">
-                                <label for="colabUsuario">Usuário (E-mail)</label>
-                                <input id="colabUsuario" type="email" placeholder="usuario@exemplo.com" required>
-                            </div>
-
-                            <!-- Senha temporária -->
-                            <div class="form-group">
-                                <label for="colabSenha">Senha temporária</label>
-                                <input id="colabSenha" type="text" placeholder="Senha inicial" required>
-                            </div>
+                    <form id="colabForm" class="form-grid">
+                        <div class="form-group">
+                            <label for="colabNome">Nome</label>
+                            <input type="text" id="colabNome" placeholder="" required>
                         </div>
 
-                        <button type="submit" class="btn primary">Criar Conta</button>
+                        <div class="form-group">
+                            <label for="colabSobrenome">Sobrenome</label>
+                            <input type="text" id="colabSobrenome" placeholder="" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="colabFuncao">Função</label>
+                            <select id="colabFuncao" required>
+                                <option value="">Selecione</option>
+                                <option value="recepcionista">Recepcionista</option>
+                                <option value="massoterapeuta">Massoterapeuta</option>
+                                <option value="gerente">Gerente</option>
+                                <option value="financeiro">Financeiro</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>E-mail gerado</label>
+                            <input type="text" id="colabEmail" readonly>
+                        </div>
+
+                        <div class="form-group full">
+                            <label>Senha temporária</label>
+                            <input type="text" id="colabSenha" readonly>
+                        </div>
+
+                        <button type="submit" class="btn primary"><i class="fa-solid fa-save"></i> Criar Conta</button>
                     </form>
                 </div>
             </section>
@@ -596,7 +601,7 @@
                                 <tr>
                                     <th>Nome</th>
                                     <th>Função</th>
-                                    <th>Usuário</th>
+                                    <th>E-mail</th>
                                     <th>Senha</th>
                                     <th>Ativo</th>
                                 </tr>
@@ -1704,6 +1709,8 @@
             <script
                 src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
 
+            <!-- SEU JS -->
+            <script src="script.js"></script>
 
             <!-- ========== POSTOS DE TRABALHO (não existe) ========== -->
             <!-- ========== POSTOS DE TRABALHO ========== -->
@@ -1748,6 +1755,26 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
         <script
             src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
+</body>
+
+</html>nfigurações de privacidade e auditoria.</p>
+                        </div>
+                    </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
 
 </html>
