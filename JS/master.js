@@ -953,8 +953,9 @@ function closeCliModal() {
 
 cliOpenBtn?.addEventListener('click', (e) => {
   e.preventDefault();
-  abrirModalCliente(null); // abre no modo novo
+  openCliModal(); // agora sim
 });
+
 cliCloseBtn?.addEventListener('click', closeCliModal);
 cliCancelBtn?.addEventListener('click', (e) => { e.preventDefault(); closeCliModal(); });
 
