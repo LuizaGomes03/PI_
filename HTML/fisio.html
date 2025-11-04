@@ -54,6 +54,13 @@
                         <span class="shortcut-label">Calendário Anual</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
+
+                    <!-- === ATALHO CONTROLE DE TEMPO (adicione na lista de atalhos) === -->
+                    <a href="#controle-tempo" class="shortcut-item">
+                        <span class="shortcut-icon"><i class="fa-solid fa-stopwatch"></i></span>
+                        <span class="shortcut-label">Controle de Tempo</span>
+                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+                    </a>
                 </nav>
             </div>
 
@@ -133,7 +140,7 @@
                     aria-label="Controle de Login / Bate Ponto">
                     <div class="login-header">
                         <div>
-                            <h2>Controle de Login • Bate Ponto</h2>
+                            <h2>Controle de Login</h2>
                             <p class="login-sub">Marque seu ponto de entrada e saída, e veja seu histórico.</p>
                         </div>
                         <div class="login-controls">
@@ -167,6 +174,39 @@
                     </div>
                 </section>
 
+                <!-- === CARD CONTROLE DE TEMPO === -->
+                <section id="timeControlCard" class="card time-card" aria-hidden="true" role="dialog"
+                    aria-label="Controle de Tempo - Cronômetro e Sessões">
+                    <div class="time-header">
+                        <div>
+                            <h2>Controle de Tempo • Sessões</h2>
+                            <p class="time-sub">Marque o início e fim de cada sessão — o tempo ficará registrado.</p>
+                        </div>
+                        <div class="time-controls">
+                            <button class="btn-close" aria-label="Fechar controle de tempo">&times;</button>
+                        </div>
+                    </div>
+
+                    <div class="time-body">
+                        <div class="timer-panel" aria-live="polite">
+                            <div class="timer-display" id="timerDisplay" aria-atomic="true">00:00:00</div>
+                            <div class="timer-buttons">
+                                <button id="timeStart" class="btn-punch">Iniciar</button>
+                                <button id="timePause" class="btn-punch" disabled>Pausar</button>
+                                <button id="timeStop" class="btn-punch" disabled>Encerrar</button>
+                            </div>
+                            <p id="timerStatus" class="status-text">Nenhuma sessão ativa.</p>
+                        </div>
+
+                        <aside class="sessions-history" aria-live="polite">
+                            <h3>Histórico de Sessões</h3>
+                            <div id="sessionsContent">
+                                <p class="empty">Nenhuma sessão registrada.</p>
+                            </div>
+                        </aside>
+                    </div>
+                </section>
+
             </header>
         </main>
     </div>
@@ -185,7 +225,7 @@
     </script>
 
     <script src="https://app.embed.im/accessibility.js" defer></script>
-    
+
     <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
     <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
         <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
