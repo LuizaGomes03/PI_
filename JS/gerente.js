@@ -181,30 +181,6 @@ $('#tblClients')?.addEventListener('click', (e) => {
   }
 });
 
-// Botão "Novo Cliente"
-const btnNewClient = document.querySelector("#btnNewClient");
-btnNewClient?.addEventListener("click", () => {
-  const name = prompt("Nome do cliente:");
-  if (!name) return alert("Nome é obrigatório!");
-
-  const wa = prompt("WhatsApp do cliente (opcional):", "");
-  const email = prompt("E-mail do cliente (opcional):", "");
-
-  const newClient = {
-    id: "C" + Math.random().toString(36).slice(2, 7).toUpperCase(),
-    name,
-    wa: wa || "-",
-    email: email || "-"
-  };
-
-  db.clients.push(newClient);
-  save(db); // salva no localStorage
-  renderClients(); // atualiza tabela
-  alert(`Cliente "${name}" adicionado com sucesso!`);
-});
-
-
-
 /* ===== Agenda (stub) ===== */
 function renderAgenda() {
   const tb = $('#tblAgenda .table__body') || $('#tblAgenda tbody'); if (!tb) return;
@@ -339,18 +315,6 @@ function boot() {
   $('#searchClient')?.addEventListener('input', renderClients);
   $('#agendaDate')?.addEventListener('change', renderAgenda);
   $('#roleFilter')?.addEventListener('change', renderEmployees);
-
-  // agenda actions
-  $('#btnNewAppt')?.addEventListener('click', () => {
-    const date = $('#agendaDate')?.value || todayISO();
-    const time = prompt('Hora (HH:MM):', '14:00'); if (!time) return;
-    const client = prompt('Cliente:', ''); if (!client) return;
-    const service = prompt('Serviço:', 'Quick Massage') || 'Quick Massage';
-    const therapistId = db.employees.find(e => e.role !== 'recepcao')?.id || db.employees[0]?.id;
-    const room = prompt('Sala:', '1') || '1';
-    db.appts.push({ id: Math.random().toString(36).slice(2), date, time, client, service, therapistId, room });
-    save(db); renderAgenda(); renderDashboard();
-  });
 
   // agenda delete (delegate)
   $('#tblAgenda')?.addEventListener('click', (e) => {
