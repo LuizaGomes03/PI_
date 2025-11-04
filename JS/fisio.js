@@ -359,6 +359,257 @@
     window.ROKUAnnualCalendar = { open: openAnnualCard, close: closeAnnualCard };
 })();
 
+// === CONTROLE DE TEMPO / CRONÔMETRO ===
+(() => {
+    const timeShortcut = document.querySelector('.shortcut-item[href="#controle-tempo"]');
+    const timeCard = document.getElementById('timeControlCard');
+    const closeBtn = timeCard?.querySelector('.btn-close');
+
+    const display = document.getElementById('timerDisplay');
+    const btnStart = document.getElementById('timeStart');
+    const btnPause = document.getElementById('timePause');
+    const btnStop = document.getElementById('timeStop');
+    const timerStatus = document.getElementById('timerStatus');
+    const sessionsContent = document.getElementById('sessionsContent');
+
+    // Persistência
+    const STORAGE_KEY = 'roku_time_sessions_v1';
+
+    // Estado
+    let timerInterval = null;
+    let startTs = null;      // ms epoch quando iniciou
+    let accumulated = 0;     // ms acumulado em pausas/resets
+    let isPaused = false;
+
+    // carregar sessões do localStorage
+    function loadSessions() {
+        try {
+            const raw = localStorage.getItem(STORAGE_KEY);
+            return raw ? JSON.parse(raw) : [];
+        } catch (e) {
+            console.error('Erro ao ler sessões', e);
+            return [];
+        }
+    }
+
+    function saveSessions(list) {
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(list || []));
+        } catch (e) {
+            console.error('Erro ao salvar sessões', e);
+        }
+    }
+
+    // util: formata ms -> hh:mm:ss
+    function formatMs(ms) {
+        if (ms < 0) ms = 0;
+        const totalSec = Math.floor(ms / 1000);
+        const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
+        const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
+        const s = String(totalSec % 60).padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    }
+
+    // atualiza display
+    function tick() {
+        const now = Date.now();
+        const elapsed = accumulated + (startTs ? now - startTs : 0);
+        display.textContent = formatMs(elapsed);
+    }
+
+    // UI estado
+    function setUIIdle() {
+        btnStart.textContent = 'Iniciar';
+        btnStart.disabled = false;
+        btnPause.disabled = true;
+        btnStop.disabled = true;
+        timerStatus.textContent = 'Nenhuma sessão ativa.';
+        timeCard.classList.remove('timer-active');
+    }
+
+    function setUIRunning() {
+        btnStart.textContent = 'Reiniciar';
+        // permitir reiniciar mesmo enquanto roda
+        btnStart.disabled = false;
+        btnPause.disabled = false;
+        btnStop.disabled = false;
+        timerStatus.textContent = 'Sessão em andamento...';
+        timeCard.classList.add('timer-active');
+    }
+
+
+    function setUIPaused() {
+        btnStart.textContent = 'Continuar';
+        btnStart.disabled = false;
+        btnPause.disabled = true;
+        btnStop.disabled = false;
+        timerStatus.textContent = 'Sessão pausada.';
+        timeCard.classList.remove('timer-active');
+    }
+
+    // iniciar cronômetro (resume se pausado)
+    function startTimer() {
+        if (!startTs) {
+            startTs = Date.now();
+        } else {
+            // se já tinha startTs, estamos retomando após pause; manter startTs como agora e acumular já feito
+            startTs = Date.now();
+        }
+        isPaused = false;
+        if (timerInterval) clearInterval(timerInterval);
+        timerInterval = setInterval(tick, 250);
+        tick();
+        setUIRunning();
+    }
+
+    // pausar: cadastra o tempo acumulado e zera startTs
+    function pauseTimer() {
+        if (!startTs) return;
+        accumulated += Date.now() - startTs;
+        startTs = null;
+        isPaused = true;
+        clearInterval(timerInterval);
+        timerInterval = null;
+        tick();
+        setUIPaused();
+    }
+
+    // encerrar sessão: salva sessão com start/end e duração
+    function stopTimer() {
+        if (!startTs && accumulated === 0) {
+            // nada ocorreu
+            setUIIdle();
+            return;
+        }
+
+        // calcular tempo final
+        let durationMs = accumulated;
+        if (startTs) durationMs += Date.now() - startTs;
+
+        // criar registro
+        const startedAt = new Date(Date.now() - durationMs).toISOString();
+        const endedAt = new Date().toISOString();
+
+        const session = {
+            id: `${Date.now()}`, // simples id
+            startedAt,
+            endedAt,
+            durationMs
+        };
+
+        // salvar
+        const sessions = loadSessions();
+        sessions.unshift(session); // mais recente primeiro
+        saveSessions(sessions);
+
+        // reset
+        clearInterval(timerInterval);
+        timerInterval = null;
+        startTs = null;
+        accumulated = 0;
+        isPaused = false;
+        display.textContent = '00:00:00';
+        renderSessions();
+        setUIIdle();
+    }
+
+    // render histórico
+    function renderSessions() {
+        const sessions = loadSessions();
+        sessionsContent.innerHTML = '';
+        if (!sessions.length) {
+            sessionsContent.innerHTML = '<p class="empty">Nenhuma sessão registrada.</p>';
+            return;
+        }
+        sessions.forEach(s => {
+            const item = document.createElement('div');
+            item.className = 'session-item';
+            const started = new Date(s.startedAt);
+            const ended = new Date(s.endedAt);
+            item.innerHTML = `
+                <div class="session-duration">${formatMs(s.durationMs)}</div>
+                <div class="session-meta">Início: ${started.toLocaleString()} · Fim: ${ended.toLocaleString()}</div>
+                <div style="margin-top:6px"><button data-id="${s.id}" class="btn-remove small">Remover</button></div>
+            `;
+            sessionsContent.appendChild(item);
+        });
+
+        // delegação: remover sessão
+        sessionsContent.querySelectorAll('.btn-remove').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                const id = btn.getAttribute('data-id');
+                const list = loadSessions().filter(x => x.id !== id);
+                saveSessions(list);
+                renderSessions();
+            });
+        });
+    }
+
+    // abrir/fechar card
+    function openTimeCard() {
+        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
+        if (!timeCard) return;
+        timeCard.setAttribute('aria-hidden', 'false');
+        timeCard.classList.add('fade-in');
+        renderSessions();
+        setTimeout(() => timeCard.querySelector('.btn-close')?.focus(), 80);
+    }
+    function closeTimeCard() {
+        if (!timeCard) return;
+        timeCard.setAttribute('aria-hidden', 'true');
+    }
+
+    // eventos UI
+    btnStart?.addEventListener('click', () => {
+        // Se estava pausado (startTs null, accumulated > 0) -> retomar
+        if (isPaused && accumulated > 0) {
+            startTimer();
+            return;
+        }
+        // se estava rodando, reiniciar (limpa e inicia novo)
+        if (startTs) {
+            // confirmar reinício lógico: encerrar a sessão atual automaticamente antes de reiniciar?
+            // aqui só reiniciamos o contador
+            accumulated = 0;
+            startTs = Date.now();
+            tick();
+            setUIRunning();
+            return;
+        }
+        // iniciar do zero
+        accumulated = 0;
+        startTs = Date.now();
+        startTimer();
+    });
+
+    btnPause?.addEventListener('click', () => {
+        pauseTimer();
+    });
+
+    btnStop?.addEventListener('click', () => {
+        stopTimer();
+    });
+
+    closeBtn?.addEventListener('click', closeTimeCard);
+    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTimeCard(); });
+
+    timeShortcut?.addEventListener('click', e => { e.preventDefault(); openTimeCard(); });
+
+    // expose API
+    window.ROKUTime = {
+        open: openTimeCard,
+        close: closeTimeCard,
+        start: startTimer,
+        pause: pauseTimer,
+        stop: stopTimer,
+        getSessions: loadSessions
+    };
+
+    // init ui
+    setUIIdle();
+    renderSessions();
+})();
+
 // ==== LOGOUT ==== 
 document.addEventListener("DOMContentLoaded", () => {
     const logoutBtn = document.getElementById("logoutBtn");
