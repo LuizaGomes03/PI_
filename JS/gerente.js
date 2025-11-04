@@ -219,10 +219,7 @@ function renderAttendance() {
   };
   $('#btnToday')?.addEventListener('click', () => { if (dateInput) { dateInput.value = todayISO(); draw(); } });
   $('#btnNewEntry')?.addEventListener('click', () => {
-    const emp = sel.value || db.employees[0]?.id; if (!emp) return alert('Sem funcionários.');
-    const action = prompt('Ação (in, break_start, break_end, out):', 'in'); if (!action) return;
-    db.attendance.push({ id: Math.random().toString(36).slice(2), empId: emp, whenISO: nowISO(), action, source: 'manual' });
-    save(db); draw(); renderDashboard();
+    
   });
   $('#filterEmp')?.addEventListener('change', draw);
   $('#filterDate')?.addEventListener('change', draw);
@@ -315,6 +312,7 @@ function boot() {
   $('#searchClient')?.addEventListener('input', renderClients);
   $('#agendaDate')?.addEventListener('change', renderAgenda);
   $('#roleFilter')?.addEventListener('change', renderEmployees);
+
 
   // agenda delete (delegate)
   $('#tblAgenda')?.addEventListener('click', (e) => {
