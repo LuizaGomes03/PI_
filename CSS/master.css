@@ -3017,6 +3017,7 @@ input[type="text"] {
 
 
 /* ====== CONTROLE DE LOGIN (MASTER)  ====== */
+
 #view-controle-login .card {
     margin: 18px auto;
     background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
@@ -3028,9 +3029,150 @@ input[type="text"] {
     z-index: 5;
     position: relative;
 }
+#view-controle-login .table thead th {
+    background: rgba(0, 0, 0, .5);
+    backdrop-filter: blur(8px);
+    color: #fff;
+}
+
+#view-controle-login .ponto-table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+/* Cabeçalho da tabela */
+#view-controle-login .ponto-table thead th {
+    background: rgba(0, 0, 0, 0.5); /* Preto translúcido */
+    color: #fff;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Linhas da tabela */
+#view-controle-login .ponto-table tbody td {
+    background: rgba(255, 255, 255, 0.02); /* leve transparência */
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* Hover das linhas */
+#view-controle-login .ponto-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+/* Texto “Sem registros” */
+#view-controle-login #pontoMasterEmpty {
+    color: rgba(255, 255, 255, 0.7);
+}
+/* =========================
+   CONTROLE DE LOGIN – RESPONSIVO
+   ========================= */
+
+/* Tablet: card com mais respiro, filtros se ajustam */
+@media (max-width: 900px) {
+  #view-controle-login .card {
+    padding: 12px;
+    margin: 14px auto;
+  }
+
+  #view-controle-login .filtros-ponto {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #view-controle-login .filtros-ponto .form-group {
+    flex: 1 1 160px;
+  }
+
+  #view-controle-login .filtros-ponto .summary {
+    width: 100%;
+    text-align: left;
+    margin-top: 6px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Mobile: tabela vira “cards” bonitinhos */
+@media (max-width: 700px) {
+  /* some com o cabeçalho */
+  #view-controle-login .ponto-table thead {
+    display: none;
+  }
+
+  #view-controle-login .ponto-table {
+    border-collapse: separate;
+    border-spacing: 0;
+  }
+
+  #view-controle-login .ponto-table tbody {
+    display: grid;
+    gap: 10px;
+    padding: 8px;
+  }
+
+  #view-controle-login .ponto-table tbody tr {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 12px;
+    padding: 10px;
+    border-radius: 12px;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+  }
+
+  #view-controle-login .ponto-table tbody td {
+    background: transparent;
+    border-bottom: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 6px;
+    align-items: center;
+    font-size: 0.9rem;
+  }
+
+  #view-controle-login .ponto-table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  /* “labels” das colunas usando nth-child */
+  #view-controle-login .ponto-table tbody td::before {
+    font-weight: 600;
+    opacity: .9;
+  }
+  #view-controle-login .ponto-table tbody td:nth-child(1)::before { content: "Nome"; }
+  #view-controle-login .ponto-table tbody td:nth-child(2)::before { content: "Função"; }
+  #view-controle-login .ponto-table tbody td:nth-child(3)::before { content: "E-mail"; }
+  #view-controle-login .ponto-table tbody td:nth-child(4)::before { content: "Entrada"; }
+  #view-controle-login .ponto-table tbody td:nth-child(5)::before { content: "Intervalo"; }
+  #view-controle-login .ponto-table tbody td:nth-child(6)::before { content: "Saída"; }
+  #view-controle-login .ponto-table tbody td:nth-child(7)::before { content: "Status"; }
+
+  /* botão “Limpar” full width no mobile */
+  #view-controle-login .filtros-ponto #pontoLimpar {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+/* Telas bem pequenas: card ainda mais compacto */
+@media (max-width: 480px) {
+  #view-controle-login .card {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  #view-controle-login .atd-head h2 {
+    font-size: 1.05rem;
+  }
+}
 
 
-/* ========= ATENDIMENTOS – mesmo estilo do CLIENTES ========= */
+
+/* ========= ATENDIMENTOS========= */
 
 #view-atendimentos .atd.card {
     margin: 18px auto;
@@ -3043,8 +3185,6 @@ input[type="text"] {
     z-index: 5;
     position: relative;
 }
-
-/* ========== ATENDIMENTOS – RESPONSIVO ========== */
 
 /* Até 1024px – aperta um pouco o card e reorganiza o form */
 @media (max-width: 1024px) {
