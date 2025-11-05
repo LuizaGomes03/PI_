@@ -236,7 +236,7 @@ footer {
 .ticker span {
     display: inline-block;
     padding-left: 100%;
-    animation: marquee 45s linear infinite;
+    animation: marquee 40s linear infinite;
     color: #4b5563;
 }
 
@@ -345,5 +345,78 @@ footer {
     .card {
         width: 100%;
         max-width: 600px;
+    }
+}
+
+@media (max-width: 1024px) {
+    .main-layout {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 18px;
+        padding: 14px;
+    }
+
+    .calendar-section,
+    .card {
+        width: 100%;
+        max-width: 100%;
+        padding: 14px;
+    }
+
+    .calendar-container {
+        max-width: 100%;
+    }
+
+    .calendar-header {
+        margin-bottom: 10px;
+    }
+
+    .calendar-grid {
+        gap: 6px;
+    }
+
+    .calendar-grid button {
+        font-size: 16px;
+        padding: 0;
+    }
+
+    .horarios-list button,
+    .profissionais-list button {
+        font-size: 16px;
+        padding: 8px 12px;
+        border-radius: 10px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+}
+
+@media (max-width: 600px) {
+    .main-layout {
+        padding: 6px;
+        gap: 8px;
+    }
+
+    .calendar-section,
+    .card {
+        padding: 6px;
+    }
+
+    .calendar-grid button {
+        font-size: 14px;
+    }
+
+    .horarios-list button,
+    .profissionais-list button {
+        font-size: 14px;
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+
+    .btn {
+        font-size: 14px;
+        padding: 7px 10px;
     }
 }
