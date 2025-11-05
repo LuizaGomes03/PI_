@@ -882,63 +882,63 @@
 
             <!-- ========== PARCEIROS ========== -->
             <!-- LISTA DE PARCEIROS -->
-       <section id="view-parceiros" class="view" aria-labelledby="parceirosTitle">
-    <div class="card parceiros-card">
-        <h2 id="parceirosTitle">
-            <i class="fa-solid fa-handshake"></i> Lista de Parceiros
-        </h2>
-        <p class="muted">Gerencie os parceiros e contatos da unidade</p>
+            <section id="view-parceiros" class="view" aria-labelledby="parceirosTitle">
+                <div class="card parceiros-card">
+                    <h2 id="parceirosTitle">
+                        <i class="fa-solid fa-handshake"></i> Lista de Parceiros
+                    </h2>
+                    <p class="muted">Gerencie os parceiros e contatos da unidade</p>
 
-        <!-- FORM / CAMPOS -->
-        <div class="parceiro-form">
-            <input id="parceiroNome" type="text" placeholder="Nome do Parceiro">
-            <input id="parceiroTipo" type="text" placeholder="Tipo">
-            <input id="parceiroContato" type="email" placeholder="E-mail ou Contato">
-            <select id="parceiroStatus">
-                <option value="ativo">Ativo</option>
-                <option value="inativo">Inativo</option>
-            </select>
-            <button id="btnAddParceiro" class="btn-add">
-                <i class="fa-solid fa-plus"></i> Adicionar
-            </button>
-        </div>
+                    <!-- FORM / CAMPOS -->
+                    <div class="parceiro-form">
+                        <input id="parceiroNome" type="text" placeholder="Nome do Parceiro">
+                        <input id="parceiroTipo" type="text" placeholder="Tipo">
+                        <input id="parceiroContato" type="email" placeholder="E-mail ou Contato">
+                        <select id="parceiroStatus">
+                            <option value="ativo">Ativo</option>
+                            <option value="inativo">Inativo</option>
+                        </select>
+                        <button id="btnAddParceiro" class="btn-add">
+                            <i class="fa-solid fa-plus"></i> Adicionar
+                        </button>
+                    </div>
 
-        <!-- TABELA -->
-        <table class="table parceiros-table">
-            <thead>
-                <tr>
-                    <th>Parceiro</th>
-                    <th>Tipo</th>
-                    <th>Contato</th>
-                    <th>Status</th>
-                    <th>Ações</th>
-                </tr>
-            </thead>
-            <tbody id="listaParceiros">
-                <tr>
-                    <td>T-Systems</td>
-                    <td>Consultoria</td>
-                    <td>tsystems@email.com</td>
-                    <td><span class="status ativo">Ativo</span></td>
-                    <td>
-                        <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
-                        <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td>MedLife</td>
-                    <td>Laboratório</td>
-                    <td>contato@medlife.com</td>
-                    <td><span class="status inativo">Inativo</span></td>
-                    <td>
-                        <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
-                        <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-</section>
+                    <!-- TABELA -->
+                    <table class="table parceiros-table">
+                        <thead>
+                            <tr>
+                                <th>Parceiro</th>
+                                <th>Tipo</th>
+                                <th>Contato</th>
+                                <th>Status</th>
+                                <th>Ações</th>
+                            </tr>
+                        </thead>
+                        <tbody id="listaParceiros">
+                            <tr>
+                                <td>T-Systems</td>
+                                <td>Consultoria</td>
+                                <td>tsystems@email.com</td>
+                                <td><span class="status ativo">Ativo</span></td>
+                                <td>
+                                    <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
+                                    <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>MedLife</td>
+                                <td>Laboratório</td>
+                                <td>contato@medlife.com</td>
+                                <td><span class="status inativo">Inativo</span></td>
+                                <td>
+                                    <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
+                                    <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
 
 
 
@@ -1055,17 +1055,12 @@
                             <p>Registros e atualizações</p>
                         </a>
 
-                        <a href="#" data-view="rel-prontuarios-pendentes" class="colab-item">
-                            <i class="fa-solid fa-file-circle-xmark icon"></i>
-                            <h3>Prontuários não preenchidos</h3>
-                            <p>Itens pendentes por terapeuta</p>
-                        </a>
-
                         <a href="#" data-view="rel-pontos-unidades" class="colab-item">
                             <i class="fa-solid fa-list-check icon"></i>
                             <h3>Pontos por Unidade</h3>
                             <p>Métricas e ranking por unidade</p>
                         </a>
+
 
                         <a href="#" data-view="rel-escala" class="colab-item">
                             <i class="fa-solid fa-calendar-check icon"></i>
@@ -1612,46 +1607,337 @@
             </section>
 
 
+            <!-- MINUTOS ATENDIDOS  -->
+            <section id="view-rel-minutos-atendidos" class="view" aria-labelledby="prontuariosNaoPreenchidosTitle">
+                <div class="card">
+                    <div class="atd-head">
+                        <div class="atd-head">
+                            <button class="btn-voltar" data-view="relatorio">
+                                <i class="fa-solid fa-arrow-left"></i> Voltar
+                            </button>
+                            <h2 id="minutosAtendidosTitle">
+                                <i class="fa-regular fa-hourglass-half"></i> Minutos Atendidos
+                            </h2>
+                            <div class="muted">
+                                Tempo total de atendimentos da unidade: <b class="unitName">—</b>
+                            </div>
+                        </div>
 
-            <!-- PRONTUÁRIOS NÃO PREENCHIDOS -->
-            <section id="view-rel-prontuarios-pendentes" class="view" aria-labelledby="prontuariosNaoPreenchidosTitle">
+                        <!-- Filtros / ações -->
+                        <div class="filter-bar minutos-toolbar">
+                            <div class="form-group">
+                                <label for="minutosDataIni">Data inicial</label>
+                                <input type="date" id="minutosDataIni">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="minutosDataFim">Data final</label>
+                                <input type="date" id="minutosDataFim">
+                            </div>
+
+                            <div class="form-group">
+                                <label for="minutosAgrup">Agrupar por</label>
+                                <select id="minutosAgrup">
+                                    <option value="atendimento">Atendimento</option>
+                                    <option value="colaborador">Colaborador</option>
+                                    <option value="cliente">Cliente</option>
+                                </select>
+                            </div>
+
+                            <button id="minutosFiltrar" class="btn ghost btn-sm">
+                                <i class="fa-solid fa-filter"></i> Filtrar
+                            </button>
+
+                            <button id="btnMinutosPdf" class="btn primary btn-sm">
+                                <i class="fa-regular fa-file-pdf"></i> Baixar PDF
+                            </button>
+                        </div>
+
+                        <!-- Tabela do relatório -->
+                        <div class="ponto-table-wrap">
+                            <table id="tblMinutosAtendidos" class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Colaborador</th>
+                                        <th>Cliente</th>
+                                        <th>Serviço</th>
+                                        <th>Data</th>
+                                        <th>Início</th>
+                                        <th>Fim</th>
+                                        <th>Minutos</th>
+                                        <th>Horas</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="minutosAtendidosBody">
+                                    <!-- linhas preenchidas via JS -->
+                                </tbody>
+                            </table>
+
+                            <p id="minutosAtendidosEmpty" class="muted" style="text-align:center; padding:12px;">
+                                Sem registros para os filtros selecionados 👀
+                            </p>
+                        </div>
+                    </div>
+            </section>
+            <!-- PRONTUÁRIOS -->
+            <section id="view-rel-prontuarios" class="view" aria-labelledby="prontuariosNaoPreenchidosTitle">
                 <div class="card">
                     <div class="atd-head">
                         <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
                         <h2 id="prontuariosNaoPreenchidosTitle">
-                            <i class="fa-solid fa-file-invoice"></i> Prontuários Não Preenchidos
+                            <i class="fa-solid fa-file-invoice"></i> Prontuários
                         </h2>
                         <div class="muted">
                             Total de prontuários não preenchidos: <b class="unitName">—</b>
                         </div>
                     </div>
 
-                    <p class="muted">Coming soon…</p>
+                    <!-- FILTROS -->
+                    <div class="filter-bar prontuario-toolbar">
+                        <div class="form-group">
+                            <label for="prontDataIni">Data inicial</label>
+                            <input type="date" id="prontDataIni">
+                        </div>
+                        <div class="form-group">
+                            <label for="prontDataFim">Data final</label>
+                            <input type="date" id="prontDataFim">
+                        </div>
+                        <div class="form-group">
+                            <label for="prontStatus">Status</label>
+                            <select id="prontStatus">
+                                <option value="">Todos</option>
+                                <option value="preenchido">Preenchido</option>
+                                <option value="nao-preenchido">Não Preenchido</option>
+                            </select>
+                        </div>
+                        <button id="prontFiltrar" class="btn ghost btn-sm">
+                            <i class="fa-solid fa-filter"></i> Filtrar
+                        </button>
+                        <button id="btnProntPdf" class="btn primary btn-sm">
+                            <i class="fa-regular fa-file-pdf"></i> Baixar PDF
+                        </button>
+                    </div>
+
+                    <!-- TABELA -->
+                    <div class="ponto-table-wrap">
+                        <table id="tblProntuarios" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>Cliente</th>
+                                    <th>Serviço</th>
+                                    <th>Data</th>
+                                    <th>Status</th>
+                                    <th>Última Atualização</th>
+                                </tr>
+                            </thead>
+                            <tbody id="prontuariosBody">
+                                <!-- linhas via JS -->
+                            </tbody>
+                        </table>
+                        <p id="prontuariosEmpty" class="muted" style="text-align:center; padding:12px;">
+                            Nenhum prontuário encontrado 👀
+                        </p>
+                    </div>
                 </div>
             </section>
+
 
             <!-- PONTOS POR UNIDADES -->
-            <section id="view-pontos-unidades" class="view" aria-labelledby="pontosUnidadesTitle">
+            <section id="view-rel-pontos-unidades" class="view" aria-labelledby="pontosUnidadesTitle">
                 <div class="card">
                     <div class="atd-head">
-                        <h2 id="pontosUnidadesTitle"><i class="fa-solid fa-map-pin"></i> Pontos por Unidades
+                          <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="pontosUnidadesTitle">
+                            <i class="fa-solid fa-map-pin"></i> Pontos por Unidades
                         </h2>
-                        <div class="muted">Distribuição de pontos: <b class="unitName">—</b></div>
+                        <div class="muted">
+                            Distribuição de pontos na unidade: <b class="unitName">—</b>
+                        </div>
                     </div>
-                    <p class="muted">Coming soon…</p>
+
+                    <!-- Barra de ações / filtros -->
+                    <div class="filter-bar rel-pontos-toolbar">
+                        <div class="form-group">
+                            <label for="pontosUniDataIni">Data inicial</label>
+                            <input type="date" id="pontosUniDataIni">
+                        </div>
+                        <div class="form-group">
+                            <label for="pontosUniDataFim">Data final</label>
+                            <input type="date" id="pontosUniDataFim">
+                        </div>
+                        <button id="pontosUniFiltrar" class="btn ghost btn-sm">
+                            <i class="fa-solid fa-filter"></i> Filtrar
+                        </button>
+                        <button id="btnPontosUnidadesPdf" class="btn primary btn-sm">
+                            <i class="fa-regular fa-file-pdf"></i> Baixar PDF
+                        </button>
+                    </div>
+
+                    <!-- Tabela do relatório -->
+                    <div class="ponto-table-wrap">
+                        <table id="tblPontosUnidades" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Unidade</th>
+                                    <th>Colaborador</th>
+                                    <th>Data</th>
+                                    <th>Entrada</th>
+                                    <th>Intervalo</th>
+                                    <th>Saída</th>
+                                    <th>Pontos</th>
+                                </tr>
+                            </thead>
+                            <tbody id="pontosUnidadesBody">
+                                <!-- linhas preenchidas via JS -->
+                            </tbody>
+                        </table>
+                        <p id="pontosUnidadesEmpty" class="muted" style="text-align:center; padding:12px;">
+                            Sem registros para os filtros selecionados 👀
+                        </p>
+                    </div>
                 </div>
             </section>
 
-            <!-- ========== PROCEDIMENTOS ========== -->
-            <section id="view-procedimentos" class="view" aria-labelledby="procTitle">
+
+
+            <!-- Ctr. Ponto/Escala -->
+
+            <!-- CONTROLE DE PONTOS / ESCALA -->
+            <section id="view-rel-escala" class="view" aria-labelledby="ctrlPontoEscalasTitle">
                 <div class="card">
                     <div class="atd-head">
-                        <h2 id="procTitle"><i class="fa-solid fa-list-check"></i> Procedimentos</h2>
-                        <div class="muted">POP e instruções: <b class="unitName">—</b></div>
+                          <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="ctrlPontoEscalasTitle">
+                            <i class="fa-regular fa-calendar-check"></i> Controle de Pontos / Escala
+                        </h2>
+                        <div class="muted">
+                            Escala e pontos da unidade: <b class="unitName">—</b>
+                        </div>
                     </div>
-                    <p class="muted">Coming soon…</p>
+
+                    <!-- Filtros / ações -->
+                    <div class="filter-bar escala-toolbar">
+                        <div class="form-group">
+                            <label for="escalaDataIni">Data inicial</label>
+                            <input type="date" id="escalaDataIni">
+                        </div>
+                        <div class="form-group">
+                            <label for="escalaDataFim">Data final</label>
+                            <input type="date" id="escalaDataFim">
+                        </div>
+                        <button id="escalaFiltrar" class="btn ghost btn-sm">
+                            <i class="fa-solid fa-filter"></i> Filtrar
+                        </button>
+                        <button id="btnEscalaPdf" class="btn primary btn-sm">
+                            <i class="fa-regular fa-file-pdf"></i> Baixar PDF
+                        </button>
+                    </div>
+
+                    <!-- Tabela do relatório -->
+                    <div class="ponto-table-wrap">
+                        <table id="tblEscala" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Colaborador</th>
+                                    <th>Função</th>
+                                    <th>Data</th>
+                                    <th>Entrada</th>
+                                    <th>Intervalo</th>
+                                    <th>Saída</th>
+                                    <th>Total Horas</th>
+                                    <th>Pontos</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="escalaBody">
+                                <!-- linhas geradas via JS -->
+                            </tbody>
+                        </table>
+                        <p id="escalaEmpty" class="muted" style="text-align:center; padding:12px;">
+                            Sem registros para os filtros selecionados 👀
+                        </p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Ctr. Ponto / Tipo -->
+            <section id="view-rel-tipo-ponto" class="view" aria-labelledby="tipoPontoTitle">
+                <div class="card">
+                    <div class="atd-head">
+                          <button class="btn-voltar" data-view="relatorio">
+                            <i class="fa-solid fa-arrow-left"></i> Voltar
+                        </button>
+                        <h2 id="tipoPontoTitle">
+                            <i class="fa-regular fa-clock"></i> Controle de Pontos por Tipo
+                        </h2>
+                        <div class="muted">
+                            Distribuição por tipo de ponto na unidade: <b class="unitName">—</b>
+                        </div>
+                    </div>
+
+                    <!-- Filtros / ações -->
+                    <div class="filter-bar tipo-ponto-toolbar">
+                        <div class="form-group">
+                            <label for="tipoPontoDataIni">Data inicial</label>
+                            <input type="date" id="tipoPontoDataIni">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoPontoDataFim">Data final</label>
+                            <input type="date" id="tipoPontoDataFim">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="tipoPontoTipo">Tipo de ponto</label>
+                            <select id="tipoPontoTipo">
+                                <option value="">Todos</option>
+                                <option value="entrada">Entrada</option>
+                                <option value="intervalo">Intervalo</option>
+                                <option value="saida">Saída</option>
+                                <option value="falta">Falta</option>
+                                <option value="atraso">Atraso</option>
+                            </select>
+                        </div>
+
+                        <button id="tipoPontoFiltrar" class="btn ghost btn-sm">
+                            <i class="fa-solid fa-filter"></i> Filtrar
+                        </button>
+
+                        <button id="btnTipoPontoPdf" class="btn primary btn-sm">
+                            <i class="fa-regular fa-file-pdf"></i> Baixar PDF
+                        </button>
+                    </div>
+
+                    <!-- Tabela do relatório -->
+                    <div class="ponto-table-wrap">
+                        <table id="tblTipoPonto" class="table">
+                            <thead>
+                                <tr>
+                                    <th>Tipo</th>
+                                    <th>Colaborador</th>
+                                    <th>Função</th>
+                                    <th>Data</th>
+                                    <th>Hora</th>
+                                    <th>Unidade</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody id="tipoPontoBody">
+                                <!-- linhas preenchidas via JS -->
+                            </tbody>
+                        </table>
+
+                        <p id="tipoPontoEmpty" class="muted" style="text-align:center; padding:12px;">
+                            Sem registros para os filtros selecionados 👀
+                        </p>
+                    </div>
                 </div>
             </section>
 
