@@ -141,13 +141,6 @@
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
 
-                    <a href="#mensagem" class="shortcut-item" role="tab" data-view="mensagem"
-                        aria-controls="view-mensagem" aria-selected="false">
-                        <span class="shortcut-icon"><i class="fa-solid fa-envelope"></i></span>
-                        <span class="shortcut-label">Mensagem</span>
-                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                    </a>
-
                     <a href="#pacotes" class="shortcut-item" role="tab" data-view="pacotes" aria-controls="view-pacotes"
                         aria-selected="view-pacotes">
                         <span class="shortcut-icon"><i class="fa-solid fa-boxes-stacked"></i></span>
@@ -267,7 +260,9 @@
                 <div class="atd card">
                     <div class="atd-head">
                         <h2 id="cliTitle"><i class="fa-solid fa-user-group"></i> Clientes</h2>
-                        <div class="muted">Cadastre e visualize clientes da unidade: <b class="unitName">—</b></div>
+                        <div class="muted">
+                            Cadastre e visualize clientes da unidade: <b class="unitName">—</b>
+                        </div>
 
                         <!-- novo botão -->
                         <button id="cliOpenCadastro" class="btn primary">
@@ -297,16 +292,111 @@
                                     <th>Primeiro Atendimento</th>
                                     <th>Saúde</th>
                                     <th>Observações</th>
-
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody></tbody>
                         </table>
-                        </div>
+                        <!-- se quiser, pode ter um “cliEmpty” aqui -->
+                        <!-- <p id="cliEmpty" class="muted">Nenhum cliente cadastrado.</p> -->
                     </div>
                 </div>
             </section>
+
+            <!-- MODAL DE CADASTRO DE CLIENTE -->
+            <dialog class="cliOpenCadastro" id="cliModal">
+                <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
+                    <header class="cli-sheet-head">
+                        <strong id="cliCadTitle"><i class="fa-solid fa-id-card"></i> Novo cliente</strong>
+                        <button class="btn ghost" id="cliClose">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
+                    </header>
+
+                    <form id="cliFormCad">
+                        <div class="cli-sheet-body">
+                            <div class="cli-grid">
+                                <label class="cli-field">
+                                    <span class="cli-label">Nome completo</span>
+                                    <input type="text" id="fCliNome" required placeholder="Ex.: Maria Souza" />
+                                </label>
+
+                                <label class="cli-field">
+                                    <span class="cli-label">Telefone / Whats</span>
+                                    <input type="tel" id="fCliFone" required placeholder="(11) 9 9999-9999" />
+                                </label>
+
+                                <label class="cli-field">
+                                    <span class="cli-label">E-mail</span>
+                                    <input type="email" id="fCliEmail" placeholder="nome@exemplo.com" />
+                                </label>
+
+                                <label class="cli-field">
+                                    <span class="cli-label">Data de Nascimento</span>
+                                    <input type="date" id="fCliNiver" required />
+                                </label>
+
+                                <label class="cli-field">
+                                    <span class="cli-label">Sexo</span>
+                                    <select id="fCliSexo">
+                                        <option value="">Selecione…</option>
+                                        <option>Feminino</option>
+                                        <option>Masculino</option>
+                                        <option>Outro</option>
+                                        <option>Prefiro não dizer</option>
+                                    </select>
+                                </label>
+
+                                <!-- mini-bloco 'informações para atendimento' -->
+                                <fieldset class="cli-field cli-full cli-box">
+                                    <legend>Informações para atendimento</legend>
+                                    <div class="cli-two">
+                                        <label>Condições Médicas
+                                            <select id="fCliCondMed">
+                                                <option value="">Selecione…</option>
+                                                <option>Gravidez</option>
+                                                <option>Trombose</option>
+                                                <option>Gripe</option>
+                                                <option>Câncer</option>
+                                                <option>Alterações de pressão arterial</option>
+                                                <option>Nenhum</option>
+                                            </select>
+                                        </label>
+
+                                        <label>Alergias
+                                            <select id="fCliAlergias">
+                                                <option value="">Selecione…</option>
+                                                <option>Alergia a óleos corporais ou cremes</option>
+                                                <option>Nenhum</option>
+                                            </select>
+                                        </label>
+
+                                        <label>Histórico de Saúde
+                                            <select id="fCliHistorico">
+                                                <option value="">Selecione…</option>
+                                                <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
+                                                <option>Cirurgias recentes (últimos 6 meses)</option>
+                                                <option>Nenhum</option>
+                                            </select>
+                                        </label>
+
+                                        <label class="cli-field cli-full">
+                                            <span class="cli-label">Observações</span>
+                                            <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
+                                        </label>
+                                    </div>
+                                </fieldset>
+                            </div>
+                        </div>
+
+                        <footer class="cli-sheet-foot">
+                            <button type="submit" class="btn primary">
+                                <i class="fa-solid fa-floppy-disk"></i> Salvar
+                            </button>
+                        </footer>
+                    </form>
+                </div>
+            </dialog>
 
             <!-- MODAL DE CADASTRO DE CLIENTE -->
             <dialog class="cliOpenCadastro" id="cliModal">
@@ -400,6 +490,7 @@
                     </form>
                 </div>
             </dialog>
+
 
             <!-- ========== TABELA DE PREÇOS ========== -->
             <section id="view-tabela-precos" class="view" aria-labelledby="pricesTitle">
@@ -822,7 +913,7 @@
 
             <!-- ========== PARCEIROS ========== -->
             <!-- LISTA DE PARCEIROS -->
-            <section id="view-rel-parceiros" class="view" aria-labelledby="parceirosTitle">
+            <section id="view-parceiros" class="view" aria-labelledby="parceirosTitle">
                 <div class="card">
                     <div class="atd-head">
                         <button class="btn-voltar" data-view="relatorio">
@@ -1562,16 +1653,6 @@
                     <p class="muted">Coming soon…</p>
                 </div>
             </section>
-            <!-- ========== MENSAGEM ========== -->
-            <section id="view-mensagem" class="view" aria-labelledby="msgTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <h2 id="msgTitle"><i class="fa-solid fa-envelope"></i> Mensagem</h2>
-                        <div class="muted">Avisos internos por unidade: <b class="unitName">—</b></div>
-                    </div>
-                    <p class="muted">Coming soon…</p>
-                </div>
-            </section>
 
             <!-- ========== PROCEDIMENTOS ========== -->
             <section id="view-procedimentos" class="view" aria-labelledby="procTitle">
@@ -1753,23 +1834,23 @@
 </body>
 
 </html>nfigurações de privacidade e auditoria.</p>
-                        </div>
-                    </div>
-            </section>
-        </main>
-    </div>
+</div>
+</div>
+</section>
+</main>
+</div>
 
-    <!-- VLibras - Acessibilidade em Libras -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
+<!-- VLibras - Acessibilidade em Libras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
     </div>
+</div>
 
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
-    <script src="https://app.embed.im/accessibility.js" defer></script>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+<script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
 
 </html>

@@ -1,7 +1,3 @@
-/* =========================
-   MASTER.JS — Rokuzen App
-   (by Luly & co. 💅)
-   ========================= */
 document.addEventListener('DOMContentLoaded', () => {
 
   /* =========================
