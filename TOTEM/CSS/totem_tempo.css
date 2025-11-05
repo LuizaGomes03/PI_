@@ -96,42 +96,124 @@ main {
     }
 }
 
+@media (max-width: 1200px) {
+    .times {
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
+    }
+}
+
 @media (max-width: 1024px) {
     main {
         grid-template-columns: 1fr;
-        gap: 14px;
-        padding: 14px;
+        gap: 12px;
+        padding: 12px;
     }
     .card {
-        padding: 18px 8px;
+        padding: 16px 6px;
         max-width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
     }
     .times {
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
+        gap: 10px;
     }
     .time-card {
-        padding: 14px 10px;
-        font-size: 16px;
-    }
-    .time-min {
-        font-size: 18px;
-    }
-    .btn {
-        font-size: 16px;
-        padding: 8px 12px;
-    }
-    .title-xl {
-        font-size: 38px;
-    }
-    .subtitle {
+        padding: 12px 8px;
         font-size: 15px;
     }
+    .time-min {
+        font-size: 16px;
+    }
+    .btn {
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+    .title-xl {
+        font-size: 32px;
+    }
+    .subtitle {
+        font-size: 14px;
+    }
     .rk-brand .name {
-        font-size: 18px;
+        font-size: 16px;
     }
     .rk-brand img {
-        height: 32px;
+        height: 28px;
+    }
+}
+
+@media (max-width: 740px) {
+    .card {
+        padding: 10px 2px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .times {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .time-card {
+        padding: 10px 4px;
+        font-size: 13px;
+    }
+    .time-min {
+        font-size: 14px;
+    }
+    .btn {
+        font-size: 13px;
+        padding: 7px 8px;
+    }
+    .title-xl {
+        font-size: 22px;
+    }
+    .subtitle {
+        font-size: 12px;
+    }
+    .rk-brand .name {
+        font-size: 13px;
+    }
+    .rk-brand img {
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 4px;
+        gap: 6px;
+    }
+    .card {
+        padding: 6px 1px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .times {
+        gap: 6px;
+    }
+    .time-card {
+        padding: 8px 2px;
+        font-size: 12px;
+    }
+    .time-min {
+        font-size: 12px;
+    }
+    .btn {
+        font-size: 12px;
+        padding: 6px 6px;
+    }
+    .title-xl {
+        font-size: 16px;
+    }
+    .subtitle {
+        font-size: 11px;
+    }
+    .rk-brand .name {
+        font-size: 11px;
+    }
+    .rk-brand img {
+        height: 16px;
     }
 }
 

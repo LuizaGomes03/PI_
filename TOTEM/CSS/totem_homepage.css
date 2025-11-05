@@ -1,0 +1,523 @@
+body {
+    background: linear-gradient(120deg, #f7fbf1 0%, #eaf2d7 100%);
+}
+
+.homepage-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 70vh;
+    gap: 20px;
+    padding: 0 6px;
+    margin-bottom: 32px;
+}
+
+.homepage-logo {
+    margin-top: 18px;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.homepage-logo img {
+    height: 64px;
+    border-radius: 18px;
+    box-shadow: 0 2px 12px #bfd48b33;
+    background: #fff;
+    padding: 4px;
+}
+
+.homepage-title {
+    font-family: "Amatic SC", cursive;
+    font-size: 32px;
+    color: var(--brand);
+    margin-bottom: 6px;
+    text-shadow: 0 2px 8px #bfd48b33;
+    letter-spacing: 2px;
+}
+
+.homepage-desc {
+    text-align: center;
+    color: #4b5563;
+    font-size: 15px;
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.homepage-btns {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-width: 260px;
+    margin-top: 8px;
+    margin-bottom: 24px;
+}
+
+.homepage-btns .btn {
+    font-size: 18px;
+    padding: 12px 0;
+    border-radius: 16px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    background: linear-gradient(90deg, #9db668 80%, #bfd48b 100%);
+    color: #fff;
+    border: none;
+    box-shadow: 0 2px 12px #bfd48b33;
+    transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+}
+
+.homepage-btns .btn:not(.primary) {
+    background: linear-gradient(90deg, #fff 80%, #eaf2d7 100%);
+    color: #253041;
+    border: 1.5px solid #bfd48b;
+}
+
+.homepage-btns .btn:hover,
+.homepage-btns .btn:focus {
+    background: linear-gradient(90deg, #7f9954 80%, #bfd48b 100%);
+    box-shadow: 0 6px 24px #bfd48b55;
+    transform: translateY(-2px) scale(1.03);
+}
+
+.homepage-btns .btn:not(.primary):hover,
+.homepage-btns .btn:not(.primary):focus {
+    background: linear-gradient(90deg, #eaf2d7 80%, #fff 100%);
+    color: #7f9954;
+    border-color: #9db668;
+}
+
+#wifiPopup,
+#quemSomosPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.25s;
+}
+
+#wifiPopup .btn,
+#quemSomosPopup .btn {
+    font-size: 18px;
+    margin-top: 12px;
+    min-width: 120px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #bfd48b33;
+}
+
+#wifiPopup .btn:hover,
+#quemSomosPopup .btn:hover {
+    background: #bfd48b;
+    color: #253041;
+}
+
+#wifiPopup div[style*="position:relative"],
+#quemSomosPopup div[style*="position:relative"] {
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #bfd48b33;
+    padding: 38px 24px 32px 24px;
+    max-width: 700px;
+    width: 95vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    z-index: 1;
+    animation: popupShow 0.3s;
+}
+
+#wifiPopup div[style*="position:relative"] {
+    max-width: 260px;
+    min-width: 160px;
+    padding: 24px 12px;
+}
+
+@media (max-width: 800px) {
+    .homepage-btns .btn {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    #wifiPopup div[style*="position:relative"] {
+        max-width: 180px;
+        min-width: 120px;
+        padding: 12px 4px;
+    }
+}
+
+@media (max-width: 480px) {
+    .homepage-btns .btn {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    #wifiPopup div[style*="position:relative"] {
+        max-width: 140px;
+        min-width: 80px;
+        padding: 8px 2px;
+    }
+}
+
+#wifiPopup div[style*="font-size:38px"] {
+    font-family: "Amatic SC", cursive;
+    letter-spacing: 1px;
+}
+
+#wifiPopup div[style*="font-size:18px"],
+#quemSomosPopup div[style*="font-size:18px"] {
+    font-weight: 600;
+}
+
+@keyframes popupShow {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#quemSomosPopup h2 {
+    font-size: 32px;
+    color: var(--brand);
+    margin-bottom: 18px;
+    text-align: center;
+    font-family: "Amatic SC", cursive;
+    letter-spacing: 1px;
+}
+
+#quemSomosPopup h3 {
+    font-size: 22px;
+    margin-bottom: 8px;
+    color: #7f9954;
+    font-family: "Inter", sans-serif;
+}
+
+#quemSomosPopup p,
+#quemSomosPopup ul {
+    font-size: 16px;
+    color: #253041;
+    margin-bottom: 12px;
+    font-family: "Inter", sans-serif;
+}
+
+#quemSomosPopup ul {
+    padding-left: 18px;
+}
+
+#quemSomosPopup img {
+    max-width: 220px;
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #bfd48b33;
+}
+
+.popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+.popup-content {
+    position: relative;
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #bfd48b33;
+    padding: 38px 24px 32px 24px;
+    max-width: 700px;
+    width: 95vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1;
+    animation: popupShow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#wifiPopup .popup-content {
+    max-height: 60vh;
+    min-height: 120px;
+}
+
+@media (max-width: 800px) {
+    .homepage-title {
+        font-size: 18px;
+    }
+
+    .homepage-logo img {
+        height: 32px;
+    }
+
+    .homepage-btns .btn {
+        font-size: 14px;
+        padding: 10px 0;
+    }
+
+    #wifiPopup div[style*="position:relative"] {
+        padding: 18px 8px;
+        min-width: 180px;
+    }
+
+    #wifiPopup .btn,
+    #quemSomosPopup .btn {
+        font-size: 15px;
+    }
+
+    #quemSomosPopup div[style*="position:relative"] {
+        padding: 16px 4px;
+        max-width: 98vw;
+    }
+
+    #quemSomosPopup h2 {
+        font-size: 22px;
+    }
+
+    #quemSomosPopup h3 {
+        font-size: 16px;
+    }
+
+    #quemSomosPopup p,
+    #quemSomosPopup ul {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .homepage-main {
+        gap: 10px;
+        padding: 0 2px;
+        margin-bottom: 12px;
+    }
+
+    .homepage-logo img {
+        height: 32px;
+    }
+
+    .homepage-title {
+        font-size: 18px;
+    }
+
+    .homepage-btns .btn {
+        font-size: 13px;
+        padding: 8px 0;
+    }
+
+    #wifiPopup div[style*="position:relative"] {
+        padding: 10px 4px;
+        min-width: 120px;
+    }
+
+    #quemSomosPopup div[style*="position:relative"] {
+        padding: 8px 2px;
+    }
+
+    #quemSomosPopup h2 {
+        font-size: 14px;
+    }
+
+    #quemSomosPopup h3 {
+        font-size: 12px;
+    }
+
+    #quemSomosPopup p,
+    #quemSomosPopup ul {
+        font-size: 10px;
+    }
+}
+
+#quemSomosPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+}
+
+#quemSomosPopup .btn {
+    font-size: 18px;
+    margin-top: 12px;
+}
+
+@media (max-width: 800px) {
+    #quemSomosPopup div[style*="position:relative"] {
+        padding: 16px 4px;
+        max-width: 98vw;
+    }
+
+    #quemSomosPopup h2 {
+        font-size: 22px;
+    }
+
+    #quemSomosPopup h3 {
+        font-size: 16px;
+    }
+
+    #quemSomosPopup p,
+    #quemSomosPopup ul {
+        font-size: 13px;
+    }
+
+    #quemSomosPopup .btn {
+        font-size: 15px;
+    }
+}
+
+/* Popup Serviços */
+#servicosPopup {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    align-items: center;
+    justify-content: center;
+    animation: fadeIn 0.25s;
+}
+
+#servicosPopup .popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+#servicosPopup .popup-content {
+    position: relative;
+    background: #fff;
+    border-radius: 22px;
+    box-shadow: 0 8px 32px #bfd48b33;
+    padding: 38px 32px 32px 32px;
+    max-width: 480px;
+    width: 95vw;
+    max-height: 80vh;
+    overflow-y: auto;
+    z-index: 1;
+    animation: popupShow 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#servicosPopup h2 {
+    font-size: 26px;
+    color: var(--brand);
+    margin-bottom: 12px;
+    font-family: "Amatic SC", cursive;
+}
+
+#servicosPopup h3 {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #7f9954;
+    font-family: "Inter", sans-serif;
+}
+
+#servicosPopup p {
+    font-size: 16px;
+    color: #253041;
+    margin-bottom: 12px;
+    font-family: "Inter", sans-serif;
+}
+
+#servicosPopup ul {
+    font-size: 16px;
+    color: #253041;
+    margin-bottom: 12px;
+    padding-left: 18px;
+    font-family: "Inter", sans-serif;
+}
+
+#servicosPopup .btn {
+    font-size: 16px;
+    margin-top: 14px;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #bfd48b33;
+}
+
+#servicosPopup .btn:hover {
+    background: #bfd48b;
+    color: #253041;
+}
+
+@media (max-width: 800px) {
+    #servicosPopup .popup-content {
+        padding: 12px 4px;
+        max-width: 98vw;
+    }
+
+    #servicosPopup h2 {
+        font-size: 18px;
+    }
+
+    #servicosPopup h3 {
+        font-size: 16px;
+    }
+
+    #servicosPopup p {
+        font-size: 14px;
+    }
+
+    #servicosPopup ul {
+        font-size: 13px;
+    }
+
+    #servicosPopup .btn {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    #servicosPopup .popup-content {
+        padding: 6px 2px;
+        max-width: 98vw;
+    }
+
+    #servicosPopup h2 {
+        font-size: 13px;
+    }
+
+    #servicosPopup h3 {
+        font-size: 12px;
+    }
+
+    #servicosPopup p {
+        font-size: 10px;
+    }
+
+    #servicosPopup ul {
+        font-size: 10px;
+    }
+
+    #servicosPopup .btn {
+        font-size: 11px;
+    }
+}

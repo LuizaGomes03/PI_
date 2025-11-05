@@ -161,7 +161,8 @@ main {
 
 @media (max-width: 1200px) {
     .services {
-        grid-template-columns: 1fr 1fr
+        grid-template-columns: 1fr 1fr;
+        gap: 14px;
     }
 }
 
@@ -268,7 +269,7 @@ footer {
 
 /* ====== RESPONSIVO ====== */
 
-/* 1200px já tá ok com teu grid; só refinando gaps */
+/* Tablet e mobile: responsividade aprimorada */
 @media (max-width: 1200px) {
     .services {
         grid-template-columns: 1fr 1fr;
@@ -276,7 +277,6 @@ footer {
     }
 }
 
-/* Tablet / pequeno notebook */
 @media (max-width: 980px) {
     .rk-shell {
         grid-template-rows: 64px 1fr 72px;
@@ -338,168 +338,154 @@ footer {
 @media (max-width: 1024px) {
     main {
         grid-template-columns: 1fr;
-        gap: 14px;
-        padding: 14px;
+        gap: 12px;
+        padding: 12px;
     }
-
     .rk-card {
         padding: 18px 8px;
         max-width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
     }
-
     .services {
         grid-template-columns: 1fr 1fr;
-        gap: 12px;
-    }
-
-    .svc-media {
-        height: 120px;
-    }
-
-    .svc-media img {
-        height: 80px;
-        width: 80px;
-    }
-
-    .svc-body {
-        padding: 10px 10px 12px;
-    }
-
-    .svc h3 {
-        font-size: 16px;
-    }
-
-    .svc p {
-        font-size: 13px;
-    }
-
-    .btn {
-        font-size: 16px;
-        padding: 8px 12px;
-    }
-
-    .rk-brand .name {
-        font-size: 18px;
-    }
-
-    .rk-brand img {
-        height: 32px;
-    }
-}
-
-/* Mobile grande */
-@media (max-width: 740px) {
-    .rk-bar {
         gap: 10px;
     }
-
-    .rk-actions {
-        order: 3;
+    .svc-media {
+        height: 100px;
     }
-
-    .rk-brand {
-        order: 1;
+    .svc-media img {
+        height: 60px;
+        width: 60px;
     }
-
+    .svc-body {
+        padding: 8px 8px 10px;
+    }
+    .svc h3 {
+        font-size: 15px;
+    }
+    .svc p {
+        font-size: 12px;
+    }
+    .btn {
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+    .title-xl {
+        font-size: 32px;
+    }
+    .subtitle {
+        font-size: 14px;
+    }
     .rk-brand .name {
         font-size: 16px;
     }
-
-    .title-xl {
-        font-size: 40px;
-    }
-
-    .services {
-        grid-template-columns: 1fr;
-    }
-
-    .svc {
-        border-radius: 16px;
-    }
-
-    .svc-body {
-        padding: 10px 12px 14px;
-    }
-
-    .svc h3 {
-        font-size: 17px;
-    }
-
-    .svc p {
-        font-size: 13px;
-    }
-
-    .actions {
-        justify-content: stretch;
-        gap: 8px;
-    }
-
-    .actions .btn {
-        flex: 1 1 auto;
-    }
-
-    /* botões ocupam a largura */
-}
-
-/* Mobile pequeno */
-@media (max-width: 480px) {
-    .rk-bar {
-        padding: 0 10px;
-    }
-
     .rk-brand img {
         height: 28px;
     }
+}
 
-    .rk-brand .name {
-        display: none;
+@media (max-width: 740px) {
+    main {
+        padding: 6px;
+        gap: 8px;
     }
-
-    /* menos ruído no topo */
-    .pill {
-        padding: 5px 8px;
+    .rk-card {
+        padding: 8px 2px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .services {
+        grid-template-columns: 1fr;
+        gap: 8px;
+    }
+    .svc-media {
+        height: 60px;
+    }
+    .svc-media img {
+        height: 32px;
+        width: 32px;
+    }
+    .svc h3 {
+        font-size: 13px;
+    }
+    .svc p {
         font-size: 11px;
     }
-
+    .btn {
+        font-size: 13px;
+        padding: 7px 8px;
+    }
+    .title-xl {
+        font-size: 22px;
+    }
     .subtitle {
-        font-size: 15px;
+        font-size: 12px;
     }
+    .rk-brand .name {
+        font-size: 13px;
+    }
+    .rk-brand img {
+        height: 20px;
+    }
+}
 
+@media (max-width: 480px) {
+    main {
+        padding: 2px;
+        gap: 4px;
+    }
+    .rk-card {
+        padding: 4px 1px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .services {
+        gap: 4px;
+    }
     .svc-media {
-        height: 120px;
+        height: 32px;
     }
-
     .svc-media img {
-        height: 84px;
-        width: 84px;
-        box-shadow: 0 0 0 4px #fff, 0 0 0 6px var(--brand);
+        height: 16px;
+        width: 16px;
     }
-
     .svc h3 {
-        font-size: 16px;
+        font-size: 10px;
     }
-
     .svc p {
-        font-size: 12.5px;
+        font-size: 9px;
     }
-
-    .rk-card .inner {
-        padding: 14px;
+    .btn {
+        font-size: 11px;
+        padding: 5px 5px;
     }
-
-    .divider {
-        margin: 10px 0;
+    .rk-brand .name {
+        font-size: 10px;
     }
-
-    footer {
-        padding: 0 10px;
+    .rk-brand img {
+        height: 12px;
     }
+}
 
-    .ticker span {
-        animation-duration: 22s;
+/* Margem lateral para o card principal na responsividade */
+@media (max-width: 1024px) {
+    .rk-card {
+        margin-left: 12px;
+        margin-right: 12px;
     }
-
-    /* leitura mais lenta no mobile */
+}
+@media (max-width: 740px) {
+    .rk-card {
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+}
+@media (max-width: 480px) {
+    .rk-card {
+        margin-left: 4px;
+        margin-right: 4px;
+    }
 }
 
 /* Coisinhas úteis em qualquer tamanho */

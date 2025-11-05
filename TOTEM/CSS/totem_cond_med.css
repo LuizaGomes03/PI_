@@ -105,6 +105,8 @@ main {
     .card {
         padding: 18px 8px;
         max-width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
     }
     .inner {
         padding: 10px;
@@ -136,6 +138,72 @@ main {
     .actions {
         gap: 8px;
         margin-top: 12px;
+    }
+}
+
+@media (max-width: 740px) {
+    .card {
+        padding: 10px 2px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .group h3 {
+        font-size: 16px;
+    }
+    .chips span {
+        font-size: 13px;
+        padding: 4px 8px;
+    }
+    .btn {
+        font-size: 13px;
+        padding: 7px 8px;
+    }
+    .title-xl {
+        font-size: 22px;
+    }
+    .subtitle {
+        font-size: 12px;
+    }
+    .rk-brand .name {
+        font-size: 13px;
+    }
+    .rk-brand img {
+        height: 20px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 4px;
+        gap: 6px;
+    }
+    .card {
+        padding: 6px 1px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .group h3 {
+        font-size: 13px;
+    }
+    .chips span {
+        font-size: 11px;
+        padding: 3px 6px;
+    }
+    .btn {
+        font-size: 12px;
+        padding: 6px 6px;
+    }
+    .title-xl {
+        font-size: 16px;
+    }
+    .subtitle {
+        font-size: 11px;
+    }
+    .rk-brand .name {
+        font-size: 11px;
+    }
+    .rk-brand img {
+        height: 16px;
     }
 }
 

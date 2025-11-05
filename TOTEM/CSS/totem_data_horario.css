@@ -361,6 +361,8 @@ footer {
         width: 100%;
         max-width: 100%;
         padding: 14px;
+        margin-left: 12px;
+        margin-right: 12px;
     }
 
     .calendar-container {
@@ -393,6 +395,57 @@ footer {
     }
 }
 
+@media (max-width: 740px) {
+    .main-layout {
+        padding: 6px;
+        gap: 8px;
+    }
+
+    .calendar-section,
+    .card {
+        padding: 6px;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+
+    .calendar-header button {
+        font-size: 13px;
+        padding: 6px 8px;
+    }
+
+    .calendar-grid button {
+        font-size: 13px;
+    }
+
+    .horarios-list button,
+    .profissionais-list button {
+        font-size: 13px;
+        padding: 6px 8px;
+        border-radius: 8px;
+    }
+
+    .btn {
+        font-size: 13px;
+        padding: 7px 8px;
+    }
+
+    .title-xl {
+        font-size: 22px;
+    }
+
+    .subtitle {
+        font-size: 12px;
+    }
+
+    .rk-brand .name {
+        font-size: 13px;
+    }
+
+    .rk-brand img {
+        height: 20px;
+    }
+}
+
 @media (max-width: 600px) {
     .main-layout {
         padding: 6px;
@@ -418,5 +471,56 @@ footer {
     .btn {
         font-size: 14px;
         padding: 7px 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .main-layout {
+        padding: 2px;
+        gap: 4px;
+    }
+
+    .calendar-section,
+    .card {
+        padding: 2px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+
+    .calendar-header button {
+        font-size: 11px;
+        padding: 4px 6px;
+    }
+
+    .calendar-grid button {
+        font-size: 11px;
+    }
+
+    .horarios-list button,
+    .profissionais-list button {
+        font-size: 11px;
+        padding: 4px 6px;
+        border-radius: 6px;
+    }
+
+    .btn {
+        font-size: 11px;
+        padding: 5px 5px;
+    }
+
+    .title-xl {
+        font-size: 14px;
+    }
+
+    .subtitle {
+        font-size: 10px;
+    }
+
+    .rk-brand .name {
+        font-size: 10px;
+    }
+
+    .rk-brand img {
+        height: 12px;
     }
 }

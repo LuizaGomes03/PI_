@@ -420,6 +420,8 @@ footer {
     .rk-card {
         padding: 24px 12px;
         max-width: 100%;
+        margin-left: 12px;
+        margin-right: 12px;
     }
     .rk-grid {
         grid-template-columns: 1fr;
@@ -481,3 +483,89 @@ footer {
         height: 24px;
     }
 }
+
+@media (max-width: 740px) {
+    main {
+        grid-template-columns: 1fr;
+        padding: 6px;
+        gap: 8px;
+    }
+    .rk-card {
+        padding: 8px 2px;
+        max-width: 100%;
+        margin-left: 8px;
+        margin-right: 8px;
+    }
+    .rk-grid {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+    .rk-btn {
+        font-size: 13px;
+        height: 40px;
+    }
+    .actions {
+        gap: 8px;
+        margin-top: 8px;
+    }
+    .title-xl {
+        font-size: 22px;
+    }
+    .subtitle {
+        font-size: 12px;
+    }
+    .rk-brand .name {
+        font-size: 13px;
+    }
+    .rk-brand img {
+        height: 20px;
+    }
+    .rk-field input {
+        height: 36px;
+        font-size: 13px;
+    }
+    .rk-card .inner {
+        padding: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    main {
+        padding: 2px;
+        gap: 4px;
+    }
+    .rk-card {
+        padding: 4px 1px;
+        margin-left: 4px;
+        margin-right: 4px;
+    }
+    .rk-grid {
+        gap: 6px;
+    }
+    .rk-btn {
+        font-size: 11px;
+        height: 32px;
+    }
+    .title-xl {
+        font-size: 14px;
+    }
+    .subtitle {
+        font-size: 10px;
+    }
+    .rk-brand .name {
+        font-size: 10px;
+    }
+    .rk-brand img {
+        height: 12px;
+    }
+    .rk-field input {
+        height: 28px;
+        font-size: 11px;
+    }
+    .rk-card .inner {
+        padding: 4px;
+    }
+}
+
+/* Margem lateral para o card principal na responsividade */
+/* Já implementado nas sugestões anteriores */
