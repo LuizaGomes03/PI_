@@ -1114,3 +1114,111 @@ document.addEventListener('DOMContentLoaded', () => {
     monthsGrid.appendChild(card);
   }
 });
+
+// ===== GESTÃO DE PARCEIROS =====
+document.addEventListener("DOMContentLoaded", () => {
+    const nomeInput = document.getElementById("parceiroNome");
+    const tipoInput = document.getElementById("parceiroTipo");
+    const contatoInput = document.getElementById("parceiroContato");
+    const statusSelect = document.getElementById("parceiroStatus");
+    const btnAdd = document.getElementById("btnAddParceiro");
+    const tbody = document.getElementById("listaParceiros");
+
+    let editandoLinha = null; // <tr> que tá em edição (ou null)
+
+    function limparFormulario() {
+        nomeInput.value = "";
+        tipoInput.value = "";
+        contatoInput.value = "";
+        statusSelect.value = "ativo";
+        editandoLinha = null;
+        btnAdd.innerHTML = '<i class="fa-solid fa-plus"></i> Adicionar';
+    }
+
+    function criarLinha(nome, tipo, contato, status) {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+            <td>${nome}</td>
+            <td>${tipo}</td>
+            <td>${contato}</td>
+            <td>
+                <span class="status ${status}">
+                    ${status === "ativo" ? "Ativo" : "Inativo"}
+                </span>
+            </td>
+            <td>
+                <button class="btn-edit">
+                    <i class="fa-solid fa-pen"></i> Editar
+                </button>
+                <button class="btn-remove">
+                    <i class="fa-solid fa-trash"></i> Remover
+                </button>
+            </td>
+        `;
+        return tr;
+    }
+
+    // Clique no botão Adicionar / Salvar
+    btnAdd.addEventListener("click", (e) => {
+        e.preventDefault();
+
+        const nome = nomeInput.value.trim();
+        const tipo = tipoInput.value.trim();
+        const contato = contatoInput.value.trim();
+        const status = statusSelect.value;
+
+        if (!nome || !tipo || !contato) {
+            alert("Preencha nome, tipo e contato");
+            return;
+        }
+
+        if (editandoLinha) {
+            // Atualiza linha existente
+            editandoLinha.cells[0].textContent = nome;
+            editandoLinha.cells[1].textContent = tipo;
+            editandoLinha.cells[2].textContent = contato;
+
+            const statusSpan = editandoLinha.cells[3].querySelector(".status");
+            statusSpan.textContent = status === "ativo" ? "Ativo" : "Inativo";
+            statusSpan.className = "status " + status;
+
+            limparFormulario();
+        } else {
+            // Cria nova linha
+            const novaLinha = criarLinha(nome, tipo, contato, status);
+            tbody.appendChild(novaLinha);
+            limparFormulario();
+        }
+    });
+
+    // Delegação de eventos para Editar / Remover
+    tbody.addEventListener("click", (e) => {
+        const btn = e.target.closest("button");
+        if (!btn) return;
+
+        const tr = btn.closest("tr");
+
+        if (btn.classList.contains("btn-remove")) {
+            if (confirm("Remover este parceiro? 🥺")) {
+                tr.remove();
+            }
+        }
+
+        if (btn.classList.contains("btn-edit")) {
+            const nome = tr.cells[0].textContent;
+            const tipo = tr.cells[1].textContent;
+            const contato = tr.cells[2].textContent;
+            const statusSpan = tr.cells[3].querySelector(".status");
+            const status = statusSpan.classList.contains("ativo") ? "ativo" : "inativo";
+
+            nomeInput.value = nome;
+            tipoInput.value = tipo;
+            contatoInput.value = contato;
+            statusSelect.value = status;
+
+            editandoLinha = tr;
+            btnAdd.innerHTML = '<i class="fa-solid fa-save"></i> Salvar';
+        }
+    });
+});
+

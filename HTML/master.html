@@ -882,50 +882,65 @@
 
             <!-- ========== PARCEIROS ========== -->
             <!-- LISTA DE PARCEIROS -->
-            <section id="view-parceiros" class="view" aria-labelledby="parceirosTitle">
-                <div class="card">
-                    <div class="atd-head">
-                        <button class="btn-voltar" data-view="relatorio">
-                            <i class="fa-solid fa-arrow-left"></i> Voltar
-                        </button>
-                        <h2 id="parceirosTitle">
-                            <i class="fa-solid fa-handshake"></i> Lista de Parceiros
-                        </h2>
-                        <div class="muted">Empresas e profissionais parceiros da clínica</div>
-                    </div>
+       <section id="view-parceiros" class="view" aria-labelledby="parceirosTitle">
+    <div class="card parceiros-card">
+        <h2 id="parceirosTitle">
+            <i class="fa-solid fa-handshake"></i> Lista de Parceiros
+        </h2>
+        <p class="muted">Gerencie os parceiros e contatos da unidade</p>
 
-                    <table class="table">
-                        <thead>
-                            <tr>
-                                <th>Parceiro</th>
-                                <th>Tipo</th>
-                                <th>Contato</th>
-                                <th>Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr>
-                                <td>Clínica Vida Plena</td>
-                                <td>Convênio</td>
-                                <td>vida.plena@email.com</td>
-                                <td><span class="status-ativo">Ativo</span></td>
-                            </tr>
-                            <tr>
-                                <td>Espaço Terapêutico Equilíbrio</td>
-                                <td>Parceria Local</td>
-                                <td>equilibrio@contato.com</td>
-                                <td><span class="status-ativo">Ativo</span></td>
-                            </tr>
-                            <tr>
-                                <td>Academia Corpo e Mente</td>
-                                <td>Convênio</td>
-                                <td>academia@corpoemente.com</td>
-                                <td><span class="status-inativo">Inativo</span></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </section>
+        <!-- FORM / CAMPOS -->
+        <div class="parceiro-form">
+            <input id="parceiroNome" type="text" placeholder="Nome do Parceiro">
+            <input id="parceiroTipo" type="text" placeholder="Tipo">
+            <input id="parceiroContato" type="email" placeholder="E-mail ou Contato">
+            <select id="parceiroStatus">
+                <option value="ativo">Ativo</option>
+                <option value="inativo">Inativo</option>
+            </select>
+            <button id="btnAddParceiro" class="btn-add">
+                <i class="fa-solid fa-plus"></i> Adicionar
+            </button>
+        </div>
+
+        <!-- TABELA -->
+        <table class="table parceiros-table">
+            <thead>
+                <tr>
+                    <th>Parceiro</th>
+                    <th>Tipo</th>
+                    <th>Contato</th>
+                    <th>Status</th>
+                    <th>Ações</th>
+                </tr>
+            </thead>
+            <tbody id="listaParceiros">
+                <tr>
+                    <td>T-Systems</td>
+                    <td>Consultoria</td>
+                    <td>tsystems@email.com</td>
+                    <td><span class="status ativo">Ativo</span></td>
+                    <td>
+                        <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
+                        <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>MedLife</td>
+                    <td>Laboratório</td>
+                    <td>contato@medlife.com</td>
+                    <td><span class="status inativo">Inativo</span></td>
+                    <td>
+                        <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
+                        <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+
 
             <!-- ========== ESCALA COMPARTILHADA ========== -->
             <!-- ESCALA COMPARTILHADA -->
@@ -1006,7 +1021,7 @@
 
                         <a href="#" data-view="rel-ponto" class="colab-item">
                             <i class="fa-regular fa-clock icon"></i>
-                            <h3>Controle de Ponto</h3>
+                            <h3>Controle de Presença</h3>
                             <p>Registros de entrada e saída</p>
                         </a>
 
@@ -1385,14 +1400,14 @@
                     </div>
                 </div>
             </section>
-            <!-- COTROLE DE PONTOS  -->
+            <!-- CONTROLE DE PRESENÇA  -->
             <section id="view-rel-ponto" class="view" aria-labelledby="RelatoriorelPagTitle">
                 <div class="card rel-card">
                     <div class="atd-head">
                         <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
-                        <h2 id="relPontoTitle"><i class="fa-regular fa-clock"></i> Controle de Ponto</h2>
+                        <h2 id="relPontoTitle"><i class="fa-regular fa-clock"></i> Controle de Presença</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
                         </div>
