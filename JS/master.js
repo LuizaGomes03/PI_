@@ -1222,3 +1222,183 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  const btnPdf = document.getElementById('btnPontosUnidadesPdf');
+
+  btnPdf?.addEventListener('click', () => {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('Biblioteca de PDF não encontrada (jsPDF).');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape'); // paisagem pra caber a tabela
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const unidadeNome = document.querySelector('#view-rel-pontos-unidades .unitName')?.textContent || '—';
+
+    doc.setFontSize(14);
+    doc.text('Relatório - Pontos por Unidades', 14, 15);
+    doc.setFontSize(10);
+    doc.text(`Unidade: ${unidadeNome}`, 14, 22);
+    doc.text(`Gerado em: ${hoje}`, 14, 28);
+
+    doc.autoTable({
+      html: '#tblPontosUnidades', // pega direto a tabela
+      startY: 34,
+      theme: 'grid',
+      styles: { fontSize: 8, halign: 'center' },
+      headStyles: { fillColor: [46, 125, 50] } // verdinho
+    });
+
+    doc.save('pontos-por-unidades.pdf');
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnEscalaPdf = document.getElementById('btnEscalaPdf');
+
+  btnEscalaPdf?.addEventListener('click', () => {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('Biblioteca jsPDF não encontrada.');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape'); // paisagem pra caber a tabela toda
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const unidadeNome = document
+      .querySelector('#view-rel-escala .unitName')
+      ?.textContent || '—';
+
+    const dataIni = document.getElementById('escalaDataIni')?.value || '';
+    const dataFim = document.getElementById('escalaDataFim')?.value || '';
+
+    doc.setFontSize(14);
+    doc.text('Relatório - Controle de Pontos / Escala', 14, 15);
+
+    doc.setFontSize(10);
+    doc.text(`Unidade: ${unidadeNome}`, 14, 22);
+    doc.text(`Gerado em: ${hoje}`, 14, 28);
+
+    if (dataIni || dataFim) {
+      const faixa = `${dataIni || '—'} até ${dataFim || '—'}`;
+      doc.text(`Período: ${faixa}`, 14, 34);
+    }
+
+    doc.autoTable({
+      html: '#tblEscala',
+      startY: 40,
+      theme: 'grid',
+      styles: { fontSize: 8, halign: 'center' },
+      headStyles: { fillColor: [37, 99, 235] } // azulzinho pro header
+    });
+
+    doc.save('controle-escala-pontos.pdf');
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnTipoPontoPdf = document.getElementById('btnTipoPontoPdf');
+
+  btnTipoPontoPdf?.addEventListener('click', () => {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('Biblioteca jsPDF não encontrada.');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape'); // paisagem pra caber tudo
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const unidadeNome = document
+      .querySelector('#view-rel-tipo-ponto .unitName')
+      ?.textContent || '—';
+
+    const dataIni = document.getElementById('tipoPontoDataIni')?.value || '';
+    const dataFim = document.getElementById('tipoPontoDataFim')?.value || '';
+    const tipo = document.getElementById('tipoPontoTipo')?.value || '';
+
+    doc.setFontSize(14);
+    doc.text('Relatório - Controle de Pontos por Tipo', 14, 15);
+
+    doc.setFontSize(10);
+    doc.text(`Unidade: ${unidadeNome}`, 14, 22);
+    doc.text(`Gerado em: ${hoje}`, 14, 28);
+
+    if (dataIni || dataFim) {
+      const faixa = `${dataIni || '—'} até ${dataFim || '—'}`;
+      doc.text(`Período: ${faixa}`, 14, 34);
+    }
+
+    if (tipo) {
+      doc.text(`Tipo de ponto: ${tipo}`, 14, 40);
+    }
+
+    doc.autoTable({
+      html: '#tblTipoPonto',
+      startY: tipo ? 46 : 40,
+      theme: 'grid',
+      styles: { fontSize: 8, halign: 'center' },
+      headStyles: { fillColor: [148, 163, 184] } // cinzinha bonitinha
+    });
+
+    doc.save('controle-pontos-por-tipo.pdf');
+  });
+});
+
+
+document.addEventListener('DOMContentLoaded', () => {
+  const btnMinutosPdf = document.getElementById('btnMinutosPdf');
+
+  btnMinutosPdf?.addEventListener('click', () => {
+    if (!window.jspdf || !window.jspdf.jsPDF) {
+      alert('Biblioteca jsPDF não encontrada.');
+      return;
+    }
+
+    const { jsPDF } = window.jspdf;
+    const doc = new jsPDF('landscape'); // paisagem pra caber geral
+
+    const hoje = new Date().toLocaleDateString('pt-BR');
+    const unidadeNome = document
+      .querySelector('#view-rel-minutos .unitName')
+      ?.textContent || '—';
+
+    const dataIni = document.getElementById('minutosDataIni')?.value || '';
+    const dataFim = document.getElementById('minutosDataFim')?.value || '';
+    const agrup = document.getElementById('minutosAgrup')?.value || '';
+
+    doc.setFontSize(14);
+    doc.text('Relatório - Minutos Atendidos', 14, 15);
+
+    doc.setFontSize(10);
+    doc.text(`Unidade: ${unidadeNome}`, 14, 22);
+    doc.text(`Gerado em: ${hoje}`, 14, 28);
+
+    if (dataIni || dataFim) {
+      const faixa = `${dataIni || '—'} até ${dataFim || '—'}`;
+      doc.text(`Período: ${faixa}`, 14, 34);
+    }
+
+    if (agrup) {
+      const labelAgrup =
+        agrup === 'colaborador' ? 'Colaborador' :
+        agrup === 'cliente' ? 'Cliente' :
+        'Atendimento';
+      doc.text(`Agrupamento: ${labelAgrup}`, 14, 40);
+    }
+
+    doc.autoTable({
+      html: '#tblMinutosAtendidos',
+      startY: agrup ? 46 : 40,
+      theme: 'grid',
+      styles: { fontSize: 8, halign: 'center' },
+      headStyles: { fillColor: [34, 197, 94] } // verdinho 💚
+    });
+
+    doc.save('minutos-atendidos.pdf');
+  });
+});
