@@ -30,14 +30,14 @@
         <div class="inner">
           <div class="step"><span class="pill">PASSO 2</span> Selecione o tempo</div>
           <h1 class="title-xl">Quick Massage</h1>
-          <p class="subtitle">Escolha uma duração. Depois clique em <b>Continuar</b>.</p>
+          <p class="subtitle">Escolha a duração desejada de sua sessão.</p>
           <div class="divider"></div>
           <div style="color:var(--muted);font-size:14px">Valores válidos para este espaço. Sujeito à agenda.</div>
         </div>
       </section>
 
       <!-- Coluna direita: tempos -->
-      <section class="card" style="padding:16px">
+      <section class="card" style="padding:16px; min-height:340px; display:flex; flex-direction:column;">
         <div class="times" id="times">
           <!-- Pode deixar só 10 min se quiser: acrescentei mais opções pra ficar padronizado -->
           <article class="time-card" data-value="10" data-price="69">
@@ -55,10 +55,8 @@
             <div class="time-price">R$ 129,00</div>
           </article>
         </div>
-
         <div class="actions">
           <button class="btn" onclick="history.back()">Voltar</button>
-          <button class="btn primary" id="goNext">Continuar</button>
         </div>
       </section>
     </main>
@@ -79,28 +77,18 @@
       } catch (e) { }
     });
 
-    // Seleção de tempo
+    // Seleção de tempo com navegação direta e salvamento
     const cards = [...document.querySelectorAll('.time-card')];
-    let selected = null;
-
     cards.forEach(c => {
       c.addEventListener('click', () => {
-        selected && selected.classList.remove('active');
-        selected = c;
+        cards.forEach(card => card.classList.remove('active'));
         c.classList.add('active');
+        // Salva tempo e preço
+        localStorage.setItem('tempo', c.dataset.value);
+        localStorage.setItem('preco', c.dataset.price);
+        window.location.href = `../TOTEM/totem_cond_med.html`;
       });
     });
-
-    // Próxima etapa
-    document.getElementById('goNext').addEventListener('click', () => {
-      if (!selected) { alert('Selecione um tempo para continuar.'); return; }
-      // Exemplo: envia para condições médicas (passo 3)
-      // Você pode passar params na URL (tempo e preço) se quiser usar depois.
-      const tempo = selected.dataset.value;
-      const preco = selected.dataset.price;
-      window.location.href = `../TOTEM/totem_cond_med.html`;
-    });
-
   </script>
 </body>
 

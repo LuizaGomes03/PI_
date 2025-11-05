@@ -82,12 +82,42 @@
                 else await document.exitFullscreen();
             } catch (e) { }
         });
-        document.getElementById('goNext').addEventListener('click', () => {
 
-            window.location.href = `../TOTEM/totem_cond_med.html`;
+        // Salvar unidade, dia, horário e profissional no localStorage
+        // Exemplo: supondo que você tem variáveis ou eventos para cada seleção
+
+        // Exemplo para unidade (adicione onde a unidade é selecionada)
+        // localStorage.setItem('unidade', unidadeSelecionada);
+
+        // Exemplo para dia (adicione onde o dia é selecionado)
+        document.getElementById('calendarGrid').addEventListener('click', function(e) {
+            const diaSelecionado = e.target?.dataset?.date;
+            if (diaSelecionado) {
+                localStorage.setItem('dia', diaSelecionado);
+            }
+        });
+
+        // Exemplo para horário (adicione onde o horário é selecionado)
+        document.getElementById('horariosList').addEventListener('click', function(e) {
+            const horarioSelecionado = e.target?.dataset?.horario;
+            if (horarioSelecionado) {
+                localStorage.setItem('horario', horarioSelecionado);
+            }
+        });
+
+        // Exemplo para profissional (adicione onde o profissional é selecionado)
+        document.getElementById('profissionaisList').addEventListener('click', function(e) {
+            const profissionalSelecionado = e.target?.dataset?.profissional;
+            if (profissionalSelecionado) {
+                localStorage.setItem('profissional', profissionalSelecionado);
+            }
+        });
+
+        // Botão confirmar: segue para próxima tela
+        document.getElementById('confirmarBtn').addEventListener('click', () => {
+            window.location.href = `../TOTEM/totem_dados.html`;
         });
     </script>
-
     <script src="..\JS\totem_data_horario.js"></script>
 </body>
 

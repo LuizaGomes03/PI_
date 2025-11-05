@@ -169,9 +169,8 @@ footer {
     display: inline-block;
     padding-left: 100%;
     padding-right: 100%;
-    animation: marquee 35s linear infinite;
+    animation: marquee 40s linear infinite;
     color: #4b5563;
-    font-size: 14px;
 }
 
 @keyframes marquee {
@@ -262,7 +261,7 @@ footer {
     width: 100%;
     max-width: 480px;
     height: 48px;
-    margin: 90px auto 16px;
+    margin: 50px auto 16px;
     display: block;
     border: none;
     border-radius: 12px;
@@ -323,4 +322,162 @@ footer {
 
 .dot.active {
     background: #bfd48b;
+}
+
+/* Popup de confirmação de agendamento */
+#mensagemConfirmacaoPopup {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#mensagemConfirmacaoPopup .popup-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.45);
+}
+
+#mensagemConfirmacaoPopup .popup-content {
+    position: relative;
+    background: #fff;
+    border-radius: 18px;
+    box-shadow: 0 8px 32px rgba(90, 160, 79, 0.18);
+    padding: 38px 32px 32px 32px;
+    text-align: center;
+    min-width: 320px;
+    max-width: 90vw;
+    z-index: 1;
+    animation: popupShow 0.3s;
+}
+
+#mensagemConfirmacaoPopup .popup-icon {
+    font-size: 48px;
+    color: var(--brand);
+    display: block;
+    margin-bottom: 12px;
+}
+
+#mensagemConfirmacaoPopup .popup-title {
+    font-size: 26px;
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: 10px;
+}
+
+#mensagemConfirmacaoPopup .popup-text {
+    font-size: 18px;
+    color: #253041;
+}
+
+@keyframes popupShow {
+    from {
+        transform: scale(0.8);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* Mensagem de erro dos campos do formulário */
+#mensagemErro {
+    margin-top: 16px;
+}
+
+#mensagemErro .erro-caixa {
+    background: #ffeaea;
+    border: 1.5px solid #c0392b;
+    border-radius: 10px;
+    padding: 14px 18px;
+    color: #c0392b;
+    font-size: 16px;
+    text-align: left;
+}
+
+#mensagemErro ul {
+    margin: 8px 0 0 18px;
+    font-size: 15px;
+}
+
+/* Tablet: grid e card responsivos */
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: 1fr;
+        padding: 12px;
+        gap: 12px;
+    }
+    .rk-card {
+        padding: 24px 12px;
+        max-width: 100%;
+    }
+    .rk-grid {
+        grid-template-columns: 1fr;
+        gap: 14px;
+    }
+    .rk-btn {
+        max-width: 100%;
+        margin: 32px auto 12px;
+        font-size: 17px;
+        height: 44px;
+    }
+    .actions {
+        gap: 8px;
+        margin-top: 12px;
+    }
+    .title-xl {
+        font-size: 38px;
+    }
+    .subtitle {
+        font-size: 15px;
+    }
+    .rk-brand .name {
+        font-size: 18px;
+    }
+    .rk-brand img {
+        height: 32px;
+    }
+    .rk-field input {
+        height: 40px;
+        font-size: 15px;
+    }
+    .rk-card .inner {
+        padding: 12px;
+    }
+}
+
+/* Mobile: grid e card ainda menores */
+@media (max-width: 600px) {
+    .rk-card {
+        padding: 12px 4px;
+    }
+    .rk-grid {
+        gap: 10px;
+    }
+    .rk-btn {
+        font-size: 15px;
+        height: 40px;
+    }
+    .title-xl {
+        font-size: 28px;
+    }
+    .subtitle {
+        font-size: 13px;
+    }
+    .rk-brand .name {
+        font-size: 15px;
+    }
+    .rk-brand img {
+        height: 24px;
+    }
 }

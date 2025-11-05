@@ -141,6 +141,9 @@
                 selectedConditions = [nenhumaOpcao.value];
             }
 
+            // Salva as condições médicas no localStorage
+            localStorage.setItem('condicoes_medicas', JSON.stringify(selectedConditions));
+
             // Redireciona
             window.location.href = `../TOTEM/totem_data_horario.html`;
         });

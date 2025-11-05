@@ -96,6 +96,45 @@ main {
     }
 }
 
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 14px;
+    }
+    .card {
+        padding: 18px 8px;
+        max-width: 100%;
+    }
+    .times {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+    .time-card {
+        padding: 14px 10px;
+        font-size: 16px;
+    }
+    .time-min {
+        font-size: 18px;
+    }
+    .btn {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+    .title-xl {
+        font-size: 38px;
+    }
+    .subtitle {
+        font-size: 15px;
+    }
+    .rk-brand .name {
+        font-size: 18px;
+    }
+    .rk-brand img {
+        height: 32px;
+    }
+}
+
 .card {
     background: var(--panel);
     border: 1px solid rgba(0, 0, 0, .06);
@@ -167,6 +206,13 @@ main {
     }
 }
 
+@media (max-width: 1024px) {
+    .times {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+}
+
 .time-card {
     background: var(--panel);
     border: 1px solid rgba(0, 0, 0, .06);
@@ -201,10 +247,11 @@ main {
 }
 
 .actions {
+    margin-top: auto;
     display: flex;
     justify-content: flex-end;
     gap: 10px;
-    margin-top: 18px
+    padding-bottom: 8px;
 }
 
 footer {
@@ -227,7 +274,7 @@ footer {
 .ticker span {
     display: inline-block;
     padding-left: 100%;
-    animation: marquee 45s linear infinite;
+    animation: marquee 40s linear infinite;
     color: #4b5563;
 }
 

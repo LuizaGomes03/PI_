@@ -335,6 +335,58 @@ footer {
     }
 }
 
+@media (max-width: 1024px) {
+    main {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        padding: 14px;
+    }
+
+    .rk-card {
+        padding: 18px 8px;
+        max-width: 100%;
+    }
+
+    .services {
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+    }
+
+    .svc-media {
+        height: 120px;
+    }
+
+    .svc-media img {
+        height: 80px;
+        width: 80px;
+    }
+
+    .svc-body {
+        padding: 10px 10px 12px;
+    }
+
+    .svc h3 {
+        font-size: 16px;
+    }
+
+    .svc p {
+        font-size: 13px;
+    }
+
+    .btn {
+        font-size: 16px;
+        padding: 8px 12px;
+    }
+
+    .rk-brand .name {
+        font-size: 18px;
+    }
+
+    .rk-brand img {
+        height: 32px;
+    }
+}
+
 /* Mobile grande */
 @media (max-width: 740px) {
     .rk-bar {

@@ -31,16 +31,20 @@
                     <div class="step"><span class="pill">PASSO 5</span> Preencha seus dados</div>
                     <h1 class="title-xl">Dados</h1>
                     <p class="subtitle">Informe seus dados para finalizar o agendamento. Depois clique em
-                        <b>Continuar</b>.</p>
+                        <b>Confirmar</b>.</p>
                     <div class="divider"></div>
                     <div style="color:var(--muted);font-size:14px">Valores válidos para este espaço. Sujeito à agenda.
                     </div>
                 </div>
             </section>
 
-            <!-- Coluna direita: dados -->
-
-            <div class="rk-card">
+            <!-- RESUMO + FORMULÁRIO NA MESMA CAIXA -->
+            <div class="rk-card" id="dadosAgendamento" style="margin-bottom:24px;">
+                <h2 style="font-size:22px;margin-bottom:10px;">Resumo do Agendamento</h2>
+                <ul id="resumoLista" style="font-size:16px;color:#253041;padding-left:18px;">
+                    <!-- Preenchido via JS -->
+                </ul>
+                <div class="divider"></div>
                 <!-- Formulário de Dados -->
                 <form id="formDados" class="needs-validation" novalidate>
                     <div class="rk-grid">
@@ -70,7 +74,6 @@
                             </div>
                         </div>
                     </div>
-                    
                     <button class="rk-btn" type="submit">CONFIRMAR AGENDAMENTO</button>
                     <small class="rk-footnote">
                         Após clicar em “Confirmar Agendamento”, verifique seu e-mail cadastrado e finalize pelo link
@@ -81,12 +84,19 @@
                                 Uso</a>.</p>
                     </small>
                 </form>
-            </div>
-
-            <div class="actions">
+                <!-- POPUP DE CONFIRMAÇÃO -->
+                <div id="mensagemConfirmacaoPopup" style="display:none;">
+                    <div class="popup-overlay"></div>
+                    <div class="popup-content">
+                        <span class="popup-icon">✅</span>
+                        <div class="popup-title">Agendamento confirmado!</div>
+                        <div class="popup-text">Seu agendamento foi realizado com sucesso.</div>
+                    </div>
+                </div>
+                <div class="actions" style="justify-content: flex-end;">
                     <button class="btn" onclick="history.back()">Voltar</button>
                 </div>
-
+            </div>
         </main>
 
         <footer>
@@ -106,18 +116,65 @@
             } catch (e) { }
         });
 
+        // RESUMO DAS ESCOLHAS
+        function getResumo() {
+            // Recupera do localStorage
+            const servico = localStorage.getItem('servico') || '';
+            const tempo = localStorage.getItem('tempo') || '';
+            const tecnica = localStorage.getItem('tecnica') || '';
+            const preco = localStorage.getItem('preco') || '';
+            const dia = localStorage.getItem('dia') || '';
+            const horario = localStorage.getItem('horario') || '';
+            const profissional = localStorage.getItem('profissional') || '';
+            const condicoesMedicas = JSON.parse(localStorage.getItem('condicoes_medicas') || '[]');
+            const dataSelecionada = localStorage.getItem('dataSelecionada') || '';
+            const horarioSelecionado = localStorage.getItem('horarioSelecionado') || '';
+            const profissionalSelecionado = localStorage.getItem('profissionalSelecionado') || '';
 
+            const resumo = [];
+            if (servico) resumo.push(`<li><b>Serviço:</b> ${servico}</li>`);
+            if (tecnica) resumo.push(`<li><b>Técnica:</b> ${tecnica}</li>`);
+            if (tempo) resumo.push(`<li><b>Tempo:</b> ${tempo} minutos</li>`);
+            if (preco) resumo.push(`<li><b>Valor:</b> R$ ${preco}</li>`);
+            if (dia) resumo.push(`<li><b>Dia:</b> ${dia}</li>`);
+            if (horario) resumo.push(`<li><b>Horário:</b> ${horario}</li>`);
+            if (profissional) resumo.push(`<li><b>Profissional:</b> ${profissional}</li>`);
+            if (dataSelecionada) resumo.push(`<li><b>Data:</b> ${dataSelecionada}</li>`);
+            if (horarioSelecionado) resumo.push(`<li><b>Horário:</b> ${horarioSelecionado}</li>`);
+            if (profissionalSelecionado) resumo.push(`<li><b>Profissional:</b> ${profissionalSelecionado}</li>`);
+            // Só mostra condições médicas se NÃO for "Nenhuma das opções acima"
+            if (
+                condicoesMedicas.length > 0 &&
+                !(
+                    condicoesMedicas.length === 1 &&
+                    condicoesMedicas[0] === "Nenhuma das opções acima"
+                )
+            ) {
+                resumo.push(`<li><b>Condições médicas:</b> ${condicoesMedicas.join(', ')}</li>`);
+            }
+            return resumo.join('');
+        }
 
-        // Próxima etapa
-        document.getElementById('goNext').addEventListener('click', () => {
-            if (!selected) { alert('Selecione um tempo para continuar.'); return; }
-            // Exemplo: envia para condições médicas (passo 3)
-            // Você pode passar params na URL (tempo e preço) se quiser usar depois.
-            const tempo = selected.dataset.value;
-            const preco = selected.dataset.price;
-            window.location.href = `../TOTEM/totem_cond_med.html`;
+        document.addEventListener('DOMContentLoaded', () => {
+            document.getElementById('resumoLista').innerHTML = getResumo();
+
+            // Validação e confirmação do agendamento
+            const form = document.getElementById('formDados');
+            form.addEventListener('submit', function(e) {
+                e.preventDefault();
+                if (!form.checkValidity()) {
+                    form.classList.add('was-validated');
+                    return;
+                }
+                // Exibe popup de confirmação
+                document.getElementById('mensagemConfirmacaoPopup').style.display = 'flex';
+                form.style.display = 'none';
+                // Redireciona após 4 segundos
+                setTimeout(() => {
+                    window.location.href = "totem_agendamento.html";
+                }, 4000);
+            });
         });
-
     </script>
 </body>
 
