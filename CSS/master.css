@@ -383,115 +383,8 @@ body::before {
 }
 
 /* ===== Atendimentos (desktop) ===== */
-#view-atendimentos .atd {
-    background: rgba(0, 0, 0, .35);
-    border: 1px solid rgba(255, 255, 255, .10);
-    border-radius: 18px;
-    padding: 18px;
-    backdrop-filter: blur(10px);
-}
 
-#view-atendimentos .atd-head {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-    margin-bottom: 12px;
-}
 
-#view-atendimentos h2 {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin: 0;
-}
-
-#view-atendimentos .atd-form {
-    display: grid;
-    grid-template-columns: 220px 1fr 1fr 1fr auto;
-    gap: 10px;
-    align-items: center;
-    margin-bottom: 12px;
-}
-
-#view-atendimentos .atd-form .field input {
-    width: 100%;
-    background: rgba(255, 255, 255, .10);
-    border: 1px solid rgba(255, 255, 255, .18);
-    color: #fff;
-    border-radius: 12px;
-    padding: 10px 12px;
-    font-weight: 600;
-}
-
-#view-atendimentos .atd-form .field input::placeholder {
-    color: rgba(255, 255, 255, .85);
-}
-
-#view-atendimentos .atd-form .field input:focus {
-    outline: 2px solid var(--green);
-    outline-offset: 2px;
-}
-
-#view-atendimentos .atd-add {
-    border-radius: 12px;
-    padding: 10px 14px;
-}
-
-#view-atendimentos .atd-table-wrap {
-    position: relative;
-    background: rgba(0, 0, 0, .25);
-    border: 1px solid rgba(255, 255, 255, .10);
-    border-radius: 14px;
-    overflow: hidden;
-}
-
-#view-atendimentos .atd-table {
-    width: 100%;
-    border-collapse: separate;
-    border-spacing: 0;
-}
-
-#view-atendimentos .atd-table thead th {
-    position: sticky;
-    top: 0;
-    z-index: 1;
-    background: rgba(0, 0, 0, .45);
-    backdrop-filter: blur(8px);
-    color: #fff;
-    text-align: left;
-    font-weight: 700;
-    padding: 12px 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, .08);
-}
-
-#view-atendimentos .atd-table tbody td {
-    padding: 12px 14px;
-    border-bottom: 1px solid rgba(255, 255, 255, .06);
-}
-
-#view-atendimentos .atd-table tbody tr:hover {
-    background: rgba(255, 255, 255, .05);
-}
-
-#view-atendimentos .atd-table .btn {
-    border-radius: 10px;
-    padding: 6px 10px;
-}
-
-#view-atendimentos .atd-empty {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    justify-content: center;
-    padding: 18px;
-    color: rgba(255, 255, 255, .9);
-}
-
-#view-atendimentos .atd-empty i {
-    font-size: 18px;
-}
-
-/* ===== Responsivo (tablet) ===== */
 
 
 /* ===== Mobile: sidebar gaveta + layout coluna ===== */
@@ -633,55 +526,6 @@ body::before {
     }
 }
 
-/* Tabela de Preços: botões menores */
-#tblPrecos .btn.btn-sm {
-    padding: 6px 10px;
-    border-radius: 10px;
-}
-
-/* Mobile: form em coluna */
-@media (max-width: 680px) {
-    #view-tabela-precos .atd-form {
-        grid-template-columns: 1fr;
-    }
-
-    #view-tabela-precos .atd-add {
-        width: 100%;
-    }
-}
-
-/* ===================== */
-/* TABELA DE PREÇOS UI   */
-/* ===================== */
-
-.prices.card {
-    background: rgba(18, 18, 18, .5);
-    border: 1px solid rgba(255, 255, 255, .12);
-    border-radius: 18px;
-    padding: 18px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, .18);
-    backdrop-filter: blur(10px);
-}
-
-.prices-head h2 {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-    margin: 0 0 4px 0;
-}
-
-.prices-head .muted {
-    opacity: .9;
-}
-
-/* Form */
-.prices-form {
-    display: grid;
-    grid-template-columns: 1.2fr .6fr .6fr auto;
-    gap: 12px;
-    align-items: end;
-    margin: 14px 0 16px;
-}
 
 .field {
     display: flex;
@@ -3085,4 +2929,264 @@ input[type="text"] {
   .cli-two {
     grid-template-columns: 1fr;
   }
+}
+
+/* CARD CALENDÁRIO ANUAL */
+.card.annual-calendar-card {
+    width: min(980px, 96%);
+    max-width: 1100px;
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+/* header */
+.annual-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+}
+
+.annual-header h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+.annual-body {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+/* label do ano */
+.year-label {
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: 12px;
+    font-size: 18px;
+    color: var(--muted);
+}
+
+/* grid de meses */
+.months-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 14px;
+}
+
+/* mês */
+.month-card {
+    background: rgba(0, 0, 0, 0.25);
+    border-radius: 12px;
+    padding: 8px;
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.month-card h4 {
+    margin: 0 0 6px 0;
+    font-size: 14px;
+    text-align: center;
+    font-weight: 600;
+}
+
+.days-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 4px;
+    font-size: 11px;
+    text-align: center;
+}
+
+.day-cell {
+    padding: 4px 0;
+    border-radius: 6px;
+}
+
+.day-cell.holiday {
+    background: var(--green);
+    color: #000;
+    font-weight: 700;
+}
+
+
+/* ====== CONTROLE DE LOGIN (MASTER)  ====== */
+#view-controle-login .card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+
+/* ========= ATENDIMENTOS – mesmo estilo do CLIENTES ========= */
+
+#view-atendimentos .atd.card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+/* ========== ATENDIMENTOS – RESPONSIVO ========== */
+
+/* Até 1024px – aperta um pouco o card e reorganiza o form */
+@media (max-width: 1024px) {
+  #view-atendimentos .atd.card {
+    padding: 14px;
+  }
+
+  /* 3 colunas no form, data em cima ocupando a linha inteira */
+  #view-atendimentos .atd-form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  #view-atendimentos .atd-form .field:nth-child(1) {
+    grid-column: 1 / -1; /* Data/Hora full-width */
+  }
+}
+
+/* Até 768px – form vira 2 colunas, botão embaixo */
+@media (max-width: 768px) {
+
+  #view-atendimentos .atd.card {
+    padding: 12px;
+    border-radius: 14px;
+  }
+
+  #view-atendimentos .atd-head h2 {
+    font-size: 1.1rem;
+  }
+
+  #view-atendimentos .atd-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  /* Data/Hora continua ocupando a linha inteira */
+  #view-atendimentos .atd-form .field:nth-child(1) {
+    grid-column: 1 / -1;
+  }
+
+  /* Botão vai pra linha de baixo e ocupa largura toda */
+  #view-atendimentos .atd-add {
+    grid-column: 1 / -1;
+    width: 100%;
+    justify-content: center;
+  }
+
+  #view-atendimentos .atd-form .field input {
+    padding: 8px 10px;
+    font-size: 0.9rem;
+  }
+}
+
+/* Até 540px – tudo em coluna, tabela com scroll horizontal */
+@media (max-width: 540px) {
+
+  #view-atendimentos .atd.card {
+    padding: 10px;
+    border-radius: 12px;
+  }
+
+  #view-atendimentos .atd-head {
+    align-items: flex-start;
+  }
+
+  #view-atendimentos .atd-form {
+    grid-template-columns: 1fr; /* 1 coluna só */
+    gap: 8px;
+  }
+
+  #view-atendimentos .atd-form .field,
+  #view-atendimentos .atd-add {
+    grid-column: 1 / -1;
+  }
+
+  #view-atendimentos .atd-add {
+    padding: 9px 12px;
+    font-size: 0.9rem;
+  }
+
+  /* tabela rola na horizontal se precisar */
+  #view-atendimentos .atd-table-wrap {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  #view-atendimentos .atd-table thead th,
+  #view-atendimentos .atd-table tbody td {
+    padding: 10px 12px;
+    font-size: 0.85rem;
+  }
+}
+
+
+/* ====== TABELA DE PREÇOS ====== */
+/* Tabela de Preços: botões menores */
+#tblPrecos .btn.btn-sm {
+    padding: 6px 10px;
+    border-radius: 10px;
+}
+
+/* Mobile: form em coluna */
+@media (max-width: 680px) {
+    #view-tabela-precos .atd-form {
+        grid-template-columns: 1fr;
+    }
+
+    #view-tabela-precos .atd-add {
+        width: 100%;
+    }
+}
+
+/* ===================== */
+/* TABELA DE PREÇOS UI   */
+/* ===================== */
+
+.prices.card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    transition: transform .18s ease, opacity .18s ease;
+    z-index: 5;
+    position: relative;
+}
+
+.prices-head h2 {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin: 0 0 4px 0;
+}
+
+.prices-head .muted {
+    opacity: .9;
+}
+
+/* Form */
+.prices-form {
+    display: grid;
+    grid-template-columns: 1.2fr .6fr .6fr auto;
+    gap: 12px;
+    align-items: end;
+    margin: 14px 0 16px;
 }

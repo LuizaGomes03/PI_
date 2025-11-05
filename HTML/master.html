@@ -255,7 +255,6 @@
             </section>
 
             <!-- ========== CLIENTES ========== -->
-            <!-- ========== CLIENTES ========== -->
             <section id="view-clientes" class="view" aria-labelledby="cliTitle">
                 <div class="atd card">
                     <div class="atd-head">
@@ -818,7 +817,7 @@
             <!-- ========== CONTROLE DE LOGIN  ========== -->
             <!-- ========== PONTO (MASTER) — TODOS OS FUNCIONÁRIOS ========== -->
             <section id="view-controle-login" class="view" aria-labelledby="pontoMasterTitle">
-                <div class="card">
+                <div class="atd card">
                     <div class="atd-head">
                         <h2 id="pontoMasterTitle"><i class="fa-regular fa-clock"></i> Controle de Login — Todos os
                             Funcionários</h2>
@@ -870,46 +869,16 @@
             <!-- ========== CALENDÁRIO ========= -->
             <section id="view-calendario" class="view" aria-labelledby="calTitle">
                 <div class="calendar-card">
-
-
                     <div class="atd-head">
-                        <h2 id="calTitle"><i class="fa-solid fa-calendar-days"></i> Calendário</h2>
-                        <div class="muted">Eventos e agenda: <b class="unitName">—</b></div>
+                        <h2>Calendário Anual • Feriados</h2>
+                        <button class="btn-close" aria-label="Fechar calendário anual">&times;</button>
                     </div>
-
-                    <div id="calendarApp">
-                        <div class="cal-toolbar">
-                            <div class="left">
-                                <button id="calPrev" class="btn ghost">◀</button>
-                                <button id="calToday" class="btn ghost">Hoje</button>
-                                <button id="calNext" class="btn ghost">▶</button>
-                            </div>
-                            <div class="center" id="calTitleBar">—</div>
-                            <div class="right">
-                                <input type="month" id="calPicker">
-                            </div>
-                        </div>
-
-                        <div class="cal-grid" id="calGrid" aria-label="Calendário mensal"></div>
-                        <p id="calEmpty" class="muted" style="text-align:center; padding:12px; display:none;">
-                            Sem eventos neste mês 👀
-                        </p>
-
-                        <div class="legend">
-                            <span class="dot dot-meeting"></span> Reunião
-                            <span class="dot dot-holiday"></span> Feriado
-                            <span class="dot dot-leave"></span> Folga/Férias
-                            <span class="dot dot-other"></span> Outros
-                        </div>
+                    <div class="annual-body">
+                        <div class="year-label" id="yearLabel"></div>
+                        <div class="months-grid" id="monthsGrid"></div>
                     </div>
-                </div>
-
-                <!-- FullCalendar CDN -->
-                <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.css" rel="stylesheet">
-                <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.10/index.global.min.js"></script>
-
-
             </section>
+
 
             <!-- ========== PARCEIROS ========== -->
             <!-- LISTA DE PARCEIROS -->
@@ -1107,7 +1076,8 @@
                         <i class="fa-solid fa-arrow-left"></i> Voltar
                     </button>
                     <div class="atd-head">
-                        <h2 id="relPagTitle"><i class="fa-solid fa-money-bill-wave"></i> Controle de Pagamentos</h2>
+                        <h2 id="relPagTitle"><i class="fa-solid fa-money-bill-wave"></i> Controle de
+                            Pagamentos</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
                         </div>
@@ -1200,7 +1170,8 @@
                         <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
-                        <h2 id="relExtratoTitle"><i class="fa-solid fa-file-invoice-dollar"></i> Extrato Financeiro</h2>
+                        <h2 id="relExtratoTitle"><i class="fa-solid fa-file-invoice-dollar"></i> Extrato
+                            Financeiro</h2>
                         <div class="muted">
                             Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
                         </div>
@@ -1517,8 +1488,10 @@
                         <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
-                        <h2 id="novosClientesTitle"><i class="fa-solid fa-user-plus"></i> Novos Clientes</h2>
-                        <div class="muted">Lista de novos clientes: <b class="unitName">Loja Central</b></div>
+                        <h2 id="novosClientesTitle"><i class="fa-solid fa-user-plus"></i> Novos Clientes
+                        </h2>
+                        <div class="muted">Lista de novos clientes: <b class="unitName">Loja Central</b>
+                        </div>
                     </div>
 
                     <table class="table">
@@ -1590,8 +1563,10 @@
                         <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
-                        <h2 id="tempoTerapeutasTitle"><i class="fa-solid fa-clock"></i> Tempo Terapeutas</h2>
-                        <div class="muted">Monitoramento de tempo: <b class="unitName">Clínica Esperança</b></div>
+                        <h2 id="tempoTerapeutasTitle"><i class="fa-solid fa-clock"></i> Tempo Terapeutas
+                        </h2>
+                        <div class="muted">Monitoramento de tempo: <b class="unitName">Clínica Esperança</b>
+                        </div>
                     </div>
 
                     <table class="table">
@@ -1833,7 +1808,7 @@
             src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 </body>
 
-</html>nfigurações de privacidade e auditoria.</p>
+</html>
 </div>
 </div>
 </section>
