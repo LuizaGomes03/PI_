@@ -1027,3 +1027,90 @@ cliFormCad?.addEventListener('submit', async (e) => {
     doc.save("relatorio-pacotes.pdf");
   });
 });
+document.addEventListener('DOMContentLoaded', () => {
+  const yearLabel = document.getElementById('yearLabel');
+  const monthsGrid = document.getElementById('monthsGrid');
+  if (!yearLabel || !monthsGrid) return;
+
+  const hoje = new Date();
+  const anoAtual = hoje.getFullYear();
+  const mesAtual = hoje.getMonth(); // 0–11
+
+  // título do ano
+  yearLabel.innerHTML = `
+    <i class="fa-solid fa-calendar-days"></i>
+    <span>${anoAtual}</span>
+  `;
+
+  // feriados nacionais (exemplo — você pode ajustar)
+  const feriados = [
+    { date: `${anoAtual}-01-01`, name: 'Confraternização Universal' },
+    { date: `${anoAtual}-02-25`, name: 'Carnaval' },
+    { date: `${anoAtual}-02-26`, name: 'Carnaval' },
+    { date: `${anoAtual}-04-18`, name: 'Paixão de Cristo' },
+    { date: `${anoAtual}-04-21`, name: 'Tiradentes' },
+    { date: `${anoAtual}-05-01`, name: 'Dia do Trabalho' },
+    { date: `${anoAtual}-09-07`, name: 'Independência do Brasil' },
+    { date: `${anoAtual}-10-12`, name: 'Nossa Senhora Aparecida' },
+    { date: `${anoAtual}-11-02`, name: 'Finados' },
+    { date: `${anoAtual}-11-15`, name: 'Proclamação da República' },
+    { date: `${anoAtual}-12-25`, name: 'Natal' },
+  ];
+
+  // agrupa por mês
+  const feriadosPorMes = {};
+  feriados.forEach(f => {
+    const d = new Date(f.date);
+    const m = d.getMonth();
+    if (!feriadosPorMes[m]) feriadosPorMes[m] = [];
+    feriadosPorMes[m].push({ ...f, jsDate: d });
+  });
+
+  // cria os 12 cards de meses
+  for (let m = 0; m < 12; m++) {
+    const card = document.createElement('article');
+    card.className = 'month-card';
+    if (m === mesAtual) card.classList.add('is-current');
+
+    const d = new Date(anoAtual, m, 1);
+    const nomeMes = d.toLocaleDateString('pt-BR', { month: 'long' });
+
+    const header = document.createElement('header');
+    header.className = 'month-header';
+    header.innerHTML = `
+      <span class="month-name">${nomeMes}</span>
+      <span class="month-number">${String(m + 1).padStart(2, '0')}</span>
+    `;
+    card.appendChild(header);
+
+    const ul = document.createElement('ul');
+    ul.className = 'holiday-list';
+
+    const lista = (feriadosPorMes[m] || []).sort((a, b) =>
+      a.jsDate.getTime() - b.jsDate.getTime()
+    );
+
+    if (!lista.length) {
+      const li = document.createElement('li');
+      li.className = 'holiday-empty';
+      li.textContent = 'Sem feriados cadastrados';
+      ul.appendChild(li);
+    } else {
+      lista.forEach(h => {
+        const li = document.createElement('li');
+        const dia = h.jsDate.toLocaleDateString('pt-BR', {
+          day: '2-digit',
+          month: '2-digit',
+        });
+        li.innerHTML = `
+          <span class="holiday-date">${dia}</span>
+          <span class="holiday-name">${h.name}</span>
+        `;
+        ul.appendChild(li);
+      });
+    }
+
+    card.appendChild(ul);
+    monthsGrid.appendChild(card);
+  }
+});
