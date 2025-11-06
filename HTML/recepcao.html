@@ -87,102 +87,69 @@
         <div id="calendar"></div>
         <div id="details" class="details"></div>
 
-        <!-- Formulário de agendamento -->
         <form id="bookingForm" class="booking-form" style="display:none;">
           <h3>Agendamento do Cliente</h3>
+
           <label>Data:
             <input type="text" id="selectedDate" name="date" readonly>
           </label>
+
           <label>Horário:
             <input type="text" id="selectedTime" name="time" readonly>
           </label>
+
+          <label>Serviço:
+            <select id="serviceType" name="service" required>
+              <option value="" disabled selected>Selecione um serviço</option>
+              <option value="Quick Massage">Quick Massage</option>
+              <option value="Massoterapia">Macaterapia</option>
+              <option value="Reflexologia Podal">Reflexologia Podal</option>
+              <option value="Auriculoterapia">Auriculoterapia</option>
+            </select>
+          </label>
+
           <label>Nome do Cliente:
             <input type="text" id="clientName" name="name" placeholder="Digite o nome do cliente" required>
           </label>
+
           <label>Telefone:
             <input type="tel" id="clientPhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
           </label>
-          <label>Observações:
-            <textarea id="observations" name="observations" placeholder="Alguma observação"></textarea>
-          </label>
-          <!-- Condições Médicas -->
-          <label>Condições Médicas:</label>
-          <div class="checkbox-group">
-            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Gravidez"> Gravidez</label>
-            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Trombose"> Trombose</label>
-            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Gripe"> Gripe</label>
-            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Câncer"> Câncer</label>
-            <label class="checkbox-btn"><input type="checkbox" name="conditions" value="Alterações de Pressão Arterial">
-              Alterações de Pressão Arterial</label>
-          </div>
-
-          <!-- Histórico de Saúde -->
-          <label>Histórico de Saúde:</label>
-          <div class="checkbox-group">
-            <label class="checkbox-btn"><input type="checkbox" name="history" value="Fraturas"> Fraturas</label>
-            <label class="checkbox-btn"><input type="checkbox" name="history" value="Hérnias"> Hérnias</label>
-            <label class="checkbox-btn"><input type="checkbox" name="history" value="Osteoporose"> Osteoporose</label>
-            <label class="checkbox-btn"><input type="checkbox" name="history" value="Osteopenia"> Osteopenia</label>
-            <label class="checkbox-btn"><input type="checkbox" name="history" value="Cirurgias Recentes"> Cirurgias
-              Recentes</label>
-          </div>
-
-          <!-- Alergias -->
-          <label>Alergias:</label>
-          <div class="checkbox-group">
-            <label class="checkbox-btn"><input type="checkbox" name="allergies" value="Óleos Corporais"> Óleos
-              Corporais</label>
-            <label class="checkbox-btn"><input type="checkbox" name="allergies" value="Cremes"> Cremes</label>
-          </div>
-
-          <!-- Outros -->
-          <label>Outros:</label>
-          <div class="checkbox-group">
-            <label class="checkbox-btn"><input type="checkbox" name="others" value="Nenhuma das opções acima"> Nenhuma
-              das opções acima</label>
-          </div>
 
           <button type="submit">Confirmar Agendamento</button>
         </form>
-      </div>
-    </div>
 
-    <!-- VLibras - Acessibilidade em Libras -->
-    <div vw class="enabled">
-      <div vw-access-button class="active"></div>
-      <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
-      </div>
-    </div>
-
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>
-      new window.VLibras.Widget('https://vlibras.gov.br/app');
-    </script>
-    <script src="https://app.embed.im/accessibility.js" defer></script>
-
-    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
-    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
-      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
-        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
-        <div class="popup-actions">
-          <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
-          <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+        <div class="new-client-link">
+          <button type="button" id="addClientBtn">
+            <i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente
+          </button>
         </div>
-      </div>
-    </div>
 
-    <!-- POPUP DE CONFIRMAÇÃO DE AGENDAMENTO -->
-    <div id="bookingPopup" class="popup-overlay" aria-hidden="true">
-      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="bookingPopupTitle">
-        <h3 id="bookingPopupTitle"><i class="fa-solid fa-circle-check"></i> Agendamento Confirmado</h3>
-        <p id="bookingPopupText" class="popup-text"></p>
-        <div class="popup-actions">
-          <button id="closeBookingPopup" class="popup-btn confirm">Fechar</button>
+        <!-- VLibras - Acessibilidade em Libras -->
+        <div vw class="enabled">
+          <div vw-access-button class="active"></div>
+          <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+          </div>
         </div>
-      </div>
-    </div>
+
+        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+        <script>
+          new window.VLibras.Widget('https://vlibras.gov.br/app');
+        </script>
+        <script src="https://app.embed.im/accessibility.js" defer></script>
+
+        <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+        <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+          <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+            <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+            <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+            <div class="popup-actions">
+              <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+              <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+            </div>
+          </div>
+        </div>
 
 </body>
 
