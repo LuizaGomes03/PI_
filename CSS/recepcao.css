@@ -667,7 +667,6 @@ body::before {
 /* Contêiner do botão (centraliza e dá espaçamento) */
 .new-client-link {
   text-align: center;
-  margin-top: 15px;
 }
 
 /* Estilo do botão */
@@ -693,9 +692,7 @@ body::before {
 
 /* Efeito hover */
 .new-client-link button:hover {
-  background: rgba(157, 182, 104, 0.8);
-  /* verde suave */
-  color: #000;
+  background: rgba(121, 124, 115, 0.8);
   transform: translateY(-2px);
   box-shadow: 0 4px 10px rgba(157, 182, 104, 0.25);
 }
@@ -705,3 +702,331 @@ body::before {
   transform: translateY(0);
   box-shadow: none;
 }
+
+/* ===== Popup Overlay ===== */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.25s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* ===== Popup Box ===== */
+.popup-box {
+  background: rgba(30, 30, 30, 0.95);
+  border: 1px solid rgba(157, 182, 104, 0.2);
+  border-radius: 20px;
+  padding: 28px 32px;
+  max-width: 500px;
+  width: 90%;
+  text-align: center;
+  position: relative;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+  animation: popupFade 0.3s ease both;
+}
+
+.popup-box::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 6px;
+  background: rgba(157, 182, 104, 0.5);
+  border-radius: 3px;
+  margin-top: 8px;
+}
+
+.popup-box h3 {
+  font-size: 22px;
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: var(--green);
+  font-family: 'Amatic SC', cursive;
+}
+
+.popup-box h3 i {
+  font-size: 24px;
+  color: var(--green-600);
+}
+
+.popup-text {
+  font-size: 15px;
+  margin-bottom: 22px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* ===== Popup Actions ===== */
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 14px;
+  flex-wrap: wrap;
+  margin-top: 10px;
+}
+
+.popup-btn.confirm {
+  background: var(--green);
+  color: #fff;
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
+
+.popup-btn.confirm:hover {
+  background: var(--green-600);
+}
+
+.popup-btn.cancel {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--muted);
+  padding: 12px 22px;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  transition: all 0.25s ease;
+}
+
+.popup-btn.cancel:hover {
+  background: rgba(157, 182, 104, 0.2);
+  color: #fff;
+}
+
+/* ===== Formulário Cliente ===== */
+.client-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: left;
+}
+
+.client-form fieldset {
+  border: 1px solid rgba(157, 182, 104, 0.3);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.client-form legend {
+  font-weight: 600;
+  font-size: 16px;
+  color: var(--green);
+}
+
+.client-form label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  margin-top: 8px;
+}
+
+.client-form input,
+.client-form select,
+.client-form textarea {
+  margin-top: 4px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+}
+
+/* Textarea resize vertical */
+.client-form textarea {
+  resize: vertical;
+}
+
+/* Botão do formulário */
+.client-form button {
+  margin-top: 10px;
+  padding: 10px;
+  background: var(--green);
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #fff;
+  transition: all 0.25s ease;
+}
+
+.client-form button:hover {
+  background: var(--green-600);
+}
+
+/* ===== Custom Multiselect Dropdown ===== */
+.custom-multiselect {
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  font-size: 14px;
+}
+
+.custom-multiselect .select-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #fff;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 8px;
+  cursor: pointer;
+  border: 1px solid #ccc;
+  transition: all 0.2s ease;
+}
+
+.custom-multiselect .select-box:hover {
+  border-color: var(--green);
+}
+
+.custom-multiselect .select-box i {
+  font-size: 14px;
+  transition: transform 0.2s ease;
+}
+
+.custom-multiselect.active .select-box i {
+  transform: rotate(180deg);
+}
+
+.custom-multiselect .options-container {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: #fff;
+  border-radius: 8px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  display: none;
+  max-height: 200px;
+  overflow-y: auto;
+  z-index: 10;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.custom-multiselect .options-container label {
+  display: flex;
+  align-items: center;
+  padding: 6px 10px;
+  gap: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  color: #333;
+}
+
+.custom-multiselect .options-container label:hover {
+  background:#808080;
+  color: #fff;
+  border-radius: 6px;
+}
+
+.custom-multiselect .options-container input[type="checkbox"] {
+  cursor: pointer;
+}
+
+.custom-multiselect .selected {
+  color: #333;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.custom-multiselect.active .options-container {
+  display: block;
+}
+
+/* Estilo para selects múltiplos no modal */
+.client-form select[multiple] {
+  height: auto; /* deixa o tamanho automático para caber todas opções */
+  min-height: 80px; /* altura mínima */
+  max-height: 140px; /* evita ficar gigante */
+  background: #fff;
+  color: #333;
+  padding: 8px 10px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  overflow-y: auto; /* mostra scroll se tiver muitas opções */
+}
+
+/* Melhora visual das opções */
+.client-form select[multiple] option {
+  padding: 6px 10px;
+  background: #fff;
+  color: #333;
+  font-weight: 500;
+}
+
+/* Scroll mais elegante dentro do select */
+.client-form select[multiple]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.client-form select[multiple]::-webkit-scrollbar-thumb {
+  background: rgba(157, 182, 104, 0.5);
+  border-radius: 3px;
+}
+
+.client-form select[multiple]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Select múltiplo do modal - legível e simples */
+.client-form select[multiple] {
+  height: auto;           /* tamanho automático para caber várias opções */
+  min-height: 80px;       /* altura mínima */
+  max-height: 140px;      /* altura máxima antes de aparecer scroll */
+  background: #fff;       /* fundo branco */
+  color: #000;            /* texto preto */
+  padding: 8px 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  outline: none;
+  font-size: 14px;
+  overflow-y: auto;       /* permite scroll se tiver muitas opções */
+}
+
+/* Opções do select */
+.client-form select[multiple] option {
+  padding: 4px 8px;
+  background: #fff;
+  color: #000;
+  font-weight: 400;
+}
+
+/* Scroll discreto para navegadores WebKit */
+.client-form select[multiple]::-webkit-scrollbar {
+  width: 6px;
+}
+
+.client-form select[multiple]::-webkit-scrollbar-thumb {
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 3px;
+}
+
+.client-form select[multiple]::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+
+

@@ -117,12 +117,116 @@
           </label>
 
           <button type="submit">Confirmar Agendamento</button>
+
+          <div class="new-client-link">
+            <button type="button" id="addClientBtn">
+              <i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente
+            </button>
+          </div>
+
         </form>
 
-        <div class="new-client-link">
-          <button type="button" id="addClientBtn">
-            <i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente
-          </button>
+        <!-- MODAL CADASTRO DE CLIENTE COMPLETO ATUALIZADO -->
+        <div id="clientModal" class="popup-overlay" aria-hidden="true">
+          <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle">
+            <h3 id="clientModalTitle"><i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente</h3>
+
+            <form id="clientForm" class="client-form">
+              <!-- Dados Pessoais -->
+              <fieldset>
+                <legend>Dados Pessoais</legend>
+                <label>Nome Completo:
+                  <input type="text" id="newClientName" name="name" placeholder="Digite o nome completo" required>
+                </label>
+                <label>Telefone:
+                  <input type="tel" id="newClientPhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
+                </label>
+                <label>E-mail:
+                  <input type="email" id="newClientEmail" name="email" placeholder="Digite o e-mail">
+                </label>
+                <label>Data de Nascimento:
+                  <input type="date" id="newClientDOB" name="dob" required>
+                </label>
+                <label>Sexo:
+                  <select id="newClientGender" name="gender" required>
+                    <option value="" disabled selected>Selecione</option>
+                    <option value="Feminino">Feminino</option>
+                    <option value="Masculino">Masculino</option>
+                    <option value="Outro">Outro</option>
+                    <option value="Prefiro não informar">Prefiro não informar</option>
+                  </select>
+                </label>
+              </fieldset>
+
+              <!-- Informações de Saúde -->
+              <fieldset>
+                <legend>Informações para Atendimento</legend>
+
+                <!-- Condições Médicas -->
+                <fieldset>
+                  <legend>Condições Médicas</legend>
+                  <div class="custom-multiselect" id="conditionsSelect">
+                    <div class="select-box">
+                      <span class="selected">Selecione as condições</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="options-container">
+                      <label><input type="checkbox" value="Gravidez"> Gravidez</label>
+                      <label><input type="checkbox" value="Trombose"> Trombose</label>
+                      <label><input type="checkbox" value="Gripe"> Gripe</label>
+                      <label><input type="checkbox" value="Câncer"> Câncer</label>
+                      <label><input type="checkbox" value="Alterações de pressão"> Alterações de pressão
+                        arterial</label>
+                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- Alergias -->
+                <fieldset>
+                  <legend>Alergias</legend>
+                  <div class="custom-multiselect" id="allergiesSelect">
+                    <div class="select-box">
+                      <span class="selected">Selecione as alergias</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="options-container">
+                      <label><input type="checkbox" value="Óleos ou cremes corporais"> Óleos ou cremes corporais</label>
+                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <!-- Histórico de Saúde -->
+                <fieldset>
+                  <legend>Histórico de Saúde</legend>
+                  <div class="custom-multiselect" id="healthHistorySelect">
+                    <div class="select-box">
+                      <span class="selected">Selecione o histórico</span>
+                      <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="options-container">
+                      <label><input type="checkbox" value="Cirurgias recentes"> Cirurgias recentes</label>
+                      <label><input type="checkbox" value="Fraturas"> Fraturas</label>
+                      <label><input type="checkbox" value="Hérnias"> Hérnias</label>
+                      <label><input type="checkbox" value="Osteoporose"> Osteoporose</label>
+                      <label><input type="checkbox" value="Osteopenia"> Osteopenia</label>
+                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
+                    </div>
+                  </div>
+                </fieldset>
+
+                <label>Observações:
+                  <textarea id="clientNotes" name="notes" placeholder="Outras observações" rows="2"></textarea>
+                </label>
+              </fieldset>
+
+              <div class="popup-actions">
+                <button type="button" id="closeClientModal" class="popup-btn cancel">Cancelar</button>
+                <button type="submit" class="popup-btn confirm">Cadastrar</button>
+              </div>
+            </form>
+          </div>
         </div>
 
         <!-- VLibras - Acessibilidade em Libras -->

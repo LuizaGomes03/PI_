@@ -246,6 +246,102 @@ document.querySelectorAll('.checkbox-btn').forEach(label => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
+  /* ===== MODAL CADASTRO CLIENTE ===== */
+  const addClientBtn = document.getElementById("addClientBtn");
+  const clientModal = document.getElementById("clientModal");
+  const closeClientModal = document.getElementById("closeClientModal");
+  const clientForm = document.getElementById("clientForm");
+
+  // Abrir modal
+  addClientBtn.addEventListener("click", () => {
+    clientModal.classList.add("active");
+    clientModal.setAttribute("aria-hidden", "false");
+
+    // Rolar a página para o topo do modal
+    clientModal.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  // Fechar modal
+  closeClientModal.addEventListener("click", () => {
+    clientModal.classList.remove("active");
+    clientModal.setAttribute("aria-hidden", "true");
+  });
+
+  // Fechar clicando fora da caixa
+  clientModal.addEventListener("click", (e) => {
+    if (e.target === clientModal) {
+      clientModal.classList.remove("active");
+      clientModal.setAttribute("aria-hidden", "true");
+    }
+  });
+
+  /* ===== FORMULÁRIO CLIENTE ===== */
+  clientForm.addEventListener("submit", (e) => {
+    e.preventDefault();
+    // Aqui você pode pegar os dados e enviar para backend
+    const formData = new FormData(clientForm);
+    const data = Object.fromEntries(formData.entries());
+
+    // Campos múltiplos selecionados
+    const medicalConditions = Array.from(clientForm.querySelectorAll("#medicalConditions input[type='checkbox']:checked")).map(i => i.value);
+    const clientAllergies = Array.from(clientForm.querySelectorAll("#clientAllergies input[type='checkbox']:checked")).map(i => i.value);
+    const clientHealthHistory = Array.from(clientForm.querySelectorAll("#clientHealthHistory input[type='checkbox']:checked")).map(i => i.value);
+
+    console.log("Dados do Cliente:", data, { medicalConditions, clientAllergies, clientHealthHistory });
+
+    // Fecha modal após envio
+    clientModal.classList.remove("active");
+    clientModal.setAttribute("aria-hidden", "true");
+    clientForm.reset();
+    updateAllDropdownTexts();
+  });
+
+  /* ===== DROPDOWNS CUSTOM MULTISELECT ===== */
+  const multiselects = document.querySelectorAll(".custom-multiselect");
+
+  multiselects.forEach(ms => {
+    const selectBox = ms.querySelector(".select-box");
+    const optionsContainer = ms.querySelector(".options-container");
+    const checkboxes = optionsContainer.querySelectorAll("input[type='checkbox']");
+    const selectedText = ms.querySelector(".selected");
+
+    // Abrir/fechar dropdown
+    selectBox.addEventListener("click", () => {
+      ms.classList.toggle("active");
+    });
+
+    // Atualizar texto selecionado
+    checkboxes.forEach(cb => {
+      cb.addEventListener("change", () => {
+        const checked = Array.from(checkboxes)
+          .filter(i => i.checked)
+          .map(i => i.value);
+        selectedText.textContent = checked.length > 0 ? checked.join(", ") : "Selecione";
+      });
+    });
+  });
+
+  // Fecha dropdowns ao clicar fora
+  document.addEventListener("click", (e) => {
+    multiselects.forEach(ms => {
+      if (!ms.contains(e.target)) {
+        ms.classList.remove("active");
+      }
+    });
+  });
+
+  // Atualiza texto dos dropdowns (função para reset)
+  function updateAllDropdownTexts() {
+    multiselects.forEach(ms => {
+      const checkboxes = ms.querySelectorAll("input[type='checkbox']");
+      const selectedText = ms.querySelector(".selected");
+      const checked = Array.from(checkboxes).filter(i => i.checked).map(i => i.value);
+      selectedText.textContent = checked.length > 0 ? checked.join(", ") : "Selecione";
+    });
+  }
+});
+
 
 
 
