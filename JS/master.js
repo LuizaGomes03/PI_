@@ -527,13 +527,60 @@ document.addEventListener('DOMContentLoaded', () => {
         const unidade = ev.detail;
         if (unidade?.id) carregarClientes(unidade.id);
       });
-
-      // Carrega a unidade salva no localStorage ao abrir
-      try {
-        const last = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || 'null');
-        if (last?.id) carregarClientes(last.id);
-      } catch { }
     })();
+
+    // === CADASTRO DE CLIENTE ===
+    const formCli = document.getElementById('cliFormCad');
+    if (formCli) {
+      formCli.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const unidadeAtual = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+        if (!unidadeAtual?.id) {
+          alert('Selecione uma unidade antes de cadastrar o cliente.');
+          return;
+        }
+
+        const payload = {
+          nome_cliente: document.getElementById('fCliNome').value.trim(),
+          telefone_cliente: document.getElementById('fCliFone').value.trim(),
+          email_cliente: document.getElementById('fCliEmail').value.trim(),
+          data_nascimento: document.getElementById('fCliNiver').value,
+          sexo: document.getElementById('fCliSexo').value,
+          observacoes: document.getElementById('fCliObs').value.trim(),
+          unidade_id: unidadeAtual.id
+        };
+
+        try {
+          const resp = await fetch('http://localhost:3000/api/clientes', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(payload)
+          });
+
+          if (!resp.ok) {
+            const err = await resp.json().catch(() => ({}));
+            throw new Error(err.error || 'Erro desconhecido');
+          }
+
+          alert('Cliente cadastrado com sucesso!');
+          try {
+            document.getElementById('cliModal').close();
+          } catch {
+            document.getElementById('cliModal').classList.remove('open');
+          }
+
+          // recarrega a lista de clientes da unidade atual
+          carregarClientes(unidadeAtual.id);
+          formCli.reset();
+
+        } catch (err) {
+          console.error('Erro ao cadastrar cliente:', err);
+          alert('Falha ao cadastrar');
+        }
+      });
+    }
+
 
     async function carregarColaboradores(unidadeId) {
       const tbody = document.getElementById('colabTableBody');
@@ -957,60 +1004,6 @@ cliCancelBtn?.addEventListener('click', (e) => { e.preventDefault(); closeCliMod
 
 // SUBMIT: envia cliente pro backend
 cliFormCad?.addEventListener('submit', async (e) => {
-  e.preventDefault();
-
-  if (!unidadeAtual?.id) {
-    alert('Selecione uma unidade antes de cadastrar o cliente.');
-    return;
-  }
-
-  const nome = document.getElementById('fCliNome')?.value.trim();
-  const fone = document.getElementById('fCliFone')?.value.trim();
-  const email = document.getElementById('fCliEmail')?.value.trim();
-  const niver = document.getElementById('fCliNiver')?.value.trim();
-  const sexo = document.getElementById('fCliSexo')?.value;
-  const obs = document.getElementById('fCliObs')?.value.trim();
-
-  if (!nome || !fone || !niver) {
-    alert('⚠️ Preencha Nome, Telefone e Data de Nascimento.');
-    return;
-  }
-
-  const payload = {
-    nome_cliente: nome,
-    telefone_cliente: fone,
-    email_cliente: email,
-    data_nascimento: niver,
-    sexo,
-    observacoes: obs,
-    unidade_id: unidadeAtual.id
-  };
-
-  try {
-    const url = editandoCliente
-      ? `http://localhost:3000/api/clientes/${editandoCliente.cliente_id}`
-      : 'http://localhost:3000/api/clientes';
-    const method = editandoCliente ? 'PUT' : 'POST';
-
-    const resp = await fetch(url, {
-      method,
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    });
-
-    if (!resp.ok) throw new Error('Erro ao salvar cliente');
-    alert(editandoCliente ? 'Cliente atualizado com sucesso!' : 'Cliente cadastrado com sucesso!');
-
-    cliFormCad.reset();
-    fecharModalCliente();
-    document.dispatchEvent(new CustomEvent('unit:change', { detail: unidadeAtual }));
-  } catch (err) {
-    console.error('Erro ao salvar cliente:', err);
-    alert('Falha ao salvar cliente. Verifique o console.');
-  }
-
-
-
   document.getElementById("baixarRelatorio").addEventListener("click", () => {
     const { jsPDF } = window.jspdf;
     const doc = new jsPDF();
@@ -1117,27 +1110,27 @@ document.addEventListener('DOMContentLoaded', () => {
 
 // ===== GESTÃO DE PARCEIROS =====
 document.addEventListener("DOMContentLoaded", () => {
-    const nomeInput = document.getElementById("parceiroNome");
-    const tipoInput = document.getElementById("parceiroTipo");
-    const contatoInput = document.getElementById("parceiroContato");
-    const statusSelect = document.getElementById("parceiroStatus");
-    const btnAdd = document.getElementById("btnAddParceiro");
-    const tbody = document.getElementById("listaParceiros");
+  const nomeInput = document.getElementById("parceiroNome");
+  const tipoInput = document.getElementById("parceiroTipo");
+  const contatoInput = document.getElementById("parceiroContato");
+  const statusSelect = document.getElementById("parceiroStatus");
+  const btnAdd = document.getElementById("btnAddParceiro");
+  const tbody = document.getElementById("listaParceiros");
 
-    let editandoLinha = null; // <tr> que tá em edição (ou null)
+  let editandoLinha = null; // <tr> que tá em edição (ou null)
 
-    function limparFormulario() {
-        nomeInput.value = "";
-        tipoInput.value = "";
-        contatoInput.value = "";
-        statusSelect.value = "ativo";
-        editandoLinha = null;
-        btnAdd.innerHTML = '<i class="fa-solid fa-plus"></i> Adicionar';
-    }
+  function limparFormulario() {
+    nomeInput.value = "";
+    tipoInput.value = "";
+    contatoInput.value = "";
+    statusSelect.value = "ativo";
+    editandoLinha = null;
+    btnAdd.innerHTML = '<i class="fa-solid fa-plus"></i> Adicionar';
+  }
 
-    function criarLinha(nome, tipo, contato, status) {
-        const tr = document.createElement("tr");
-        tr.innerHTML = `
+  function criarLinha(nome, tipo, contato, status) {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
             <td>${nome}</td>
             <td>${tipo}</td>
             <td>${contato}</td>
@@ -1155,71 +1148,71 @@ document.addEventListener("DOMContentLoaded", () => {
                 </button>
             </td>
         `;
-        return tr;
+    return tr;
+  }
+
+  // Clique no botão Adicionar / Salvar
+  btnAdd.addEventListener("click", (e) => {
+    e.preventDefault();
+
+    const nome = nomeInput.value.trim();
+    const tipo = tipoInput.value.trim();
+    const contato = contatoInput.value.trim();
+    const status = statusSelect.value;
+
+    if (!nome || !tipo || !contato) {
+      alert("Preencha nome, tipo e contato");
+      return;
     }
 
-    // Clique no botão Adicionar / Salvar
-    btnAdd.addEventListener("click", (e) => {
-        e.preventDefault();
+    if (editandoLinha) {
+      // Atualiza linha existente
+      editandoLinha.cells[0].textContent = nome;
+      editandoLinha.cells[1].textContent = tipo;
+      editandoLinha.cells[2].textContent = contato;
 
-        const nome = nomeInput.value.trim();
-        const tipo = tipoInput.value.trim();
-        const contato = contatoInput.value.trim();
-        const status = statusSelect.value;
+      const statusSpan = editandoLinha.cells[3].querySelector(".status");
+      statusSpan.textContent = status === "ativo" ? "Ativo" : "Inativo";
+      statusSpan.className = "status " + status;
 
-        if (!nome || !tipo || !contato) {
-            alert("Preencha nome, tipo e contato");
-            return;
-        }
+      limparFormulario();
+    } else {
+      // Cria nova linha
+      const novaLinha = criarLinha(nome, tipo, contato, status);
+      tbody.appendChild(novaLinha);
+      limparFormulario();
+    }
+  });
 
-        if (editandoLinha) {
-            // Atualiza linha existente
-            editandoLinha.cells[0].textContent = nome;
-            editandoLinha.cells[1].textContent = tipo;
-            editandoLinha.cells[2].textContent = contato;
+  // Delegação de eventos para Editar / Remover
+  tbody.addEventListener("click", (e) => {
+    const btn = e.target.closest("button");
+    if (!btn) return;
 
-            const statusSpan = editandoLinha.cells[3].querySelector(".status");
-            statusSpan.textContent = status === "ativo" ? "Ativo" : "Inativo";
-            statusSpan.className = "status " + status;
+    const tr = btn.closest("tr");
 
-            limparFormulario();
-        } else {
-            // Cria nova linha
-            const novaLinha = criarLinha(nome, tipo, contato, status);
-            tbody.appendChild(novaLinha);
-            limparFormulario();
-        }
-    });
+    if (btn.classList.contains("btn-remove")) {
+      if (confirm("Remover este parceiro? 🥺")) {
+        tr.remove();
+      }
+    }
 
-    // Delegação de eventos para Editar / Remover
-    tbody.addEventListener("click", (e) => {
-        const btn = e.target.closest("button");
-        if (!btn) return;
+    if (btn.classList.contains("btn-edit")) {
+      const nome = tr.cells[0].textContent;
+      const tipo = tr.cells[1].textContent;
+      const contato = tr.cells[2].textContent;
+      const statusSpan = tr.cells[3].querySelector(".status");
+      const status = statusSpan.classList.contains("ativo") ? "ativo" : "inativo";
 
-        const tr = btn.closest("tr");
+      nomeInput.value = nome;
+      tipoInput.value = tipo;
+      contatoInput.value = contato;
+      statusSelect.value = status;
 
-        if (btn.classList.contains("btn-remove")) {
-            if (confirm("Remover este parceiro? 🥺")) {
-                tr.remove();
-            }
-        }
-
-        if (btn.classList.contains("btn-edit")) {
-            const nome = tr.cells[0].textContent;
-            const tipo = tr.cells[1].textContent;
-            const contato = tr.cells[2].textContent;
-            const statusSpan = tr.cells[3].querySelector(".status");
-            const status = statusSpan.classList.contains("ativo") ? "ativo" : "inativo";
-
-            nomeInput.value = nome;
-            tipoInput.value = tipo;
-            contatoInput.value = contato;
-            statusSelect.value = status;
-
-            editandoLinha = tr;
-            btnAdd.innerHTML = '<i class="fa-solid fa-save"></i> Salvar';
-        }
-    });
+      editandoLinha = tr;
+      btnAdd.innerHTML = '<i class="fa-solid fa-save"></i> Salvar';
+    }
+  });
 });
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -1386,8 +1379,8 @@ document.addEventListener('DOMContentLoaded', () => {
     if (agrup) {
       const labelAgrup =
         agrup === 'colaborador' ? 'Colaborador' :
-        agrup === 'cliente' ? 'Cliente' :
-        'Atendimento';
+          agrup === 'cliente' ? 'Cliente' :
+            'Atendimento';
       doc.text(`Agrupamento: ${labelAgrup}`, 14, 40);
     }
 
