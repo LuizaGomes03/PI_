@@ -1,188 +1,329 @@
-const calendarEl = document.getElementById('calendar');
-const detailsEl = document.getElementById('details');
-const bookingForm = document.getElementById('bookingForm');
-const selectedDateInput = document.getElementById('selectedDate');
-const selectedTimeInput = document.getElementById('selectedTime');
+document.addEventListener("DOMContentLoaded", () => {
+  const servicesScreen = document.querySelector(".services-screen");
+  const calendarScreen = document.querySelector("#calendar-screen");
+  const agendamentoShortcut = document.querySelector('a[href="#atendimentos"]');
+  const calendarGrid = document.getElementById("calendarGrid");
+  const monthYear = document.getElementById("monthYear");
 
-const agendamentoLink = document.querySelector('.shortcut-item[href="#atendimentos"]');
-const agendamentoSection = document.getElementById('agendamento');
+  // ===== POSTS (criar, editar, remover + exemplos) =====
+  const postsScreen = document.querySelector("#posts-screen");
+  const postsShortcut = document.querySelector('a[href="#controle-login"]');
+  const listaPosts = document.getElementById("listaPosts");
+  const novoPostBtn = document.getElementById("novoPostBtn");
 
-let currentDate = new Date();
-let selectedDay = null;
+  // Posts de exemplo iniciais
+  const postsExemplo = [
+    {
+      id: generateId(),
+      titulo: "Benefícios da Quick Massage 💆‍♂️",
+      conteudo:
+        "A Quick Massage ajuda a aliviar o estresse, melhorar a circulação e aumentar o bem-estar em apenas 25 minutos. Ideal para pausas durante o expediente!"
+    },
+    {
+      id: generateId(),
+      titulo: "Reflexologia Podal 👣",
+      conteudo:
+        "Essa técnica milenar estimula pontos específicos dos pés para equilibrar o corpo e aliviar dores. Experimente e sinta a diferença!"
+    }
+  ];
 
-// Mostrar calendário ao clicar no atalho
-agendamentoLink.addEventListener('click', function (e) {
-  e.preventDefault();
-  document.querySelectorAll('.calendar-section').forEach(sec => sec.style.display = 'none');
-  agendamentoSection.style.display = 'block';
-  agendamentoSection.scrollIntoView({ behavior: 'smooth' });
-  bookingForm.style.display = 'none';
-});
+  // Função utilitária para gerar um id simples
+  function generateId() {
+    return 'p_' + Math.random().toString(36).slice(2, 9);
+  }
 
-// Função para renderizar o calendário
-function renderCalendar(date) {
-  calendarEl.innerHTML = '';
-  detailsEl.innerHTML = '';
-  bookingForm.style.display = 'none';
+  // Função que cria o elemento DOM do post (reutilizável para exemplo e novo post)
+  function createPostElement(post) {
+    const postEl = document.createElement("div");
+    postEl.classList.add("post-item");
+    postEl.dataset.postId = post.id;
+    postEl.innerHTML = `
+      <h4 class="post-title">${escapeHtml(post.titulo)}</h4>
+      <p class="post-content">${escapeHtml(post.conteudo)}</p>
+      <div style="display:flex;gap:8px;margin-top:8px;">
+        <button class="btn-editar">Editar</button>
+        <button class="btn-remover">Remover</button>
+      </div>
+    `;
 
-  const year = date.getFullYear();
-  const month = date.getMonth();
-  const monthName = date.toLocaleString('pt-BR', { month: 'long' });
+    // Remover
+    postEl.querySelector(".btn-remover").addEventListener("click", () => {
+      if (confirm("Remover este post?")) postEl.remove();
+    });
 
-  // Cabeçalho
-  const header = document.createElement('div'); header.classList.add('calendar-header');
+    // Editar
+    postEl.querySelector(".btn-editar").addEventListener("click", () => {
+      const novoTitulo = prompt("Editar título:", post.titulo);
+      if (novoTitulo === null) return; // cancelou
+      const novoConteudo = prompt("Editar conteúdo:", post.conteudo);
+      if (novoConteudo === null) return; // cancelou
 
-  const prevBtn = document.createElement('button'); prevBtn.classList.add('month-nav');
-  prevBtn.innerHTML = '<i class="fa-solid fa-chevron-left"></i>';
-  prevBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() - 1); renderCalendar(currentDate); });
+      // Atualiza dados no elemento e também no objeto post se necessário
+      post.titulo = novoTitulo;
+      post.conteudo = novoConteudo;
+      postEl.querySelector(".post-title").textContent = novoTitulo;
+      postEl.querySelector(".post-content").textContent = novoConteudo;
+    });
 
-  const title = document.createElement('h3'); title.textContent = `${monthName} ${year}`;
+    return postEl;
+  }
 
-  const nextBtn = document.createElement('button'); nextBtn.classList.add('month-nav');
-  nextBtn.innerHTML = '<i class="fa-solid fa-chevron-right"></i>';
-  nextBtn.addEventListener('click', () => { currentDate.setMonth(currentDate.getMonth() + 1); renderCalendar(currentDate); });
+  // Escapa HTML básico para evitar injeção acidental (útil se inserir texto livre)
+  function escapeHtml(str) {
+    return String(str)
+      .replaceAll("&", "&amp;")
+      .replaceAll("<", "&lt;")
+      .replaceAll(">", "&gt;")
+      .replaceAll('"', "&quot;")
+      .replaceAll("'", "&#39;");
+  }
 
-  header.appendChild(prevBtn); header.appendChild(title); header.appendChild(nextBtn);
-  calendarEl.appendChild(header);
+  // Renderiza os posts de exemplo
+  function renderPostsExemplo() {
+    listaPosts.innerHTML = "";
+    postsExemplo.forEach(post => {
+      const el = createPostElement(post);
+      listaPosts.appendChild(el);
+    });
+  }
 
-  // Dias da semana
-  const daysOfWeek = ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb'];
-  const daysRow = document.createElement('div'); daysRow.classList.add('days-row');
-  daysOfWeek.forEach(d => { const cell = document.createElement('div'); cell.classList.add('day-name'); cell.textContent = d; daysRow.appendChild(cell); });
-  calendarEl.appendChild(daysRow);
+  // Novo post (botão)
+  novoPostBtn.addEventListener("click", () => {
+    const titulo = prompt("Título do post:");
+    if (!titulo) return;
+    const conteudo = prompt("Conteúdo do post:");
+    if (!conteudo) return;
 
-  // Dias do mês
-  const firstDay = new Date(year, month, 1).getDay();
-  const daysInMonth = new Date(year, month + 1, 0).getDate();
-  const grid = document.createElement('div'); grid.classList.add('days-grid');
+    const novoPost = { id: generateId(), titulo, conteudo };
+    // adiciona no topo da lista visual
+    const el = createPostElement(novoPost);
+    listaPosts.prepend(el);
+  });
 
-  for (let i = 0; i < firstDay; i++) { grid.appendChild(document.createElement('div')); }
+  // abre a tela de posts
+  postsShortcut.addEventListener("click", (e) => {
+    e.preventDefault();
+    servicesScreen.style.display = "none";
+    calendarScreen.classList.add("hidden");
+    postsScreen.classList.remove("hidden");
+  });
 
-  for (let day = 1; day <= daysInMonth; day++) {
-    const dayCell = document.createElement('div'); dayCell.classList.add('day-cell');
+  // chama ao carregar para mostrar os exemplos
+  renderPostsExemplo();
 
-    const slots = Math.floor(Math.random() * 5);
-    if (slots === 0) { dayCell.classList.add('full'); dayCell.innerHTML = `<span>${day}</span><br><small>Lotado</small>`; }
-    else {
-      dayCell.dataset.slots = slots; dayCell.innerHTML = `<span>${day}</span><br><small>${slots} ${slots === 1 ? 'horário' : 'horários'}</small>`;
+
+  // Container para exibir detalhes abaixo do calendário
+  const bookingDetails = document.createElement("div");
+  bookingDetails.id = "bookingDetails";
+  calendarScreen.appendChild(bookingDetails);
+
+  // === EXEMPLOS DE AGENDAMENTOS EXISTENTES ===
+  const fakeBookings = {
+    "2025-11-07": [
+      { horario: "10:00", cliente: "João Silva", servico: "Quick Massage (25 min)" },
+      { horario: "14:30", cliente: "Maria Souza", servico: "Macaterapia (60 min)" },
+      { horario: "16:00", cliente: "Carlos Lima", servico: "Reflexologia Podal (40 min)" },
+    ],
+    "2025-11-10": [
+      { horario: "09:00", cliente: "Ana Costa", servico: "Reflexologia Podal (40 min)" },
+    ],
+  };
+
+  // === EXEMPLOS DE HORÁRIOS E PROFISSIONAIS DISPONÍVEIS ===
+  const disponibilidades = {
+    segunda: [
+      { horario: "09:00", profissional: "Clara" },
+      { horario: "10:30", profissional: "Lúcia" },
+      { horario: "14:00", profissional: "Marcos" },
+    ],
+    terça: [
+      { horario: "09:30", profissional: "Rafael" },
+      { horario: "11:00", profissional: "Sofia" },
+      { horario: "15:00", profissional: "Clara" },
+    ],
+    quarta: [
+      { horario: "10:00", profissional: "Lúcia" },
+      { horario: "13:00", profissional: "Marcos" },
+      { horario: "16:00", profissional: "Rafael" },
+    ],
+    quinta: [
+      { horario: "09:00", profissional: "Sofia" },
+      { horario: "11:30", profissional: "Clara" },
+      { horario: "14:30", profissional: "Marcos" },
+    ],
+    sexta: [
+      { horario: "09:00", profissional: "Rafael" },
+      { horario: "10:30", profissional: "Lúcia" },
+      { horario: "15:00", profissional: "Sofia" },
+    ],
+    sábado: [
+      { horario: "09:00", profissional: "Rafael" },
+      { horario: "10:30", profissional: "Lúcia" },
+      { horario: "15:00", profissional: "Sofia" },
+    ],
+    domingo: [
+      { horario: "09:00", profissional: "Rafael" },
+      { horario: "10:30", profissional: "Lúcia" },
+      { horario: "15:00", profissional: "Sofia" },
+    ],
+  };
+
+  // === NAVEGAÇÃO ENTRE TELAS ===
+
+  // Vai para tela de agendamento
+  agendamentoShortcut.addEventListener("click", (e) => {
+    e.preventDefault();
+    servicesScreen.style.display = "none";
+    postsScreen.classList.add("hidden");
+    calendarScreen.classList.remove("hidden");
+  });
+
+  // Vai para tela de posts
+  postsShortcut.addEventListener("click", (e) => {
+    e.preventDefault();
+    servicesScreen.style.display = "none";
+    calendarScreen.classList.add("hidden");
+    postsScreen.classList.remove("hidden");
+  });
+
+  // === CRIAÇÃO DE POSTS ===
+  novoPostBtn.addEventListener("click", () => {
+    const titulo = prompt("Título do post:");
+    const conteudo = prompt("Conteúdo do post:");
+
+    if (!titulo || !conteudo) return;
+
+    const postEl = document.createElement("div");
+    postEl.classList.add("post-item");
+    postEl.innerHTML = `
+      <h4>${titulo}</h4>
+      <p>${conteudo}</p>
+      <button class="btn-remover">Remover</button>
+    `;
+
+    postEl.querySelector(".btn-remover").addEventListener("click", () => {
+      postEl.remove();
+    });
+
+    listaPosts.prepend(postEl);
+  });
+
+  // === CALENDÁRIO ===
+
+  let currentDate = new Date();
+
+  function renderCalendar() {
+    const year = currentDate.getFullYear();
+    const month = currentDate.getMonth();
+
+    const firstDay = new Date(year, month, 1).getDay();
+    const lastDay = new Date(year, month + 1, 0).getDate();
+
+    const monthName = currentDate.toLocaleString("pt-BR", { month: "long" });
+    monthYear.textContent = `${monthName.charAt(0).toUpperCase() + monthName.slice(1)} ${year}`;
+
+    calendarGrid.innerHTML = "";
+
+    for (let i = 0; i < firstDay; i++) {
+      const empty = document.createElement("div");
+      empty.classList.add("calendar-day", "disabled");
+      calendarGrid.appendChild(empty);
     }
 
-    dayCell.addEventListener('click', () => {
-      if (slots === 0) {
-        detailsEl.innerHTML = `<p>Dia ${day}/${month + 1}/${year} está lotado!</p>`;
-        bookingForm.style.display = 'none';
-        detailsEl.scrollIntoView({ behavior: 'smooth' }); // <<< scroll para a mensagem de lotado
+    for (let day = 1; day <= lastDay; day++) {
+      const fullDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+      const dayEl = document.createElement("div");
+      dayEl.classList.add("calendar-day");
+      dayEl.textContent = day;
+
+      if (fakeBookings[fullDate]) {
+        dayEl.classList.add("full");
       } else {
-        selectedDay = `${day}/${month + 1}/${year}`;
-        let horarios = [];
-        for (let i = 0; i < slots; i++) { horarios.push(`${9 + i}:00`); }
-        let profissionais = ['Profissional 1', 'Profissional 2', 'Profissional 3'];
-
-        // Limpa detalhes
-        detailsEl.innerHTML = `<p>Escolha um horário e profissional:</p>`;
-        const slotsContainer = document.createElement('div');
-        slotsContainer.style.display = 'flex';
-        slotsContainer.style.flexWrap = 'wrap';
-        slotsContainer.style.justifyContent = 'center';
-
-        horarios.forEach((h, idx) => {
-          const slot = document.createElement('div');
-          slot.classList.add('time-slot');
-          slot.innerHTML = `<strong>${h}</strong><span>${profissionais[idx % profissionais.length]}</span>`;
-
-          slot.addEventListener('click', () => {
-            // Remove seleção anterior
-            document.querySelectorAll('.time-slot').forEach(s => s.classList.remove('selected'));
-
-            // Marca o selecionado
-            slot.classList.add('selected');
-
-            // Preenche o formulário
-            selectedDateInput.value = selectedDay;
-            selectedTimeInput.value = h;
-
-            // Mostra o formulário e dá scroll
-            bookingForm.style.display = 'flex';
-            bookingForm.scrollIntoView({ behavior: 'smooth' });
-          });
-
-          slotsContainer.appendChild(slot);
-        });
-
-        detailsEl.appendChild(slotsContainer);
-
-        // Scroll automático
-        slotsContainer.scrollIntoView({ behavior: 'smooth' });
-
-        // Scroll automático para os horários/profissionais
-        detailsEl.scrollIntoView({ behavior: 'smooth' });
+        dayEl.classList.add("available");
       }
-    });
 
-    grid.appendChild(dayCell);
+      dayEl.addEventListener("click", () => {
+        if (fakeBookings[fullDate]) {
+          showBookings(fullDate);
+        } else {
+          showAvailableOptions(fullDate);
+        }
+      });
+
+      calendarGrid.appendChild(dayEl);
+    }
   }
 
-  calendarEl.appendChild(grid);
-}
+  function showBookings(date) {
+    const agendamentos = fakeBookings[date];
+    const dataFormatada = new Date(date + "T00:00").toLocaleDateString("pt-BR");
 
-// Inicializa calendário
-renderCalendar(currentDate);
-// Submissão do formulário — mostra popup em vez de alert
-bookingForm.addEventListener('submit', function (e) {
-  e.preventDefault();
-
-  // valores do formulário (pega os ids existentes)
-  const nome = document.getElementById('clientName').value || '(sem nome)';
-  const tel = document.getElementById('clientPhone').value || '(sem telefone)';
-  const data = selectedDateInput.value || '(data não selecionada)';
-  const hora = selectedTimeInput.value || '(horário não selecionado)';
-
-  // montar texto de confirmação
-  const texto = `Cliente: ${nome}\nTelefone: ${tel}\nData: ${data}\nHorário: ${hora}`;
-
-  // preencher popup e abrir
-  const bookingPopup = document.getElementById('bookingPopup');
-  const bookingPopupText = document.getElementById('bookingPopupText');
-  bookingPopupText.innerText = texto;
-  bookingPopup.classList.add('active');
-  bookingPopup.setAttribute('aria-hidden', 'false');
-  document.body.style.overflow = 'hidden';
-
-  // opcional: manter o formulário visível até o usuário fechar o popup
-});
-
-// fechar popup ao clicar no botão "Fechar"
-document.addEventListener('DOMContentLoaded', () => {
-  const bookingPopup = document.getElementById('bookingPopup');
-  const closeBookingPopup = document.getElementById('closeBookingPopup');
-
-  if (closeBookingPopup && bookingPopup) {
-    closeBookingPopup.addEventListener('click', () => {
-      bookingPopup.classList.remove('active');
-      bookingPopup.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-
-      // limpar formulário e esconder
-      bookingForm.reset();
-      bookingForm.style.display = 'none';
-      // opcional: remover seleção visual de time-slot
-      document.querySelectorAll('.time-slot.selected').forEach(s => s.classList.remove('selected'));
-    });
-
-    // fechar clicando fora da caixa
-    bookingPopup.addEventListener('click', (e) => {
-      if (e.target === bookingPopup) {
-        closeBookingPopup.click();
-      }
-    });
-
-    // fechar com ESC
-    document.addEventListener('keydown', (e) => {
-      if (e.key === "Escape" && bookingPopup.classList.contains('active')) {
-        closeBookingPopup.click();
-      }
-    });
+    bookingDetails.innerHTML = `
+      <div class="booking-card">
+        <h3>Agendamentos - ${dataFormatada}</h3>
+        ${agendamentos
+        .map(
+          (b) => `
+            <div class="booking-item">
+              <strong>${b.horario}</strong> - ${b.cliente}<br>
+              <span>${b.servico}</span>
+            </div>`
+        )
+        .join("")}
+      </div>
+    `;
   }
+
+  function showAvailableOptions(date) {
+    const dataObj = new Date(date + "T00:00");
+    const diaSemana = dataObj
+      .toLocaleDateString("pt-BR", { weekday: "long" })
+      .toLowerCase()
+      .replace("-feira", "")
+      .trim();
+
+    const opcoes = disponibilidades[diaSemana];
+    const dataFormatada = dataObj.toLocaleDateString("pt-BR");
+
+    if (!opcoes) {
+      bookingDetails.innerHTML = `
+        <div class="booking-card">
+          <h3>${dataFormatada}</h3>
+          <p>❌ Não há horários disponíveis neste dia.</p>
+        </div>
+      `;
+      return;
+    }
+
+    bookingDetails.innerHTML = `
+      <div class="booking-card">
+        <h3>Disponíveis - ${dataFormatada}</h3>
+        ${opcoes
+        .map(
+          (opt) => `
+            <div class="booking-item">
+              <strong>${opt.horario}</strong> — ${opt.profissional}
+              <button class="btn-agendar" data-horario="${opt.horario}" data-prof="${opt.profissional}">
+                Agendar
+              </button>
+            </div>`
+        )
+        .join("")}
+      </div>
+    `;
+  }
+
+  document.getElementById("prevMonth").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() - 1);
+    renderCalendar();
+  });
+
+  document.getElementById("nextMonth").addEventListener("click", () => {
+    currentDate.setMonth(currentDate.getMonth() + 1);
+    renderCalendar();
+  });
+
+  renderCalendar();
 });
 
 // ==== LOGOUT ==== 
@@ -213,7 +354,7 @@ document.addEventListener("DOMContentLoaded", () => {
     setTimeout(() => {
       localStorage.clear();
       sessionStorage.clear();
-      window.location.href = "../login.html"; // redireciona para tela de login
+      window.location.href = "login.html"; // redireciona para tela de login
     }, 200);
   });
 
@@ -233,118 +374,72 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+// ======== FORMULÁRIO DE AGENDAMENTO ========
+const formOverlay = document.getElementById("formOverlay");
+const formAgendamento = document.getElementById("formAgendamento");
+const cancelarAg = document.getElementById("cancelarAg");
+const novoClienteBtn = document.getElementById("novoCliente");
 
-// Seleciona todos os labels que envolvem checkboxes
-document.querySelectorAll('.checkbox-btn').forEach(label => {
-  const checkbox = label.querySelector('input[type="checkbox"]');
-  label.addEventListener('click', () => {
-    if (checkbox.checked) {
-      label.classList.add('selected');
-    } else {
-      label.classList.remove('selected');
-    }
-  });
+// Função para abrir o formulário
+function openAgendamentoForm(data, hora, prof) {
+  formOverlay.classList.add("active");
+  document.getElementById("dataAg").value = new Date(data + "T00:00").toLocaleDateString("pt-BR");
+  document.getElementById("horaAg").value = hora;
+  document.getElementById("profAg").value = prof;
+}
+
+// Fecha o formulário
+cancelarAg.addEventListener("click", () => {
+  formOverlay.classList.remove("active");
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  /* ===== MODAL CADASTRO CLIENTE ===== */
-  const addClientBtn = document.getElementById("addClientBtn");
-  const clientModal = document.getElementById("clientModal");
-  const closeClientModal = document.getElementById("closeClientModal");
-  const clientForm = document.getElementById("clientForm");
+// Envio do formulário
+formAgendamento.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("✅ Agendamento realizado com sucesso!");
+  formOverlay.classList.remove("active");
+});
 
-  // Abrir modal
-  addClientBtn.addEventListener("click", () => {
-    clientModal.classList.add("active");
-    clientModal.setAttribute("aria-hidden", "false");
+i// Novo cliente (simulação)
+novoClenteBtn.addEventListener("click", () => {
+  alert("🔹 Abertura de cadastro de novo cliente (em breve)");
+});
 
-    // Rolar a página para o topo do modal
-    clientModal.scrollIntoView({ behavior: "smooth", block: "start" });
-  });
+// ======== CONECTAR AO CALENDÁRIO ========
+document.addEventListener("click", (e) => {
+  if (e.target.classList.contains("btn-agendar")) {
+    const data = e.target.closest(".booking-card").querySelector("h3").textContent.replace("Disponíveis - ", "");
+    const dataISO = new Date(data.split("/").reverse().join("-")).toISOString().split("T")[0];
+    const hora = e.target.dataset.horario;
+    const prof = e.target.dataset.prof;
 
-  // Fechar modal
-  closeClientModal.addEventListener("click", () => {
-    clientModal.classList.remove("active");
-    clientModal.setAttribute("aria-hidden", "true");
-  });
-
-  // Fechar clicando fora da caixa
-  clientModal.addEventListener("click", (e) => {
-    if (e.target === clientModal) {
-      clientModal.classList.remove("active");
-      clientModal.setAttribute("aria-hidden", "true");
-    }
-  });
-
-  /* ===== FORMULÁRIO CLIENTE ===== */
-  clientForm.addEventListener("submit", (e) => {
-    e.preventDefault();
-    // Aqui você pode pegar os dados e enviar para backend
-    const formData = new FormData(clientForm);
-    const data = Object.fromEntries(formData.entries());
-
-    // Campos múltiplos selecionados
-    const medicalConditions = Array.from(clientForm.querySelectorAll("#medicalConditions input[type='checkbox']:checked")).map(i => i.value);
-    const clientAllergies = Array.from(clientForm.querySelectorAll("#clientAllergies input[type='checkbox']:checked")).map(i => i.value);
-    const clientHealthHistory = Array.from(clientForm.querySelectorAll("#clientHealthHistory input[type='checkbox']:checked")).map(i => i.value);
-
-    console.log("Dados do Cliente:", data, { medicalConditions, clientAllergies, clientHealthHistory });
-
-    // Fecha modal após envio
-    clientModal.classList.remove("active");
-    clientModal.setAttribute("aria-hidden", "true");
-    clientForm.reset();
-    updateAllDropdownTexts();
-  });
-
-  /* ===== DROPDOWNS CUSTOM MULTISELECT ===== */
-  const multiselects = document.querySelectorAll(".custom-multiselect");
-
-  multiselects.forEach(ms => {
-    const selectBox = ms.querySelector(".select-box");
-    const optionsContainer = ms.querySelector(".options-container");
-    const checkboxes = optionsContainer.querySelectorAll("input[type='checkbox']");
-    const selectedText = ms.querySelector(".selected");
-
-    // Abrir/fechar dropdown
-    selectBox.addEventListener("click", () => {
-      ms.classList.toggle("active");
-    });
-
-    // Atualizar texto selecionado
-    checkboxes.forEach(cb => {
-      cb.addEventListener("change", () => {
-        const checked = Array.from(checkboxes)
-          .filter(i => i.checked)
-          .map(i => i.value);
-        selectedText.textContent = checked.length > 0 ? checked.join(", ") : "Selecione";
-      });
-    });
-  });
-
-  // Fecha dropdowns ao clicar fora
-  document.addEventListener("click", (e) => {
-    multiselects.forEach(ms => {
-      if (!ms.contains(e.target)) {
-        ms.classList.remove("active");
-      }
-    });
-  });
-
-  // Atualiza texto dos dropdowns (função para reset)
-  function updateAllDropdownTexts() {
-    multiselects.forEach(ms => {
-      const checkboxes = ms.querySelectorAll("input[type='checkbox']");
-      const selectedText = ms.querySelector(".selected");
-      const checked = Array.from(checkboxes).filter(i => i.checked).map(i => i.value);
-      selectedText.textContent = checked.length > 0 ? checked.join(", ") : "Selecione";
-    });
+    openAgendamentoForm(dataISO, hora, prof);
   }
 });
 
+// ======== FORMULÁRIO DE CADASTRO DE CLIENTE ========
+const clienteOverlay = document.getElementById("clienteOverlay");
+const formCliente = document.getElementById("formCliente");
+const cancelarCliente = document.getElementById("cancelarCliente");
 
+// Quando clicar em "Cadastrar novo cliente"
+const novoCliente = document.getElementById("novoCliente");
+novoClienteBtn.addEventListener("click", (e) => {
+  e.preventDefault();
+  formOverlay.classList.remove("active"); // fecha o agendamento
+  clienteOverlay.classList.add("active"); // abre o cadastro
+});
 
+// Cancelar no cadastro de cliente
+cancelarCliente.addEventListener("click", () => {
+  clienteOverlay.classList.remove("active");
+  formOverlay.classList.add("active"); // volta pro agendamento
+});
 
-
-
-
+// Enviar o cadastro de cliente
+formCliente.addEventListener("submit", (e) => {
+  e.preventDefault();
+  alert("✅ Cliente cadastrado com sucesso!");
+  clienteOverlay.classList.remove("active");
+  formOverlay.classList.add("active");
+});

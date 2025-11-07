@@ -46,12 +46,6 @@
             <span class="shortcut-label">Nossos Posts</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
-
-          <a href="#calendario-anual" class="shortcut-item">
-            <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
-            <span class="shortcut-label">Agenda Geral</span>
-            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-          </a>
         </nav>
       </div>
 
@@ -81,179 +75,198 @@
       <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
     </aside>
 
-    <!-- Seção de Agendamento -->
-    <div id="agendamento" class="calendar-section" style="display:none;">
+    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+        <div class="popup-actions">
+          <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+          <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <main class="services-screen">
+      <h2>Serviços Disponíveis</h2>
+
+      <!-- Quick Massage -->
+      <div class="service-card horizontal">
+        <img src="../imagens/v_quick1.jpg" alt="Quick Massage">
+        <div class="service-info">
+          <h3>Quick Massage</h3>
+          <ul>
+            <li>15 min - R$ 52,00</li>
+            <li>25 min - R$ 73,00</li>
+            <li>35 min - R$ 92,00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Macaterapia -->
+      <div class="service-card horizontal">
+        <img src="../imagens/v_maca.jpg" alt="Macaterapia">
+        <div class="service-info">
+          <h3>Macaterapia</h3>
+          <ul>
+            <li>30 min - R$ 114,00</li>
+            <li>45 min - R$ 160,00</li>
+            <li>60 min - R$ 198,00</li>
+            <li>90 min - R$ 292,00</li>
+            <li>120 min - R$ 379,00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Reflexologia Podal -->
+      <div class="service-card horizontal">
+        <img src="../imagens/v_reflexologia.jpg" alt="Reflexologia Podal">
+        <div class="service-info">
+          <h3>Reflexologia Podal</h3>
+          <ul>
+            <li>20 min - R$ 83,00</li>
+            <li>30 min - R$ 99,00</li>
+            <li>40 min - R$ 118,00</li>
+            <li>60 min - R$ 159,00</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Auriculoterapia -->
+      <div class="service-card horizontal">
+        <img src="../imagens/v_auriculoterapia.jpg" alt="Auriculoterapia">
+        <div class="service-info">
+          <h3>Auriculoterapia</h3>
+          <ul>
+            <li>10 min - R$ 69,00</li>
+          </ul>
+        </div>
+      </div>
+    </main>
+
+    <!-- CALENDÁRIO DE AGENDAMENTO -->
+    <section id="calendar-screen" class="calendar-screen hidden">
+      <h2>Agendamento</h2>
+
       <div class="calendar-card">
-        <div id="calendar"></div>
-        <div id="details" class="details"></div>
+        <div class="calendar-header">
+          <button id="prevMonth" aria-label="Mês anterior"><i class="fa-solid fa-chevron-left"></i></button>
+          <h3 id="monthYear"></h3>
+          <button id="nextMonth" aria-label="Próximo mês"><i class="fa-solid fa-chevron-right"></i></button>
+        </div>
 
-        <form id="bookingForm" class="booking-form" style="display:none;">
-          <h3>Agendamento do Cliente</h3>
+        <!-- Dias da semana -->
+        <div class="calendar-weekdays">
+          <div>Dom</div>
+          <div>Seg</div>
+          <div>Ter</div>
+          <div>Qua</div>
+          <div>Qui</div>
+          <div>Sex</div>
+          <div>Sáb</div>
+        </div>
 
-          <label>Data:
-            <input type="text" id="selectedDate" name="date" readonly>
-          </label>
+        <!-- Grade dos dias -->
+        <div id="calendarGrid" class="calendar-grid"></div>
+      </div>
+    </section>
+    <!-- 🔹 Formulário de Agendamento (popup) -->
+    <div id="formOverlay" class="popup-overlay">
+      <div class="popup-box form-box">
+        <h3>Agendar Atendimento</h3>
+        <form id="formAgendamento">
+          <label>Data:</label>
+          <input type="text" id="dataAg" readonly>
 
-          <label>Horário:
-            <input type="text" id="selectedTime" name="time" readonly>
-          </label>
+          <label>Horário:</label>
+          <input type="text" id="horaAg" readonly>
 
-          <label>Serviço:
-            <select id="serviceType" name="service" required>
-              <option value="" disabled selected>Selecione um serviço</option>
-              <option value="Quick Massage">Quick Massage</option>
-              <option value="Massoterapia">Macaterapia</option>
-              <option value="Reflexologia Podal">Reflexologia Podal</option>
-              <option value="Auriculoterapia">Auriculoterapia</option>
-            </select>
-          </label>
+          <label>Profissional:</label>
+          <input type="text" id="profAg" readonly>
 
-          <label>Nome do Cliente:
-            <input type="text" id="clientName" name="name" placeholder="Digite o nome do cliente" required>
-          </label>
+          <label>Nome do Cliente:</label>
+          <input type="text" id="clienteAg" required>
 
-          <label>Telefone:
-            <input type="tel" id="clientPhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
-          </label>
+          <label>Telefone:</label>
+          <input type="tel" id="telAg" required placeholder="(11) 90000-0000">
 
-          <button type="submit">Confirmar Agendamento</button>
+          <label>Serviço:</label>
+          <select id="servicoAg" required>
+            <option value="">Selecione</option>
+            <option>Quick Massage</option>
+            <option>Macaterapia</option>
+            <option>Reflexologia Podal</option>
+            <option>Auriculoterapia</option>
+          </select>
 
-          <div class="new-client-link">
-            <button type="button" id="addClientBtn">
-              <i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente
-            </button>
+          <div class="form-actions">
+            <button type="button" id="cancelarAg">Cancelar</button>
+            <button type="submit" class="confirm">Confirmar</button>
           </div>
-
+          <!-- 🔹 Link de cadastro abaixo -->
+          <p class="link-cadastro">
+            <a href="#" id="novoCliente">Cadastrar novo cliente</a>
+          </p>
         </form>
+      </div>
+    </div>
 
-        <!-- MODAL CADASTRO DE CLIENTE COMPLETO ATUALIZADO -->
-        <div id="clientModal" class="popup-overlay" aria-hidden="true">
-          <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="clientModalTitle">
-            <h3 id="clientModalTitle"><i class="fa-solid fa-user-plus"></i> Cadastrar Novo Cliente</h3>
+    <!-- 🔹 POPUP DE CADASTRO DE NOVO CLIENTE -->
+    <div id="clienteOverlay" class="popup-overlay">
+      <div class="popup-box form-box">
+        <h3>Cadastrar Novo Cliente</h3>
+        <form id="formCliente">
+          <label>Nome Completo:</label>
+          <input type="text" id="nomeCliente" required>
 
-            <form id="clientForm" class="client-form">
-              <!-- Dados Pessoais -->
-              <fieldset>
-                <legend>Dados Pessoais</legend>
-                <label>Nome Completo:
-                  <input type="text" id="newClientName" name="name" placeholder="Digite o nome completo" required>
-                </label>
-                <label>Telefone:
-                  <input type="tel" id="newClientPhone" name="phone" placeholder="(XX) XXXXX-XXXX" required>
-                </label>
-                <label>E-mail:
-                  <input type="email" id="newClientEmail" name="email" placeholder="Digite o e-mail">
-                </label>
-                <label>Data de Nascimento:
-                  <input type="date" id="newClientDOB" name="dob" required>
-                </label>
-                <label>Sexo:
-                  <select id="newClientGender" name="gender" required>
-                    <option value="" disabled selected>Selecione</option>
-                    <option value="Feminino">Feminino</option>
-                    <option value="Masculino">Masculino</option>
-                    <option value="Outro">Outro</option>
-                    <option value="Prefiro não informar">Prefiro não informar</option>
-                  </select>
-                </label>
-              </fieldset>
+          <label>Telefone:</label>
+          <input type="tel" id="telCliente" required placeholder="(11) 90000-0000">
 
-              <!-- Informações de Saúde -->
-              <fieldset>
-                <legend>Informações para Atendimento</legend>
+          <label>Email:</label>
+          <input type="email" id="emailCliente" placeholder="exemplo@email.com">
 
-                <!-- Condições Médicas -->
-                <fieldset>
-                  <legend>Condições Médicas</legend>
-                  <div class="custom-multiselect" id="conditionsSelect">
-                    <div class="select-box">
-                      <span class="selected">Selecione as condições</span>
-                      <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="options-container">
-                      <label><input type="checkbox" value="Gravidez"> Gravidez</label>
-                      <label><input type="checkbox" value="Trombose"> Trombose</label>
-                      <label><input type="checkbox" value="Gripe"> Gripe</label>
-                      <label><input type="checkbox" value="Câncer"> Câncer</label>
-                      <label><input type="checkbox" value="Alterações de pressão"> Alterações de pressão
-                        arterial</label>
-                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
-                    </div>
-                  </div>
-                </fieldset>
+          <label>Data de Nascimento:</label>
+          <input type="date" id="nascCliente">
 
-                <!-- Alergias -->
-                <fieldset>
-                  <legend>Alergias</legend>
-                  <div class="custom-multiselect" id="allergiesSelect">
-                    <div class="select-box">
-                      <span class="selected">Selecione as alergias</span>
-                      <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="options-container">
-                      <label><input type="checkbox" value="Óleos ou cremes corporais"> Óleos ou cremes corporais</label>
-                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
-                    </div>
-                  </div>
-                </fieldset>
+          <label>Observações:</label>
+          <textarea id="obsCliente" rows="3" placeholder="Anotações sobre o cliente..."></textarea>
 
-                <!-- Histórico de Saúde -->
-                <fieldset>
-                  <legend>Histórico de Saúde</legend>
-                  <div class="custom-multiselect" id="healthHistorySelect">
-                    <div class="select-box">
-                      <span class="selected">Selecione o histórico</span>
-                      <i class="fa-solid fa-chevron-down"></i>
-                    </div>
-                    <div class="options-container">
-                      <label><input type="checkbox" value="Cirurgias recentes"> Cirurgias recentes</label>
-                      <label><input type="checkbox" value="Fraturas"> Fraturas</label>
-                      <label><input type="checkbox" value="Hérnias"> Hérnias</label>
-                      <label><input type="checkbox" value="Osteoporose"> Osteoporose</label>
-                      <label><input type="checkbox" value="Osteopenia"> Osteopenia</label>
-                      <label><input type="checkbox" value="Nenhuma"> Nenhuma das opções</label>
-                    </div>
-                  </div>
-                </fieldset>
-
-                <label>Observações:
-                  <textarea id="clientNotes" name="notes" placeholder="Outras observações" rows="2"></textarea>
-                </label>
-              </fieldset>
-
-              <div class="popup-actions">
-                <button type="button" id="closeClientModal" class="popup-btn cancel">Cancelar</button>
-                <button type="submit" class="popup-btn confirm">Cadastrar</button>
-              </div>
-            </form>
+          <div class="form-actions">
+            <button type="button" id="cancelarCliente">Cancelar</button>
+            <button type="submit" class="confirm">Salvar</button>
           </div>
-        </div>
+        </form>
+      </div>
+    </div>
 
-        <!-- VLibras - Acessibilidade em Libras -->
-        <div vw class="enabled">
-          <div vw-access-button class="active"></div>
-          <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-          </div>
-        </div>
+    <!-- GERENCIAMENTO DE POSTS -->
+    <section id="posts-screen" class="posts-screen hidden">
+      <h2>Gerenciar Posts</h2>
 
-        <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-        <script>
-          new window.VLibras.Widget('https://vlibras.gov.br/app');
-        </script>
-        <script src="https://app.embed.im/accessibility.js" defer></script>
+      <div class="posts-container">
+        <button id="novoPostBtn" class="btn-novo-post">
+          <i class="fa-solid fa-plus"></i> Novo Post
+        </button>
 
-        <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
-        <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
-          <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-            <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
-            <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
-            <div class="popup-actions">
-              <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
-              <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
-            </div>
-          </div>
+        <div id="listaPosts" class="lista-posts">
+          <!-- Os posts criados aparecerão aqui -->
         </div>
+      </div>
+    </section>
+
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 
 </body>
 
