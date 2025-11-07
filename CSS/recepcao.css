@@ -722,7 +722,9 @@ body::before {
 }
 
 #formAgendamento label {
+  font-size: 0.9rem;
   font-weight: 600;
+  color: #ddd;
   margin-top: 6px;
 }
 
@@ -757,6 +759,12 @@ body::before {
   color: #fff;
 }
 
+#cancelarAg {
+  background: #333;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
 .link-cadastro {
   text-align: center;
   margin-top: 10px;
@@ -765,14 +773,14 @@ body::before {
 
 .link-cadastro a {
   color: #fff;
-  text-decoration: underline;
   font-weight: 500;
   cursor: pointer;
   transition: color 0.2s;
+  text-decoration: none;
 }
 
 .link-cadastro a:hover {
-  color: #81d4fa;
+  text-decoration: underline;
 }
 
 .form-box h3 {
@@ -783,9 +791,7 @@ body::before {
   margin-bottom: 15px;
 }
 
-/* ==============================
-   POPUP • Cadastrar Novo Cliente
-   ============================== */
+/* POPUP • Cadastrar Novo Cliente */
 
 #clienteOverlay {
   position: fixed;
@@ -912,5 +918,171 @@ body::before {
   #clienteOverlay .confirm,
   #clienteOverlay #cancelarCliente {
     width: 100%;
+  }
+}
+
+#clienteOverlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  padding: 20px;
+}
+
+#clienteOverlay.active {
+  display: flex;
+}
+
+/* caixa do modal: limite de altura + scroll interno */
+#clienteOverlay .popup-box {
+  background: #1c1c1c;
+  border-radius: 12px;
+  padding: 18px;
+  width: 100%;
+  max-width: 520px;
+  max-height: 85vh;
+  overflow: hidden;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.6);
+  display: flex;
+  flex-direction: column;
+}
+
+/* área do formulário com scroll separado */
+#formCliente {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* campos básicos */
+#formCliente label {
+  font-size: 0.95rem;
+  color: #ddd;
+  margin-top: 6px;
+  margin-left: 16px;
+}
+
+#formCliente input[type="text"],
+#formCliente input[type="tel"],
+#formCliente input[type="email"],
+#formCliente input[type="date"],
+#formCliente textarea {
+  width: 90%;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  outline: none;
+  font-size: 0.95rem;
+  margin-left: 16px;
+}
+
+/* seção com título */
+.form-section {
+  background-color: #242424;
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-top: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.03);
+  width: 90%;
+  margin-left: 16px;
+}
+
+/* título estilo Amatic */
+.form-section h3 {
+  font-family: "Amatic SC", cursive;
+  font-size: 22px;
+  text-align: center;
+  color: #fff;
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
+
+/* LISTA VERTICAL — label como grid (checkbox | texto) */
+.checkbox-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* cada label vira uma linha com duas colunas: checkbox + texto */
+.checkbox-list label {
+  display: grid;
+  grid-template-columns: 28px 1fr;
+  /* 28px reservado para checkbox; texto ocupa o resto */
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: transparent;
+  color: #eaeaea;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+
+.checkbox-list label:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+/* checkbox visível à esquerda */
+.checkbox-list input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  justify-self: center;
+  /* centraliza a check box na coluna de 28px */
+  accent-color: #00cc88;
+  transform: scale(1.05);
+  margin: 0;
+}
+
+/* texto das opções: não quebra linha, corta com reticências se muito longo */
+.checkbox-list .opt-text {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  justify-self: start;
+}
+
+/* estilo para "Nenhuma" */
+.checkbox-list label.nenhuma {
+  border: 1px dashed rgba(255, 255, 255, 0.08);
+  background: rgba(255, 255, 255, 0.01);
+  font-weight: 600;
+}
+
+/* botões do modal (rodapé) */
+.popup-box .form-actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 12px;
+  justify-content: center;
+  padding-top: 8px;
+  border-top: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.popup-box .form-actions button {
+  min-width: 120px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+}
+
+.popup-box .form-actions #cancelarCliente {
+  background: #333;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+}
+
+/* responsividade */
+@media (max-width: 520px) {
+  #clienteOverlay .popup-box {
+    max-width: 96%;
+    padding: 14px;
   }
 }

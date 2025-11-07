@@ -170,6 +170,7 @@
         <div id="calendarGrid" class="calendar-grid"></div>
       </div>
     </section>
+
     <!-- 🔹 Formulário de Agendamento (popup) -->
     <div id="formOverlay" class="popup-overlay">
       <div class="popup-box form-box">
@@ -211,25 +212,71 @@
       </div>
     </div>
 
-    <!-- 🔹 POPUP DE CADASTRO DE NOVO CLIENTE -->
+    <!--  POPUP • Cadastrar Novo Cliente -->
     <div id="clienteOverlay" class="popup-overlay">
-      <div class="popup-box form-box">
-        <h3>Cadastrar Novo Cliente</h3>
+      <div class="popup-box form-box" role="dialog" aria-modal="true" aria-labelledby="clienteTitle">
+        <h3 id="clienteTitle">Cadastrar Novo Cliente</h3>
+
         <form id="formCliente">
           <label>Nome Completo:</label>
-          <input type="text" id="nomeCliente" required>
+          <input type="text" id="nomeCliente" name="nomeCliente" required>
 
           <label>Telefone:</label>
-          <input type="tel" id="telCliente" required placeholder="(11) 90000-0000">
+          <input type="tel" id="telCliente" name="telCliente" required placeholder="(11) 90000-0000">
 
           <label>Email:</label>
-          <input type="email" id="emailCliente" placeholder="exemplo@email.com">
+          <input type="email" id="emailCliente" name="emailCliente" placeholder="exemplo@email.com">
 
           <label>Data de Nascimento:</label>
-          <input type="date" id="nascCliente">
+          <input type="date" id="nascCliente" name="nascCliente">
 
-          <label>Observações:</label>
-          <textarea id="obsCliente" rows="3" placeholder="Anotações sobre o cliente..."></textarea>
+          <!-- ===== Condições Médicas ===== -->
+          <div class="form-section">
+            <h3>Condições Médicas</h3>
+            <div class="checkbox-list" data-group="condicoes">
+              <label><input type="checkbox" name="condicoes[]" value="gravidez"><span
+                  class="opt-text">Gravidez</span></label>
+              <label><input type="checkbox" name="condicoes[]" value="trombose"><span
+                  class="opt-text">Trombose</span></label>
+              <label><input type="checkbox" name="condicoes[]" value="pressao"><span class="opt-text">Alterações de
+                  Pressão</span></label>
+              <label><input type="checkbox" name="condicoes[]" value="cancer"><span
+                  class="opt-text">Câncer</span></label>
+              <label><input type="checkbox" name="condicoes[]" value="gripe"><span class="opt-text">Gripe</span></label>
+              <label class="nenhuma"><input type="checkbox" name="condicoes[]" value="nenhuma"><span
+                  class="opt-text">Nenhuma</span></label>
+            </div>
+          </div>
+
+          <!-- ===== Alergias ===== -->
+          <div class="form-section">
+            <h3>Alergias</h3>
+            <div class="checkbox-list" data-group="alergias">
+              <label><input type="checkbox" name="alergias[]" value="oleos"><span class="opt-text">Óleos
+                  corporais</span></label>
+              <label><input type="checkbox" name="alergias[]" value="cremes"><span class="opt-text">Cremes
+                  corporais</span></label>
+              <label class="nenhuma"><input type="checkbox" name="alergias[]" value="nenhuma"><span
+                  class="opt-text">Nenhuma</span></label>
+            </div>
+          </div>
+
+          <!-- ===== Histórico de Saúde ===== -->
+          <div class="form-section">
+            <h3>Histórico de Saúde</h3>
+            <div class="checkbox-list" data-group="historico">
+              <label><input type="checkbox" name="historico[]" value="cirurgias"><span class="opt-text">Cirurgias
+                  recentes</span></label>
+              <label><input type="checkbox" name="historico[]" value="hernias"><span
+                  class="opt-text">Hérnias</span></label>
+              <label><input type="checkbox" name="historico[]" value="osteoporose"><span class="opt-text">Osteoporose /
+                  Osteopenia</span></label>
+              <label><input type="checkbox" name="historico[]" value="fraturas"><span
+                  class="opt-text">Fraturas</span></label>
+              <label class="nenhuma"><input type="checkbox" name="historico[]" value="nenhuma"><span
+                  class="opt-text">Nenhuma</span></label>
+            </div>
+          </div>
 
           <div class="form-actions">
             <button type="button" id="cancelarCliente">Cancelar</button>
