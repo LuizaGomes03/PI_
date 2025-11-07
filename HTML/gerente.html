@@ -13,63 +13,100 @@
 </head>
 
 <body>
-  <!-- BG VIDEO -->
-  <video id="bg-video" autoplay muted loop playsinline preload="metadata" poster="../imagens/bg-blur.jpg"
-    aria-hidden="true">
+  <video id="bg-video" autoplay muted loop playsinline>
     <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
   </video>
 
   <div class="app-shell">
     <!-- ===== SIDEBAR ===== -->
-    <aside class="side-nav">
-      <div class="side-card side-card--avatar">
-        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
-          alt="Foto do usuário" class="avatar__img">
-        <div>
-          <div class="text--strong">Painel do Gerente</div>
-          <div class="chip"><i class="fa-solid fa-user-shield" aria-hidden="true"></i> <span id="roleChip">Admin</span>
-          </div>
-        </div>
+   <aside class="sidebar">
+    <!-- Perfil + Pontos -->
+    <div class="sb-block" style="display:flex;align-items:center;gap:12px">
+      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
+        alt="avatar"
+        style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
+      <div>
+        <div style="font-weight:700">Olá, <span id="userName">Gerente</span> 👋</div>
+        <div class="chip"><i class="fa-solid fa-star"></i> Pontos: <strong id="pts">1280</strong></div>
       </div>
-
-      <!-- Navegação (IDs e data-view alinhados) -->
-      <div class="side-card" role="tablist" aria-label="Navegação principal">
-        <button class="nav-btn is-active" role="tab" aria-selected="true" data-view="dashboard"
-          aria-controls="view-dashboard" type="button">
-          <i class="fa-solid fa-chart-line" aria-hidden="true"></i> Resumo
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="clients" aria-controls="view-clients"
-          type="button">
-          <i class="fa-solid fa-user" aria-hidden="true"></i> Clientes
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="agenda" aria-controls="view-agenda"
-          type="button">
-          <i class="fa-regular fa-calendar"></i> Agenda
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="attendance" aria-controls="view-attendance"
-          type="button">
-          <i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="employees" aria-controls="view-employees"
-          type="button">
-          <i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="reports" aria-controls="view-reports"
-          type="button">
-          <i class="fa-solid fa-file-lines" aria-hidden="true"></i> Relatórios
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="settings" aria-controls="view-settings"
-          type="button">
-          <i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
-        </button>
-        <button class="nav-btn" role="tab" aria-selected="false" data-view="audit" aria-controls="view-audit"
-          type="button">
-          <i class="fa-solid fa-calculator" aria-hidden="true"></i> Auditoria
-        </button>
+    </div>
+    
+    <!-- ATALHOS -->
+    <div class="sb-block shortcuts">
+     <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+     <nav class="shortcut-list" aria-label="Atalhos rápidos">
+  
+       <a href="Resumo" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+         <span class="shortcut-label">Resumo</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="Clientes" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+         <span class="shortcut-label">Clientes</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="#agenda" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+         <span class="shortcut-label">Agenda</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="Ponto" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
+         <span class="shortcut-label">Ponto</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="Equipe" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+         <span class="shortcut-label">Equipe</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="Relatórios" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+         <span class="shortcut-label">Relatórios</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+       <a href="Auditoria" class="shortcut-item">
+         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
+         <span class="shortcut-label">Auditoria</span>
+         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+       </a>
+  
+     </nav>
+   </div>
+    <!-- Telefones -->
+    <div class="sb-block">
+      <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
+      <div class="phone-list">
+        <div class="phone"><span><i class="fa-solid fa-shield-heart"></i> Segurança</span><a
+            href="tel:11900000000">(11) 90000-0000</a></div>
+        <div class="phone"><span><i class="fa-solid fa-kit-medical"></i> Ambulatório</span><a
+            href="tel:11911112222">(11) 91111-2222</a></div>
+        <div class="phone"><span><i class="fa-solid fa-fire-extinguisher"></i> Brigada</span><a
+            href="tel:11933334444">(11) 93333-4444</a></div>
+        <div class="phone"><span><i class="fa-solid fa-user-group"></i> RH</span><a href="tel:11955556666">(11)
+            95555-6666</a></div>
       </div>
+    </div>
 
-      <div class="copyright">© 2025 Rokuzen – Gerente</div>
-    </aside>
+    <!-- BOTÃO DE LOGOUT -->
+    <div class="sb-block logout-block">
+      <button id="logoutBtn" class="btn-logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>Sair da Conta</span>
+      </button>
+    </div>
+
+    <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
+  </aside>
+
+
 
     <!-- ===== MAIN ===== -->
     <main class="main-content">
@@ -155,8 +192,6 @@
           </table>
         </article>
       </section>
-
-      
 
       <!-- ===== AGENDA ===== -->
       <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
@@ -250,35 +285,6 @@
         </article>
       </section>
 
-      <!-- ===== CONFIGURAÇÕES (stub) ===== -->
-      <section id="view-settings" class="view" aria-labelledby="settingsTitle">
-        <article class="card">
-          <h2 class="card__title" id="settingsTitle"><i class="fa-solid fa-gear" aria-hidden="true"></i> Configurações
-          </h2>
-          <div class="tabs" role="tablist" aria-label="Seções de Configurações">
-            <button class="tabs__tab is-active" role="tab" aria-selected="true" aria-controls="tab-org" data-tab="org"
-              type="button"><i class="fa-solid fa-building"></i> Organização</button>
-            <button class="tabs__tab" role="tab" aria-selected="false" aria-controls="tab-users" data-tab="users"
-              type="button"><i class="fa-solid fa-user-shield"></i> Usuários</button>
-          </div>
-          <div class="tabpanels">
-            <div id="tab-org" class="tabs__panel is-active" role="tabpanel">
-              <form id="formOrg" class="grid grid--2">
-                <div class="field"><label class="field__label">Nome da Unidade</label><input class="input" type="text"
-                    id="orgName" placeholder="Mooca Plaza"></div>
-                <div class="field"><label class="field__label">Telefone</label><input class="input" type="text"
-                    id="orgWa" placeholder="(11) 95084-1087"></div>
-                <div class="actions actions--end grid__col--2"><button class="btn" type="button" id="saveOrg"><i
-                      class="fa-solid fa-floppy-disk"></i> Salvar</button></div>
-              </form>
-            </div>
-            <div id="tab-users" class="tabs__panel" role="tabpanel">
-              <div class="text--muted">Gerencie acessos dos usuários desta unidade.</div>
-            </div>
-          </div>
-        </article>
-      </section>
-
       <!-- ===== AUDITORIA ===== -->
       <section id="view-audit" class="view" aria-labelledby="auditTitle">
         <article class="card">
@@ -316,6 +322,7 @@
 
     </main>
   </div>
+
   <!-- VLibras - Acessibilidade em Libras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
@@ -330,7 +337,4 @@
   </script>
   <script src="https://app.embed.im/accessibility.js" defer></script>
 
-  
-</body>
-
-</html>
+   

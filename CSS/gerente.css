@@ -63,27 +63,337 @@ body::before {
 }
 .main-content { padding: 26px; }
 
-/* ===== Sidebar cards / avatar ===== */
-.side-card {
-  background: var(--panel-bg);
-  border: 1px solid var(--panel-bd);
-  border-radius: 16px;
+/* Sidebar */
+.sidebar {
+  backdrop-filter: blur(10px);
+  background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .35));
+  border-right: 1px solid rgba(255, 255, 255, .08);
+  padding: 20px 18px;
+  overflow: auto;
+}
+
+/* Sidebar blocks (card-like) */
+.sb-block {
+  background: rgba(255, 255, 255, .06);
+  border: 1px solid var(--glass-b);
+  border-radius: 18px;
   padding: 14px 16px;
+  box-shadow: inset 0 6px 20px rgba(0, 0, 0, .14);
   margin-bottom: 14px;
 }
-.side-card--avatar {
+
+/* Titles in blocks */
+.sb-title {
+  font-weight: 600;
+  font-size: 18px;
+  margin: 2px 0 10px;
   display: flex;
-  gap: 12px;
+  gap: 8px;
   align-items: center;
 }
-.avatar__img {
-  width: 54px;
-  height: 54px;
+
+/* Profile row */
+.sb-block>div[style*="display:flex"] {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.sb-block img {
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid rgba(255, 255, 255, .28);
+  border: 2px solid rgba(255, 255, 255, .4)
 }
-.text--strong { font-weight: 700; }
+
+.sb-block .chip {
+  display: inline-flex;
+  gap: 8px;
+  align-items: center;
+  background: rgba(255, 255, 255, .10);
+  border: 1px solid rgba(255, 255, 255, .22);
+  padding: 7px 12px;
+  border-radius: 999px;
+  font-size: 13px
+}
+
+/* Shortcuts list */
+.shortcuts .sb-title {
+  gap: 10px
+}
+
+.shortcut-list {
+  display: flex;
+  flex-direction: column;
+  gap: 8px
+}
+
+.shortcut-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: var(--muted);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: transform .12s ease, background .12s ease, box-shadow .12s ease;
+}
+
+.shortcut-item:hover,
+.shortcut-item:focus {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  outline: none;
+}
+
+.shortcut-icon {
+  display: inline-grid;
+  place-items: center;
+  min-width: 36px;
+  min-height: 36px;
+  border-radius: 8px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.01));
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  font-size: 16px;
+  color: var(--green);
+}
+
+.shortcut-label {
+  flex: 1;
+  font-weight: 600;
+  color: var(--muted)
+}
+
+.shortcut-arrow {
+  color: rgba(255, 255, 255, .5);
+  font-size: 14px
+}
+
+/* Phone list */
+.phone-list {
+  display: grid;
+  gap: 8px
+}
+
+.phone {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  background: rgba(0, 0, 0, .25);
+  border: 1px solid rgba(255, 255, 255, .12);
+  padding: 10px 12px;
+  border-radius: 12px;
+  transition: background .15s;
+}
+
+.phone:hover {
+  background: rgba(255, 255, 255, .12)
+}
+
+.phone a {
+  color: #fff;
+  text-decoration: none
+}
+
+/* Logout button */
+.logout-block {
+  text-align: center;
+  margin-top: 10px
+}
+
+.btn-logout {
+  width: 100%;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: var(--muted);
+  font-weight: 600;
+  padding: 10px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  transition: background .2s, transform .15s, color .2s;
+}
+
+.btn-logout:hover {
+  background: rgba(255, 80, 80, .25);
+  color: #fff;
+  transform: translateY(-2px);
+}
+
+.btn-logout i {
+  color: #ff6666;
+  font-size: 16px
+}
+
+/* Popup logout (keeps behavior from original file) */
+.popup-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .25s ease;
+}
+
+.popup-overlay.active {
+  opacity: 1;
+  pointer-events: all
+}
+
+.popup-box {
+  background: rgba(20, 20, 20, .95);
+  border: 1px solid rgba(255, 255, 255, .1);
+  border-radius: 16px;
+  padding: 24px 28px;
+  max-width: 380px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, .5);
+  animation: popupFade .25s ease both;
+}
+
+@keyframes popupFade {
+  from {
+    transform: scale(.92);
+    opacity: 0
+  }
+
+  to {
+    transform: scale(1);
+    opacity: 1
+  }
+}
+
+.popup-box h3 {
+  font-size: 18px;
+  margin-bottom: 8px;
+  color: #fff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px
+}
+
+.popup-text {
+  color: var(--muted);
+  font-size: 14px;
+  margin-bottom: 18px
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 10px
+}
+
+.popup-btn {
+  padding: 8px 14px;
+  border-radius: 10px;
+  font-weight: 600;
+  border: none;
+  cursor: pointer
+}
+
+.popup-btn.confirm {
+  background: #e74c3c;
+  color: #fff
+}
+
+.popup-btn.cancel {
+  background: rgba(255, 255, 255, .1);
+  color: var(--muted)
+}
+
+/* Small responsive tweaks */
+@media (max-width:900px) {
+  .app {
+    grid-template-columns: 300px 1fr
+  }
+}
+
+@media (max-width:720px) {
+  .app {
+    grid-template-columns: 1fr
+  }
+
+  .sidebar {
+    position: relative;
+    width: 100%;
+    display: block
+  }
+
+  .btn-logout {
+    position: static
+  }
+}
+
+/* Card centralizado */
+.calendar-card {
+  max-width: 720px;
+  margin: 40px auto;
+  background: rgba(255, 255, 255, 0.12);
+  backdrop-filter: blur(12px);
+  border-radius: 18px;
+  padding: 28px;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  color: #fff;
+  text-align: center;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* Cabeçalho com setas */
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+
+.calendar-header h3 {
+  margin: 0;
+  font-family: 'Amatic SC', cursive;
+  font-size: 28px;
+  color: #9DB668;
+}
+
+/* Setas */
+.month-nav {
+  background: rgba(255, 255, 255, 0.12);
+  border: none;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.month-nav:hover {
+  background: rgba(157, 182, 104, 0.9);
+  transform: scale(1.1);
+  color: #000;
+}
+
+.month-nav i {
+  pointer-events: none;
+}
 
 /* ===== Navigation buttons ===== */
 .nav-btn {
@@ -283,23 +593,6 @@ body::before {
 /* ===== Responsive ===== */
 @media (max-width: 1100px) { .cards-grid { grid-template-columns: 1fr; } }
 @media (max-width: 900px) { .grid--2 { grid-template-columns: 1fr; } }
-
-/* Sidebar recolhível */
-@media (max-width: 860px) {
-  .app-shell { grid-template-columns: 1fr; }
-  .side-nav {
-    position: fixed;
-    top: 0; left: 0;
-    width: 80%;
-    max-width: 280px;
-    height: 100%;
-    transform: translateX(-100%);
-    transition: transform .3s ease;
-    z-index: 999;
-  }
-  .side-nav.is-open { transform: translateX(0); }
-  .main-content { order: 1; padding: 18px; }
-}
 
 /* Remove blur pesado em dispositivos pequenos */
 @media (max-width: 600px) {
