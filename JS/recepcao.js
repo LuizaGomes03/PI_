@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", () => {
+ document.addEventListener("DOMContentLoaded", () => {
   const servicesScreen = document.querySelector(".services-screen");
   const calendarScreen = document.querySelector("#calendar-screen");
   const agendamentoShortcut = document.querySelector('a[href="#atendimentos"]');
@@ -438,3 +438,79 @@ formCliente.addEventListener("submit", (e) => {
   clienteOverlay.classList.remove("active");
   formOverlay.classList.add("active");
 });
+
+// Captura os valores do formulário (incluindo as novas seções)
+document.getElementById("formCliente").addEventListener("submit", (e) => {
+  e.preventDefault();
+
+  const formData = new FormData(e.target);
+  const condicoes = formData.getAll("condicoes[]");
+  const alergias = formData.getAll("alergias[]");
+  const historico = formData.getAll("historico[]");
+
+  console.log("Condições médicas:", condicoes);
+  console.log("Alergias:", alergias);
+  console.log("Histórico de saúde:", historico);
+
+  // Aqui você pode enviar os dados via fetch() ou salvar localmente
+});
+
+document.querySelectorAll(".checkbox-list").forEach((group) => {
+  const checkboxes = group.querySelectorAll('input[type="checkbox"]');
+  const noneBox = group.querySelector('input[value="nenhuma"]');
+
+  checkboxes.forEach((cb) => {
+    cb.addEventListener("change", () => {
+      if (cb === noneBox && cb.checked) {
+        // Se marcou "Nenhuma", desmarca as outras
+        checkboxes.forEach((c) => {
+          if (c !== noneBox) c.checked = false;
+        });
+      } else if (cb !== noneBox && cb.checked) {
+        // Se marcou outra, desmarca "Nenhuma"
+        noneBox.checked = false;
+      }
+    });
+  });
+});
+// abrir/fechar modal (quando precisar, adicione/remova a classe 'active' no clienteOverlay)
+const clienteOverlayEl = document.getElementById('clienteOverlay');
+const cancelarClienteBtn = document.getElementById('cancelarCliente');
+
+if (cancelarClienteBtn && clienteOverlayEl) {
+  cancelarClienteBtn.addEventListener('click', () => {
+    clienteOverlayEl.classList.remove('active');
+    document.body.style.overflow = '';
+  });
+
+  // fechar ao clicar fora da box
+  clienteOverlayEl.addEventListener('click', (e) => {
+    if (e.target === clienteOverlayEl) {
+      clienteOverlayEl.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+  });
+}
+
+// "Nenhuma" — comportamento: marcar nenhuma desmarca as outras; marcar qualquer outra desmarca "Nenhuma"
+document.querySelectorAll('.checkbox-list').forEach(group => {
+  const checkboxes = Array.from(group.querySelectorAll('input[type="checkbox"]'));
+  const noneCheckbox = group.querySelector('input[value="nenhuma"]');
+
+  checkboxes.forEach(cb => {
+    cb.addEventListener('change', () => {
+      if (!noneCheckbox) return;
+      if (cb === noneCheckbox && cb.checked) {
+        // desmarca todas as outras
+        checkboxes.forEach(c => { if (c !== noneCheckbox) c.checked = false; });
+      } else if (cb !== noneCheckbox && cb.checked) {
+        // desmarca 'nenhuma'
+        noneCheckbox.checked = false;
+      }
+    });
+  });
+});
+
+
+
+
