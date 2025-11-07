@@ -64,7 +64,7 @@ body {
     appearance: none;
     border: 1px solid var(--ring);
     background: #fff;
-    color: #253041;
+    color: #4b5563;
     padding: 10px 14px;
     border-radius: 999px;
     font-weight: 600;
@@ -230,7 +230,6 @@ main {
 }
 
 .pill {
-    border: 1px solid var(--brand);
     color: var(--brand);
     border-radius: 999px;
     padding: 6px 10px;
