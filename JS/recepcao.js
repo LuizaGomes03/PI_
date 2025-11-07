@@ -400,11 +400,6 @@ formAgendamento.addEventListener("submit", (e) => {
   formOverlay.classList.remove("active");
 });
 
-i// Novo cliente (simulação)
-novoClenteBtn.addEventListener("click", () => {
-  alert("🔹 Abertura de cadastro de novo cliente (em breve)");
-});
-
 // ======== CONECTAR AO CALENDÁRIO ========
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn-agendar")) {
