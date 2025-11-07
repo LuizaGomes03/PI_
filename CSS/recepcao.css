@@ -887,14 +887,7 @@ body::before {
   transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s;
 }
 
-#clienteOverlay .confirm:hover {
-  background: #388e3c;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(56, 142, 60, 0.22);
-}
-
 #clienteOverlay #cancelarCliente {
-  
   border: none;
   padding: 10px 16px;
   border-radius: 10px;
@@ -903,12 +896,6 @@ body::before {
   min-width: 120px;
   box-shadow: 0 6px 18px rgba(229, 57, 53, 0.14);
   transition: transform 0.16s ease, box-shadow 0.16s ease, background 0.16s;
-}
-
-#clienteOverlay #cancelarCliente:hover {
-  background: #c62828;
-  transform: translateY(-3px);
-  box-shadow: 0 10px 22px rgba(198, 40, 40, 0.20);
 }
 
 /* Responsividade */
