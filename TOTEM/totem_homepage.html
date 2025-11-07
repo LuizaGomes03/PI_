@@ -5,143 +5,154 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Rokuzen — Totem Inicial</title>
+
     <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@700&family=Inter:wght@400;600;800&display=swap"
         rel="stylesheet" />
-    <link rel="stylesheet" href="..\TOTEM\CSS\totem_homepage.css">
+
+    <!-- usa / em vez de \ nos paths -->
+    <link rel="stylesheet" href="../TOTEM/CSS/totem_homepage.css">
     <link rel="stylesheet" href="../TOTEM/CSS/totem_agendamentos.css">
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="theme-color" content="#eaf2d7">
 
 </head>
 
 <body>
-    <div class="rk-shell">
-        <header class="rk-bar">
-            <div class="rk-brand">
-                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
-                <div class="name">Rokuzen • Bem-vindo</div>
-            </div>
-        </header>
-        <main class="homepage-main">
-            <div class="homepage-logo">
-                <img src="..\imagens\logo.png" alt="Logo Rokuzen" />
-            </div>
-            <div class="homepage-title">Bem-vindo ao Rokuzen</div>
-            <div class="homepage-desc">
-                Escolha uma opção para começar:
-            </div>
-            <div class="homepage-btns">
-                <button class="btn primary" onclick="window.location.href='totem_agendamento.html'">Agendar</button>
-                <button class="btn servicos" onclick="document.getElementById('servicosPopup').style.display='flex'">Serviços</button>
-                <button class="btn" onclick="document.getElementById('wifiPopup').style.display='flex'">Wi-Fi</button>
-                <button class="btn" onclick="document.getElementById('quemSomosPopup').style.display='flex'">Nossas
-                    Missões e Valores</button>
-            </div>
-            <!-- POPUP WIFI -->
-            <div id="wifiPopup"
-                style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;align-items:center;justify-content:center;">
-                <div class="popup-overlay"
-                    style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);"></div>
-                <div class="popup-content"
-                    style="position:relative;background:#fff;border-radius:18px;box-shadow:0 8px 32px #bfd48b33;padding:24px 12px;text-align:center;min-width:140px;max-width:260px;max-height:60vh;z-index:1;">
-                    <div style="font-size:38px;color:var(--brand);margin-bottom:10px;">Wi-Fi</div>
-                    <div style="font-size:18px;color:#253041;margin-bottom:8px;">Rede: <b>Rokuzen</b></div>
-                    <div style="font-size:18px;color:#253041;margin-bottom:18px;">Senha: <b>zen2024</b></div>
-                </div>
-            </div>
-            <!-- POPUP QUEM SOMOS -->
-            <div id="quemSomosPopup"
-                style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;align-items:center;justify-content:center;">
-                <div class="popup-overlay"
-                    style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);"></div>
-                <div class="popup-content"
-                    style="position:relative;background:#fff;border-radius:22px;box-shadow:0 8px 32px #bfd48b33;padding:24px 12px;max-width:700px;width:95vw;max-height:80vh;overflow-y:auto;z-index:1;">
-                    <h2 style="font-size:32px;color:var(--brand);margin-bottom:18px;text-align:center;">Quem Somos</h2>
-                    <h3 style="font-size:22px;margin-bottom:8px;">História</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Criada em 2015, a Rokuzen é uma empresa brasileira de massagem terapêutica que se propõe a
-                        conduzir bem-estar às pessoas, por meio de técnicas orientais milenares, como o Shiatsu e
-                        Anmá.<br>
-                        Oferece à seus clientes uma equipe composta por massoterapeutas especializados e experientes,
-                        além de um ambiente confortável e provido de elementos para o relaxamento dos cinco sentidos do
-                        ser humano.
-                    </p>
-                    <h3 style="font-size:22px;margin-top:18px;margin-bottom:8px;">Missão, Visão e Valores</h3>
-                    <ul style="font-size:16px;color:#253041;margin-bottom:12px;">
-                        <li><b>Missão:</b> Proporcionar um momento terapêutico integrado e dedicado aos seus sentidos.
-                        </li>
-                        <li><b>Visão:</b> Ser um instrumento de saúde e bem-estar para as pessoas.</li>
-                        <li><b>Valores:</b> Respeito; Cooperação; Comprometimento.</li>
-                    </ul>
-                    <h3 style="font-size:22px;margin-top:18px;margin-bottom:8px;">Por que ROKUZEN?</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        <b>ROKUZEN</b> nasce da união de <b>Roku</b> (seis, em japonês) e <b>Zen</b> (equilíbrio, calma
-                        e contemplação).<br><br> Nosso conceito é proporcionar uma experiência de relaxamento completa,
-                        envolvendo os cinco
-                        sentidos: tato (massagem), visão (jardim zen), audição (música relaxante), olfato (aromaterapia)
-                        e paladar
-                        (chá oriental).<br><br> Ao harmonizá-los, despertamos o “sexto sentido” — a percepção interior,
-                        o verdadeiro estado zen.
-                        Assim, seis vezes ZEN: <b>ROKUZEN</b>.
+    <main class="homepage-main">
+        <div class="homepage-logo">
+            <img src="../imagens/logo.png" alt="Logo Rokuzen" />
+        </div>
 
-                    </p>
-                    <h3 style="font-size:22px;margin-top:18px;margin-bottom:8px;">Logotipo</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Da união dos três símbolos, constituímos o logo da ROKUZEN.
-                    </p>
-                    <div style="text-align:center;margin:18px 0;">
-                        <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/cropped-Logo-Frontal-Rokuzen-PNG-com-fundo-transparente.png"
-                            alt="Logotipo da Rokuzen" style="max-width:220px;width:80%;border-radius:12px;">
-                    </div>
+        <div class="homepage-title">Bem-vindo ao Rokuzen</div>
+
+        <div class="homepage-desc">
+            Escolha uma opção para começar:
+        </div>
+
+        <div class="homepage-btns">
+            <button class="btn primary" onclick="window.location.href='totem_agendamento.html'">Agendar</button>
+            <button class="btn servicos" onclick="document.getElementById('servicosPopup').style.display='flex'">
+                Serviços
+            </button>
+            <button class="btn" onclick="document.getElementById('wifiPopup').style.display='flex'">Wi-Fi</button>
+            <button class="btn" onclick="document.getElementById('quemSomosPopup').style.display='flex'">
+                Nossas Missões e Valores
+            </button>
+        </div>
+
+        <!-- POPUP WIFI -->
+        <div id="wifiPopup" style="display:none;align-items:center;justify-content:center;">
+            <div class="popup-overlay"></div>
+            <div class="popup-content wifi">
+                <div class="popup-title">Wi-Fi</div>
+                <div class="popup-text">Rede: <b>Rokuzen</b></div>
+                <div class="popup-text">Senha: <b>zen2024</b></div>
+            </div>
+        </div>
+
+        <!-- POPUP QUEM SOMOS -->
+        <div id="quemSomosPopup" style="display:none;align-items:center;justify-content:center;">
+            <div class="popup-overlay"></div>
+            <div class="popup-content quem-somos">
+                <h2>Quem Somos</h2>
+
+                <h3>História</h3>
+                <p>
+                    Criada em 2015, a Rokuzen é uma empresa brasileira de massagem terapêutica que se propõe a
+                    conduzir bem-estar às pessoas, por meio de técnicas orientais milenares, como o Shiatsu e
+                    Anmá.<br>
+                    Oferece à seus clientes uma equipe composta por massoterapeutas especializados e experientes,
+                    além de um ambiente confortável e provido de elementos para o relaxamento dos cinco sentidos do
+                    ser humano.
+                </p>
+
+                <h3>Missão, Visão e Valores</h3>
+                <ul>
+                    <li><b>Missão:</b> Proporcionar um momento terapêutico integrado e dedicado aos seus sentidos.</li>
+                    <li><b>Visão:</b> Ser um instrumento de saúde e bem-estar para as pessoas.</li>
+                    <li><b>Valores:</b> Respeito; Cooperação; Comprometimento.</li>
+                </ul>
+
+                <h3>Por que ROKUZEN?</h3>
+                <p>
+                    <b>ROKUZEN</b> nasce da união de <b>Roku</b> (seis, em japonês) e <b>Zen</b> (equilíbrio, calma
+                    e contemplação).<br><br>
+                    Nosso conceito é proporcionar uma experiência de relaxamento completa, envolvendo os cinco
+                    sentidos: tato (massagem), visão (jardim zen), audição (música relaxante), olfato (aromaterapia)
+                    e paladar (chá oriental).<br><br>
+                    Ao harmonizá-los, despertamos o “sexto sentido” — a percepção interior,
+                    o verdadeiro estado zen. Assim, seis vezes ZEN: <b>ROKUZEN</b>.
+                </p>
+
+                <h3>Logotipo</h3>
+                <p>Da união dos três símbolos, constituímos o logo da ROKUZEN.</p>
+
+                <div class="logo-quemsomos">
+                    <img src="https://rokuzen.com.br/wp-content/uploads/2015/10/cropped-Logo-Frontal-Rokuzen-PNG-com-fundo-transparente.png"
+                        alt="Logotipo da Rokuzen">
                 </div>
             </div>
-            <!-- POPUP SERVIÇOS -->
-            <div id="servicosPopup"
-                style="display:none;position:fixed;top:0;left:0;right:0;bottom:0;z-index:9999;align-items:center;justify-content:center;">
-                <div class="popup-overlay"
-                    style="position:absolute;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,0.45);"></div>
-                <div class="popup-content"
-                    style="position:relative;background:#fff;border-radius:22px;box-shadow:0 8px 32px #bfd48b33;padding:24px 12px;max-width:700px;width:95vw;max-height:80vh;overflow-y:auto;z-index:1;">
-                    <h2 style="font-size:32px;color:var(--brand);margin-bottom:18px;text-align:center;">Serviços</h2>
-                    <h3 style="font-size:22px;margin-bottom:8px;">💺 Quick Massage</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Massagem rápida na cadeira para relaxar costas, ombros e pescoço. Ideal para aliviar o estresse e renovar as energias em poucos minutos.
-                    </p>
-                    <h3 style="font-size:22px;margin-bottom:8px;">🛏️ Maca</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Sessão completa na maca com técnicas como Shiatsu, Anmá e Relaxante. Perfeita para cuidar do corpo inteiro e aliviar dores.
-                    </p>
-                    <h3 style="font-size:22px;margin-bottom:8px;">🦶 Reflexologia Podal</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Massagem nos pés que ativa pontos de bem-estar e equilíbrio. Promove relaxamento profundo e melhora o funcionamento do corpo.
-                    </p>
-                    <h3 style="font-size:22px;margin-bottom:8px;">👂 Auriculoterapia</h3>
-                    <p style="font-size:16px;color:#253041;">
-                        Estímulo de pontos na orelha para aliviar dores, ansiedade e promover equilíbrio físico e emocional.
-                    </p>
-                </div>
+        </div>
+
+        <!-- POPUP SERVIÇOS -->
+        <div id="servicosPopup" style="display:none;align-items:center;justify-content:center;">
+            <div class="popup-overlay"></div>
+            <div class="popup-content servicos">
+                <h2>Serviços</h2>
+
+                <h3>💺 Quick Massage</h3>
+                <p>
+                    Massagem rápida na cadeira para relaxar costas, ombros e pescoço.
+                    Ideal para aliviar o estresse e renovar as energias em poucos minutos.
+                </p>
+
+                <h3>🛏️ Maca</h3>
+                <p>
+                    Sessão completa na maca com técnicas como Shiatsu, Anmá e Relaxante.
+                    Perfeita para cuidar do corpo inteiro e aliviar dores.
+                </p>
+
+                <h3>🦶 Reflexologia Podal</h3>
+                <p>
+                    Massagem nos pés que ativa pontos de bem-estar e equilíbrio.
+                    Promove relaxamento profundo e melhora o funcionamento do corpo.
+                </p>
+
+                <h3>👂 Auriculoterapia</h3>
+                <p>
+                    Estímulo de pontos na orelha para aliviar dores, ansiedade
+                    e promover equilíbrio físico e emocional.
+                </p>
             </div>
-        </main>
-        <footer>
-            <div class="ticker"><span>Seu momento zen começa aqui • Dúvidas? Fale com nossa equipe • Hidrate-se e
-                    aproveite!</span></div>
-        </footer>
-    </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="ticker">
+            <span>Seu momento zen começa aqui • Dúvidas? Fale com nossa equipe • Hidrate-se e aproveite!</span>
+        </div>
+    </footer>
+
+    <script>
+        // Fechar popups ao clicar fora do conteúdo
+        function closeOnOverlayClick(popupId) {
+            const popup = document.getElementById(popupId);
+            if (!popup) return;
+
+            popup.addEventListener('mousedown', function (e) {
+                if (e.target.classList.contains('popup-overlay')) {
+                    popup.style.display = 'none';
+                }
+            });
+        }
+
+        closeOnOverlayClick('wifiPopup');
+        closeOnOverlayClick('quemSomosPopup');
+        closeOnOverlayClick('servicosPopup');
+    </script>
 </body>
 
 </html>
-
-<script>
-    // Fechar popups ao clicar fora do conteúdo
-    function closeOnOverlayClick(popupId) {
-        const popup = document.getElementById(popupId);
-        if (!popup) return;
-        popup.addEventListener('mousedown', function (e) {
-            if (e.target.classList.contains('popup-overlay')) {
-                popup.style.display = 'none';
-            }
-        });
-    }
-    closeOnOverlayClick('wifiPopup');
-    closeOnOverlayClick('quemSomosPopup');
-    closeOnOverlayClick('servicosPopup');
-    
-</script>

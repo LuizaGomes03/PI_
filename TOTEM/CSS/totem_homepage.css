@@ -1,22 +1,50 @@
+/* Fundo geral */
+/* fundo */
 body {
+    margin: 0;
+    font-family: "Inter", sans-serif;
     background: linear-gradient(120deg, #f7fbf1 0%, #eaf2d7 100%);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
 }
 
+/* centraliza o conteúdo no meio verticalmente */
 .homepage-main {
+    flex: 1; /* ocupa o espaço entre topo e footer */
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    min-height: 70vh;
-    gap: 20px;
-    padding: 0 6px;
-    margin-bottom: 32px;
+    justify-content: center; /* centraliza no meio */
+    gap: 8px;
+    padding: 0 4px;
 }
 
-.homepage-logo {
-    margin-top: 18px;
-    margin-bottom: 8px;
+/* ticker fixo no pé da página */
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.85);
+    border-top: 1px solid #e5e7eb;
     text-align: center;
+    padding: 6px 8px;
+    font-size: 13px;
+    color: #4b5563;
+    backdrop-filter: blur(4px);
+    z-index: 1000;
+}
+
+.ticker span {
+    white-space: nowrap;
+}
+
+
+/* LOGO */
+.homepage-logo {
+    margin-top: 8px;
+    margin-bottom: 4px;
 }
 
 .homepage-logo img {
@@ -27,10 +55,11 @@ body {
     padding: 4px;
 }
 
+/* TÍTULO E TEXTO */
 .homepage-title {
     font-family: "Amatic SC", cursive;
     font-size: 32px;
-    color: var(--brand);
+    color: var(--brand, #8db455);
     margin-bottom: 6px;
     text-shadow: 0 2px 8px #bfd48b33;
     letter-spacing: 2px;
@@ -44,13 +73,15 @@ body {
     font-weight: 500;
 }
 
+/* BOTÕES PRINCIPAIS */
 .homepage-btns {
     display: flex;
     flex-direction: column;
-    gap: 12px;
+    gap: 8px;
     max-width: 260px;
-    margin-top: 8px;
-    margin-bottom: 24px;
+    width: 100%;
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
 .homepage-btns .btn {
@@ -64,6 +95,7 @@ body {
     border: none;
     box-shadow: 0 2px 12px #bfd48b33;
     transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+    cursor: pointer;
 }
 
 .homepage-btns .btn:not(.primary) {
@@ -86,154 +118,58 @@ body {
     border-color: #9db668;
 }
 
-#wifiPopup,
-#quemSomosPopup {
-    display: none;
-    position: fixed;
-    top: 0;
+/* TICKER DO RODAPÉ – mais coladinho */
+footer {
+    position: fixed;          /* gruda o rodapé no fundo */
+    bottom: 0;                /* alinha bem na base da tela */
     left: 0;
-    right: 0;
-    bottom: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border-top: 1px solid #e5e7eb;
+    z-index: 1000;
+    text-align: center;
+    padding: 6px 8px;
+    backdrop-filter: blur(6px); /* dá um leve efeito de vidro */
+}
+
+.ticker {
+    font-size: 13px;
+    color: #4b5563;
+    animation: slideText 15s linear infinite;
+    white-space: nowrap;
+}
+
+@keyframes slideText {
+    0% { transform: translateX(100%); }
+    100% { transform: translateX(-100%); }
+}
+
+/* pra não sobrepor o conteúdo do main */
+.homepage-main {
+    padding-bottom: 50px; /* deixa espaço pro footer fixo */
+}
+
+
+.ticker span {
+    white-space: nowrap;
+}
+
+/* POPUPS (base) */
+#wifiPopup,
+#quemSomosPopup,
+#servicosPopup {
+    position: fixed;
+    inset: 0;
     z-index: 9999;
+    display: none;              /* é mudado pra flex no JS/HTML */
     align-items: center;
     justify-content: center;
     animation: fadeIn 0.25s;
 }
 
-#wifiPopup .btn,
-#quemSomosPopup .btn {
-    font-size: 18px;
-    margin-top: 12px;
-    min-width: 120px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px #bfd48b33;
-}
-
-#wifiPopup .btn:hover,
-#quemSomosPopup .btn:hover {
-    background: #bfd48b;
-    color: #253041;
-}
-
-#wifiPopup div[style*="position:relative"],
-#quemSomosPopup div[style*="position:relative"] {
-    background: #fff;
-    border-radius: 22px;
-    box-shadow: 0 8px 32px #bfd48b33;
-    padding: 38px 24px 32px 24px;
-    max-width: 700px;
-    width: 95vw;
-    max-height: 90vh;
-    overflow-y: auto;
-    z-index: 1;
-    animation: popupShow 0.3s;
-}
-
-#wifiPopup div[style*="position:relative"] {
-    max-width: 260px;
-    min-width: 160px;
-    padding: 24px 12px;
-}
-
-@media (max-width: 800px) {
-    .homepage-btns .btn {
-        font-size: 14px;
-        padding: 10px 0;
-    }
-
-    #wifiPopup div[style*="position:relative"] {
-        max-width: 180px;
-        min-width: 120px;
-        padding: 12px 4px;
-    }
-}
-
-@media (max-width: 480px) {
-    .homepage-btns .btn {
-        font-size: 13px;
-        padding: 8px 0;
-    }
-
-    #wifiPopup div[style*="position:relative"] {
-        max-width: 140px;
-        min-width: 80px;
-        padding: 8px 2px;
-    }
-}
-
-#wifiPopup div[style*="font-size:38px"] {
-    font-family: "Amatic SC", cursive;
-    letter-spacing: 1px;
-}
-
-#wifiPopup div[style*="font-size:18px"],
-#quemSomosPopup div[style*="font-size:18px"] {
-    font-weight: 600;
-}
-
-@keyframes popupShow {
-    from {
-        transform: scale(0.92);
-        opacity: 0;
-    }
-
-    to {
-        transform: scale(1);
-        opacity: 1;
-    }
-}
-
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-#quemSomosPopup h2 {
-    font-size: 32px;
-    color: var(--brand);
-    margin-bottom: 18px;
-    text-align: center;
-    font-family: "Amatic SC", cursive;
-    letter-spacing: 1px;
-}
-
-#quemSomosPopup h3 {
-    font-size: 22px;
-    margin-bottom: 8px;
-    color: #7f9954;
-    font-family: "Inter", sans-serif;
-}
-
-#quemSomosPopup p,
-#quemSomosPopup ul {
-    font-size: 16px;
-    color: #253041;
-    margin-bottom: 12px;
-    font-family: "Inter", sans-serif;
-}
-
-#quemSomosPopup ul {
-    padding-left: 18px;
-}
-
-#quemSomosPopup img {
-    max-width: 220px;
-    width: 80%;
-    border-radius: 12px;
-    box-shadow: 0 2px 12px #bfd48b33;
-}
-
 .popup-overlay {
     position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    inset: 0;
     background: rgba(0, 0, 0, 0.45);
 }
 
@@ -242,7 +178,7 @@ body {
     background: #fff;
     border-radius: 22px;
     box-shadow: 0 8px 32px #bfd48b33;
-    padding: 38px 24px 32px 24px;
+    padding: 24px 16px;
     max-width: 700px;
     width: 95vw;
     max-height: 80vh;
@@ -252,184 +188,67 @@ body {
     display: flex;
     flex-direction: column;
     align-items: center;
+    text-align: left;
+    font-family: "Inter", sans-serif;
 }
 
-#wifiPopup .popup-content {
-    max-height: 60vh;
-    min-height: 120px;
-}
-
-@media (max-width: 800px) {
-    .homepage-title {
-        font-size: 18px;
-    }
-
-    .homepage-logo img {
-        height: 32px;
-    }
-
-    .homepage-btns .btn {
-        font-size: 14px;
-        padding: 10px 0;
-    }
-
-    #wifiPopup div[style*="position:relative"] {
-        padding: 18px 8px;
-        min-width: 180px;
-    }
-
-    #wifiPopup .btn,
-    #quemSomosPopup .btn {
-        font-size: 15px;
-    }
-
-    #quemSomosPopup div[style*="position:relative"] {
-        padding: 16px 4px;
-        max-width: 98vw;
-    }
-
-    #quemSomosPopup h2 {
-        font-size: 22px;
-    }
-
-    #quemSomosPopup h3 {
-        font-size: 16px;
-    }
-
-    #quemSomosPopup p,
-    #quemSomosPopup ul {
-        font-size: 13px;
-    }
-}
-
-@media (max-width: 480px) {
-    .homepage-main {
-        gap: 10px;
-        padding: 0 2px;
-        margin-bottom: 12px;
-    }
-
-    .homepage-logo img {
-        height: 32px;
-    }
-
-    .homepage-title {
-        font-size: 18px;
-    }
-
-    .homepage-btns .btn {
-        font-size: 13px;
-        padding: 8px 0;
-    }
-
-    #wifiPopup div[style*="position:relative"] {
-        padding: 10px 4px;
-        min-width: 120px;
-    }
-
-    #quemSomosPopup div[style*="position:relative"] {
-        padding: 8px 2px;
-    }
-
-    #quemSomosPopup h2 {
-        font-size: 14px;
-    }
-
-    #quemSomosPopup h3 {
-        font-size: 12px;
-    }
-
-    #quemSomosPopup p,
-    #quemSomosPopup ul {
-        font-size: 10px;
-    }
-}
-
-#quemSomosPopup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-}
-
-#quemSomosPopup .btn {
-    font-size: 18px;
-    margin-top: 12px;
-}
-
-@media (max-width: 800px) {
-    #quemSomosPopup div[style*="position:relative"] {
-        padding: 16px 4px;
-        max-width: 98vw;
-    }
-
-    #quemSomosPopup h2 {
-        font-size: 22px;
-    }
-
-    #quemSomosPopup h3 {
-        font-size: 16px;
-    }
-
-    #quemSomosPopup p,
-    #quemSomosPopup ul {
-        font-size: 13px;
-    }
-
-    #quemSomosPopup .btn {
-        font-size: 15px;
-    }
-}
-
-/* Popup Serviços */
-#servicosPopup {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 9999;
-    align-items: center;
-    justify-content: center;
-    animation: fadeIn 0.25s;
-}
-
-#servicosPopup .popup-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background: rgba(0, 0, 0, 0.45);
-}
-
-#servicosPopup .popup-content {
-    position: relative;
-    background: #fff;
-    border-radius: 22px;
-    box-shadow: 0 8px 32px #bfd48b33;
-    padding: 38px 32px 32px 32px;
-    max-width: 480px;
-    width: 95vw;
-    max-height: 80vh;
-    overflow-y: auto;
-    z-index: 1;
-    animation: popupShow 0.3s;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+/* popup específico wifi (menorzinho) */
+.popup-content.wifi {
+    max-width: 260px;
+    min-width: 160px;
     text-align: center;
 }
 
+.popup-content.wifi .popup-title {
+    font-family: "Amatic SC", cursive;
+    font-size: 32px;
+    color: var(--brand, #8db455);
+    margin-bottom: 10px;
+}
+
+.popup-content.wifi .popup-text {
+    font-size: 18px;
+    color: #253041;
+    margin-bottom: 8px;
+}
+
+/* QUEM SOMOS */
+#quemSomosPopup h2 {
+    font-size: 28px;
+    color: var(--brand, #8db455);
+    margin-bottom: 18px;
+    text-align: center;
+    font-family: "Amatic SC", cursive;
+}
+
+#quemSomosPopup h3 {
+    font-size: 20px;
+    margin-bottom: 8px;
+    color: #7f9954;
+}
+
+#quemSomosPopup p,
+#quemSomosPopup ul {
+    font-size: 16px;
+    color: #253041;
+    margin-bottom: 12px;
+}
+
+#quemSomosPopup ul {
+    padding-left: 18px;
+}
+
+.logo-quemsomos img {
+    max-width: 220px;
+    width: 80%;
+    border-radius: 12px;
+    box-shadow: 0 2px 12px #bfd48b33;
+}
+
+/* SERVIÇOS */
 #servicosPopup h2 {
     font-size: 26px;
-    color: var(--brand);
+    color: var(--brand, #8db455);
     margin-bottom: 12px;
     font-family: "Amatic SC", cursive;
 }
@@ -438,86 +257,93 @@ body {
     font-size: 20px;
     margin-bottom: 10px;
     color: #7f9954;
-    font-family: "Inter", sans-serif;
 }
 
 #servicosPopup p {
     font-size: 16px;
     color: #253041;
     margin-bottom: 12px;
-    font-family: "Inter", sans-serif;
 }
 
-#servicosPopup ul {
-    font-size: 16px;
-    color: #253041;
-    margin-bottom: 12px;
-    padding-left: 18px;
-    font-family: "Inter", sans-serif;
+/* ANIMAÇÕES */
+@keyframes popupShow {
+    from {
+        transform: scale(0.92);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
 }
 
-#servicosPopup .btn {
-    font-size: 16px;
-    margin-top: 14px;
-    border-radius: 12px;
-    box-shadow: 0 2px 8px #bfd48b33;
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
 }
 
-#servicosPopup .btn:hover {
-    background: #bfd48b;
-    color: #253041;
-}
-
+/* RESPONSIVO */
 @media (max-width: 800px) {
-    #servicosPopup .popup-content {
-        padding: 12px 4px;
-        max-width: 98vw;
+    .homepage-main {
+        gap: 6px;
+        padding-top: 10px;
     }
 
-    #servicosPopup h2 {
-        font-size: 18px;
+    .homepage-title {
+        font-size: 24px;
     }
 
-    #servicosPopup h3 {
-        font-size: 16px;
+    .homepage-logo img {
+        height: 40px;
     }
 
-    #servicosPopup p {
+    .homepage-btns .btn {
         font-size: 14px;
+        padding: 10px 0;
     }
 
-    #servicosPopup ul {
-        font-size: 13px;
-    }
-
-    #servicosPopup .btn {
-        font-size: 13px;
+    .popup-content {
+        padding: 16px 8px;
+        max-width: 98vw;
     }
 }
 
 @media (max-width: 480px) {
-    #servicosPopup .popup-content {
-        padding: 6px 2px;
-        max-width: 98vw;
+    .homepage-main {
+        gap: 4px;
+        padding-top: 8px;
     }
 
-    #servicosPopup h2 {
+    .homepage-title {
+        font-size: 18px;
+    }
+
+    .homepage-logo img {
+        height: 32px;
+    }
+
+    .homepage-btns .btn {
         font-size: 13px;
+        padding: 8px 0;
     }
 
+    .popup-content {
+        padding: 10px 6px;
+    }
+
+    #quemSomosPopup h2,
+    #servicosPopup h2 {
+        font-size: 18px;
+    }
+
+    #quemSomosPopup h3,
     #servicosPopup h3 {
-        font-size: 12px;
+        font-size: 14px;
     }
 
+    #quemSomosPopup p,
+    #quemSomosPopup ul,
     #servicosPopup p {
-        font-size: 10px;
-    }
-
-    #servicosPopup ul {
-        font-size: 10px;
-    }
-
-    #servicosPopup .btn {
-        font-size: 11px;
+        font-size: 12px;
     }
 }
