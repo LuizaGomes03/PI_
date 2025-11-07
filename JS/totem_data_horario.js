@@ -1,5 +1,17 @@
 // Calendário e Horários
 const horariosDisponiveis = {};
+
+// Função para scroll suave até um elemento
+function scrollToElement(element) {
+  if (element) {
+    element.scrollIntoView({ 
+      behavior: 'smooth', 
+      block: 'start',
+      inline: 'nearest'
+    });
+  }
+}
+
 function gerarDiasDisponiveis() {
   const hoje = new Date();
   for (let i = 0; i < 365; i++) { // Disponibiliza 1 ano de dias futuros
@@ -82,6 +94,12 @@ function selecionarDia(dataStr, dayCell) {
   selectedHorario = null;
   renderCalendar(currentMonth, currentYear);
   mostrarHorarios(dataStr);
+  
+  // Scroll automático para a seção de horários
+  setTimeout(() => {
+    const horariosContainer = document.getElementById('horariosContainer');
+    scrollToElement(horariosContainer);
+  }, 100);
 }
 
 function mostrarHorarios(dataStr) {
@@ -107,6 +125,12 @@ function selecionarHorario(horario, btn) {
   document.querySelectorAll('.horario-btn').forEach(b => b.classList.remove('selected'));
   btn.classList.add('selected');
   mostrarProfissionais();
+  
+  // Scroll automático para a seção de profissionais
+  setTimeout(() => {
+    const profissionaisContainer = document.getElementById('profissionaisContainer');
+    scrollToElement(profissionaisContainer);
+  }, 100);
 }
 
 function mostrarProfissionais() {
@@ -182,4 +206,4 @@ window.onload = () => {
     document.getElementById('profissionaisContainer').style.display = 'none';
     document.getElementById('confirmarBtn').style.display = 'none';
   }
-}
+};
