@@ -30,31 +30,75 @@ export const listarColaboradoresPorUnidade = async (req, res) => {
 };
 
 export const criarColaborador = async (req, res) => {
-  console.log("📩 Dados recebidos no POST /api/colaboradores:", req.body);
-  const { nome_colaborador, tipo_id, usuario, senha, unidade_id } = req.body;
+    console.log("📩 Dados recebidos no POST /api/colaboradores:", req.body);
+    const { nome_colaborador, tipo_id, usuario, senha, unidade_id } = req.body;
 
-  if (!nome_colaborador || !tipo_id || !usuario || !senha || !unidade_id) {
-    return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
-  }
+    if (!nome_colaborador || !tipo_id || !usuario || !senha || !unidade_id) {
+        return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
+    }
 
-  try {
-    const [result] = await db.query(
-      `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
+    try {
+        const [result] = await db.query(
+            `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
        VALUES (?, ?, ?, ?, 'S')`,
-      [nome_colaborador, tipo_id, usuario, senha]
+            [nome_colaborador, tipo_id, usuario, senha]
+        );
+
+        const colaboradorId = result.insertId;
+
+        // vincula à unidade
+        await db.query(
+            `INSERT INTO colab_unidade (colab_id, unidade_id) VALUES (?, ?)`,
+            [colaboradorId, unidade_id]
+        );
+
+        res.status(201).json({ message: 'Colaborador criado com sucesso!', colaboradorId });
+    } catch (err) {
+        console.error('Erro ao criar colaborador:', err);
+        res.status(500).json({ error: 'Erro ao criar colaborador.' });
+    }
+};
+
+export const handleLogin = async (req, res) => {
+  try {
+    const { user, password } = req.body;
+    if (!user || !password) {
+      return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
+    }
+
+    // Busca pelo usuário (usuário é o campo "usuario" na tabela)
+    const [rows] = await db.query(
+      `SELECT colaborador_id, nome_colaborador, tipo_id, usuario, senha, ativo
+       FROM colaboradores
+       WHERE usuario = ?
+       LIMIT 1`,
+      [user]
     );
 
-    const colaboradorId = result.insertId;
+    if (!rows.length) {
+      return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+    }
 
-    // vincula à unidade
-    await db.query(
-      `INSERT INTO colab_unidade (colab_id, unidade_id) VALUES (?, ?)`,
-      [colaboradorId, unidade_id]
-    );
+    const colaborador = rows[0];
 
-    res.status(201).json({ message: 'Colaborador criado com sucesso!', colaboradorId });
+    // Se você usar bcrypt, substitua a verificação abaixo por compare.
+    if (colaborador.senha !== password) {
+      return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+    }
+
+    if (colaborador.ativo !== 'S') {
+      return res.status(403).json({ error: 'Conta inativa. Contate o administrador.' });
+    }
+
+    // Sucesso: devolve tipo_id para o frontend direcionar a página
+    return res.json({
+      success: true,
+      colaborador_id: colaborador.colaborador_id,
+      nome_colaborador: colaborador.nome_colaborador,
+      tipo_id: colaborador.tipo_id
+    });
   } catch (err) {
-    console.error('Erro ao criar colaborador:', err);
-    res.status(500).json({ error: 'Erro ao criar colaborador.' });
+    console.error('Erro no login:', err);
+    return res.status(500).json({ error: 'Erro interno no servidor.' });
   }
 };
