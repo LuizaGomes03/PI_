@@ -16,14 +16,11 @@
 
 <body>
 
-    <!-- 🌿 Fundo com vídeo -->
     <video id="bg-video" autoplay muted loop playsinline>
         <source src="../video\13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
-
     </video>
 
     <div class="login-box">
-
 
         <a href="homepage.html" class="logo-link">
             <img src="../imagens/logo.png" alt="Logo Rokuzen" class="logo">
@@ -32,15 +29,15 @@
         <h1>Área Restrita</h1>
         <p>Login exclusivo para funcionários Rokuzen</p>
 
-        <form onsubmit="return loginFuncionario(event)">
+        <form id="login-form">
             <div class="input-group">
-                <label for="user">Usuário</label>
-                <input type="text" id="user" name="user" required>
+                <label for="usuario">Usuário</label>
+                <input type="text" id="usuario" name="user" required>
             </div>
 
             <div class="input-group">
-                <label for="password">Senha</label>
-                <input type="password" id="password" name="password" required>
+                <label for="senha">Senha</label>
+                <input type="password" id="senha" name="password" required>
             </div>
 
             <button type="submit" class="btn-login">Entrar</button>
@@ -51,21 +48,6 @@
 
     <footer>© 2025 Rokuzen – Trabalho Acadêmico</footer>
 
-    <script>
-        function loginFuncionario(e) {
-            e.preventDefault();
-
-            const user = document.getElementById('user').value.trim();
-            const pass = document.getElementById('password').value.trim();
-
-            if (user === "funcionario" && pass === "rokuzen123") {
-                window.location.href = "recepcao.html";
-            } else {
-                alert("Usuário ou senha incorretos!");
-            }
-        }
-
-    </script>
     <!-- VLibras - Acessibilidade em Libras -->
     <div vw class="enabled">
         <div vw-access-button class="active"></div>
@@ -79,3 +61,7 @@
         new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
+    <script src="../JS/login.js" defer></script>
+</body>
+
+</html>
