@@ -9,6 +9,7 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="../CSS/gerente.css">
+  <link rel="stylesheet" href="../CSS/master.css" />
   <script src="../JS/gerente.js" defer></script>
 </head>
 
@@ -493,13 +494,186 @@
       </article>
     </section>
 
-    <!-- RELATÓRIOS -->
-    <section id="view-relatorio" class="view" aria-labelledby="relatorioTitle">
-      <article class="card">
-        <button class="btn" id="btnMakeReport">Gerar Relatório</button>
-        <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
-      </article>
+    <!-- ========== RELATÓRIO ========== -->
+    <section id="view-relatorio" class="view" aria-labelledby="relTitle">
+      <div class="card colaboradores-card">
+        <div class="atd-head">
+          <h2 id="relTitle"><i class="fa-solid fa-chart-line"></i> Relatório</h2>
+          <div class="muted">Indicadores da unidade: <b class="unitName">—</b></div>
+        </div>
+
+        <div class="colab-grid">
+          <a href="" data-view="rel-pagamentos" class="colab-item">
+            <i class="fa-solid fa-money-bill-wave icon"></i>
+            <h3>Controle de Pagamentos</h3>
+            <p>Gerencie boletos, repasses e pendências</p>
+          </a>
+
+          <a href="#" data-view="rel-extrato" class="colab-item">
+            <i class="fa-solid fa-file-invoice-dollar icon"></i>
+            <h3>Extrato Financeiro</h3>
+            <p>Visualize entradas e saídas por período</p>
+          </a>
+
+          <a href="#" data-view="rel-atds-parceiros" class="colab-item">
+            <i class="fa-solid fa-globe icon"></i>
+            <h3>Atds × Parceiros</h3>
+            <p>Desempenho por convênio e parceria</p>
+          </a>
+
+          <a href="#" data-view="rel-ponto" class="colab-item">
+            <i class="fa-regular fa-clock icon"></i>
+            <h3>Controle de Presença</h3>
+            <p>Registros de entrada e saída</p>
+          </a>
+
+          <a href="#" data-view="rel-novos-clientes" class="colab-item">
+            <i class="fa-solid fa-user-plus icon"></i>
+            <h3>Novos Clientes</h3>
+            <p>Cadastros recentes e origem</p>
+          </a>
+
+          <a href="#" data-view="rel-atendimentos" class="colab-item">
+            <i class="fa-solid fa-notes-medical icon"></i>
+            <h3>Atendimentos</h3>
+            <p>Resumo de sessões realizadas</p>
+          </a>
+
+          <a href="#" data-view="rel-tempo-terapeutas" class="colab-item">
+            <i class="fa-regular fa-hourglass-half icon"></i>
+            <h3>Tempo Terapeutas</h3>
+            <p>Métricas de tempo por profissional</p>
+          </a>
+
+          <a href="#" data-view="rel-minutos-atendidos" class="colab-item">
+            <i class="fa-solid fa-clock-rotate-left icon"></i>
+            <h3>Minutos Atendidos</h3>
+            <p>Total e média por período</p>
+          </a>
+
+          <a href="#" data-view="rel-prontuarios" class="colab-item">
+            <i class="fa-solid fa-file-medical icon"></i>
+            <h3>Prontuários</h3>
+            <p>Registros e atualizações</p>
+          </a>
+
+          <a href="#" data-view="rel-pontos-unidades" class="colab-item">
+            <i class="fa-solid fa-list-check icon"></i>
+            <h3>Pontos por Unidade</h3>
+            <p>Métricas e ranking por unidade</p>
+          </a>
+
+
+          <a href="#" data-view="rel-escala" class="colab-item">
+            <i class="fa-solid fa-calendar-check icon"></i>
+            <h3>Ctrl. Ponto / Escala</h3>
+            <p>Escalas e presenças</p>
+          </a>
+
+          <a href="#" data-view="rel-tipo-ponto" class="colab-item">
+            <i class="fa-solid fa-list-ul icon"></i>
+            <h3>Ctrl. Ponto / Tipo</h3>
+            <p>Classificação dos registros</p>
+          </a>
+        </div>
+      </div>
+
     </section>
+
+    <!-- ========== RELATÓRIO: CONTROLE DE PAGAMENTOS ========== -->
+    <section id="view-rel-pagamentos" class="view" aria-labelledby="RelatoriorelPagTitle">
+      <div class="card rel-card">
+        <button class="btn-voltar" data-view="relatorio">
+          <i class="fa-solid fa-arrow-left"></i> Voltar
+        </button>
+        <div class="atd-head">
+          <h2 id="relPagTitle"><i class="fa-solid fa-money-bill-wave"></i> Controle de
+            Pagamentos</h2>
+          <div class="muted">
+            Unidade: <b class="unitName">—</b> | Período: <b class="periodo">Outubro/2025</b>
+          </div>
+        </div>
+
+        <!-- FILTROS -->
+        <div class="filter-bar">
+          <select>
+            <option>Todos os Status</option>
+            <option>Pago</option>
+            <option>Pendente</option>
+            <option>Vencido</option>
+          </select>
+
+          <select>
+            <option>Todas as Unidades</option>
+            <option>Unidade 1</option>
+            <option>Unidade 2</option>
+            <option>Unidade 3</option>
+          </select>
+
+          <button class="btn-filtrar"><i class="fa-solid fa-filter"></i> Filtrar</button>
+        </div>
+
+        <!-- RESUMO GERAL -->
+        <div class="pag-resumo">
+          <div class="resumo-card pago">
+            <i class="fa-solid fa-circle-check"></i>
+            <h3>Pagos</h3>
+            <p>R$ 45.300,00</p>
+          </div>
+
+          <div class="resumo-card pendente">
+            <i class="fa-solid fa-clock"></i>
+            <h3>Pendentes</h3>
+            <p>R$ 12.450,00</p>
+          </div>
+
+          <div class="resumo-card vencido">
+            <i class="fa-solid fa-triangle-exclamation"></i>
+            <h3>Vencidos</h3>
+            <p>R$ 4.800,00</p>
+          </div>
+        </div>
+
+        <!-- TABELA DETALHADA -->
+        <div class="pag-table">
+          <table>
+            <thead>
+              <tr>
+                <th>Data</th>
+                <th>Descrição</th>
+                <th>Unidade</th>
+                <th>Status</th>
+                <th>Valor</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>01/10/2025</td>
+                <td>Repasses Terapeutas</td>
+                <td>Unidade 1</td>
+                <td><span class="status pago">Pago</span></td>
+                <td>R$ 8.500,00</td>
+              </tr>
+              <tr>
+                <td>03/10/2025</td>
+                <td>Parceria Clínica Azul</td>
+                <td>Unidade 3</td>
+                <td><span class="status pendente">Pendente</span></td>
+                <td>R$ 1.200,00</td>
+              </tr>
+              <tr>
+                <td>05/10/2025</td>
+                <td>Mensalidade Plataforma</td>
+                <td>Unidade 2</td>
+                <td><span class="status vencido">Vencido</span></td>
+                <td>R$ 350,00</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
 
     <!-- POSTOS DE TRABALHO  -->
     <section id="view-postos-trabalho" class="view" aria-labelledby="postosTitle">
@@ -549,6 +723,17 @@
       </div>
     </div>
 
+    <!-- VLibras - Acessibilidade em Libras -->
+    <div vw class="enabled">
+      <div vw-access-button class="active"></div>
+      <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+      </div>
+    </div>
+
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 </body>
 
 </html>

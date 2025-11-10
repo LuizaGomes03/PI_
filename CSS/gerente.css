@@ -998,3 +998,665 @@ body::before {
   }
 }
 
+
+/* ===== RELATÓRIO: PONTOS POR UNIDADES ===== */
+
+#view-rel-pontos-unidades .card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* toolbar de filtros + botão PDF */
+#view-rel-pontos-unidades .rel-pontos-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 14px;
+}
+
+#view-rel-pontos-unidades .rel-pontos-toolbar .form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+}
+
+#view-rel-pontos-unidades .rel-pontos-toolbar label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* tabela darkzinha */
+#view-rel-pontos-unidades .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+#view-rel-pontos-unidades .table thead th {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#view-rel-pontos-unidades .table tbody td {
+    padding: 10px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#view-rel-pontos-unidades .table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* responsivo: toolbar e tabela em cards no mobile */
+@media (max-width: 768px) {
+    #view-rel-pontos-unidades .rel-pontos-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #view-rel-pontos-unidades .rel-pontos-toolbar .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    #view-rel-pontos-unidades .table thead {
+        display: none;
+    }
+
+    #view-rel-pontos-unidades .table tbody {
+        display: grid;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    #view-rel-pontos-unidades .table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #view-rel-pontos-unidades .table tbody td {
+        padding: 0;
+        border: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px;
+        align-items: center;
+    }
+
+    #view-rel-pontos-unidades .table tbody td::before {
+        font-weight: 600;
+        opacity: .9;
+    }
+
+    #view-rel-pontos-unidades .table tbody td:nth-child(1)::before { content: "Unidade"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(2)::before { content: "Colaborador"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(3)::before { content: "Data"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(4)::before { content: "Entrada"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(5)::before { content: "Intervalo"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(6)::before { content: "Saída"; }
+    #view-rel-pontos-unidades .table tbody td:nth-child(7)::before { content: "Pontos"; }
+}
+
+
+
+
+/* ===== RELATÓRIO: CONTROLE DE PONTOS / ESCALA ===== */
+
+#view-rel-escala .card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* toolbar de filtros + PDF */
+#view-rel-escala .escala-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 14px;
+}
+
+#view-rel-escala .escala-toolbar .form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+}
+
+#view-rel-escala .escala-toolbar label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* tabela dark */
+#view-rel-escala .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+#view-rel-escala .table thead th {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#view-rel-escala .table tbody td {
+    padding: 10px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#view-rel-escala .table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* responsivo: toolbar em coluna, tabela vira cards no mobile */
+@media (max-width: 768px) {
+    #view-rel-escala .escala-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #view-rel-escala .escala-toolbar .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+@media (max-width: 700px) {
+    #view-rel-escala .table thead {
+        display: none;
+    }
+
+    #view-rel-escala .table tbody {
+        display: grid;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    #view-rel-escala .table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #view-rel-escala .table tbody td {
+        padding: 0;
+        border: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    #view-rel-escala .table tbody td::before {
+        font-weight: 600;
+        opacity: .9;
+    }
+
+    #view-rel-escala .table tbody td:nth-child(1)::before { content: "Colaborador"; }
+    #view-rel-escala .table tbody td:nth-child(2)::before { content: "Função"; }
+    #view-rel-escala .table tbody td:nth-child(3)::before { content: "Data"; }
+    #view-rel-escala .table tbody td:nth-child(4)::before { content: "Entrada"; }
+    #view-rel-escala .table tbody td:nth-child(5)::before { content: "Intervalo"; }
+    #view-rel-escala .table tbody td:nth-child(6)::before { content: "Saída"; }
+    #view-rel-escala .table tbody td:nth-child(7)::before { content: "Total Horas"; }
+    #view-rel-escala .table tbody td:nth-child(8)::before { content: "Pontos"; }
+    #view-rel-escala .table tbody td:nth-child(9)::before { content: "Status"; }
+}
+
+/* ===== RELATÓRIO: CONTROLE DE PONTOS POR TIPO ===== */
+
+#view-rel-tipo-ponto .card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* toolbar (filtros + PDF) */
+#view-rel-tipo-ponto .tipo-ponto-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 14px;
+}
+
+#view-rel-tipo-ponto .tipo-ponto-toolbar .form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+}
+
+#view-rel-tipo-ponto .tipo-ponto-toolbar label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* tabela estilo glass dark */
+#view-rel-tipo-ponto .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+#view-rel-tipo-ponto .table thead th {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#view-rel-tipo-ponto .table tbody td {
+    padding: 10px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#view-rel-tipo-ponto .table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+/* estado vazio */
+#view-rel-tipo-ponto #tipoPontoEmpty {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* responsivo: toolbar em coluna no mobile */
+@media (max-width: 768px) {
+    #view-rel-tipo-ponto .tipo-ponto-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #view-rel-tipo-ponto .tipo-ponto-toolbar .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* responsivo: tabela vira “cards” */
+@media (max-width: 700px) {
+    #view-rel-tipo-ponto .table thead {
+        display: none;
+    }
+
+    #view-rel-tipo-ponto .table tbody {
+        display: grid;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    #view-rel-tipo-ponto .table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #view-rel-tipo-ponto .table tbody td {
+        padding: 0;
+        border: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    #view-rel-tipo-ponto .table tbody td::before {
+        font-weight: 600;
+        opacity: .9;
+    }
+
+    #view-rel-tipo-ponto .table tbody td:nth-child(1)::before { content: "Tipo"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(2)::before { content: "Colaborador"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(3)::before { content: "Função"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(4)::before { content: "Data"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(5)::before { content: "Hora"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(6)::before { content: "Unidade"; }
+    #view-rel-tipo-ponto .table tbody td:nth-child(7)::before { content: "Status"; }
+}
+
+
+/* ===== RELATÓRIO: MINUTOS ATENDIDOS ===== */
+
+#view-rel-minutos .card {
+    margin: 18px auto;
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.02));
+    border-radius: 16px;
+    padding: 14px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, .35);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* toolbar de filtros */
+#view-rel-minutos .minutos-toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: flex-end;
+    margin-bottom: 14px;
+}
+
+#view-rel-minutos .minutos-toolbar .form-group {
+    display: flex;
+    flex-direction: column;
+    min-width: 160px;
+}
+
+#view-rel-minutos .minutos-toolbar label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    margin-bottom: 4px;
+}
+
+/* tabela dark */
+#view-rel-minutos .table {
+    width: 100%;
+    border-collapse: collapse;
+    color: #fff;
+}
+
+#view-rel-minutos .table thead th {
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(8px);
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+#view-rel-minutos .table tbody td {
+    padding: 10px 14px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+#view-rel-minutos .table tbody tr:hover {
+    background: rgba(255, 255, 255, 0.04);
+}
+
+#view-rel-minutos #minutosAtendidosEmpty {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+/* responsivo: toolbar em coluna */
+@media (max-width: 768px) {
+    #view-rel-minutos .minutos-toolbar {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    #view-rel-minutos .minutos-toolbar .btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+/* responsivo: tabela vira cards */
+@media (max-width: 700px) {
+    #view-rel-minutos .table thead {
+        display: none;
+    }
+
+    #view-rel-minutos .table tbody {
+        display: grid;
+        gap: 10px;
+        padding: 8px;
+    }
+
+    #view-rel-minutos .table tbody tr {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 8px 12px;
+        padding: 10px;
+        border-radius: 12px;
+        background: rgba(0, 0, 0, 0.35);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    #view-rel-minutos .table tbody td {
+        padding: 0;
+        border: 0;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 6px;
+        align-items: center;
+        font-size: 0.9rem;
+    }
+
+    #view-rel-minutos .table tbody td::before {
+        font-weight: 600;
+        opacity: .9;
+    }
+
+    #view-rel-minutos .table tbody td:nth-child(1)::before { content: "Colaborador"; }
+    #view-rel-minutos .table tbody td:nth-child(2)::before { content: "Cliente"; }
+    #view-rel-minutos .table tbody td:nth-child(3)::before { content: "Serviço"; }
+    #view-rel-minutos .table tbody td:nth-child(4)::before { content: "Data"; }
+    #view-rel-minutos .table tbody td:nth-child(5)::before { content: "Início"; }
+    #view-rel-minutos .table tbody td:nth-child(6)::before { content: "Fim"; }
+    #view-rel-minutos .table tbody td:nth-child(7)::before { content: "Minutos"; }
+    #view-rel-minutos .table tbody td:nth-child(8)::before { content: "Horas"; }
+}
+
+
+#colabForm input,
+#colabForm select {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    font-weight: 600;
+}
+
+#colabForm input::placeholder {
+    color: rgba(255, 255, 255, .75);
+}
+
+#colabForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* cor do texto da opção */
+#colabForm select option {
+  background-color: #1f2937; /* cinza escuro, combina com o tema */
+  color: #fff;
+}
+
+/* hover e focus pra ficar mais suave */
+#colabForm select:hover,
+#colabForm select:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+#colabForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* quando passa o mouse ou clica */
+#colabForm select:hover,
+#colabForm select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* estiliza o menu aberto (as opções) */
+#colabForm select option {
+  background-color: rgba(20, 20, 20, 0.8);
+  color: #fff;
+  border: none;
+}
+
+/* seta branquinha e minimalista */
+#colabForm select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px;
+}
+
+/* coloca no FINAL do CSS pra garantir que vence as outras regras */
+.colab-table tbody tr:hover,
+.colab-table tbody tr:focus,
+.colab-table tbody tr:active {
+    background: transparent !important; /* ou uma cor escura se quiser */
+    color: inherit;
+}
+#tblClientes td:last-child {
+  white-space: nowrap;
+  overflow: visible !important;
+}
+
+#tblClientes button {
+  margin: 2px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+#tblClientes i {
+  font-size: 14px;
+}
+
+/* ===== RELATÓRIOS (copiado do master.css para garantir consistência visual) ===== */
+.relatorios-buttons {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 12px;
+}
+
+.rel-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: 44px;
+  padding: 12px 14px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #f8fafc;
+  font-size: clamp(0.95rem, 0.6vw + 0.85rem, 1rem);
+  line-height: 1.1;
+  text-align: left;
+  cursor: pointer;
+  transition: transform .08s ease, background-color .2s ease, color .2s ease, border-color .2s ease;
+  white-space: normal;
+}
+
+.rel-btn i {
+  font-size: 1.05em;
+  opacity: .8;
+}
+
+.rel-btn:hover {
+  background: #2563eb;
+  color: #fff;
+  border-color: #2563eb;
+}
+
+.rel-btn:hover i {
+  opacity: 1;
+  color: #fff;
+}
+
+.rel-btn:active {
+  transform: translateY(1px) scale(0.995);
+}
+
+.rel-btn:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 2px;
+}
+
+@media (max-width: 480px) {
+  .relatorios-buttons {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+  }
+
+  .rel-btn {
+    padding: 12px;
+  }
+}
+
+@container (max-width: 520px) {
+  .relatorios-buttons {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  .rel-btn {
+    background: #0b1020;
+    border-color: #1f2937;
+    color: #e5e7eb;
+  }
+
+  .rel-btn:hover {
+    background: #2563eb;
+    border-color: #2563eb;
+    color: #fff;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rel-btn { transition: none; }
+}
