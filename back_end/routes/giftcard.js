@@ -1,8 +1,17 @@
-const express = require('express');
+import express from "express";
+import db from "../config/db.js";
+
 const router = express.Router();
-const giftcardController = require('../controllers/giftcardsController');
 
-// Rota para obter todos os giftcards
-router.get('/', giftcardController.getAllGiftcards);
+// rota GET para listar todos os giftcards
+router.get("/", async (req, res) => {
+  try {
+    const [rows] = await db.query("SELECT * FROM giftcard");
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro ao buscar giftcards:", err);
+    res.status(500).json({ error: "Erro ao buscar giftcards." });
+  }
+});
 
-module.exports = router;
+export default router;

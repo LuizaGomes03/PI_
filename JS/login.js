@@ -15,9 +15,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (!user.toLowerCase().endsWith('@rokuzen.com')) {
-        alert('Use apenas e-mails @rokuzen.com para fazer login.');
-        return;
-    }   
+      alert('Use apenas e-mails @rokuzen.com para fazer login.');
+      return;
+    }
 
     try {
       const resp = await fetch('/api/login', {
@@ -33,6 +33,11 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       const data = await resp.json();
+
+      localStorage.setItem("colaborador_id", data.colaborador_id);
+      localStorage.setItem("nome_colaborador", data.nome_colaborador);
+      localStorage.setItem("tipo_id", data.tipo_id);
+
 
       // redireciona conforme tipo_id
       switch (Number(data.tipo_id)) {
@@ -64,7 +69,7 @@ const senhaInput = document.getElementById('senha');
 toggleSenha.addEventListener('click', () => {
   const tipo = senhaInput.getAttribute('type') === 'password' ? 'text' : 'password';
   senhaInput.setAttribute('type', tipo);
-  
+
   toggleSenha.classList.toggle('fa-eye');
   toggleSenha.classList.toggle('fa-eye-slash');
 });

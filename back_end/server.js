@@ -3,7 +3,8 @@ import cors from 'cors';
 import pool from './config/db.js';
 import clientesRoutes from './routes/clientes.js';
 import colaboradoresRoutes from './routes/colaboradores.js';
-import giftcardsRoutes from './routes/giftcards.js';
+import giftcardRoutes from './routes/giftcard.js';
+import pontoRoutes from "./routes/ponto.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -23,7 +24,8 @@ app.use(express.static(path.join(frontendPath, 'JS')));
 
 app.use('/api/clientes', clientesRoutes);
 app.use('/api', colaboradoresRoutes);
-app.use('/api/giftcards', giftcardsRoutes);
+app.use('/api/giftcards', giftcardRoutes);
+app.use("/api", pontoRoutes);
 
 (async () => {
   try {
