@@ -127,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     closePopup();
     setTimeout(() => {
       try { localStorage.clear(); sessionStorage.clear(); } catch { }
-      window.location.href = '../login.html';
+      window.location.href = 'login.html';
     }, 200);
   });
 
@@ -406,202 +406,6 @@ document.addEventListener('DOMContentLoaded', () => {
     (function () {
       const tbody = document.querySelector('#tblClientes tbody');
       const empty = document.getElementById('cliEmpty');
-      window._clienteEditando = window._clienteEditando || null;
-
-
-      let editandoCliente = null; // armazena o cliente em edição
-
-
-      function abrirModalCliente(cliente = null) {
-        editandoCliente = cliente;
-
-        const modal = document.getElementById('cliModal');
-        const form = document.getElementById('cliFormCad');
-
-        // Preenche campos se for edição
-        if (cliente) {
-          document.getElementById('fCliNome').value = cliente.nome_cliente || '';
-          document.getElementById('fCliFone').value = cliente.telefone_cliente || '';
-          document.getElementById('fCliEmail').value = cliente.email_cliente || '';
-          document.getElementById('fCliNiver').value = cliente.data_nascimento
-            ? cliente.data_nascimento.split('T')[0]
-            : '';
-          document.getElementById('fCliSexo').value = cliente.sexo || '';
-          document.getElementById('fCliObs').value = cliente.observacoes || '';
-
-
-          document.getElementById('cliFormAction').textContent = 'Salvar alterações';
-        } else {
-          form.reset();
-          document.getElementById('cliFormTitle').textContent = 'Cadastrar Cliente';
-          document.getElementById('cliFormAction').textContent = 'Cadastrar';
-        }
-
-        try { modal.showModal(); } catch { modal.classList.add('open'); }
-      }
-
-      function fecharModalCliente() {
-        const modal = document.getElementById('cliModal');
-        try { modal.close(); } catch { modal.classList.remove('open'); }
-        editandoCliente = null;
-      }
-
-      async function carregarClientes(unidadeId) {
-        tbody.innerHTML = '<tr><td colspan="8">Carregando...</td></tr>';
-        try {
-          const resp = await fetch(`http://localhost:3000/api/clientes/unidade/${unidadeId}`);
-          const data = await resp.json();
-
-          tbody.innerHTML = '';
-          if (!data.length) {
-            empty.hidden = false;
-            return;
-          }
-          empty.hidden = true;
-
-          data.forEach(cli => {
-            const tr = document.createElement('tr');
-            const niver = cli.data_nascimento
-              ? new Date(cli.data_nascimento).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
-              : '—';
-            const idade = cli.data_nascimento
-              ? new Date().getFullYear() - new Date(cli.data_nascimento).getFullYear()
-              : '';
-
-            const saude = [cli.condicoes, cli.alergias, cli.historico]
-              .filter(v => v && v !== 'Nenhum')
-              .join(' / ') || 'Nenhum';
-
-            tr.innerHTML = `
-  <td>${cli.nome_cliente}</td>
-  <td>${cli.telefone_cliente || '—'}</td>
-  <td>${cli.email_cliente || '—'}</td>
-  <td>${cli.sexo || '—'}</td>
-  <td>${niver} ${idade ? `<span class="badge-age">${idade} anos</span>` : ''}</td>
-  <td>${cli.primeiro_atendimento ? new Date(cli.primeiro_atendimento).toLocaleDateString('pt-BR') : '—'}</td>
-  <td>${saude}</td>
-  <td>${cli.observacoes || '—'}</td>
-  <td>
-    <button class="btn ghost btn-sm js-edit" data-id="${cli.cliente_id}">
-      <i class="fa-regular fa-pen-to-square"></i> Editar
-    </button>
-    <button class="btn ghost btn-sm js-del" data-id="${cli.cliente_id}">
-      <i class="fa-regular fa-trash-can"></i> Remover
-    </button>
-  </td>
-`;
-            tbody.appendChild(tr);
-          });
-
-          // === BOTÃO EDITAR ===
-          tbody.querySelectorAll('.js-edit').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const id = btn.dataset.id;
-              const cliente = data.find(c => c.cliente_id == id);
-
-              if (!cliente) {
-                alert('Cliente não encontrado!');
-                return;
-              }
-
-              // Preenche o modal com os dados do cliente
-              document.getElementById('fCliNome').value = cliente.nome_cliente || '';
-              document.getElementById('fCliFone').value = cliente.telefone_cliente || '';
-              document.getElementById('fCliEmail').value = cliente.email_cliente || '';
-              document.getElementById('fCliNiver').value = cliente.data_nascimento
-                ? cliente.data_nascimento.split('T')[0]
-                : '';
-              document.getElementById('fCliSexo').value = cliente.sexo || '';
-              document.getElementById('fCliObs').value = cliente.observacoes || '';
-
-              // muda o título e o botão
-              document.getElementById('cliFormTitle').textContent = 'Editar Cliente';
-              document.getElementById('cliFormAction').textContent = 'Salvar alterações';
-
-              // guarda o cliente em edição
-              window._clienteEditando = cliente;
-
-              // abre o modal
-              const modal = document.getElementById('cliModal');
-              try {
-                modal.showModal();
-              } catch {
-                modal.classList.add('open');
-              }
-            });
-          });
-          const cliClose = document.getElementById('cliClose');
-          const cliModal = document.getElementById('cliModal');
-
-          if (cliClose && cliModal) {
-            cliClose.addEventListener('click', () => {
-              try {
-                cliModal.close();
-              } catch {
-                cliModal.classList.remove('open');
-              }
-            });
-          }
-
-
-          tbody.querySelectorAll('.js-edit').forEach(btn => {
-            btn.addEventListener('click', () => {
-              const id = btn.dataset.id;
-              const cliente = data.find(c => c.cliente_id == id);
-              if (cliente) abrirModalCliente(cliente);
-            });
-          });
-
-        } catch (err) {
-          console.error('Erro ao carregar clientes:', err);
-          tbody.innerHTML = '<tr><td colspan="8">Erro ao carregar dados.</td></tr>';
-        }
-      }
-
-      window.carregarClientes = carregarClientes;
-
-      async function carregarAniversariantes(unidadeId) {
-        const bar = document.getElementById('bdayBar');
-        const msg = document.getElementById('bdayMsg');
-        if (!bar || !msg) return;
-
-        try {
-          const res = await fetch(`/api/clientes/aniversariantes/${unidadeId}`);
-          if (!res.ok) throw new Error('Erro ao buscar aniversariantes');
-
-          const aniversariantes = await res.json();
-
-          if (!aniversariantes.length) {
-            msg.textContent = "Aniversariantes de hoje: —";
-            return;
-          }
-
-          // Junta os nomes (se tiver mais de um aniversariante)
-          const nomes = aniversariantes.map(a => a.nome_cliente).join(', ');
-
-          // Atualiza o texto do span
-          msg.textContent = `Aniversariantes de hoje: ${nomes}`;
-        } catch (err) {
-          console.error('Erro ao carregar aniversariantes:', err);
-          msg.textContent = "Erro ao carregar aniversariantes";
-        }
-      }
-
-
-      // Atualiza sempre que trocar unidade
-      document.addEventListener('unit:change', (ev) => {
-        const unidade = ev.detail;
-        if (unidade?.id) {
-          carregarClientes(unidade.id);
-          carregarAniversariantes(unidade.id);
-        }
-      });
-    })();
-
-    // === CADASTRO / EDIÇÃO DE CLIENTE ===
-    (function () {
-      const tbody = document.querySelector('#tblClientes tbody');
-      const empty = document.getElementById('cliEmpty');
 
       // estado de edição global (usado pelo form fora da IIFE)
       window._clienteEditando = window._clienteEditando || null;
@@ -852,7 +656,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
 
         const nome = document.getElementById('colabNome').value.trim();
-        const usuario = document.getElementById('colabUsuario').value.trim();
+        const usuario = document.getElementById('colabEmail').value.trim();
         const senha = document.getElementById('colabSenha').value.trim();
         let tipo_id = document.getElementById("colabFuncao").value.trim();
 
@@ -1179,7 +983,53 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
+document.addEventListener('DOMContentLoaded', () => {
+  // ⚡ só ativa quando a view "Novo Colaborador" estiver realmente no DOM
+  document.addEventListener('view:activated', (ev) => {
+    if (ev.detail !== 'view-colab-novo') return; // só quando abre a tela de novo colaborador
 
+    
+    const sobrenomeInput = document.getElementById('colabSobrenome');
+    const emailInput = document.getElementById('colabEmail');
+    const senhaInput = document.getElementById('colabSenha');
+
+    if (!nomeInput || !emailInput || !senhaInput) {
+      console.warn('⚠️ Campos de colaborador ainda não disponíveis.');
+      return;
+    }
+const nomeInput = document.getElementById('colabNome');
+    function gerarEmail() {
+      const nome = nomeInput.value.trim().toLowerCase();
+      if (!nome) return;
+
+      const email = nome
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // tira acentos
+        .replace(/\s+/g, '.');           // troca espaços por ponto
+
+      emailInput.value = `${email}@rokuzen.com`;
+    }
+
+    function gerarSenha() {
+      const rand = Math.random().toString(36).slice(-8);
+      senhaInput.value = rand;
+    }
+
+    nomeInput.addEventListener('blur', () => {
+      gerarEmail();
+      gerarSenha();
+    });
+
+    sobrenomeInput?.addEventListener('blur', () => {
+      gerarEmail();
+      gerarSenha();
+    });
+  });
+});
+
+
+
+// cria os 12 cards de meses (calendário de feriados)
 document.addEventListener('DOMContentLoaded', () => {
   const yearLabel = document.getElementById('yearLabel');
   const monthsGrid = document.getElementById('monthsGrid');
@@ -1218,8 +1068,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (!feriadosPorMes[m]) feriadosPorMes[m] = [];
     feriadosPorMes[m].push({ ...f, jsDate: d });
   });
-
-  // cria os 12 cards de meses
   for (let m = 0; m < 12; m++) {
     const card = document.createElement('article');
     card.className = 'month-card';
@@ -1558,37 +1406,50 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-const nomeInput = document.getElementById('colabNome');
-const sobrenomeInput = document.getElementById('colabSobrenome');
-const emailInput = document.getElementById('colabEmail');
-const senhaInput = document.getElementById('colabSenha');
+// === GERAÇÃO AUTOMÁTICA DE E-MAIL E SENHA ===
+document.addEventListener('DOMContentLoaded', () => {
+  document.addEventListener('view:activated', (ev) => {
+    if (ev.detail !== 'view-colab-novo') return; // só ativa quando abre "Novo Colaborador"
 
-function gerarEmail() {
-  const nome = nomeInput.value.trim().toLowerCase();
-  const sobrenome = sobrenomeInput.value.trim().toLowerCase();
-  if (!nome || !sobrenome) return;
+    const nomeInput = document.getElementById('colabNome');
+    const sobrenomeInput = document.getElementById('colabSobrenome');
+    const emailInput = document.getElementById('colabEmail');
+    const senhaInput = document.getElementById('colabSenha');
 
-  const email = `${nome}.${sobrenome}@minhaempresa.com.br`
-    .normalize('NFD')
-    .replace(/[\u0300-\u036f]/g, '')
-    .replace(/\s+/g, '');
+    if (!nomeInput || !emailInput || !senhaInput) {
+      console.warn('⚠️ Campos de colaborador ainda não disponíveis.');
+      return;
+    }
 
-  emailInput.value = email;
-}
+    function gerarEmail() {
+      const nome = nomeInput.value.trim().toLowerCase();
+      if (!nome) return;
 
-function gerarSenha() {
-  const rand = Math.random().toString(36).slice(-8);
-  senhaInput.value = rand;
-}
+      const email = nome
+        .normalize('NFD')
+        .replace(/[\u0300-\u036f]/g, '') // tira acentos
+        .replace(/\s+/g, '.');           // troca espaços por ponto
 
-nomeInput.addEventListener('blur', () => {
-  gerarEmail();
-  gerarSenha();
+      emailInput.value = `${email}@rokuzen.com`;
+    }
+
+    function gerarSenha() {
+      const rand = Math.random().toString(36).slice(-8);
+      senhaInput.value = rand;
+    }
+
+    nomeInput.addEventListener('blur', () => {
+      gerarEmail();
+      gerarSenha();
+    });
+
+    sobrenomeInput?.addEventListener('blur', () => {
+      gerarEmail();
+      gerarSenha();
+    });
+  });
 });
-sobrenomeInput.addEventListener('blur', () => {
-  gerarEmail();
-  gerarSenha();
-});
+
 async function carregarAniversariantes(unidadeId) {
   const bar = document.getElementById('bdayBar');
   const msg = document.getElementById('bdayMsg');
