@@ -40,6 +40,7 @@
     }
 
     // Preenche painel lateral com atendimentos de uma chave YYYY-MM-DD
+    // ----- substituir renderAppointmentsForKey -----
     function renderAppointmentsForKey(key) {
         appointmentsContent.innerHTML = '';
         const list = appointments[key] || [];
@@ -47,13 +48,243 @@
             appointmentsContent.innerHTML = '<p class="empty">Nenhum atendimento para este dia.</p>';
             return;
         }
-        list.forEach(item => {
+
+        // helpers de persistência
+        function loadSessions(storageKey) {
+            try { return JSON.parse(localStorage.getItem(storageKey) || '[]'); } catch (e) { return []; }
+        }
+        function saveSessions(storageKey, arr) { localStorage.setItem(storageKey, JSON.stringify(arr)); }
+        function storageKeyFor(dateKey, client) { return `sessions:${dateKey}:${client}`; }
+        function pad(n) { return String(n).padStart(2, '0'); }
+        function formatSeconds(s) {
+            const hh = pad(Math.floor(s / 3600));
+            const mm = pad(Math.floor((s % 3600) / 60));
+            const ss = pad(s % 60);
+            return `${hh}:${mm}:${ss}`;
+        }
+        function sumRecordedSeconds(arr) {
+            return Math.floor((arr || []).reduce((acc, r) => acc + (r.duration || 0), 0));
+        }
+
+        // Modal elements (assume modal markup exists)
+        const modal = document.getElementById('sessionModal');
+        const modalClientName = document.getElementById('modalClientName');
+        const modalTimer = document.getElementById('modalTimer');
+        const modalTotalRecorded = document.getElementById('modalTotalRecorded');
+        const modalHistory = document.getElementById('modalHistory');
+        const modalStart = document.getElementById('modalStart');
+        const modalPause = document.getElementById('modalPause');
+        const modalStop = document.getElementById('modalStop');
+        const modalCloseBtn = document.getElementById('modalCloseBtn');
+        const modalCloseFooter = document.getElementById('modalCloseFooter');
+
+        // estado do modal (session in-memory): { storageKey, client, startedAt, elapsedBefore, intervalId }
+        if (!window.__ROKU_MODAL_SESSION) window.__ROKU_MODAL_SESSION = null;
+
+        // abre modal para um cliente
+        function openSessionModal(dateKey, client) {
+            const sk = storageKeyFor(dateKey, client);
+            modal.setAttribute('aria-hidden', 'false');
+            modal.classList.add('fade-in');
+            document.body.style.overflow = 'hidden';
+            modalClientName.textContent = client;
+
+            // carregar histórico e total
+            const arr = loadSessions(sk);
+            const total = sumRecordedSeconds(arr);
+            modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(total)}`;
+            modalTimer.textContent = formatSeconds(total);
+
+            // popular histórico
+            renderModalHistory(arr);
+
+            // desligar botões conforme estado
+            modalStart.disabled = false;
+            modalPause.disabled = true;
+            modalStop.disabled = true;
+
+            // anexar referência atual
+            window.__ROKU_MODAL_SESSION = window.__ROKU_MODAL_SESSION || null;
+            window.__ROKU_MODAL_SESSION = window.__ROKU_MODAL_SESSION && window.__ROKU_MODAL_SESSION.storageKey === sk
+                ? window.__ROKU_MODAL_SESSION
+                : { storageKey: sk, client, startedAt: null, elapsedBefore: total, intervalId: null };
+        }
+
+        function closeSessionModal() {
+            modal.setAttribute('aria-hidden', 'true');
+            modal.classList.remove('fade-in');
+            document.body.style.overflow = '';
+            // se houver contador rodando no modal, deixar como está (poderia pausar automaticamente se preferir)
+        }
+
+        function renderModalHistory(arr) {
+            modalHistory.innerHTML = '';
+            if (!arr || !arr.length) {
+                modalHistory.innerHTML = '<div class="empty">Nenhuma sessão registrada.</div>';
+                return;
+            }
+            // ordem reversa (mais recente primeiro)
+            arr.slice().reverse().forEach(r => {
+                const el = document.createElement('div');
+                el.className = 'hist-item';
+                const started = new Date(r.startedAt).toLocaleString();
+                const ended = new Date(r.endedAt).toLocaleString();
+                el.innerHTML = `<div style="font-weight:700">${formatSeconds(Math.floor(r.duration || 0))}</div>
+                            <div style="color:var(--muted);font-size:12px">${started} — ${ended}</div>`;
+                modalHistory.appendChild(el);
+            });
+        }
+
+        // iniciar contagem no modal
+        function startModalTimer() {
+            if (!window.__ROKU_MODAL_SESSION) return;
+            // prevenir múltiplas sessões ativas em locais diferentes
+            if (window.__ROKU_GLOBAL_RUNNING && window.__ROKU_GLOBAL_RUNNING.storageKey !== window.__ROKU_MODAL_SESSION.storageKey) {
+                alert('Já existe uma sessão ativa para outro cliente. Encerre-a primeiro.');
+                return;
+            }
+
+            // se já rodando, ignora
+            if (window.__ROKU_MODAL_SESSION.intervalId) return;
+
+            window.__ROKU_MODAL_SESSION.startedAt = Date.now();
+            // garantir flag global
+            window.__ROKU_GLOBAL_RUNNING = window.__ROKU_MODAL_SESSION;
+
+            modalStart.disabled = true;
+            modalPause.disabled = false;
+            modalStop.disabled = false;
+
+            window.__ROKU_MODAL_SESSION.intervalId = setInterval(() => {
+                const now = Date.now();
+                const elapsed = Math.floor((now - window.__ROKU_MODAL_SESSION.startedAt) / 1000) + (window.__ROKU_MODAL_SESSION.elapsedBefore || 0);
+                modalTimer.textContent = formatSeconds(elapsed);
+            }, 1000);
+        }
+
+        // pausar (mantém elapsedBefore e permite retomar)
+        function pauseModalTimer() {
+            if (!window.__ROKU_MODAL_SESSION || !window.__ROKU_MODAL_SESSION.intervalId) return;
+            clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
+            const now = Date.now();
+            const elapsed = Math.floor((now - window.__ROKU_MODAL_SESSION.startedAt) / 1000);
+            window.__ROKU_MODAL_SESSION.elapsedBefore = (window.__ROKU_MODAL_SESSION.elapsedBefore || 0) + elapsed;
+            window.__ROKU_MODAL_SESSION.startedAt = null;
+            window.__ROKU_MODAL_SESSION.intervalId = null;
+            window.__ROKU_GLOBAL_RUNNING = null;
+
+            modalStart.disabled = false;
+            modalPause.disabled = true;
+            modalStop.disabled = false;
+
+            modalTimer.textContent = formatSeconds(window.__ROKU_MODAL_SESSION.elapsedBefore || 0);
+        }
+
+        // encerrar -> salva registro definitivo
+        // encerrar -> salva registro definitivo e reinicia o contador para nova sessão
+        function stopModalTimer() {
+            if (!window.__ROKU_MODAL_SESSION) return;
+
+            // total já gravado antes desta parada
+            const prevArr = loadSessions(window.__ROKU_MODAL_SESSION.storageKey);
+            const prevTotal = sumRecordedSeconds(prevArr);
+
+            // calcular duração total acumulada (em segundos) até o momento atual
+            let totalSec = window.__ROKU_MODAL_SESSION.elapsedBefore || 0;
+            if (window.__ROKU_MODAL_SESSION.intervalId) {
+                clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
+                const now = Date.now();
+                const elapsed = Math.floor((now - window.__ROKU_MODAL_SESSION.startedAt) / 1000);
+                totalSec = (window.__ROKU_MODAL_SESSION.elapsedBefore || 0) + elapsed;
+            }
+
+            // duração desta sessão (apenas o período que acabou de correr)
+            let thisSessionDuration = totalSec - prevTotal;
+            if (thisSessionDuration <= 0) {
+                // fallback: se algo estranho ocorrer, registra totalSec como duração
+                thisSessionDuration = totalSec;
+            }
+
+            // montar objeto registro desta sessão
+            const record = {
+                startedAt: window.__ROKU_MODAL_SESSION.startedAt ? new Date(window.__ROKU_MODAL_SESSION.startedAt).toISOString() : new Date().toISOString(),
+                endedAt: new Date().toISOString(),
+                duration: thisSessionDuration
+            };
+
+            // salvar no storage (append)
+            const arr = loadSessions(window.__ROKU_MODAL_SESSION.storageKey);
+            arr.push(record);
+            saveSessions(window.__ROKU_MODAL_SESSION.storageKey, arr);
+
+            // atualizar UI (total gravado)
+            const totalNow = sumRecordedSeconds(arr);
+            modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(totalNow)}`;
+
+            // --- AQUI: reiniciar o timer na interface para 00:00:00, pronto para nova sessão ---
+            modalTimer.textContent = formatSeconds(0);
+
+            // resetar estado de contagem local para permitir nova sessão do zero
+            if (window.__ROKU_MODAL_SESSION.intervalId) {
+                clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
+            }
+            window.__ROKU_MODAL_SESSION.startedAt = null;
+            window.__ROKU_MODAL_SESSION.elapsedBefore = 0; // <-- zera o acumulado para a próxima sessão
+            window.__ROKU_MODAL_SESSION.intervalId = null;
+            window.__ROKU_GLOBAL_RUNNING = null;
+
+            // ajustar botões: permitir iniciar (pronto), desabilitar pausa/encerrar
+            modalStart.disabled = false;
+            modalPause.disabled = true;
+            modalStop.disabled = true;
+        }
+
+        // ligar eventos do modal (apenas uma vez)
+        if (!renderAppointmentsForKey.__modalInit) {
+            modalStart.addEventListener('click', startModalTimer);
+            modalPause.addEventListener('click', pauseModalTimer);
+            modalStop.addEventListener('click', stopModalTimer);
+            modalCloseBtn.addEventListener('click', closeSessionModal);
+            modalCloseFooter.addEventListener('click', closeSessionModal);
+            // clique fora do box fecha
+            document.querySelector('.session-modal-backdrop')?.addEventListener('click', closeSessionModal);
+            // ESC fecha
+            document.addEventListener('keydown', (e) => {
+                if (e.key === 'Escape' && modal.getAttribute('aria-hidden') === 'false') closeSessionModal();
+            });
+
+            renderAppointmentsForKey.__modalInit = true;
+        }
+
+        // renderizar cada atendimento com botão para abrir modal
+        list.forEach((item, i) => {
+            const clientName = item.client;
+            const sk = storageKeyFor(key, clientName);
+
             const el = document.createElement('div');
             el.className = 'appt-item';
-            el.innerHTML = `<div class="appt-time">${item.time}</div>
-                      <div class="appt-client">${item.client}</div>
-                      ${item.notes ? `<div class="appt-notes">${item.notes}</div>` : ''}`;
+            el.innerHTML = `
+            <div style="display:flex;justify-content:space-between;gap:12px;align-items:center;">
+                <div>
+                    <div class="appt-time">${item.time}</div>
+                    <div class="appt-client">${clientName}</div>
+                    ${item.notes ? `<div class="appt-notes">${item.notes}</div>` : ''}
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
+                    <div style="font-size:13px;color:var(--muted)">${formatSeconds(sumRecordedSeconds(loadSessions(sk)))}</div>
+                    <div style="display:flex;gap:8px;">
+                        <button class="btn-open-session" data-client="${clientName}" data-date="${key}">Iniciar Sessão</button>
+                    </div>
+                </div>
+            </div>
+        `;
             appointmentsContent.appendChild(el);
+
+            // abrir modal ao clicar
+            el.querySelector('.btn-open-session').addEventListener('click', (e) => {
+                e.preventDefault();
+                openSessionModal(key, clientName);
+            });
         });
     }
 
@@ -281,333 +512,6 @@
         open: openLoginCard,
         close: closeLoginCard
     };
-})();
-
-(() => {
-    const calShortcut = document.querySelector('.shortcut-item[href="#calendario-anual"]');
-    const annualCard = document.getElementById('annualCalendarCard');
-    const closeBtn = annualCard?.querySelector('.btn-close');
-    const monthsGrid = document.getElementById('monthsGrid');
-    const yearLabel = document.getElementById('yearLabel');
-
-    const year = new Date().getFullYear();
-
-    // Exemplo de feriados nacionais (pode adicionar mais)
-    const holidays = {
-        "2025-01-01": "Ano Novo",
-        "2025-04-21": "Tiradentes",
-        "2025-05-01": "Dia do Trabalhador",
-        "2025-09-07": "Independência",
-        "2025-10-12": "Nossa Senhora Aparecida",
-        "2025-11-02": "Finados",
-        "2025-11-15": "Proclamação da República",
-        "2025-12-25": "Natal"
-    };
-
-    function pad(n) { return String(n).padStart(2, '0'); }
-
-    function renderAnnualCalendar() {
-        monthsGrid.innerHTML = '';
-        yearLabel.textContent = year;
-
-        for (let m = 0; m < 12; m++) {
-            const monthCard = document.createElement('div');
-            monthCard.className = 'month-card';
-
-            const monthName = new Date(year, m).toLocaleString('pt-BR', { month: 'long' });
-            monthCard.innerHTML = `<h4>${monthName}</h4>`;
-
-            const daysGrid = document.createElement('div');
-            daysGrid.className = 'days-grid';
-
-            const daysInMonth = new Date(year, m + 1, 0).getDate();
-            for (let d = 1; d <= daysInMonth; d++) {
-                const dayCell = document.createElement('div');
-                dayCell.className = 'day-cell';
-                const key = `${year}-${pad(m + 1)}-${pad(d)}`;
-                dayCell.textContent = d;
-
-                if (holidays[key]) {
-                    dayCell.classList.add('holiday');
-                    dayCell.setAttribute('title', holidays[key]);
-                }
-
-                daysGrid.appendChild(dayCell);
-            }
-
-            monthCard.appendChild(daysGrid);
-            monthsGrid.appendChild(monthCard);
-        }
-    }
-
-    function openAnnualCard() {
-        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
-        annualCard.setAttribute('aria-hidden', 'false');
-        annualCard.classList.add('fade-in');
-        renderAnnualCalendar();
-        setTimeout(() => closeBtn?.focus(), 80);
-    }
-
-    function closeAnnualCard() {
-        annualCard.setAttribute('aria-hidden', 'true');
-    }
-
-    closeBtn?.addEventListener('click', closeAnnualCard);
-    document.addEventListener('keydown', e => { if (e.key === 'Escape') closeAnnualCard(); });
-    calShortcut?.addEventListener('click', e => { e.preventDefault(); openAnnualCard(); });
-
-    window.ROKUAnnualCalendar = { open: openAnnualCard, close: closeAnnualCard };
-})();
-
-// === CONTROLE DE TEMPO / CRONÔMETRO ===
-(() => {
-    const timeShortcut = document.querySelector('.shortcut-item[href="#controle-tempo"]');
-    const timeCard = document.getElementById('timeControlCard');
-    const closeBtn = timeCard?.querySelector('.btn-close');
-
-    const display = document.getElementById('timerDisplay');
-    const btnStart = document.getElementById('timeStart');
-    const btnPause = document.getElementById('timePause');
-    const btnStop = document.getElementById('timeStop');
-    const timerStatus = document.getElementById('timerStatus');
-    const sessionsContent = document.getElementById('sessionsContent');
-
-    // Persistência
-    const STORAGE_KEY = 'roku_time_sessions_v1';
-
-    // Estado
-    let timerInterval = null;
-    let startTs = null;      // ms epoch quando iniciou
-    let accumulated = 0;     // ms acumulado em pausas/resets
-    let isPaused = false;
-
-    // carregar sessões do localStorage
-    function loadSessions() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            return raw ? JSON.parse(raw) : [];
-        } catch (e) {
-            console.error('Erro ao ler sessões', e);
-            return [];
-        }
-    }
-
-    function saveSessions(list) {
-        try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify(list || []));
-        } catch (e) {
-            console.error('Erro ao salvar sessões', e);
-        }
-    }
-
-    // util: formata ms -> hh:mm:ss
-    function formatMs(ms) {
-        if (ms < 0) ms = 0;
-        const totalSec = Math.floor(ms / 1000);
-        const h = String(Math.floor(totalSec / 3600)).padStart(2, '0');
-        const m = String(Math.floor((totalSec % 3600) / 60)).padStart(2, '0');
-        const s = String(totalSec % 60).padStart(2, '0');
-        return `${h}:${m}:${s}`;
-    }
-
-    // atualiza display
-    function tick() {
-        const now = Date.now();
-        const elapsed = accumulated + (startTs ? now - startTs : 0);
-        display.textContent = formatMs(elapsed);
-    }
-
-    // UI estado
-    function setUIIdle() {
-        btnStart.textContent = 'Iniciar';
-        btnStart.disabled = false;
-        btnPause.disabled = true;
-        btnStop.disabled = true;
-        timerStatus.textContent = 'Nenhuma sessão ativa.';
-        timeCard.classList.remove('timer-active');
-    }
-
-    function setUIRunning() {
-        btnStart.textContent = 'Reiniciar';
-        // permitir reiniciar mesmo enquanto roda
-        btnStart.disabled = false;
-        btnPause.disabled = false;
-        btnStop.disabled = false;
-        timerStatus.textContent = 'Sessão em andamento...';
-        timeCard.classList.add('timer-active');
-    }
-
-
-    function setUIPaused() {
-        btnStart.textContent = 'Continuar';
-        btnStart.disabled = false;
-        btnPause.disabled = true;
-        btnStop.disabled = false;
-        timerStatus.textContent = 'Sessão pausada.';
-        timeCard.classList.remove('timer-active');
-    }
-
-    // iniciar cronômetro (resume se pausado)
-    function startTimer() {
-        if (!startTs) {
-            startTs = Date.now();
-        } else {
-            // se já tinha startTs, estamos retomando após pause; manter startTs como agora e acumular já feito
-            startTs = Date.now();
-        }
-        isPaused = false;
-        if (timerInterval) clearInterval(timerInterval);
-        timerInterval = setInterval(tick, 250);
-        tick();
-        setUIRunning();
-    }
-
-    // pausar: cadastra o tempo acumulado e zera startTs
-    function pauseTimer() {
-        if (!startTs) return;
-        accumulated += Date.now() - startTs;
-        startTs = null;
-        isPaused = true;
-        clearInterval(timerInterval);
-        timerInterval = null;
-        tick();
-        setUIPaused();
-    }
-
-    // encerrar sessão: salva sessão com start/end e duração
-    function stopTimer() {
-        if (!startTs && accumulated === 0) {
-            // nada ocorreu
-            setUIIdle();
-            return;
-        }
-
-        // calcular tempo final
-        let durationMs = accumulated;
-        if (startTs) durationMs += Date.now() - startTs;
-
-        // criar registro
-        const startedAt = new Date(Date.now() - durationMs).toISOString();
-        const endedAt = new Date().toISOString();
-
-        const session = {
-            id: `${Date.now()}`, // simples id
-            startedAt,
-            endedAt,
-            durationMs
-        };
-
-        // salvar
-        const sessions = loadSessions();
-        sessions.unshift(session); // mais recente primeiro
-        saveSessions(sessions);
-
-        // reset
-        clearInterval(timerInterval);
-        timerInterval = null;
-        startTs = null;
-        accumulated = 0;
-        isPaused = false;
-        display.textContent = '00:00:00';
-        renderSessions();
-        setUIIdle();
-    }
-
-    // render histórico
-    function renderSessions() {
-        const sessions = loadSessions();
-        sessionsContent.innerHTML = '';
-        if (!sessions.length) {
-            sessionsContent.innerHTML = '<p class="empty">Nenhuma sessão registrada.</p>';
-            return;
-        }
-        sessions.forEach(s => {
-            const item = document.createElement('div');
-            item.className = 'session-item';
-            const started = new Date(s.startedAt);
-            const ended = new Date(s.endedAt);
-            item.innerHTML = `
-                <div class="session-duration">${formatMs(s.durationMs)}</div>
-                <div class="session-meta">Início: ${started.toLocaleString()} · Fim: ${ended.toLocaleString()}</div>
-                <div style="margin-top:6px"><button data-id="${s.id}" class="btn-remove small">Remover</button></div>
-            `;
-            sessionsContent.appendChild(item);
-        });
-
-        // delegação: remover sessão
-        sessionsContent.querySelectorAll('.btn-remove').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                const id = btn.getAttribute('data-id');
-                const list = loadSessions().filter(x => x.id !== id);
-                saveSessions(list);
-                renderSessions();
-            });
-        });
-    }
-
-    // abrir/fechar card
-    function openTimeCard() {
-        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
-        if (!timeCard) return;
-        timeCard.setAttribute('aria-hidden', 'false');
-        timeCard.classList.add('fade-in');
-        renderSessions();
-        setTimeout(() => timeCard.querySelector('.btn-close')?.focus(), 80);
-    }
-    function closeTimeCard() {
-        if (!timeCard) return;
-        timeCard.setAttribute('aria-hidden', 'true');
-    }
-
-    // eventos UI
-    btnStart?.addEventListener('click', () => {
-        // Se estava pausado (startTs null, accumulated > 0) -> retomar
-        if (isPaused && accumulated > 0) {
-            startTimer();
-            return;
-        }
-        // se estava rodando, reiniciar (limpa e inicia novo)
-        if (startTs) {
-            // confirmar reinício lógico: encerrar a sessão atual automaticamente antes de reiniciar?
-            // aqui só reiniciamos o contador
-            accumulated = 0;
-            startTs = Date.now();
-            tick();
-            setUIRunning();
-            return;
-        }
-        // iniciar do zero
-        accumulated = 0;
-        startTs = Date.now();
-        startTimer();
-    });
-
-    btnPause?.addEventListener('click', () => {
-        pauseTimer();
-    });
-
-    btnStop?.addEventListener('click', () => {
-        stopTimer();
-    });
-
-    closeBtn?.addEventListener('click', closeTimeCard);
-    document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeTimeCard(); });
-
-    timeShortcut?.addEventListener('click', e => { e.preventDefault(); openTimeCard(); });
-
-    // expose API
-    window.ROKUTime = {
-        open: openTimeCard,
-        close: closeTimeCard,
-        start: startTimer,
-        pause: pauseTimer,
-        stop: stopTimer,
-        getSessions: loadSessions
-    };
-
-    // init ui
-    setUIIdle();
-    renderSessions();
 })();
 
 // ==== LOGOUT ==== 
