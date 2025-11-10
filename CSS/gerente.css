@@ -317,29 +317,6 @@ body::before {
   color: var(--muted)
 }
 
-/* Small responsive tweaks */
-@media (max-width:900px) {
-  .app {
-    grid-template-columns: 300px 1fr
-  }
-}
-
-@media (max-width:720px) {
-  .app {
-    grid-template-columns: 1fr
-  }
-
-  .sidebar {
-    position: relative;
-    width: 100%;
-    display: block
-  }
-
-  .btn-logout {
-    position: static
-  }
-}
-
 /* Card centralizado */
 .calendar-card {
   max-width: 720px;
@@ -590,18 +567,6 @@ body::before {
 .view { display: none; }
 .view.is-active { display: block; }
 
-/* ===== Responsive ===== */
-@media (max-width: 1100px) { .cards-grid { grid-template-columns: 1fr; } }
-@media (max-width: 900px) { .grid--2 { grid-template-columns: 1fr; } }
-
-/* Remove blur pesado em dispositivos pequenos */
-@media (max-width: 600px) {
-  .side-nav, .card {
-    backdrop-filter: none;
-    background: rgba(0, 0, 0, 0.65);
-  }
-}
-
 #btnBuscar {
   color: #fff !important; /* mantém o texto branco */
 }
@@ -622,6 +587,233 @@ body::before {
 .view { display: none; }
 .view.is-active { display: block; }
 
+/* Responsividade */
+@media (max-width: 1024px) {
+  .app-shell {
+    grid-template-columns: 1fr; /* Ajusta a coluna da sidebar e conteúdo */
+  }
+  
+  .side-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    backdrop-filter: blur(10px);
+    z-index: 999;
+    padding: 16px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+    transform: translateX(-100%); /* Esconde a sidebar inicialmente */
+    transition: transform 0.3s ease;
+  }
+  
+  .side-nav.open {
+    transform: translateX(0); /* Mostra a sidebar */
+  }
+
+  .main-content {
+    padding: 16px;
+  }
+
+  .sidebar {
+    display: none; /* Remove a sidebar visível em dispositivos móveis */
+  }
+
+  .calendar-card {
+    padding: 18px;
+    margin: 20px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr; /* Faz o grid de cards empilhar */
+  }
+
+  .table {
+    font-size: 12px;
+  }
+
+  .tabs {
+    flex-direction: column; /* Empilha os tabs */
+  }
+
+  .nav-btn {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .shortcut-item {
+    font-size: 12px;
+    padding: 8px;
+  }
+
+  .shortcut-label {
+    font-size: 14px;
+  }
+
+  .phone-list {
+    display: block; /* Exibe a lista de telefones como lista */
+  }
+
+  .phone {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 10px;
+  }
+
+  .input {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .popup-box {
+    width: 90%;
+    padding: 16px 20px;
+  }
+
+  .popup-btn {
+    padding: 6px 10px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .calendar-header h3 {
+    font-size: 24px;
+  }
+
+  .month-nav {
+    margin-top: 10px;
+  }
+
+  /* Responsividade para o logout popup */
+  .logout-block {
+    margin-top: 12px;
+  }
+
+  .btn-logout {
+    width: 100%;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app-shell {
+    grid-template-columns: 1fr; /* Coloca todos os elementos em uma coluna */
+  }
+
+  .side-nav {
+    width: 100%;
+    height: 100%;
+    padding: 14px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  .main-content {
+    padding: 12px;
+  }
+
+  .sb-block {
+    padding: 10px;
+  }
+
+  .sb-title {
+    font-size: 16px;
+  }
+
+  .shortcut-item {
+    padding: 8px;
+    font-size: 12px;
+  }
+
+  .phone-list {
+    display: block;
+  }
+
+  .phone {
+    padding: 10px;
+  }
+
+  .btn-logout {
+    padding: 10px 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .side-nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    transform: translateX(-100%); /* Esconde a sidebar */
+  }
+
+  .side-nav.open {
+    transform: translateX(0); /* Mostra a sidebar */
+  }
+
+  .main-content {
+    padding: 10px;
+  }
+
+  .calendar-card {
+    padding: 16px;
+  }
+
+  .cards-grid {
+    grid-template-columns: 1fr; /* Grid de cards se torna uma coluna */
+  }
+
+  .input {
+    width: 100%;
+    padding: 10px;
+  }
+
+  .btn {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .popup-box {
+    width: 90%;
+    padding: 16px;
+  }
+
+  .popup-btn {
+    padding: 6px 10px;
+  }
+
+  .calendar-header {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .calendar-header h3 {
+    font-size: 22px;
+  }
+
+  .month-nav {
+    margin-top: 8px;
+  }
+
+  .nav-btn {
+    flex-direction: column;
+  }
+
+  .phone {
+    padding: 8px 10px;
+    font-size: 14px;
+  }
+
+  .side-nav .logo {
+    display: none;
+  }
+}
 
 
 

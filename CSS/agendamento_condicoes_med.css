@@ -34,17 +34,6 @@ body {
   font-weight: 700;
 }
 
-@media (max-width: 768px) {
-  .titulo-agendamento {
-    text-align: center;
-    margin: 20px auto 10px;
-  }
-
-  .titulo-agendamento h2 {
-    font-size: 2.8rem;
-  }
-}
-
 /* ===== Card (ajuste pra “chegar” mais perto do título) ===== */
 .rk-card {
   background: #f0f5e9;
@@ -99,7 +88,7 @@ body {
   background-color: #d9e6cc;
 }
 
-.chips input:checked+span {
+.chips input:checked + span {
   background-color: #9DB668;
   color: white;
 }
@@ -115,7 +104,7 @@ body {
   border-radius: 8px;
   padding: 14px;
   cursor: pointer;
-   margin: 25px auto 0; 
+  margin: 25px auto 0;
   transition: all 0.3s ease;
   text-transform: uppercase;
 }
@@ -144,4 +133,137 @@ body {
 .progress-dots .dot.active {
   background-color: #9DB668;
   transform: scale(1.2);
+}
+
+/* ===== Responsividade ===== */
+
+/* Para telas pequenas, como celulares */
+@media (max-width: 600px) {
+  .rk-title {
+    font-size: 28px;
+  }
+
+  .rk-desc {
+    font-size: 16px;
+  }
+
+  .titulo-agendamento h2 {
+    font-size: 24px;
+  }
+
+  .rk-card {
+    padding: 20px;
+    margin: 20px auto;
+    width: 100%;
+  }
+
+  .grupo h3 {
+    font-size: 18px;
+  }
+
+  .chips span {
+    font-size: 12px;
+    padding: 8px 14px;
+  }
+
+  .rk-btn {
+    width: 100%;
+    font-size: 12px;
+    padding: 12px;
+  }
+
+  .progress-dots {
+    gap: 15px;
+  }
+
+  .progress-dots .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Para tablets em modo retrato */
+@media (max-width: 768px) {
+  .rk-title {
+    font-size: 30px;
+  }
+
+  .rk-desc {
+    font-size: 18px;
+  }
+
+  .titulo-agendamento h2 {
+    font-size: 26px;
+  }
+
+  .rk-card {
+    padding: 30px;
+    margin: 30px auto;
+    width: 95%;
+  }
+
+  .grupo h3 {
+    font-size: 20px;
+  }
+
+  .chips span {
+    font-size: 14px;
+    padding: 10px 16px;
+  }
+
+  .rk-btn {
+    width: 100%;
+    font-size: 13px;
+    padding: 14px;
+  }
+
+  .progress-dots {
+    gap: 18px;
+  }
+
+  .progress-dots .dot {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* Para telas maiores como desktops */
+@media (min-width: 1024px) {
+  .rk-title {
+    font-size: 36px;
+  }
+
+  .rk-desc {
+    font-size: 22px;
+  }
+
+  .titulo-agendamento h2 {
+    font-size: 32px;
+  }
+
+  .rk-card {
+    padding: 40px;
+    margin: 0 auto 80px;
+    max-width: 900px;
+  }
+
+  .grupo h3 {
+    font-size: 22px;
+  }
+
+  .chips span {
+    font-size: 14px;
+    padding: 10px 18px;
+  }
+
+  .rk-btn {
+    width: 480px;
+    font-size: 14px;
+    padding: 14px;
+  }
+
+  .progress-dots .dot {
+    width: 12px;
+    height: 12px;
+  }
 }

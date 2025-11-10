@@ -94,17 +94,6 @@ h2.rk-title {
     color: var(--green-600);
     margin-top: 2rem;
 }
-
-/* ===== RODAPÉ ===== */
-footer {
-    background: #fff;
-    padding: 1.5rem;
-    text-align: center;
-    font-size: 0.9rem;
-    color: var(--muted);
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
-}
-
 /* ===== RESPONSIVIDADE ===== */
 @media (max-width: 768px) {
     h1 {
