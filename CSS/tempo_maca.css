@@ -1,4 +1,3 @@
-
 /* Main section */
 .massage-section {
     max-width: 1100px;
@@ -18,7 +17,6 @@
 .reflex-grid {
     display: grid;
     grid-template-columns: repeat(3, 190px);
-    /* 3 cards na primeira linha */
     gap: 32px;
     justify-content: center;
     margin: 0 auto 8px;
@@ -29,9 +27,7 @@
 .reflex-grid .massage-card:nth-child(4),
 .reflex-grid .massage-card:nth-child(5) {
     justify-self: center;
-    /* centraliza esses cards na linha */
 }
-
 
 /* Card base */
 .massage-card {
@@ -109,3 +105,109 @@
     background: #bfd48b;
 }
 
+/* ===== Responsividade ===== */
+
+/* Para telas pequenas (celulares), max-width 600px */
+@media (max-width: 600px) {
+  .massage-section h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+
+  .reflex-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards na primeira linha */
+    gap: 16px;
+  }
+
+  .massage-card {
+    width: 100%; /* Cards ocupam a largura total */
+    padding: 16px;
+  }
+
+  .massage-card .time {
+    font-size: 14px; /* Ajusta o tamanho da fonte */
+  }
+
+  .massage-card .price {
+    font-size: 16px; /* Ajusta o tamanho da fonte */
+  }
+
+  .dots {
+    gap: 10px;
+  }
+
+  .dot {
+    width: 10px;
+    height: 10px;
+  }
+}
+
+/* Para telas pequenas a médias (tablets), max-width 768px */
+@media (max-width: 768px) {
+  .massage-section h2 {
+    font-size: 26px;
+    margin-bottom: 28px;
+  }
+
+  .reflex-grid {
+    grid-template-columns: repeat(2, 1fr); /* 2 cards por linha */
+    gap: 20px;
+  }
+
+  .massage-card {
+    width: 100%;
+    padding: 18px;
+  }
+
+  .massage-card .time {
+    font-size: 15px;
+  }
+
+  .massage-card .price {
+    font-size: 17px;
+  }
+
+  .dots {
+    gap: 12px;
+  }
+
+  .dot {
+    width: 11px;
+    height: 11px;
+  }
+}
+
+/* Para telas grandes, acima de 1024px (desktops) */
+@media (min-width: 1024px) {
+  .massage-section h2 {
+    font-size: 30px;
+    margin-bottom: 34px;
+  }
+
+  .reflex-grid {
+    grid-template-columns: repeat(3, 190px); /* 3 cards por linha */
+    gap: 32px;
+  }
+
+  .massage-card {
+    width: 190px;
+    padding: 20px 16px;
+  }
+
+  .massage-card .time {
+    font-size: 16px;
+  }
+
+  .massage-card .price {
+    font-size: 18px;
+  }
+
+  .dots {
+    gap: 14px;
+  }
+
+  .dot {
+    width: 12px;
+    height: 12px;
+  }
+}
