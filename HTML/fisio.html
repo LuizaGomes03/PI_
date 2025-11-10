@@ -48,19 +48,6 @@
                         <span class="shortcut-label">Controle de Login</span>
                         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
                     </a>
-
-                    <a href="#calendario-anual" class="shortcut-item">
-                        <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
-                        <span class="shortcut-label">Calendário Anual</span>
-                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                    </a>
-
-                    <!-- === ATALHO CONTROLE DE TEMPO (adicione na lista de atalhos) === -->
-                    <a href="#controle-tempo" class="shortcut-item">
-                        <span class="shortcut-icon"><i class="fa-solid fa-stopwatch"></i></span>
-                        <span class="shortcut-label">Controle de Tempo</span>
-                        <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-                    </a>
                 </nav>
             </div>
 
@@ -161,51 +148,41 @@
                         </aside>
                     </div>
                 </section>
-                <!-- CARD CALENDÁRIO ANUAL -->
-                <section id="annualCalendarCard" class="card annual-calendar-card" aria-hidden="true" role="dialog"
-                    aria-label="Calendário Anual com Feriados">
-                    <div class="annual-header">
-                        <h2>Calendário Anual • Feriados</h2>
-                        <button class="btn-close" aria-label="Fechar calendário anual">&times;</button>
-                    </div>
-                    <div class="annual-body">
-                        <div class="year-label" id="yearLabel"></div>
-                        <div class="months-grid" id="monthsGrid"></div>
-                    </div>
-                </section>
+                
+                <!-- Modal Controle de Sessão -->
+                <div id="sessionModal" class="session-modal" aria-hidden="true" role="dialog" aria-modal="true"
+                    aria-labelledby="sessionModalTitle">
+                    <div class="session-modal-box" role="document">
+                        <header class="session-modal-header">
+                            <h3 id="sessionModalTitle">Sessão — <span id="modalClientName"></span></h3>
+                            <button id="modalCloseBtn" class="modal-close" aria-label="Fechar">&times;</button>
+                        </header>
 
-                <!-- === CARD CONTROLE DE TEMPO === -->
-                <section id="timeControlCard" class="card time-card" aria-hidden="true" role="dialog"
-                    aria-label="Controle de Tempo - Cronômetro e Sessões">
-                    <div class="time-header">
-                        <div>
-                            <h2>Controle de Tempo • Sessões</h2>
-                            <p class="time-sub">Marque o início e fim de cada sessão — o tempo ficará registrado.</p>
-                        </div>
-                        <div class="time-controls">
-                            <button class="btn-close" aria-label="Fechar controle de tempo">&times;</button>
-                        </div>
-                    </div>
-
-                    <div class="time-body">
-                        <div class="timer-panel" aria-live="polite">
-                            <div class="timer-display" id="timerDisplay" aria-atomic="true">00:00:00</div>
-                            <div class="timer-buttons">
-                                <button id="timeStart" class="btn-punch">Iniciar</button>
-                                <button id="timePause" class="btn-punch" disabled>Pausar</button>
-                                <button id="timeStop" class="btn-punch" disabled>Encerrar</button>
+                        <main class="session-modal-body">
+                            <div class="session-overview">
+                                <div class="timer-display" id="modalTimer">00:00:00</div>
+                                <div class="session-controls">
+                                    <button id="modalStart" class="btn-start">Iniciar</button>
+                                    <button id="modalPause" class="btn-pause" disabled>Pausar</button>
+                                    <button id="modalStop" class="btn-stop" disabled>Encerrar</button>
+                                </div>
+                                <div class="session-total" id="modalTotalRecorded">Total gravado: 00:00:00</div>
                             </div>
-                            <p id="timerStatus" class="status-text">Nenhuma sessão ativa.</p>
-                        </div>
 
-                        <aside class="sessions-history" aria-live="polite">
-                            <h3>Histórico de Sessões</h3>
-                            <div id="sessionsContent">
-                                <p class="empty">Nenhuma sessão registrada.</p>
-                            </div>
-                        </aside>
+                            <section class="session-history-section">
+                                <h4>Histórico</h4>
+                                <div id="modalHistory" class="session-history-list">
+                                    <div class="empty">Nenhuma sessão registrada.</div>
+                                </div>
+                            </section>
+                        </main>
+
+                        <footer class="session-modal-footer">
+                            <button id="modalCloseFooter" class="btn-cancel">Fechar</button>
+                        </footer>
                     </div>
-                </section>
+                    <div class="session-modal-backdrop" tabindex="-1"></div>
+                </div>
 
             </header>
         </main>
