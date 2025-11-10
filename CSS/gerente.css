@@ -619,5 +619,8 @@ body::before {
   opacity: 0.8; /* opcional, para suavizar */
 }
 
+.view { display: none; }
+.view.is-active { display: block; }
+
 
 
