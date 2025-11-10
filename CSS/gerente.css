@@ -645,13 +645,9 @@ body::before {
 }
 
 /* Esconde todas as views por padrão */
-.view {
-  display: none;
-}
+.view { display: none; }
+.view.is-active { display: block; }
 
-.view.is-active {
-  display: block;
-}
 
 #btnBuscar {
   color: #fff !important;
@@ -986,4 +982,3 @@ body::before {
       justify-content: center;
   }
 }
-

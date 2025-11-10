@@ -11,8 +11,11 @@ const viewMap = [
   { keys: ["controle", "login", "ponto"], id: "view-controle-login" },
   { keys: ["equipe", "terapeutas"], id: "view-equipe" },
   { keys: ["relat", "relatórios", "relatorios"], id: "view-relatorio" },
+  { keys: ["posto", "postos", "postos de trabalho"], id: "view-postos-trabalho" }, // 👈 NOVO
   { keys: ["auditoria", "audit"], id: "view-audit" }
 ];
+
+
 
   // utilitário: encontra view por texto do link (label), href ou data-target
   function findTargetId(linkEl) {
