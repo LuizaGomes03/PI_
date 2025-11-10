@@ -556,11 +556,53 @@
                     <div class="atd-head">
                         <h2 id="giftTitle"><i class="fa-solid fa-gift"></i> Gift Card</h2>
                         <div class="muted">Tabela valores Gift Card: <b class="unitName">—</b></div>
+
                         <form id="atdForm" class="atd-form" autocomplete="off">
-                            <div class="field"><label class="sr-only" for="atdCliente">Gift Card</label><input
-                                    type="text" id="atdCliente" placeholder="Gift Card" required></div>
-                            <div class="field"><label class="sr-only" for="atdCel">Valor</label><input type="tel"
-                                    id="atdCel" placeholder="Valor" required></div>
+
+                            <h3>Detalhes do Gift Card</h3>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardServiceId">Serviço</label>
+
+                                <select id="giftCardServiceId" required>
+                                    <option value="" disabled selected>Selecione um Serviço</option>
+                                    <option value="Quick Massage">Quick Massage</option>
+                                    <option value="Maca">Maca</option>
+                                    <option value="Reflexologia">Reflexologia</option>
+                                    <option value="Auriculoterapia">Auriculoterapia</option>
+                                </select>
+                            </div>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardValue">Valor</label>
+                                <input type="number" id="giftCardValue" placeholder="Valor (ex: 100.00)" min="0"
+                                    step="0.01" required>
+                            </div>
+
+                            <h3>Seus Dados (Quem Presenteia)</h3>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardSenderName">Seu Nome</label>
+                                <input type="text" id="giftCardSenderName" placeholder="Seu Nome" required>
+                            </div>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardSenderEmail">Seu Email</label>
+                                <input type="email" id="giftCardSenderEmail" placeholder="Seu Email" required>
+                            </div>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardSenderPhone">Seu Telefone</label>
+                                <input type="tel" id="giftCardSenderPhone" placeholder="Seu Telefone" required>
+                            </div>
+
+                            <h3>Dados do Presenteado (Quem Recebe)</h3>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardRecipientName">Nome do Presenteado</label>
+                                <input type="text" id="giftCardRecipientName" placeholder="Nome do Presenteado"
+                                    required>
+                            </div>
+                            <div class="field">
+                                <label class="sr-only" for="giftCardRecipientEmail">Email do Presenteado</label>
+                                <input type="email" id="giftCardRecipientEmail" placeholder="Email do Presenteado"
+                                    required>
+                            </div>
+
                             <button class="btn atd-add" type="submit"><i class="fa-solid fa-plus"></i>
                                 Adicionar</button>
                         </form>
@@ -569,8 +611,10 @@
                             <table class="table atd-table" id="tblAtendimentos">
                                 <thead>
                                     <tr>
-                                        <th>Gift Card</th>
+                                        <th>Nome (Gift Card)</th>
                                         <th>Valor</th>
+                                        <th>Presenteado</th>
+                                        <th>Email (Presenteado)</th>
                                         <th></th>
                                     </tr>
                                 </thead>
@@ -582,7 +626,6 @@
                             </div>
                         </div>
                     </div>
-            </section>
             </section>
 
             <!-- ========= MENU / AÇÕES DE COLABORADORES ========= -->
