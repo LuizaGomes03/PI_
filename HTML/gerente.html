@@ -98,18 +98,18 @@
         </div>
       </div>
 
-         <!-- POSTOS LIVRES SIDEBAR -->
-       <div class="sb-block" id="postosSidebar">
-                <div class="sb-title">
-                    <i class="fa-solid fa-plug-circle-check"></i> Postos livres (agora)
-                </div>
+      <!-- POSTOS LIVRES SIDEBAR -->
+      <div class="sb-block" id="postosSidebar">
+        <div class="sb-title">
+          <i class="fa-solid fa-plug-circle-check"></i> Postos livres (agora)
+        </div>
 
-                <div class="phone-list" id="postosList">
-                    <!-- itens gerados via JS -->
-                </div>
+        <div class="phone-list" id="postosList">
+          <!-- itens gerados via JS -->
+        </div>
 
-                <small class="help-sm" id="postosStamp">—</small>
-            </div>
+        <small class="help-sm" id="postosStamp">—</small>
+      </div>
 
       <!-- BOTÃO DE LOGOUT -->
       <div class="sb-block logout-block">
@@ -528,8 +528,6 @@
     </div>
   </section>
 
-
-
   </main>
   </div>
 
@@ -546,6 +544,18 @@
   </script>
   <script src="https://app.embed.im/accessibility.js" defer></script>
 
+  <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+  <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+      <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+      <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+      <div class="popup-actions">
+        <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+        <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
 </body>
 
 </html>

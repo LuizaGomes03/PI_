@@ -4,16 +4,16 @@ document.addEventListener("DOMContentLoaded", () => {
   const shortcuts = Array.from(document.querySelectorAll(".shortcut-item"));
 
   // mapa manual de palavras-chave -> id da view
-const viewMap = [
-  { keys: ["início", "inicio", "dash", "dashboard"], id: "view-dashboard" },
-  { keys: ["cliente", "clientes"], id: "view-clientes" },
-  { keys: ["agenda", "agend"], id: "view-agenda" },
-  { keys: ["controle", "login", "ponto"], id: "view-controle-login" },
-  { keys: ["equipe", "terapeutas"], id: "view-equipe" },
-  { keys: ["relat", "relatórios", "relatorios"], id: "view-relatorio" },
-  { keys: ["posto", "postos", "postos de trabalho"], id: "view-postos-trabalho" }, // 👈 NOVO
-  { keys: ["auditoria", "audit"], id: "view-audit" }
-];
+  const viewMap = [
+    { keys: ["início", "inicio", "dash", "dashboard"], id: "view-dashboard" },
+    { keys: ["cliente", "clientes"], id: "view-clientes" },
+    { keys: ["agenda", "agend"], id: "view-agenda" },
+    { keys: ["controle", "login", "ponto"], id: "view-controle-login" },
+    { keys: ["equipe", "terapeutas"], id: "view-equipe" },
+    { keys: ["relat", "relatórios", "relatorios"], id: "view-relatorio" },
+    { keys: ["posto", "postos", "postos de trabalho"], id: "view-postos-trabalho" }, // 👈 NOVO
+    { keys: ["auditoria", "audit"], id: "view-audit" }
+  ];
 
 
 
@@ -152,3 +152,53 @@ const viewMap = [
     s.addEventListener("auxclick", e => e.preventDefault());
   });
 });
+
+// ==== LOGOUT ==== 
+document.addEventListener("DOMContentLoaded", () => {
+  const logoutBtn = document.getElementById("logoutBtn");
+  const popup = document.getElementById("logoutPopup");
+  const confirmBtn = document.getElementById("confirmLogout");
+  const cancelBtn = document.getElementById("cancelLogout");
+
+  if (!logoutBtn || !popup) return;
+
+  // Abre o popup ao clicar no botão de sair
+  logoutBtn.addEventListener("click", () => {
+    popup.classList.add("active");
+    document.body.style.overflow = "hidden"; // bloqueia o scroll de fundo
+  });
+
+  // Fecha o popup ao clicar em "Cancelar"
+  cancelBtn.addEventListener("click", () => {
+    popup.classList.remove("active");
+    document.body.style.overflow = "";
+  });
+
+  // Confirma o logout
+  confirmBtn.addEventListener("click", () => {
+    popup.classList.remove("active");
+    document.body.style.overflow = "";
+    setTimeout(() => {
+      localStorage.clear();
+      sessionStorage.clear();
+      window.location.href = "login.html"; // redireciona para tela de login
+    }, 200);
+  });
+
+  // Fecha o popup se clicar fora da caixa
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) {
+      popup.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+
+  // Fecha com tecla ESC
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape" && popup.classList.contains("active")) {
+      popup.classList.remove("active");
+      document.body.style.overflow = "";
+    }
+  });
+});
+
