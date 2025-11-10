@@ -485,6 +485,37 @@
 
     punchBtn?.addEventListener('click', markPunch);
 
+    async function markPunch() {
+        const colaboradorId = localStorage.getItem("colaborador_id");
+        if (!colaboradorId) {
+            alert("Erro: colaborador não identificado. Faça login novamente.");
+            return;
+        }
+
+        const isEntrada = punchBtn.textContent.includes("Entrada");
+        const endpoint = isEntrada ? "/api/ponto/entrada" : "/api/ponto/saida";
+        const method = isEntrada ? "POST" : "PUT";
+
+        try {
+            const resp = await fetch(endpoint, {
+                method,
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ colaborador_id: colaboradorId })
+            });
+
+            const data = await resp.json();
+            if (!resp.ok) throw new Error(data.error || "Erro ao marcar ponto");
+
+            alert(data.message);
+            punchBtn.textContent = isEntrada ? "Marcar Saída" : "Marcar Entrada";
+            punchStatus.textContent = `${isEntrada ? "Entrada" : "Saída"} registrada às ${new Date().toLocaleTimeString()}`;
+        } catch (err) {
+            console.error(err);
+            alert(err.message || "Erro ao enviar requisição.");
+        }
+    }
+
+
     function openLoginCard() {
         // esconder outros cards
         document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => c.setAttribute('aria-hidden', 'true'));
