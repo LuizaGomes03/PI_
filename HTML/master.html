@@ -302,7 +302,7 @@
             </section>
 
             <!-- MODAL DE CADASTRO DE CLIENTE -->
-            <dialog class="cliOpenCadastro" id="cliModal">
+            <dialog id="cliModal">
                 <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
                     <header class="cli-sheet-head">
                         <strong id="cliCadTitle"><i class="fa-solid fa-id-card"></i> Novo cliente</strong>
@@ -396,12 +396,17 @@
                 </div>
             </dialog>
 
-            <!-- MODAL DE CADASTRO DE CLIENTE -->
-            <dialog class="cliOpenCadastro" id="cliModal">
-                <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
+            <!-- MODAL DE CADASTRO / EDIÇÃO DE CLIENTE -->
+            <dialog id="cliModal">
+                <div class="cli-sheet" role="dialog" aria-labelledby="cliFormTitle">
                     <header class="cli-sheet-head">
-                        <strong id="cliCadTitle"><i class="fa-solid fa-id-card"></i> Novo cliente</strong>
-                        <button class="btn ghost" id="cliClose"><i class="fa-solid fa-xmark"></i></button>
+                        <strong id="cliFormTitle">
+                            <i class="fa-solid fa-id-card"></i>
+                            Cadastrar Cliente
+                        </strong>
+                        <button class="btn ghost" id="cliClose" type="button">
+                            <i class="fa-solid fa-xmark"></i>
+                        </button>
                     </header>
 
                     <form id="cliFormCad">
@@ -438,7 +443,6 @@
                                     </select>
                                 </label>
 
-                                <!-- mini-bloco 'informações para atendimento' (versão resumida) -->
                                 <fieldset class="cli-field cli-full cli-box">
                                     <legend>Informações para atendimento</legend>
                                     <div class="cli-two">
@@ -463,7 +467,7 @@
                                         </label>
 
                                         <label>Histórico de Saúde
-                                            <select id="fCliAlergias">
+                                            <select id="fCliHistorico">
                                                 <option value="">Selecione…</option>
                                                 <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
                                                 <option>Cirurgias recentes (últimos 6 meses)</option>
@@ -481,8 +485,9 @@
                         </div>
 
                         <footer class="cli-sheet-foot">
-                            <button type="submit" class="btn primary">
-                                <i class="fa-solid fa-floppy-disk"></i> Salvar
+                            <button type="submit" class="btn primary" id="cliFormAction">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Cadastrar
                             </button>
                         </footer>
                     </form>
@@ -636,7 +641,7 @@
                             <input type="text" id="colabNome" placeholder="" required>
                         </div>
 
-                         <div class="form-group">
+                        <div class="form-group">
                             <label for="colabEscala">Escala</label>
                             <select id="colabEscala" required>
                                 <option value="">Selecione</option>
@@ -941,7 +946,6 @@
                                 <td>contato@medlife.com</td>
                                 <td><span class="status inativo">Inativo</span></td>
                                 <td>
-                                    <button class="btn-edit"><i class="fa-solid fa-pen"></i> Editar</button>
                                     <button class="btn-remove"><i class="fa-solid fa-trash"></i> Remover</button>
                                 </td>
                             </tr>

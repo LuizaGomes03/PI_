@@ -402,11 +402,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   (function () {
 
+    // === CADASTRO / EDIÇÃO DE CLIENTE ===
     (function () {
       const tbody = document.querySelector('#tblClientes tbody');
       const empty = document.getElementById('cliEmpty');
+      window._clienteEditando = window._clienteEditando || null;
+
 
       let editandoCliente = null; // armazena o cliente em edição
+
 
       function abrirModalCliente(cliente = null) {
         editandoCliente = cliente;
@@ -425,8 +429,7 @@ document.addEventListener('DOMContentLoaded', () => {
           document.getElementById('fCliSexo').value = cliente.sexo || '';
           document.getElementById('fCliObs').value = cliente.observacoes || '';
 
-          // muda o título e o botão
-          document.getElementById('cliFormTitle').textContent = 'Editar Cliente';
+
           document.getElementById('cliFormAction').textContent = 'Salvar alterações';
         } else {
           form.reset();
@@ -470,37 +473,76 @@ document.addEventListener('DOMContentLoaded', () => {
               .join(' / ') || 'Nenhum';
 
             tr.innerHTML = `
-          <td>${cli.nome_cliente}</td>
-          <td>${cli.telefone_cliente || '—'}</td>
-          <td>${cli.email_cliente || '—'}</td>
-          <td>${cli.sexo || '—'}</td>
-          <td>${niver} ${idade ? `<span class="badge-age">${idade} anos</span>` : ''}</td>
-          <td>${cli.primeiro_atendimento ? new Date(cli.primeiro_atendimento).toLocaleDateString('pt-BR') : '—'}</td>
-          <td>${saude}</td>
-          <td>${cli.observacoes || '—'}</td>
-          <td>
-            <button class="btn ghost btn-sm js-edit" data-id="${cli.cliente_id}"><i class="fa-regular fa-pen-to-square"></i> Editar</button>
-            <button class="btn ghost btn-sm js-del" data-id="${cli.cliente_id}"><i class="fa-regular fa-trash-can"></i> Remover</button>
-          </td>
-        `;
+  <td>${cli.nome_cliente}</td>
+  <td>${cli.telefone_cliente || '—'}</td>
+  <td>${cli.email_cliente || '—'}</td>
+  <td>${cli.sexo || '—'}</td>
+  <td>${niver} ${idade ? `<span class="badge-age">${idade} anos</span>` : ''}</td>
+  <td>${cli.primeiro_atendimento ? new Date(cli.primeiro_atendimento).toLocaleDateString('pt-BR') : '—'}</td>
+  <td>${saude}</td>
+  <td>${cli.observacoes || '—'}</td>
+  <td>
+    <button class="btn ghost btn-sm js-edit" data-id="${cli.cliente_id}">
+      <i class="fa-regular fa-pen-to-square"></i> Editar
+    </button>
+    <button class="btn ghost btn-sm js-del" data-id="${cli.cliente_id}">
+      <i class="fa-regular fa-trash-can"></i> Remover
+    </button>
+  </td>
+`;
             tbody.appendChild(tr);
           });
 
-          tbody.querySelectorAll('.js-del').forEach(btn => {
-            btn.addEventListener('click', async () => {
+          // === BOTÃO EDITAR ===
+          tbody.querySelectorAll('.js-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
               const id = btn.dataset.id;
-              if (!confirm('Deseja remover este cliente?')) return;
+              const cliente = data.find(c => c.cliente_id == id);
+
+              if (!cliente) {
+                alert('Cliente não encontrado!');
+                return;
+              }
+
+              // Preenche o modal com os dados do cliente
+              document.getElementById('fCliNome').value = cliente.nome_cliente || '';
+              document.getElementById('fCliFone').value = cliente.telefone_cliente || '';
+              document.getElementById('fCliEmail').value = cliente.email_cliente || '';
+              document.getElementById('fCliNiver').value = cliente.data_nascimento
+                ? cliente.data_nascimento.split('T')[0]
+                : '';
+              document.getElementById('fCliSexo').value = cliente.sexo || '';
+              document.getElementById('fCliObs').value = cliente.observacoes || '';
+
+              // muda o título e o botão
+              document.getElementById('cliFormTitle').textContent = 'Editar Cliente';
+              document.getElementById('cliFormAction').textContent = 'Salvar alterações';
+
+              // guarda o cliente em edição
+              window._clienteEditando = cliente;
+
+              // abre o modal
+              const modal = document.getElementById('cliModal');
               try {
-                const resp = await fetch(`http://localhost:3000/api/clientes/${id}`, { method: 'DELETE' });
-                if (!resp.ok) throw new Error('Erro ao remover');
-                alert('Cliente removido com sucesso!');
-                carregarClientes(unidadeId);
-              } catch (err) {
-                console.error(err);
-                alert('Falha ao remover cliente.');
+                modal.showModal();
+              } catch {
+                modal.classList.add('open');
               }
             });
           });
+          const cliClose = document.getElementById('cliClose');
+          const cliModal = document.getElementById('cliModal');
+
+          if (cliClose && cliModal) {
+            cliClose.addEventListener('click', () => {
+              try {
+                cliModal.close();
+              } catch {
+                cliModal.classList.remove('open');
+              }
+            });
+          }
+
 
           tbody.querySelectorAll('.js-edit').forEach(btn => {
             btn.addEventListener('click', () => {
@@ -556,17 +598,148 @@ document.addEventListener('DOMContentLoaded', () => {
       });
     })();
 
-    // === CADASTRO DE CLIENTE ===
+    // === CADASTRO / EDIÇÃO DE CLIENTE ===
+    (function () {
+      const tbody = document.querySelector('#tblClientes tbody');
+      const empty = document.getElementById('cliEmpty');
+
+      // estado de edição global (usado pelo form fora da IIFE)
+      window._clienteEditando = window._clienteEditando || null;
+
+      const btnNovoCliente = document.getElementById('cliOpenCadastro');
+      btnNovoCliente?.addEventListener('click', (e) => {
+        e.preventDefault();
+        abrirModalCliente();
+      });
+
+      function abrirModalCliente(cliente = null) {
+        window._clienteEditando = cliente;
+
+        const modal = document.getElementById('cliModal');
+        const form = document.getElementById('cliFormCad');
+
+        if (cliente) {
+          document.getElementById('fCliNome').value = cliente.nome_cliente || '';
+          document.getElementById('fCliFone').value = cliente.telefone_cliente || '';
+          document.getElementById('fCliEmail').value = cliente.email_cliente || '';
+          document.getElementById('fCliNiver').value = cliente.data_nascimento ? cliente.data_nascimento.split('T')[0] : '';
+          document.getElementById('fCliSexo').value = cliente.sexo || '';
+          document.getElementById('fCliObs').value = cliente.observacoes || '';
+
+          document.getElementById('cliFormTitle').textContent = 'Editar Cliente';
+          document.getElementById('cliFormAction').textContent = 'Salvar alterações';
+        } else {
+          form?.reset();
+          document.getElementById('cliFormTitle').textContent = 'Cadastrar Cliente';
+          document.getElementById('cliFormAction').textContent = 'Cadastrar';
+        }
+
+        try { modal.showModal(); } catch { modal.classList.add('open'); }
+      }
+
+      function fecharModalCliente() {
+        const modal = document.getElementById('cliModal');
+        try { modal.close(); } catch { modal.classList.remove('open'); }
+        window._clienteEditando = null;
+      }
+
+      async function carregarClientes(unidadeId) {
+        if (!tbody) return;
+        tbody.innerHTML = '<tr><td colspan="8">Carregando...</td></tr>';
+        try {
+          const resp = await fetch(`http://localhost:3000/api/clientes/unidade/${unidadeId}`);
+          const data = await resp.json();
+
+          tbody.innerHTML = '';
+          if (!data.length) {
+            empty.hidden = false;
+            return;
+          }
+          empty.hidden = true;
+
+          data.forEach(cli => {
+            const tr = document.createElement('tr');
+            const niver = cli.data_nascimento
+              ? new Date(cli.data_nascimento).toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit' })
+              : '—';
+            const idade = cli.data_nascimento
+              ? new Date().getFullYear() - new Date(cli.data_nascimento).getFullYear()
+              : '';
+
+            const saude = [cli.condicoes, cli.alergias, cli.historico]
+              .filter(v => v && v !== 'Nenhum')
+              .join(' / ') || 'Nenhum';
+
+            tr.innerHTML = `
+          <td>${cli.nome_cliente}</td>
+          <td>${cli.telefone_cliente || '—'}</td>
+          <td>${cli.email_cliente || '—'}</td>
+          <td>${cli.sexo || '—'}</td>
+          <td>${niver} ${idade ? `<span class="badge-age">${idade} anos</span>` : ''}</td>
+          <td>${cli.primeiro_atendimento ? new Date(cli.primeiro_atendimento).toLocaleDateString('pt-BR') : '—'}</td>
+          <td>${saude}</td>
+          <td>${cli.observacoes || '—'}</td>
+          <td>
+            <button class="btn ghost btn-sm js-edit" data-id="${cli.cliente_id}"><i class="fa-regular fa-pen-to-square"></i> Editar</button>
+            <button class="btn ghost btn-sm js-del" data-id="${cli.cliente_id}"><i class="fa-regular fa-trash-can"></i> Remover</button>
+          </td>
+        `;
+            tbody.appendChild(tr);
+          });
+
+          // remove/editar delegados por query (evita multiposição de listeners)
+          tbody.querySelectorAll('.js-del').forEach(btn => {
+            btn.addEventListener('click', async () => {
+              const id = btn.dataset.id;
+              if (!confirm('Deseja remover este cliente?')) return;
+              try {
+                const resp = await fetch(`http://localhost:3000/api/clientes/${id}`, { method: 'DELETE' });
+                if (!resp.ok) throw new Error('Erro ao remover');
+                alert('Cliente removido com sucesso!');
+                carregarClientes(unidadeId);
+              } catch (err) {
+                console.error(err);
+                alert('Falha ao remover cliente.');
+              }
+            });
+          });
+
+          tbody.querySelectorAll('.js-edit').forEach(btn => {
+            btn.addEventListener('click', () => {
+              const id = btn.dataset.id;
+              const cliente = data.find(c => c.cliente_id == id);
+              if (cliente) abrirModalCliente(cliente);
+            });
+          });
+
+        } catch (err) {
+          console.error('Erro ao carregar clientes:', err);
+          tbody.innerHTML = '<tr><td colspan="8">Erro ao carregar dados.</td></tr>';
+        }
+      }
+
+      // expõe a função para o resto do app
+      window.carregarClientes = carregarClientes;
+
+      // atualiza sempre que trocar unidade
+      document.addEventListener('unit:change', (ev) => {
+        const unidade = ev.detail;
+        if (unidade?.id) {
+          carregarClientes(unidade.id);
+          // carregarAniversariantes existe em escopo superior
+          try { carregarAniversariantes(unidade.id); } catch (e) { }
+        }
+      });
+    })();
+
+    // --- Fora da IIFE: submit único (POST / PUT) ---
     const formCli = document.getElementById('cliFormCad');
     if (formCli) {
       formCli.addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const unidadeAtual = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
-        if (!unidadeAtual?.id) {
-          alert('Selecione uma unidade antes de cadastrar o cliente.');
-          return;
-        }
+        if (!unidadeAtual?.id) return alert('Selecione uma unidade antes de salvar o cliente.');
 
         const payload = {
           nome_cliente: document.getElementById('fCliNome').value.trim(),
@@ -575,12 +748,23 @@ document.addEventListener('DOMContentLoaded', () => {
           data_nascimento: document.getElementById('fCliNiver').value,
           sexo: document.getElementById('fCliSexo').value,
           observacoes: document.getElementById('fCliObs').value.trim(),
-          unidade_id: unidadeAtual.id
+          unidade_id: unidadeAtual.id,
         };
 
+        let url, method, mensagemOk;
+        if (window._clienteEditando && window._clienteEditando.cliente_id) {
+          url = `http://localhost:3000/api/clientes/${window._clienteEditando.cliente_id}`;
+          method = 'PUT';
+          mensagemOk = 'Cliente atualizado com sucesso!';
+        } else {
+          url = 'http://localhost:3000/api/clientes';
+          method = 'POST';
+          mensagemOk = 'Cliente cadastrado com sucesso!';
+        }
+
         try {
-          const resp = await fetch('http://localhost:3000/api/clientes', {
-            method: 'POST',
+          const resp = await fetch(url, {
+            method,
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(payload)
           });
@@ -591,22 +775,21 @@ document.addEventListener('DOMContentLoaded', () => {
           }
 
           const data = await resp.json().catch(() => ({}));
-          alert(data.message || 'Cliente cadastrado com sucesso!');
+          alert(data.message || mensagemOk);
 
+          // fecha modal
           const modal = document.getElementById('cliModal');
-          if (modal) {
-            if (typeof modal.close === 'function') modal.close();
-            else modal.classList.remove('open');
-          }
+          if (modal) { try { modal.close(); } catch { modal.classList.remove('open'); } }
 
-          await new Promise((resolve) => setTimeout(resolve, 300));
-
-          await carregarClientes(unidadeAtual.id);
           formCli.reset();
+          window._clienteEditando = null;
+
+          // recarrega a lista
+          if (unidadeAtual?.id) await window.carregarClientes(unidadeAtual.id);
 
         } catch (err) {
-          console.error('Erro ao cadastrar cliente:', err);
-          alert('Falha ao cadastrar cliente.');
+          console.error('Falha ao salvar cliente:', err);
+          alert('Falha ao salvar cliente.');
         }
       });
     }
@@ -996,60 +1179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 });
 
-// ===== MODAL DE CADASTRO DE CLIENTE =====
-const cliModal = document.getElementById('cliModal');
-const cliOpenBtn = document.getElementById('cliOpenCadastro');
-const cliCloseBtn = document.getElementById('cliClose');
-const cliCancelBtn = document.getElementById('cliCancel');
-const cliFormCad = document.getElementById('cliFormCad');
 
-let unidadeAtual = null;
-
-// mantém unidade atual atualizada
-document.addEventListener('unit:change', (ev) => {
-  unidadeAtual = ev.detail || null;
-});
-try {
-  const last = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || 'null');
-  unidadeAtual = last || null;
-} catch { }
-
-// abrir / fechar modal
-function openCliModal() {
-  if (!cliModal) return;
-  try { cliModal.showModal?.(); } catch { cliModal.classList.add('open'); }
-}
-function closeCliModal() {
-  if (!cliModal) return;
-  try { cliModal.close?.(); } catch { cliModal.classList.remove('open'); }
-}
-
-cliOpenBtn?.addEventListener('click', (e) => {
-  e.preventDefault();
-  openCliModal(); // agora sim
-});
-
-cliCloseBtn?.addEventListener('click', closeCliModal);
-cliCancelBtn?.addEventListener('click', (e) => { e.preventDefault(); closeCliModal(); });
-
-// SUBMIT: envia cliente pro backend
-cliFormCad?.addEventListener('submit', async (e) => {
-  document.getElementById("baixarRelatorio").addEventListener("click", () => {
-    const { jsPDF } = window.jspdf;
-    const doc = new jsPDF();
-
-    doc.text("Relatório - Serviços e Pacotes", 14, 15);
-    doc.autoTable({
-      html: "#tabelaPacotes",
-      startY: 25,
-      theme: "grid",
-      styles: { fontSize: 10, halign: "center" },
-      headStyles: { fillColor: [46, 125, 50] },
-    });
-
-    doc.save("relatorio-pacotes.pdf");
-  });
-});
 document.addEventListener('DOMContentLoaded', () => {
   const yearLabel = document.getElementById('yearLabel');
   const monthsGrid = document.getElementById('monthsGrid');
