@@ -102,6 +102,23 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('hashchange', initialRoute);
   initialRoute();
 
+  // reforça handlers individuais para itens do menu/atalhos caso algum elemento
+  // interno impeça o evento de atingir o listener global (por exemplo, elementos
+  // com layers ou listeners que param a propagação). Esses listeners fazem a
+  // mesma transformação de data-view -> view-id e ativam a view explicitamente.
+  document.querySelectorAll('.shortcut-item, .colab-item, .btn-voltar, [data-view]').forEach(el => {
+    el.addEventListener('click', (ev) => {
+      try {
+        const dv = el.getAttribute('data-view') || el.getAttribute('aria-controls') || (el.getAttribute('href') || '').replace('#','');
+        const target = normToSectionId(dv);
+        if (!target) return;
+        if (!document.getElementById(target)) return;
+        ev.preventDefault();
+        activateView(target);
+      } catch (err) { /* silencioso */ }
+    });
+  });
+
   /* =========================
      LOGOUT POPUP
      ========================= */
