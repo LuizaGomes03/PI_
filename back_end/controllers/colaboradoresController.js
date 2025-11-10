@@ -37,29 +37,36 @@ export const criarColaborador = async (req, res) => {
         return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
     }
 
-    if (!user.toLowerCase().endsWith('@rokuzen.com')) {
+    // valida e-mail certo
+    if (!usuario.toLowerCase().endsWith('@rokuzen.com')) {
         return res.status(400).json({ error: 'Use um e-mail @rokuzen.com para acessar o sistema.' });
     }
 
+    const conn = await db.getConnection();
+    await conn.beginTransaction();
     try {
-        const [result] = await db.query(
+        const [result] = await conn.query(
             `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
-       VALUES (?, ?, ?, ?, 'S')`,
+             VALUES (?, ?, ?, ?, 'S')`,
             [nome_colaborador, tipo_id, usuario, senha]
         );
 
         const colaboradorId = result.insertId;
 
-        // vincula à unidade
-        await db.query(
+        await conn.query(
             `INSERT INTO colab_unidade (colab_id, unidade_id) VALUES (?, ?)`,
             [colaboradorId, unidade_id]
         );
 
+        await conn.commit();
         res.status(201).json({ message: 'Colaborador criado com sucesso!', colaboradorId });
     } catch (err) {
+        await conn.rollback();
         console.error('Erro ao criar colaborador:', err);
-        res.status(500).json({ error: 'Erro ao criar colaborador.' });
+        // Return the error message to assist debugging (can be sanitized later)
+        res.status(500).json({ error: err && err.message ? err.message : 'Erro ao criar colaborador.' });
+    } finally {
+        conn.release();
     }
 };
 

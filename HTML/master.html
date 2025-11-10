@@ -388,103 +388,7 @@
                 </div>
             </dialog>
 
-            <!-- MODAL DE CADASTRO / EDIÇÃO DE CLIENTE -->
-            <dialog id="cliModal">
-                <div class="cli-sheet" role="dialog" aria-labelledby="cliFormTitle">
-                    <header class="cli-sheet-head">
-                        <strong id="cliFormTitle">
-                            <i class="fa-solid fa-id-card"></i>
-                            Cadastrar Cliente
-                        </strong>
-                        <button class="btn ghost" id="cliClose" type="button">
-                            <i class="fa-solid fa-xmark"></i>
-                        </button>
-                    </header>
-
-                    <form id="cliFormCad">
-                        <div class="cli-sheet-body">
-                            <div class="cli-grid">
-                                <label class="cli-field">
-                                    <span class="cli-label">Nome completo</span>
-                                    <input type="text" id="fCliNome" required placeholder="Ex.: Maria Souza" />
-                                </label>
-
-                                <label class="cli-field">
-                                    <span class="cli-label">Telefone / Whats</span>
-                                    <input type="tel" id="fCliFone" required placeholder="(11) 9 9999-9999" />
-                                </label>
-
-                                <label class="cli-field">
-                                    <span class="cli-label">E-mail</span>
-                                    <input type="email" id="fCliEmail" placeholder="nome@exemplo.com" />
-                                </label>
-
-                                <label class="cli-field">
-                                    <span class="cli-label">Data de Nascimento</span>
-                                    <input type="date" id="fCliNiver" required />
-                                </label>
-
-                                <label class="cli-field">
-                                    <span class="cli-label">Sexo</span>
-                                    <select id="fCliSexo">
-                                        <option value="">Selecione…</option>
-                                        <option>Feminino</option>
-                                        <option>Masculino</option>
-                                        <option>Outro</option>
-                                        <option>Prefiro não dizer</option>
-                                    </select>
-                                </label>
-
-                                <fieldset class="cli-field cli-full cli-box">
-                                    <legend>Informações para atendimento</legend>
-                                    <div class="cli-two">
-                                        <label>Condições Médicas
-                                            <select id="fCliCondMed">
-                                                <option value="">Selecione…</option>
-                                                <option>Gravidez</option>
-                                                <option>Trombose</option>
-                                                <option>Gripe</option>
-                                                <option>Câncer</option>
-                                                <option>Alterações de pressão arterial</option>
-                                                <option>Nenhum</option>
-                                            </select>
-                                        </label>
-
-                                        <label>Alergias
-                                            <select id="fCliAlergias">
-                                                <option value="">Selecione…</option>
-                                                <option>Alergia a óleos corporais ou cremes</option>
-                                                <option>Nenhum</option>
-                                            </select>
-                                        </label>
-
-                                        <label>Histórico de Saúde
-                                            <select id="fCliHistorico">
-                                                <option value="">Selecione…</option>
-                                                <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
-                                                <option>Cirurgias recentes (últimos 6 meses)</option>
-                                                <option>Nenhum</option>
-                                            </select>
-                                        </label>
-
-                                        <label class="cli-field cli-full">
-                                            <span class="cli-label">Observações</span>
-                                            <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
-                                        </label>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-
-                        <footer class="cli-sheet-foot">
-                            <button type="submit" class="btn primary" id="cliFormAction">
-                                <i class="fa-solid fa-floppy-disk"></i>
-                                Cadastrar
-                            </button>
-                        </footer>
-                    </form>
-                </div>
-            </dialog>
+            <!-- Second client modal removed (duplicate). Kept the first modal above. -->
 
 
             <!-- ========== TABELA DE PREÇOS ========== -->
@@ -549,7 +453,7 @@
                         <h2 id="giftTitle"><i class="fa-solid fa-gift"></i> Gift Card</h2>
                         <div class="muted">Tabela valores Gift Card: <b class="unitName">—</b></div>
 
-                        <form id="atdForm" class="atd-form" autocomplete="off">
+                        <form id="giftCardForm" class="atd-form" autocomplete="off">
 
                             <h3>Detalhes do Gift Card</h3>
                             <div class="field">
@@ -669,8 +573,7 @@
 
                         <div class="muted">Cadastro e criação automática de e-mail</div>
                     </div>
-
-                    <form id="colabForm" class="form-grid">
+                      <form id="colabForm" class="form-grid">
                         <div class="form-group">
                             <label for="colabNome">Nome Completo</label>
                             <input type="text" id="colabNome" placeholder="" required>
@@ -694,7 +597,6 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="colabFuncao">Função</label>
                             <select id="colabFuncao" required>
                                 <option value="">Selecione</option>
                                 <option value="recepcionista">Recepcionista</option>
@@ -702,6 +604,7 @@
                                 <option value="gerente">Gerente</option>
                                 <option value="master">Master</option>
                             </select>
+
                         </div>
                         <div class="form-group full">
                             <label>E-mail gerado</label>
@@ -2093,7 +1996,7 @@
                 src="https://cdn.jsdelivr.net/npm/jspdf-autotable@3.5.29/dist/jspdf.plugin.autotable.min.js"></script>
 
             <!-- SEU JS -->
-            <script src="script.js"></script>
+            <!-- main JS already included in head: ../JS/master.js -->
 
             <!-- ========== POSTOS DE TRABALHO (não existe) ========== -->
             <!-- ========== POSTOS DE TRABALHO ========== -->
