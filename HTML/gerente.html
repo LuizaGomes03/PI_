@@ -55,7 +55,7 @@
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#controle-login" class="shortcut-item" role="tab" data-view="controle-login" 
+          <a href="#controle-login" class="shortcut-item" role="tab" data-view="controle-login"
             aria-controls="view-controle-login">
             <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
             <span class="shortcut-label">Controle de Login</span>
@@ -73,6 +73,13 @@
             <span class="shortcut-label">Relatórios</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
+
+          <a href="#postos-trabalho" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
+            <span class="shortcut-label">Postos de Trabalho</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
         </nav>
       </div>
 
@@ -90,6 +97,19 @@
               95555-6666</a></div>
         </div>
       </div>
+
+         <!-- POSTOS LIVRES SIDEBAR -->
+       <div class="sb-block" id="postosSidebar">
+                <div class="sb-title">
+                    <i class="fa-solid fa-plug-circle-check"></i> Postos livres (agora)
+                </div>
+
+                <div class="phone-list" id="postosList">
+                    <!-- itens gerados via JS -->
+                </div>
+
+                <small class="help-sm" id="postosStamp">—</small>
+            </div>
 
       <!-- BOTÃO DE LOGOUT -->
       <div class="sb-block logout-block">
@@ -470,19 +490,47 @@
     </section>
 
     <!-- RELATÓRIOS -->
-    <section id="view-relatorio" class="view" aria-labelledby="reportsTitle">
+    <section id="view-relatorio" class="view" aria-labelledby="relatorioTitle">
       <article class="card">
-        <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
-        <div class="row row--gap-sm">
-          <input type="month" id="reportMonth" class="input">
-          <button class="btn" id="btnMakeReport">Gerar Relatório</button>
-        </div>
-        <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
-      </article>
-    </section>
+        <button class="btn" id="btnMakeReport">Gerar Relatório</button>
+  </div>
+  <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
+  </article>
+  </section>
+
+  <!-- POSTOS DE TRABALHO  -->
+  <section id="view-postos-trabalho" class="view" aria-labelledby="postosTitle">
+    <div class="card">
+      <div class="atd-head">
+        <h2 id="postosTitle"><i class="fa-solid fa-briefcase"></i> Postos de Trabalho</h2>
+        <div class="muted">Monitoramento em tempo real das unidades.</div>
+      </div>
+
+      <!-- tabela -->
+      <div class="atd-table-wrap">
+        <table class="table" id="tblPostos">
+          <thead>
+            <tr>
+              <th>Unidade</th>
+              <th>Tipo</th>
+              <th>Total</th>
+              <th>Ocupados</th>
+              <th>Livres</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+        <p id="postosEmpty" class="muted" style="text-align:center; padding:16px;">Sem dados
+          disponíveis.</p>
+      </div>
+
+      <small class="help-sm" id="postosStamp">—</small>
+    </div>
+  </section>
 
 
-    </main>
+
+  </main>
   </div>
 
   <div vw class="enabled">
