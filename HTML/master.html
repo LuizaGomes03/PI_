@@ -293,12 +293,16 @@
                     </div>
                 </div>
             </section>
-            <!-- MODAL DE CADASTRO DE CLIENTE -->
+
+            <!-- MODAL DE CADASTRO / EDIÇÃO DE CLIENTE -->
             <dialog id="cliModal">
-                <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
+                <div class="cli-sheet" role="dialog" aria-labelledby="cliFormTitle">
                     <header class="cli-sheet-head">
-                        <strong id="cliCadTitle"><i class="fa-solid fa-id-card"></i> Novo cliente</strong>
-                        <button class="btn ghost" id="cliClose">
+                        <strong id="cliFormTitle">
+                            <i class="fa-solid fa-id-card"></i>
+                            Cadastrar Cliente
+                        </strong>
+                        <button class="btn ghost" id="cliClose" type="button">
                             <i class="fa-solid fa-xmark"></i>
                         </button>
                     </header>
@@ -337,7 +341,6 @@
                                     </select>
                                 </label>
 
-                                <!-- mini-bloco 'informações para atendimento' -->
                                 <fieldset class="cli-field cli-full cli-box">
                                     <legend>Informações para atendimento</legend>
                                     <div class="cli-two">
@@ -380,15 +383,14 @@
                         </div>
 
                         <footer class="cli-sheet-foot">
-                            <button type="submit" class="btn primary">
-                                <i class="fa-solid fa-floppy-disk"></i> Salvar
+                            <button type="submit" class="btn primary" id="cliFormAction">
+                                <i class="fa-solid fa-floppy-disk"></i>
+                                Cadastrar
                             </button>
                         </footer>
                     </form>
                 </div>
             </dialog>
-
-            <!-- Second client modal removed (duplicate). Kept the first modal above. -->
 
 
             <!-- ========== TABELA DE PREÇOS ========== -->
@@ -573,7 +575,7 @@
 
                         <div class="muted">Cadastro e criação automática de e-mail</div>
                     </div>
-                      <form id="colabForm" class="form-grid">
+                    <form id="colabForm" class="form-grid">
                         <div class="form-group">
                             <label for="colabNome">Nome Completo</label>
                             <input type="text" id="colabNome" placeholder="" required>
