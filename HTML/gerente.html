@@ -18,9 +18,7 @@
   </video>
 
   <div class="app-shell">
-    <!-- ===== SIDEBAR ===== -->
-   <aside class="sidebar">
-    <!-- Perfil + Pontos -->
+    <aside class="sidebar">
     <div class="sb-block" style="display:flex;align-items:center;gap:12px">
       <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
         alt="avatar"
@@ -31,44 +29,48 @@
       </div>
     </div>
     
-    <!-- ATALHOS -->
-    <div class="sb-block shortcuts">
-     <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
-     <nav class="shortcut-list" aria-label="Atalhos rápidos">
+    <div class="sb-block side-nav">
+      <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+      <nav class="shortcut-list" aria-label="Navegação Principal">
+        
+        <button class="nav-btn shortcut-item" data-view="dashboard">
+          <span class="shortcut-icon"><i class="fa-solid fa-house-chimney"></i></span>
+          <span class="shortcut-label">Início (Dashboard)</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
+
+        <button class="nav-btn shortcut-item" data-view="clients">
+          <span class="shortcut-icon"><i class="fa-solid fa-user"></i></span>
+          <span class="shortcut-label">Clientes</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
   
-       <a href="Clientes" class="shortcut-item">
-         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
-         <span class="shortcut-label">Clientes</span>
-         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-       </a>
+        <button class="nav-btn shortcut-item" data-view="agenda">
+          <span class="shortcut-icon"><i class="fa-regular fa-calendar-check"></i></span>
+          <span class="shortcut-label">Agenda</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
   
-       <a href="#agenda" class="shortcut-item">
-         <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
-         <span class="shortcut-label">Agenda</span>
-         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-       </a>
+        <button class="nav-btn shortcut-item" data-view="attendance">
+          <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+          <span class="shortcut-label">Controle Login</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
   
-       <a href="Ponto" class="shortcut-item">
-         <span class="shortcut-icon"><i class="fa-solid fa-calendar-days"></i></span>
-         <span class="shortcut-label">Controle Login</span>
-         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-       </a>
+        <button class="nav-btn shortcut-item" data-view="employees">
+          <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
+          <span class="shortcut-label">Equipe</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
   
-       <a href="Equipe" class="shortcut-item">
-         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
-         <span class="shortcut-label">Equipe</span>
-         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-       </a>
+        <button class="nav-btn shortcut-item" data-view="reports">
+          <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
+          <span class="shortcut-label">Relatórios</span>
+          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+        </button>
   
-       <a href="Relatórios" class="shortcut-item">
-         <span class="shortcut-icon"><i class="fa-solid fa-calendar-check"></i></span>
-         <span class="shortcut-label">Relatórios</span>
-         <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-       </a>
-  
-     </nav>
-   </div>
-    <!-- Telefones -->
+      </nav>
+    </div>
     <div class="sb-block">
       <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
       <div class="phone-list">
@@ -83,7 +85,6 @@
       </div>
     </div>
 
-    <!-- BOTÃO DE LOGOUT -->
     <div class="sb-block logout-block">
       <button id="logoutBtn" class="btn-logout">
         <i class="fa-solid fa-right-from-bracket"></i>
@@ -94,9 +95,6 @@
     <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
   </aside>
 
-
-
-    <!-- ===== MAIN ===== -->
     <main class="main-content">
       <header class="page-head">
         <div class="page-head__row">
@@ -108,7 +106,6 @@
         </div>
       </header>
 
-      <!-- ===== RESUMO ===== -->
       <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
         <div class="cards-grid">
           <article class="card">
@@ -155,7 +152,6 @@
         </div>
       </section>
 
-      <!-- ===== CLIENTES ===== -->
       <section id="view-clients" class="view" aria-labelledby="clientsTitle">
         <article class="card">
           <h2 class="card__title" id="clientsTitle"><i class="fa-solid fa-user"></i> Clientes</h2>
@@ -181,7 +177,6 @@
         </article>
       </section>
 
-      <!-- ===== AGENDA ===== -->
       <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
         <article class="card">
           <h2 class="card__title" id="agendaTitle"><i class="fa-regular fa-calendar"></i> Agenda</h2>
@@ -205,10 +200,9 @@
         </article>
       </section>
 
-      <!-- ===== PONTO ===== -->
-      <section id="view-attendance" class="view" aria-labelledby="pontoTitle">
+      <section id="view-attendance" class="view" aria-labelledby="controleloginTitle">
         <article class="card">
-          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Ponto
+          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle Login
             (Recepção)</h2>
           <div class="row row--gap-sm">
             <select id="filterEmp" class="input"></select>
@@ -216,7 +210,7 @@
             <button class="btn btn--ghost" id="btnToday">Hoje</button>
             <button class="btn" id="btnNewEntry"><i class="fa-solid fa-plus"></i> Lançar manual</button>
           </div>
-          <table class="table" id="tblPonto">
+          <table class="table" id="tblControleLogin">
             <thead class="table__head">
               <tr>
                 <th>Quando</th>
@@ -231,7 +225,6 @@
         </article>
       </section>
 
-      <!-- ===== EQUIPE ===== -->
       <section id="view-employees" class="view" aria-labelledby="empTitle">
         <article class="card">
           <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
@@ -261,7 +254,6 @@
         </article>
       </section>
 
-      <!-- ===== RELATÓRIOS ===== -->
       <section id="view-reports" class="view" aria-labelledby="reportsTitle">
         <article class="card">
           <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
@@ -273,7 +265,6 @@
         </article>
       </section>
 
-      <!-- ===== AUDITORIA ===== -->
       <section id="view-audit" class="view" aria-labelledby="auditTitle">
         <article class="card">
           <h2 class="card__title" id="auditTitle"><i class="fa-solid fa-calculator"></i> Auditoria</h2>
@@ -311,7 +302,6 @@
     </main>
   </div>
 
-  <!-- VLibras - Acessibilidade em Libras -->
   <div vw class="enabled">
     <div vw-access-button class="active"></div>
     <div vw-plugin-wrapper>
@@ -325,4 +315,5 @@
   </script>
   <script src="https://app.embed.im/accessibility.js" defer></script>
 
-   
+</body>
+</html>

@@ -61,10 +61,12 @@ const state = {
 
 /* ===== Navigation (sidebar) ===== */
 function setupSideNav() {
+  // O seletor agora vai encontrar os botões/atalhos que você acabou de adicionar.
   const buttons = $$('.side-nav .nav-btn');
   const views = $$('.view');
   const setActive = (viewId) => {
     views.forEach(v => v.classList.toggle('is-active', v.id === viewId));
+    // Correção: A classe 'is-active' deve ser aplicada ao 'shortcut-item' (o próprio botão)
     buttons.forEach(b => b.classList.toggle('is-active', 'view-' + b.dataset.view === viewId));
     localStorage.setItem('gerente.activeView', viewId);
     state.activeView = viewId;
@@ -219,7 +221,7 @@ function renderAttendance() {
   };
   $('#btnToday')?.addEventListener('click', () => { if (dateInput) { dateInput.value = todayISO(); draw(); } });
   $('#btnNewEntry')?.addEventListener('click', () => {
-    
+
   });
   $('#filterEmp')?.addEventListener('change', draw);
   $('#filterDate')?.addEventListener('change', draw);
