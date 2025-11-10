@@ -1,9 +1,23 @@
- document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", () => {
   const servicesScreen = document.querySelector(".services-screen");
   const calendarScreen = document.querySelector("#calendar-screen");
   const agendamentoShortcut = document.querySelector('a[href="#atendimentos"]');
   const calendarGrid = document.getElementById("calendarGrid");
   const monthYear = document.getElementById("monthYear");
+
+  const servicesShortcut = document.getElementById('shortcut-servicos-novos') || document.querySelector('a[href="#servicos-novos"]');
+
+  servicesShortcut.addEventListener('click', (e) => {
+    e.preventDefault();
+    // mostra serviços
+    servicesScreen.classList.remove('hidden');
+    servicesScreen.style.display = ''; // limpa possível inline
+
+    // oculta as outras telas (se existirem)
+    if (calendarScreen) calendarScreen.classList.add('hidden');
+    if (postsScreen) postsScreen.classList.add('hidden');
+  });
+
 
   // ===== POSTS (criar, editar, remover + exemplos) =====
   const postsScreen = document.querySelector("#posts-screen");
