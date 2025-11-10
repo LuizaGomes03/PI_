@@ -1,10 +1,5 @@
-/* =========================
-   Rokuzen • Gerente (CSS)
-   Acessível, responsivo e leve
-========================= */
-
 :root {
-  --brand: #9DB668;          /* verde Rokuzen */
+  --brand: #9DB668;
   --brand-600: #7D9950;
   --bg: #000;
   --text: #fff;
@@ -19,8 +14,17 @@
   --space: 10px;
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  height: 100%;
+}
+
 body {
   font-family: Inter, system-ui, Arial, sans-serif;
   color: var(--text);
@@ -38,6 +42,7 @@ body {
   z-index: -1;
   pointer-events: none;
 }
+
 body::before {
   content: "";
   position: fixed;
@@ -47,21 +52,14 @@ body::before {
   background: linear-gradient(to bottom, rgba(0, 0, 0, .25), rgba(0, 0, 0, .45));
 }
 
-/* ===== Layout ===== */
-.app-shell {
+/* App layout */
+.app {
   position: relative;
   z-index: 2;
   display: grid;
   grid-template-columns: var(--sidew) 1fr;
   min-height: 100dvh;
 }
-.side-nav {
-  backdrop-filter: blur(10px);
-  background: linear-gradient(180deg, rgba(0, 0, 0, .55), rgba(0, 0, 0, .35));
-  border-right: 1px solid rgba(255, 255, 255, .08);
-  padding: 18px;
-}
-.main-content { padding: 26px; }
 
 /* Sidebar */
 .sidebar {
@@ -387,11 +385,13 @@ body::before {
   margin-bottom: 8px;
   transition: transform .14s ease, background .2s ease, box-shadow .2s ease;
 }
+
 .nav-btn:hover,
 .nav-btn:focus-visible {
   background: rgba(255, 255, 255, .12);
   transform: translateY(-1px);
 }
+
 .nav-btn.is-active {
   background: rgba(255, 255, 255, .16);
   box-shadow: 0 0 0 2px rgba(157, 182, 104, .45) inset, 0 6px 16px rgba(0, 0, 0, .25);
@@ -405,7 +405,10 @@ body::before {
   gap: 16px;
   margin-bottom: 16px;
 }
-.brand-logo { height: 52px; }
+
+.brand-logo {
+  height: 52px;
+}
 
 /* ===== Chips / badge ===== */
 .chip {
@@ -418,7 +421,10 @@ body::before {
   background: rgba(255, 255, 255, .08);
   font-size: 12px;
 }
-.text--muted { color: var(--muted); }
+
+.text--muted {
+  color: var(--muted);
+}
 
 /* ===== Cards / grids ===== */
 .cards-grid {
@@ -426,6 +432,7 @@ body::before {
   grid-template-columns: 1.2fr .8fr;
   gap: 16px;
 }
+
 .card {
   background: var(--card-bg);
   border: 1px solid var(--card-bd);
@@ -434,6 +441,7 @@ body::before {
   backdrop-filter: blur(8px);
   box-shadow: var(--shadow);
 }
+
 .card__title {
   display: flex;
   gap: 8px;
@@ -442,6 +450,7 @@ body::before {
   font-family: "Amatic SC", system-ui;
   font-size: 32px;
 }
+
 .side-card__title {
   font-weight: 700;
   margin-bottom: 10px;
@@ -451,12 +460,30 @@ body::before {
 }
 
 /* ===== Layout helpers ===== */
-.grid { display: grid; gap: 16px; }
-.grid--2 { grid-template-columns: 1fr 1fr; }
-.grid__col--2 { grid-column: 1 / -1; }
+.grid {
+  display: grid;
+  gap: 16px;
+}
 
-.row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
-.row--gap-sm { gap: 8px; margin-bottom: 10px; }
+.grid--2 {
+  grid-template-columns: 1fr 1fr;
+}
+
+.grid__col--2 {
+  grid-column: 1 / -1;
+}
+
+.row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.row--gap-sm {
+  gap: 8px;
+  margin-bottom: 10px;
+}
 
 /* ===== Inputs / Buttons ===== */
 .input {
@@ -467,11 +494,13 @@ body::before {
   border-radius: var(--radius);
   transition: border-color .2s, box-shadow .2s;
 }
+
 .input:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 3px;
   box-shadow: 0 0 0 3px rgba(157, 182, 104, .35);
 }
+
 .btn {
   --bg: rgba(255, 255, 255, .10);
   --bd: rgba(255, 255, 255, .20);
@@ -483,8 +512,17 @@ body::before {
   cursor: pointer;
   transition: background .2s, transform .15s;
 }
-.btn:hover { background: rgba(255, 255, 255, .16); transform: translateY(-1px); }
-.btn--ghost { --bg: rgba(255, 255, 255, .06); --bd: rgba(255, 255, 255, .12); }
+
+.btn:hover {
+  background: rgba(255, 255, 255, .16);
+  transform: translateY(-1px);
+}
+
+.btn--ghost {
+  --bg: rgba(255, 255, 255, .06);
+  --bd: rgba(255, 255, 255, .12);
+}
+
 .btn:focus-visible {
   outline: 2px solid var(--brand);
   outline-offset: 3px;
@@ -501,20 +539,32 @@ body::before {
   overflow-x: auto;
   white-space: nowrap;
 }
+
 .table__head th {
   font-weight: 600;
   text-align: left;
   opacity: .9;
   padding: 6px 8px;
 }
+
 .table__body td {
   background: rgba(0, 0, 0, .25);
   border: 1px solid rgba(255, 255, 255, .12);
   padding: 10px 8px;
 }
-.table__body tr td:first-child { border-radius: 10px 0 0 10px; }
-.table__body tr td:last-child { border-radius: 0 10px 10px 0; }
-.table__body tr:hover { background: rgba(255, 255, 255, .05); }
+
+.table__body tr td:first-child {
+  border-radius: 10px 0 0 10px;
+}
+
+.table__body tr td:last-child {
+  border-radius: 0 10px 10px 0;
+}
+
+.table__body tr:hover {
+  background: rgba(255, 255, 255, .05);
+}
+
 .table .empty {
   text-align: center;
   opacity: .8;
@@ -529,6 +579,7 @@ body::before {
   flex-wrap: wrap;
   margin: 8px 0 12px;
 }
+
 .tabs__tab {
   padding: 8px 12px;
   border-radius: 999px;
@@ -540,52 +591,96 @@ body::before {
   align-items: center;
   gap: 8px;
 }
+
 .tabs__tab:hover,
 .tabs__tab:focus-visible {
   background: rgba(255, 255, 255, .12);
 }
+
 .tabs__tab.is-active {
   background: rgba(255, 255, 255, .18);
   box-shadow: 0 0 0 2px rgba(157, 182, 104, .45) inset;
 }
-.tabs__panel { display: none; }
-.tabs__panel.is-active { display: block; }
+
+.tabs__panel {
+  display: none;
+}
+
+.tabs__panel.is-active {
+  display: block;
+}
 
 /* ===== Fields ===== */
-.field { display: flex; flex-direction: column; gap: 6px; }
-.field__label { opacity: .9; font-size: .95rem; }
-.actions { display: flex; gap: 10px; }
-.actions--end { justify-content: flex-end; }
+.field {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.field__label {
+  opacity: .9;
+  font-size: .95rem;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+}
+
+.actions--end {
+  justify-content: flex-end;
+}
 
 /* ===== Utilities ===== */
 .sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
 }
 
 /* Esconde todas as views por padrão */
-.view { display: none; }
-.view.is-active { display: block; }
-
-#btnBuscar {
-  color: #fff !important; /* mantém o texto branco */
+.view {
+  display: none;
 }
 
-.input{
-  background: rgba(255,255,255,.08);
-  border:1px solid rgba(255,255,255,.2);
-  color: #fff;  /* cor do texto */
+.view.is-active {
+  display: block;
+}
+
+#btnBuscar {
+  color: #fff !important;
+  /* mantém o texto branco */
+}
+
+.input {
+  background: rgba(255, 255, 255, .08);
+  border: 1px solid rgba(255, 255, 255, .2);
+  color: #fff;
+  /* cor do texto */
   padding: 8px 10px;
   border-radius: 10px;
 }
+
 /* Placeholder branco */
 #searchClient::placeholder {
   color: #fff;
-  opacity: 0.8; /* opcional, para suavizar */
+  opacity: 0.8;
+  /* opcional, para suavizar */
 }
 
-.view { display: none; }
-.view.is-active { display: block; }
+.view {
+  display: none;
+}
+
+.view.is-active {
+  display: block;
+}
 
 /* Responsividade */
 @media (max-width: 1024px) {
@@ -815,5 +910,80 @@ body::before {
   }
 }
 
+/* CLIENTES  */
+/* ===== CABEÇALHO GERAL ===== */
+#view-clientes .atd-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* título à esquerda, botão à direita */
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
 
+/* ===== BLOCO ESQUERDO (título + subtítulo) ===== */
+#view-clientes .atd-head-left {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+#view-clientes .atd-head-left h2 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #fff;
+}
+
+#view-clientes .atd-head-left h2 i {
+  color: var(--green); /* verdinho igual o restante do painel */
+}
+
+#view-clientes .atd-head-left .muted {
+  color: #cbd5e1;
+  font-size: 0.9rem;
+}
+
+/* ===== BOTÃO DE CADASTRAR CLIENTE ===== */
+#view-clientes .btn-add {
+  margin-left: auto;
+  background: linear-gradient(180deg, #3b82f6, #2563eb);
+  border: none;
+  border-radius: 12px;
+  color: #fff;
+  font-weight: 700;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: 0.15s ease;
+  white-space: nowrap;
+}
+
+#view-clientes .btn-add i {
+  font-size: 0.9rem;
+}
+
+#view-clientes .btn-add:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.4);
+}
+
+/* ===== RESPONSIVO ===== */
+@media (max-width: 768px) {
+  #view-clientes .atd-head {
+      flex-direction: column;
+      align-items: stretch;
+  }
+
+  #view-clientes .btn-add {
+      width: 100%;
+      justify-content: center;
+  }
+}
 

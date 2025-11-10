@@ -17,174 +17,121 @@
     <source src="../video/13294237-hd_1920_1080_25fps.mp4" type="video/mp4">
   </video>
 
-  <div class="app-shell">
+  <div class="app">
+    <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar">
-    <div class="sb-block" style="display:flex;align-items:center;gap:12px">
-      <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
-        alt="avatar"
-        style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
-      <div>
-        <div style="font-weight:700">Olá, <span id="userName">Gerente</span> 👋</div>
-        <div class="chip"><i class="fa-solid fa-star"></i> Pontos: <strong id="pts">1280</strong></div>
-      </div>
-    </div>
-    
-    <div class="sb-block side-nav">
-      <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
-      <nav class="shortcut-list" aria-label="Navegação Principal">
-        
-        <button class="nav-btn shortcut-item" data-view="dashboard">
-          <span class="shortcut-icon"><i class="fa-solid fa-house-chimney"></i></span>
-          <span class="shortcut-label">Início (Dashboard)</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-
-        <button class="nav-btn shortcut-item" data-view="clients">
-          <span class="shortcut-icon"><i class="fa-solid fa-user"></i></span>
-          <span class="shortcut-label">Clientes</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-  
-        <button class="nav-btn shortcut-item" data-view="agenda">
-          <span class="shortcut-icon"><i class="fa-regular fa-calendar-check"></i></span>
-          <span class="shortcut-label">Agenda</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-  
-        <button class="nav-btn shortcut-item" data-view="attendance">
-          <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
-          <span class="shortcut-label">Controle Login</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-  
-        <button class="nav-btn shortcut-item" data-view="employees">
-          <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
-          <span class="shortcut-label">Equipe</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-  
-        <button class="nav-btn shortcut-item" data-view="reports">
-          <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
-          <span class="shortcut-label">Relatórios</span>
-          <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
-        </button>
-  
-      </nav>
-    </div>
-    <div class="sb-block">
-      <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
-      <div class="phone-list">
-        <div class="phone"><span><i class="fa-solid fa-shield-heart"></i> Segurança</span><a
-            href="tel:11900000000">(11) 90000-0000</a></div>
-        <div class="phone"><span><i class="fa-solid fa-kit-medical"></i> Ambulatório</span><a
-            href="tel:11911112222">(11) 91111-2222</a></div>
-        <div class="phone"><span><i class="fa-solid fa-fire-extinguisher"></i> Brigada</span><a
-            href="tel:11933334444">(11) 93333-4444</a></div>
-        <div class="phone"><span><i class="fa-solid fa-user-group"></i> RH</span><a href="tel:11955556666">(11)
-            95555-6666</a></div>
-      </div>
-    </div>
-
-    <div class="sb-block logout-block">
-      <button id="logoutBtn" class="btn-logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <span>Sair da Conta</span>
-      </button>
-    </div>
-
-    <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
-  </aside>
-
-    <main class="main-content">
-      <header class="page-head">
-        <div class="page-head__row">
-          <img src="../imagens/logo.png" class="brand-logo" alt="Rokuzen">
+      <!-- Perfil + Pontos -->
+      <div class="sb-block" style="display:flex;align-items:center;gap:12px">
+        <img src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?q=80&w=120&auto=format&fit=crop"
+          alt="avatar"
+          style="width:56px;height:56px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.4)">
+        <div>
+          <div style="font-weight:700">Olá, <span id="userName">Massagista</span> 👋</div>
+          <div class="chip"><i class="fa-solid fa-star"></i> Pontos: <strong id="pts">1280</strong></div>
         </div>
-        <div class="page-head__row">
-          <div class="chip"><i class="fa-solid fa-location-dot" aria-hidden="true"></i> <span
-              id="currentUnitName">—</span></div>
-        </div>
-      </header>
+      </div>
 
-      <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
-        <div class="cards-grid">
-          <article class="card">
-            <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do
-              Dia (unidade)</h2>
-            <div class="grid grid--2">
-              <div class="side-card">
-                <div class="side-card__title">Atendimentos</div>
-                <div class="row">
-                  <div class="chip"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b></div>
-                  <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
-                      id="kpiActiveTherapists">0</b></div>
-                </div>
+      <!-- ATALHOS -->
+      <div class="sb-block shortcuts">
+        <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
+        <nav class="shortcut-list" aria-label="Atalhos rápidos">
+
+          <a href="#atendimentos" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-house-chimney"></i></span>
+            <span class="shortcut-label">Início (Dashboards)</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#clientes" class="shortcut-item" role="tab" data-view="clientes" aria-controls="view-clientes"
+            aria-selected="false">
+            <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
+            <span class="shortcut-label">Clientes</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#atendimentos" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-regular fa-calendar-check"></i></span>
+            <span class="shortcut-label">Agenda</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#controle-login" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
+            <span class="shortcut-label">Controle de Login</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#controle-login" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
+            <span class="shortcut-label">Equipe</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+
+          <a href="#controle-login" class="shortcut-item">
+            <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
+            <span class="shortcut-label">Relatórios</span>
+            <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
+          </a>
+        </nav>
+      </div>
+
+      <!-- Telefones -->
+      <div class="sb-block">
+        <div class="sb-title"><i class="fa-solid fa-phone-volume"></i> Telefones</div>
+        <div class="phone-list">
+          <div class="phone"><span><i class="fa-solid fa-shield-heart"></i> Segurança</span><a
+              href="tel:11900000000">(11) 90000-0000</a></div>
+          <div class="phone"><span><i class="fa-solid fa-kit-medical"></i> Ambulatório</span><a
+              href="tel:11911112222">(11) 91111-2222</a></div>
+          <div class="phone"><span><i class="fa-solid fa-fire-extinguisher"></i> Brigada</span><a
+              href="tel:11933334444">(11) 93333-4444</a></div>
+          <div class="phone"><span><i class="fa-solid fa-user-group"></i> RH</span><a href="tel:11955556666">(11)
+              95555-6666</a></div>
+        </div>
+      </div>
+
+      <!-- BOTÃO DE LOGOUT -->
+      <div class="sb-block logout-block">
+        <button id="logoutBtn" class="btn-logout">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          <span>Sair da Conta</span>
+        </button>
+      </div>
+
+      <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
+    </aside>
+
+    <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
+      <div class="cards-grid">
+        <article class="card">
+          <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do
+            Dia (unidade)</h2>
+          <div class="grid grid--2">
+            <div class="side-card">
+              <div class="side-card__title">Atendimentos</div>
+              <div class="row">
+                <div class="chip"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b></div>
+                <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
+                    id="kpiActiveTherapists">0</b></div>
               </div>
-              <div class="side-card">
-                <div class="side-card__title">Ponto</div>
-                <div class="row">
-                  <div class="chip"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b></div>
-                  <div class="chip"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b></div>
-                  <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b>
-                  </div>
+            </div>
+            <div class="side-card">
+              <div class="side-card__title">Ponto</div>
+              <div class="row">
+                <div class="chip"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b></div>
+                <div class="chip"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b></div>
+                <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b>
                 </div>
               </div>
             </div>
-          </article>
-
-          <article class="card">
-            <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos
-            </h2>
-            <table class="table" id="tblNextAppts">
-              <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
-              <thead class="table__head">
-                <tr>
-                  <th>Hora</th>
-                  <th>Cliente</th>
-                  <th>Serviço</th>
-                  <th>Terapeuta</th>
-                  <th>Sala</th>
-                </tr>
-              </thead>
-              <tbody class="table__body"></tbody>
-            </table>
-          </article>
-        </div>
-      </section>
-
-      <section id="view-clients" class="view" aria-labelledby="clientsTitle">
-        <article class="card">
-          <h2 class="card__title" id="clientsTitle"><i class="fa-solid fa-user"></i> Clientes</h2>
-          <div class="row row--gap-sm">
-            <input type="search" id="searchClient" class="input" placeholder="Buscar cliente...">
-            <div class="row row--gap-sm">
-              <button id="btnNewClient" class="btn btn-add">
-                <i class="fa-solid fa-user-plus"></i> Novo Cliente
-              </button>
-            </div>            
           </div>
-          <table class="table" id="tblClients">
-            <thead class="table__head">
-              <tr>
-                <th>Nome</th>
-                <th>WhatsApp</th>
-                <th>E-mail</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody class="table__body"></tbody>
-          </table>
         </article>
-      </section>
 
-      <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
         <article class="card">
-          <h2 class="card__title" id="agendaTitle"><i class="fa-regular fa-calendar"></i> Agenda</h2>
-          <div class="row row--gap-sm">
-            <input type="date" id="agendaDate" class="input">
-            <button class="btn" id="btnNewAppt"><i class="fa-solid fa-plus"></i> Agendar</button>
-          </div>
-          <table class="table" id="tblAgenda">
+          <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos
+          </h2>
+          <table class="table" id="tblNextAppts">
+            <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
             <thead class="table__head">
               <tr>
                 <th>Hora</th>
@@ -192,112 +139,374 @@
                 <th>Serviço</th>
                 <th>Terapeuta</th>
                 <th>Sala</th>
-                <th></th>
               </tr>
             </thead>
             <tbody class="table__body"></tbody>
           </table>
         </article>
-      </section>
+      </div>
+    </section>
 
-      <section id="view-attendance" class="view" aria-labelledby="controleloginTitle">
-        <article class="card">
-          <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle Login
-            (Recepção)</h2>
-          <div class="row row--gap-sm">
-            <select id="filterEmp" class="input"></select>
-            <input type="date" id="filterDate" class="input">
-            <button class="btn btn--ghost" id="btnToday">Hoje</button>
-            <button class="btn" id="btnNewEntry"><i class="fa-solid fa-plus"></i> Lançar manual</button>
+    <!-- ========== CLIENTES ========== -->
+    <section id="view-clientes" class="view" aria-labelledby="cliTitle">
+      <div class="atd card">
+        <div class="atd-head">
+          <h2 id="cliTitle"><i class="fa-solid fa-user-group"></i> Clientes</h2>
+          <div class="muted">
+            Cadastre e visualize clientes da unidade: <b class="unitName">—</b>
           </div>
-          <table class="table" id="tblControleLogin">
-            <thead class="table__head">
-              <tr>
-                <th>Quando</th>
-                <th>Quem</th>
-                <th>Ação</th>
-                <th>Origem</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody class="table__body"></tbody>
-          </table>
-        </article>
-      </section>
 
-      <section id="view-employees" class="view" aria-labelledby="empTitle">
-        <article class="card">
-          <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
-          <div class="row row--gap-sm">
-            <button class="btn" id="btnAddEmp"><i class="fa-solid fa-user-plus"></i> Adicionar</button>
+          <!-- novo botão -->
+          <button id="cliOpenCadastro" class="btn primary">
+            <i class="fa-solid fa-plus"></i> Cadastrar cliente
+          </button>
+        </div>
 
-            <select id="roleFilter" class="input">
-              <option value="">Todos os papéis</option>
-              <option value="massagista">Massagista</option>
-              <option value="recepcao">Recepção</option>
-              <option value="admin">Admin</option>
-            </select>
-          </div>
-          <table class="table" id="tblEmployees">
-            <thead class="table__head">
+        <!-- Barra de aniversariantes do dia -->
+        <div id="bdayBar" class="birthday-bar" hidden>
+          <i class="fa-solid fa-cake-candles"></i>
+          <span id="bdayMsg">Aniversariantes de hoje: —</span>
+          <button id="bdayNotifyAll" class="btn ghost btn-sm">
+            <i class="fa-regular fa-bell"></i> Notificar
+          </button>
+        </div>
+
+        <!-- Tabela -->
+        <div class="atd-table-wrap">
+          <table class="table atd-table" id="tblClientes">
+            <thead>
               <tr>
                 <th>Nome</th>
-                <th>Papel</th>
-                <th>Unidade</th>
-                <th>Telefone</th>
-                <th>Status</th>
+                <th>Celular</th>
+                <th>E-mail</th>
+                <th>Sexo</th>
+                <th>Aniversário</th>
+                <th>Primeiro Atendimento</th>
+                <th>Saúde</th>
+                <th>Observações</th>
                 <th></th>
               </tr>
             </thead>
-            <tbody class="table__body"></tbody>
+            <tbody></tbody>
           </table>
-        </article>
-      </section>
+          <p id="cliEmpty" class="muted">Nenhum cliente cadastrado.</p>
+        </div>
+      </div>
+    </section>
+    <!-- MODAL DE CADASTRO DE CLIENTE -->
+    <dialog id="cliModal">
+      <div class="cli-sheet" role="dialog" aria-labelledby="cliCadTitle">
+        <header class="cli-sheet-head">
+          <strong id="cliCadTitle"><i class="fa-solid fa-id-card"></i> Novo cliente</strong>
+          <button class="btn ghost" id="cliClose">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </header>
 
-      <section id="view-reports" class="view" aria-labelledby="reportsTitle">
-        <article class="card">
-          <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
-          <div class="row row--gap-sm">
-            <input type="month" id="reportMonth" class="input">
-            <button class="btn" id="btnMakeReport">Gerar Relatório</button>
-          </div>
-          <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
-        </article>
-      </section>
+        <form id="cliFormCad">
+          <div class="cli-sheet-body">
+            <div class="cli-grid">
+              <label class="cli-field">
+                <span class="cli-label">Nome completo</span>
+                <input type="text" id="fCliNome" required placeholder="Ex.: Maria Souza" />
+              </label>
 
-      <section id="view-audit" class="view" aria-labelledby="auditTitle">
-        <article class="card">
-          <h2 class="card__title" id="auditTitle"><i class="fa-solid fa-calculator"></i> Auditoria</h2>
-          <div class="row row--gap-sm">
-            <input type="date" id="auditDate" class="input">
-            <select id="auditPeriod" class="input">
-              <option value="dia">Dia</option>
-              <option value="semana">Semana</option>
-              <option value="mes">Mês</option>
-            </select>
-            <button class="btn" id="btnMakeAudit">Gerar</button>
+              <label class="cli-field">
+                <span class="cli-label">Telefone / Whats</span>
+                <input type="tel" id="fCliFone" required placeholder="(11) 9 9999-9999" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">E-mail</span>
+                <input type="email" id="fCliEmail" placeholder="nome@exemplo.com" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Data de Nascimento</span>
+                <input type="date" id="fCliNiver" required />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Sexo</span>
+                <select id="fCliSexo">
+                  <option value="">Selecione…</option>
+                  <option>Feminino</option>
+                  <option>Masculino</option>
+                  <option>Outro</option>
+                  <option>Prefiro não dizer</option>
+                </select>
+              </label>
+
+              <!-- mini-bloco 'informações para atendimento' -->
+              <fieldset class="cli-field cli-full cli-box">
+                <legend>Informações para atendimento</legend>
+                <div class="cli-two">
+                  <label>Condições Médicas
+                    <select id="fCliCondMed">
+                      <option value="">Selecione…</option>
+                      <option>Gravidez</option>
+                      <option>Trombose</option>
+                      <option>Gripe</option>
+                      <option>Câncer</option>
+                      <option>Alterações de pressão arterial</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label>Alergias
+                    <select id="fCliAlergias">
+                      <option value="">Selecione…</option>
+                      <option>Alergia a óleos corporais ou cremes</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label>Histórico de Saúde
+                    <select id="fCliHistorico">
+                      <option value="">Selecione…</option>
+                      <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
+                      <option>Cirurgias recentes (últimos 6 meses)</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label class="cli-field cli-full">
+                    <span class="cli-label">Observações</span>
+                    <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
           </div>
-          <table class="table" id="tblAudit">
-            <thead class="table__head">
-              <tr>
-                <th>Data</th>
-                <th>Qtd Atendimentos</th>
-                <th>Receita (R$)</th>
-                <th>Pontos</th>
-              </tr>
-            </thead>
-            <tbody class="table__body"></tbody>
-            <tfoot>
-              <tr>
-                <th>Total</th>
-                <th id="audTotalQtd">0</th>
-                <th id="audTotalReceita">0,00</th>
-                <th id="audTotalPontos">0</th>
-              </tr>
-            </tfoot>
-          </table>
-        </article>
-      </section>
+
+          <footer class="cli-sheet-foot">
+            <button type="submit" class="btn primary">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+          </footer>
+        </form>
+      </div>
+    </dialog>
+
+    <!-- MODAL DE CADASTRO / EDIÇÃO DE CLIENTE -->
+    <dialog id="cliModal">
+      <div class="cli-sheet" role="dialog" aria-labelledby="cliFormTitle">
+        <header class="cli-sheet-head">
+          <strong id="cliFormTitle">
+            <i class="fa-solid fa-id-card"></i>
+            Cadastrar Cliente
+          </strong>
+          <button class="btn ghost" id="cliClose" type="button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </header>
+
+        <form id="cliFormCad">
+          <div class="cli-sheet-body">
+            <div class="cli-grid">
+              <label class="cli-field">
+                <span class="cli-label">Nome completo</span>
+                <input type="text" id="fCliNome" required placeholder="Ex.: Maria Souza" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Telefone / Whats</span>
+                <input type="tel" id="fCliFone" required placeholder="(11) 9 9999-9999" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">E-mail</span>
+                <input type="email" id="fCliEmail" placeholder="nome@exemplo.com" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Data de Nascimento</span>
+                <input type="date" id="fCliNiver" required />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Sexo</span>
+                <select id="fCliSexo">
+                  <option value="">Selecione…</option>
+                  <option>Feminino</option>
+                  <option>Masculino</option>
+                  <option>Outro</option>
+                  <option>Prefiro não dizer</option>
+                </select>
+              </label>
+
+              <fieldset class="cli-field cli-full cli-box">
+                <legend>Informações para atendimento</legend>
+                <div class="cli-two">
+                  <label>Condições Médicas
+                    <select id="fCliCondMed">
+                      <option value="">Selecione…</option>
+                      <option>Gravidez</option>
+                      <option>Trombose</option>
+                      <option>Gripe</option>
+                      <option>Câncer</option>
+                      <option>Alterações de pressão arterial</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label>Alergias
+                    <select id="fCliAlergias">
+                      <option value="">Selecione…</option>
+                      <option>Alergia a óleos corporais ou cremes</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label>Histórico de Saúde
+                    <select id="fCliHistorico">
+                      <option value="">Selecione…</option>
+                      <option>Fraturas, hérnias, osteoporose ou osteopenia</option>
+                      <option>Cirurgias recentes (últimos 6 meses)</option>
+                      <option>Nenhum</option>
+                    </select>
+                  </label>
+
+                  <label class="cli-field cli-full">
+                    <span class="cli-label">Observações</span>
+                    <textarea id="fCliObs" placeholder="Anotações gerais"></textarea>
+                  </label>
+                </div>
+              </fieldset>
+            </div>
+          </div>
+
+          <footer class="cli-sheet-foot">
+            <button type="submit" class="btn primary" id="cliFormAction">
+              <i class="fa-solid fa-floppy-disk"></i>
+              Cadastrar
+            </button>
+          </footer>
+        </form>
+      </div>
+    </dialog>
+
+    <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
+      <article class="card">
+        <h2 class="card__title" id="agendaTitle"><i class="fa-regular fa-calendar"></i> Agenda</h2>
+        <div class="row row--gap-sm">
+          <input type="date" id="agendaDate" class="input">
+          <button class="btn" id="btnNewAppt"><i class="fa-solid fa-plus"></i> Agendar</button>
+        </div>
+        <table class="table" id="tblAgenda">
+          <thead class="table__head">
+            <tr>
+              <th>Hora</th>
+              <th>Cliente</th>
+              <th>Serviço</th>
+              <th>Terapeuta</th>
+              <th>Sala</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table__body"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section id="view-attendance" class="view" aria-labelledby="controleloginTitle">
+      <article class="card">
+        <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle Login
+          (Recepção)</h2>
+        <div class="row row--gap-sm">
+          <select id="filterEmp" class="input"></select>
+          <input type="date" id="filterDate" class="input">
+          <button class="btn btn--ghost" id="btnToday">Hoje</button>
+          <button class="btn" id="btnNewEntry"><i class="fa-solid fa-plus"></i> Lançar manual</button>
+        </div>
+        <table class="table" id="tblControleLogin">
+          <thead class="table__head">
+            <tr>
+              <th>Quando</th>
+              <th>Quem</th>
+              <th>Ação</th>
+              <th>Origem</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table__body"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section id="view-employees" class="view" aria-labelledby="empTitle">
+      <article class="card">
+        <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
+        <div class="row row--gap-sm">
+          <button class="btn" id="btnAddEmp"><i class="fa-solid fa-user-plus"></i> Adicionar</button>
+
+          <select id="roleFilter" class="input">
+            <option value="">Todos os papéis</option>
+            <option value="massagista">Massagista</option>
+            <option value="recepcao">Recepção</option>
+            <option value="admin">Admin</option>
+          </select>
+        </div>
+        <table class="table" id="tblEmployees">
+          <thead class="table__head">
+            <tr>
+              <th>Nome</th>
+              <th>Papel</th>
+              <th>Unidade</th>
+              <th>Telefone</th>
+              <th>Status</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody class="table__body"></tbody>
+        </table>
+      </article>
+    </section>
+
+    <section id="view-reports" class="view" aria-labelledby="reportsTitle">
+      <article class="card">
+        <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
+        <div class="row row--gap-sm">
+          <input type="month" id="reportMonth" class="input">
+          <button class="btn" id="btnMakeReport">Gerar Relatório</button>
+        </div>
+        <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
+      </article>
+    </section>
+
+    <section id="view-audit" class="view" aria-labelledby="auditTitle">
+      <article class="card">
+        <h2 class="card__title" id="auditTitle"><i class="fa-solid fa-calculator"></i> Auditoria</h2>
+        <div class="row row--gap-sm">
+          <input type="date" id="auditDate" class="input">
+          <select id="auditPeriod" class="input">
+            <option value="dia">Dia</option>
+            <option value="semana">Semana</option>
+            <option value="mes">Mês</option>
+          </select>
+          <button class="btn" id="btnMakeAudit">Gerar</button>
+        </div>
+        <table class="table" id="tblAudit">
+          <thead class="table__head">
+            <tr>
+              <th>Data</th>
+              <th>Qtd Atendimentos</th>
+              <th>Receita (R$)</th>
+              <th>Pontos</th>
+            </tr>
+          </thead>
+          <tbody class="table__body"></tbody>
+          <tfoot>
+            <tr>
+              <th>Total</th>
+              <th id="audTotalQtd">0</th>
+              <th id="audTotalReceita">0,00</th>
+              <th id="audTotalPontos">0</th>
+            </tr>
+          </tfoot>
+        </table>
+      </article>
+    </section>
 
     </main>
   </div>
@@ -316,4 +525,5 @@
   <script src="https://app.embed.im/accessibility.js" defer></script>
 
 </body>
+
 </html>
