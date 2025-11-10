@@ -647,10 +647,14 @@ document.addEventListener('DOMContentLoaded', () => {
       if (unidade?.id) carregarColaboradores(unidade.id);
     });
 
-    // ===== cadastro colab =====
+    /// ===== cadastro colab =====
     (function initCadastroColab() {
-      const form = document.getElementById('formNovoColab');
-      if (!form) return;
+      // pega o form CERTO (id = colabForm)
+      const form = document.getElementById('colabForm');
+      if (!form) {
+        console.log('Form de novo colaborador não encontrado');
+        return;
+      }
 
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
@@ -658,16 +662,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const nome = document.getElementById('colabNome').value.trim();
         const usuario = document.getElementById('colabEmail').value.trim();
         const senha = document.getElementById('colabSenha').value.trim();
-        let tipo_id = document.getElementById("colabFuncao").value.trim();
+        const funcao = document.getElementById('colabFuncao').value.trim();
 
-        // converte o texto do select para número antes de enviar
-        if (tipo_id.toLowerCase() === "terapeuta") tipo_id = 1;
-        else if (tipo_id.toLowerCase() === "recepcionista") tipo_id = 2;
-        else tipo_id = null;
+        // mapeia função -> tipo_id (de acordo com os values do select)
+        const tipoMap = {
+          massoterapeuta: 1,
+          recepcionista: 2,
+          gerente: 3,
+          master: 4,
+        };
+
+        const tipo_id = tipoMap[funcao] || null;
 
         const unidadeAtual = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
 
-        if (!nome || !tipo_id || !usuario || !senha) {
+        if (!nome || !tipo_id || !usuario || !senha || !unidadeAtual.id) {
           alert('Preencha todos os campos!');
           return;
         }
@@ -681,13 +690,16 @@ document.addEventListener('DOMContentLoaded', () => {
               tipo_id,
               usuario,
               senha,
-              unidade_id: unidadeAtual.id
-            })
+              unidade_id: unidadeAtual.id,
+            }),
           });
+            const data = await resp.json().catch(() => ({}));
+            if (!resp.ok) {
+              const msg = data.error || data.message || `Erro HTTP ${resp.status}`;
+              throw new Error(msg);
+            }
 
-          if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
-
-          alert('Colaborador criado com sucesso!');
+            alert(data.message || 'Colaborador criado com sucesso!');
           form.reset();
 
           // atualiza lista automaticamente
@@ -698,7 +710,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       });
     })();
-
 
     // ===== FOLHA (Controle de pagamentos dos colaboradores)
     (function initFolha() {
