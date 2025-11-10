@@ -1425,3 +1425,37 @@ document.addEventListener('DOMContentLoaded', () => {
     doc.save('minutos-atendidos.pdf');
   });
 });
+
+
+
+const nomeInput = document.getElementById('colabNome');
+const sobrenomeInput = document.getElementById('colabSobrenome');
+const emailInput = document.getElementById('colabEmail');
+const senhaInput = document.getElementById('colabSenha');
+
+function gerarEmail() {
+  const nome = nomeInput.value.trim().toLowerCase();
+  const sobrenome = sobrenomeInput.value.trim().toLowerCase();
+  if (!nome || !sobrenome) return;
+
+  const email = `${nome}.${sobrenome}@minhaempresa.com.br`
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '')
+    .replace(/\s+/g, '');
+
+  emailInput.value = email;
+}
+
+function gerarSenha() {
+  const rand = Math.random().toString(36).slice(-8);
+  senhaInput.value = rand;
+}
+
+nomeInput.addEventListener('blur', () => {
+  gerarEmail();
+  gerarSenha();
+});
+sobrenomeInput.addEventListener('blur', () => {
+  gerarEmail();
+  gerarSenha();
+});
