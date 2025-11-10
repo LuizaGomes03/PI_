@@ -34,11 +34,17 @@
                 <label for="usuario">Usuário</label>
                 <input type="text" id="usuario" name="user" required>
             </div>
-
+            
             <div class="input-group">
                 <label for="senha">Senha</label>
-                <input type="password" id="senha" name="password" required>
+
+                <div class="senha-wrapper">
+                    <input type="password" id="senha" name="password" required>
+                    <i id="toggleSenha" class="fa-solid fa-eye"></i>
+                </div>
             </div>
+
+
 
             <button type="submit" class="btn-login">Entrar</button>
         </form>

@@ -143,3 +143,33 @@ footer {
     width: 100%;
     z-index: 1;
 }
+
+.senha-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;  /* isso já alinha tudo no meio verticalmente */
+}
+
+.senha-wrapper input {
+  width: 100%;
+  padding-right: 40px;      /* espaço pro ícone */
+  box-sizing: border-box;
+  height: 45px;             /* usa a mesma altura que você já tiver no layout */
+}
+
+/* ícone dentro do campo */
+.senha-wrapper i {
+  position: absolute;
+  right: 12px;
+  /* agora o 50% é da altura da senha-wrapper (só o campo), não do label */
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 18px;
+  color: #3a3838;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.senha-wrapper i:hover {
+  color: #222;
+}
