@@ -125,3 +125,23 @@ export const removerCliente = async (req, res) => {
     res.status(500).json({ error: 'Erro ao remover cliente.' });
   }
 };
+
+export const listarAniversariantesDoDia = async (req, res) => {
+  const { unidadeId } = req.params;
+  try {
+    const [rows] = await db.query(`
+      SELECT c.nome_cliente
+      FROM clientes c
+      JOIN cliente_unidade cu ON c.cliente_id = cu.cliente_id
+      WHERE cu.unidade_id = ?
+        AND c.data_nascimento IS NOT NULL
+        AND MONTH(c.data_nascimento) = MONTH(CONVERT_TZ(NOW(), '+00:00', '-03:00'))
+        AND DAY(c.data_nascimento) = DAY(CONVERT_TZ(NOW(), '+00:00', '-03:00'));
+    `, [unidadeId]);
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Erro ao buscar aniversariantes:', err);
+    res.status(500).json({ error: 'Erro ao buscar aniversariantes.' });
+  }
+};
