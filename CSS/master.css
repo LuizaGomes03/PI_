@@ -4126,6 +4126,7 @@ input[type="text"] {
     gap: 8px;
   }
 }
+<<<<<<< Updated upstream
 /* ===== CLIENTES – TABELA RESPONSIVA (MOBILE) ===== */
 @media (max-width: 700px) {
 
@@ -4296,3 +4297,5 @@ input[type="text"] {
     outline-offset: 2px;
 }
 
+=======
+>>>>>>> Stashed changes
