@@ -74,11 +74,15 @@
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#postos-trabalho" class="shortcut-item">
-            <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
+          <a href="#postos-trabalho" class="shortcut-item" role="tab" data-view="postos-trabalho"
+            aria-controls="view-postos-trabalho" aria-selected="false">
+            <span class="shortcut-icon"><i class="fa-solid fa-briefcase"></i></span>
             <span class="shortcut-label">Postos de Trabalho</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
+
+
+
 
         </nav>
       </div>
@@ -493,69 +497,58 @@
     <section id="view-relatorio" class="view" aria-labelledby="relatorioTitle">
       <article class="card">
         <button class="btn" id="btnMakeReport">Gerar Relatório</button>
-  </div>
-  <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
-  </article>
-  </section>
+        <div id="reportOut" class="text--muted">Selecione um mês para gerar.</div>
+      </article>
+    </section>
 
-  <!-- POSTOS DE TRABALHO  -->
-  <section id="view-postos-trabalho" class="view" aria-labelledby="postosTitle">
-    <div class="card">
-      <div class="atd-head">
-        <h2 id="postosTitle"><i class="fa-solid fa-briefcase"></i> Postos de Trabalho</h2>
-        <div class="muted">Monitoramento em tempo real das unidades.</div>
+    <!-- POSTOS DE TRABALHO  -->
+    <section id="view-postos-trabalho" class="view" aria-labelledby="postosTitle">
+      <div class="card">
+        <div class="atd-head">
+          <h2 id="postosTitle"><i class="fa-solid fa-briefcase"></i> Postos de Trabalho</h2>
+          <div class="muted">Monitoramento em tempo real das unidades.</div>
+        </div>
+
+        <!-- tabela -->
+        <div class="atd-table-wrap">
+          <table class="table" id="tblPostos">
+            <thead>
+              <tr>
+                <th>Unidade</th>
+                <th>Tipo</th>
+                <th>Total</th>
+                <th>Ocupados</th>
+                <th>Livres</th>
+              </tr>
+            </thead>
+            <tbody></tbody>
+          </table>
+          <p id="postosEmpty" class="muted" style="text-align:center; padding:16px;">Sem dados
+            disponíveis.</p>
+        </div>
+
+        <small class="help-sm" id="postosStamp">—</small>
       </div>
+    </section>
 
-      <!-- tabela -->
-      <div class="atd-table-wrap">
-        <table class="table" id="tblPostos">
-          <thead>
-            <tr>
-              <th>Unidade</th>
-              <th>Tipo</th>
-              <th>Total</th>
-              <th>Ocupados</th>
-              <th>Livres</th>
-            </tr>
-          </thead>
-          <tbody></tbody>
-        </table>
-        <p id="postosEmpty" class="muted" style="text-align:center; padding:16px;">Sem dados
-          disponíveis.</p>
-      </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+      new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://app.embed.im/accessibility.js" defer></script>
 
-      <small class="help-sm" id="postosStamp">—</small>
-    </div>
-  </section>
-
-  </main>
-  </div>
-
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-  <script src="https://app.embed.im/accessibility.js" defer></script>
-
-  <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
-  <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
-    <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
-      <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
-      <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
-      <div class="popup-actions">
-        <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
-        <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+    <!-- POPUP DE CONFIRMAÇÃO DE LOGOUT -->
+    <div id="logoutPopup" class="popup-overlay" aria-hidden="true">
+      <div class="popup-box" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+        <h3 id="popupTitle"><i class="fa-solid fa-right-from-bracket"></i> Deseja sair da conta?</h3>
+        <p class="popup-text">Você será desconectado e voltará para a tela de login.</p>
+        <div class="popup-actions">
+          <button id="confirmLogout" class="popup-btn confirm">Sim, sair</button>
+          <button id="cancelLogout" class="popup-btn cancel">Cancelar</button>
+        </div>
       </div>
     </div>
-  </div>
-  
+
 </body>
 
 </html>
