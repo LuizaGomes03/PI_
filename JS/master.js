@@ -119,6 +119,27 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
+  // Capturing-phase listener: intercepta cliques ANTES de listeners que possam
+  // chamar stopPropagation() na fase de bubbling. Isso garante que atalhos do
+  // menu acionem a navegação mesmo quando algum componente intermediário bloqueia.
+  document.addEventListener('click', (e) => {
+    const el = e.target.closest('[data-view], [role="tab"], a[href^="#"]');
+    if (!el) return;
+    const dv = el.getAttribute('data-view') || el.getAttribute('aria-controls') || (el.getAttribute('href') || '').replace('#', '');
+    const target = normToSectionId(dv);
+    if (!target) return;
+    if (!document.getElementById(target)) return;
+
+    // Se a view já estiver ativa, não faz nada
+    const targetEl = document.getElementById(target);
+    if (targetEl && targetEl.classList.contains('active')) return;
+
+    try {
+      e.preventDefault();
+      activateView(target);
+    } catch (err) { /* silencioso */ }
+  }, true); // use capture = true
+
   /* =========================
      LOGOUT POPUP
      ========================= */
