@@ -14,6 +14,11 @@ document.addEventListener('DOMContentLoaded', () => {
       return;
     }
 
+    if (!user.toLowerCase().endsWith('@rokuzen.com')) {
+        alert('Use apenas e-mails @rokuzen.com para fazer login.');
+        return;
+    }   
+
     try {
       const resp = await fetch('/api/login', {
         method: 'POST',
