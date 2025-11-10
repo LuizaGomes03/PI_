@@ -571,7 +571,7 @@ document.addEventListener("DOMContentLoaded", () => {
         setTimeout(() => {
             localStorage.clear();
             sessionStorage.clear();
-            window.location.href = "../login.html"; // redireciona para tela de login
+            window.location.href = "login.html"; // redireciona para tela de login
         }, 200);
     });
 
