@@ -464,27 +464,6 @@
         });
     }
 
-    function markPunch() {
-        const now = new Date();
-        const timeStr = now.toTimeString().slice(0, 5);
-        const key = todayKey();
-
-        if (!punchRecords[key]) punchRecords[key] = [];
-
-        const last = punchRecords[key][punchRecords[key].length - 1];
-        let type = "Entrada";
-        if (last && last.type === "Entrada") type = "Saída";
-
-        punchRecords[key].push({ time: timeStr, type });
-        punchStatus.textContent = `Último ponto marcado: ${timeStr} (${type})`;
-        updateHistory();
-
-        // alternar texto do botão
-        punchBtn.textContent = (type === "Entrada") ? "Marcar Saída" : "Marcar Entrada";
-    }
-
-    punchBtn?.addEventListener('click', markPunch);
-
     async function markPunch() {
         const colaboradorId = localStorage.getItem("colaborador_id");
         if (!colaboradorId) {
@@ -509,11 +488,18 @@
             alert(data.message);
             punchBtn.textContent = isEntrada ? "Marcar Saída" : "Marcar Entrada";
             punchStatus.textContent = `${isEntrada ? "Entrada" : "Saída"} registrada às ${new Date().toLocaleTimeString()}`;
+
+            // Adicione esta linha para atualizar o histórico
+            updateHistory();
+
         } catch (err) {
             console.error(err);
             alert(err.message || "Erro ao enviar requisição.");
         }
     }
+
+    // O listener DEVE ficar DEPOIS da definição da função async
+    punchBtn?.addEventListener('click', markPunch);F
 
 
     function openLoginCard() {

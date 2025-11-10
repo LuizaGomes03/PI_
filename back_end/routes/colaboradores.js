@@ -6,8 +6,8 @@ import {
   handleLogin
 } from "../controllers/colaboradoresController.js";
 
+router.get("/colaboradores/unidade/:unidadeId", listarColaboradoresPorUnidade);
 router.post("/colaboradores", criarColaborador);
 router.post("/login", handleLogin);
-router.get("/colaboradores/unidade/:unidadeId", listarColaboradoresPorUnidade);
 
 export default router;
