@@ -433,6 +433,13 @@ document.addEventListener('DOMContentLoaded', () => {
         abrirModalCliente();
       });
 
+      const btnFecharModal = document.getElementById('cliClose');
+
+      btnFecharModal?.addEventListener('click', (e) => {
+        e.preventDefault();
+        fecharModalCliente();
+      });
+
       function abrirModalCliente(cliente = null) {
         window._clienteEditando = cliente;
 
@@ -710,13 +717,13 @@ document.addEventListener('DOMContentLoaded', () => {
               unidade_id: unidadeAtual.id,
             }),
           });
-            const data = await resp.json().catch(() => ({}));
-            if (!resp.ok) {
-              const msg = data.error || data.message || `Erro HTTP ${resp.status}`;
-              throw new Error(msg);
-            }
+          const data = await resp.json().catch(() => ({}));
+          if (!resp.ok) {
+            const msg = data.error || data.message || `Erro HTTP ${resp.status}`;
+            throw new Error(msg);
+          }
 
-            alert(data.message || 'Colaborador criado com sucesso!');
+          alert(data.message || 'Colaborador criado com sucesso!');
           form.reset();
 
           // atualiza lista automaticamente
