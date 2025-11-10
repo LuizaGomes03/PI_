@@ -3963,3 +3963,92 @@ input[type="text"] {
     #view-rel-minutos .table tbody td:nth-child(7)::before { content: "Minutos"; }
     #view-rel-minutos .table tbody td:nth-child(8)::before { content: "Horas"; }
 }
+
+
+#colabForm input,
+#colabForm select {
+    padding: 10px 12px;
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, .18);
+    background: rgba(255, 255, 255, .08);
+    color: #fff;
+    font-weight: 600;
+}
+
+#colabForm input::placeholder {
+    color: rgba(255, 255, 255, .75);
+}
+
+#colabForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+}
+
+/* cor do texto da opção */
+#colabForm select option {
+  background-color: #1f2937; /* cinza escuro, combina com o tema */
+  color: #fff;
+}
+
+/* hover e focus pra ficar mais suave */
+#colabForm select:hover,
+#colabForm select:focus {
+  background: rgba(255, 255, 255, 0.12);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+#colabForm select {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: #fff;
+  font-weight: 600;
+  padding: 10px 12px;
+  border-radius: 12px;
+  outline: none;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: all 0.2s ease-in-out;
+}
+
+/* quando passa o mouse ou clica */
+#colabForm select:hover,
+#colabForm select:focus {
+  border-color: rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* estiliza o menu aberto (as opções) */
+#colabForm select option {
+  background-color: rgba(20, 20, 20, 0.8);
+  color: #fff;
+  border: none;
+}
+
+/* seta branquinha e minimalista */
+#colabForm select {
+  background-image: url("data:image/svg+xml;utf8,<svg fill='white' height='20' viewBox='0 0 24 24' width='20' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 16px;
+  padding-right: 30px;
+}
+
+/* coloca no FINAL do CSS pra garantir que vence as outras regras */
+.colab-table tbody tr:hover,
+.colab-table tbody tr:focus,
+.colab-table tbody tr:active {
+    background: transparent !important; /* ou uma cor escura se quiser */
+    color: inherit;
+}

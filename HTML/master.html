@@ -632,13 +632,25 @@
 
                     <form id="colabForm" class="form-grid">
                         <div class="form-group">
-                            <label for="colabNome">Nome</label>
+                            <label for="colabNome">Nome Completo</label>
                             <input type="text" id="colabNome" placeholder="" required>
                         </div>
 
-                        <div class="form-group">
-                            <label for="colabSobrenome">Sobrenome</label>
-                            <input type="text" id="colabSobrenome" placeholder="" required>
+                         <div class="form-group">
+                            <label for="colabEscala">Escala</label>
+                            <select id="colabEscala" required>
+                                <option value="">Selecione</option>
+                                <option value="segunda1">Segunda 8h - 13h</option>
+                                <option value="segunda2">Segunda 13h - 18h</option>
+                                <option value="terca1">Terça 8h - 13h</option>
+                                <option value="terca2">Terça 13h - 18h</option>
+                                <option value="quarta1">Quarta 8h - 13h</option>
+                                <option value="quarta2">Quarta 13h - 18h</option>
+                                <option value="quinta1">Quinta 8h - 13h</option>
+                                <option value="quinta2">Quinta 13h - 18h</option>
+                                <option value="sexta1">Sexta 8h - 13h</option>
+                                <option value="sexta2">Sexta 13h - 18h</option>
+                            </select>
                         </div>
 
                         <div class="form-group">
@@ -646,20 +658,19 @@
                             <select id="colabFuncao" required>
                                 <option value="">Selecione</option>
                                 <option value="recepcionista">Recepcionista</option>
-                                <option value="massoterapeuta">Massoterapeuta</option>
+                                <option value="massoterapeuta">Terapeuta</option>
                                 <option value="gerente">Gerente</option>
-                                <option value="financeiro">Financeiro</option>
+                                <option value="master">Master</option>
                             </select>
                         </div>
-
                         <div class="form-group full">
                             <label>E-mail gerado</label>
-                            <input type="text" id="colabEmail" readonly>
+                            <input type="text" id="colabEmail">
                         </div>
 
                         <div class="form-group full">
                             <label>Senha temporária</label>
-                            <input type="text" id="colabSenha" readonly>
+                            <input type="text" id="colabSenha">
                         </div>
 
                         <button type="submit" class="btn primary"><i class="fa-solid fa-save"></i> Criar Conta</button>
@@ -1748,7 +1759,7 @@
             <section id="view-rel-pontos-unidades" class="view" aria-labelledby="pontosUnidadesTitle">
                 <div class="card">
                     <div class="atd-head">
-                          <button class="btn-voltar" data-view="relatorio">
+                        <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
                         <h2 id="pontosUnidadesTitle">
@@ -1810,7 +1821,7 @@
             <section id="view-rel-escala" class="view" aria-labelledby="ctrlPontoEscalasTitle">
                 <div class="card">
                     <div class="atd-head">
-                          <button class="btn-voltar" data-view="relatorio">
+                        <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
                         <h2 id="ctrlPontoEscalasTitle">
@@ -1870,7 +1881,7 @@
             <section id="view-rel-tipo-ponto" class="view" aria-labelledby="tipoPontoTitle">
                 <div class="card">
                     <div class="atd-head">
-                          <button class="btn-voltar" data-view="relatorio">
+                        <button class="btn-voltar" data-view="relatorio">
                             <i class="fa-solid fa-arrow-left"></i> Voltar
                         </button>
                         <h2 id="tipoPontoTitle">
