@@ -354,13 +354,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.addEventListener('click', (e) => {
       const editBtn = e.target.closest('.js-edit');
       const delBtn = e.target.closest('.js-del');
-      tbody.querySelectorAll('.js-edit').forEach(btn => {
-        btn.addEventListener('click', () => {
-          const id = btn.dataset.id;
-          const cliente = data.find(c => c.cliente_id == id);
-          if (cliente) abrirModalCliente(cliente);
-        });
-      });
 
       if (!editBtn && !delBtn) return;
 
@@ -378,6 +371,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (act) act.textContent = 'Salvar';
         nameEl.focus();
       }
+
       if (delBtn) {
         if (!confirm('Remover este serviço da tabela?')) return;
         const next = items.filter(x => x.id !== id);
@@ -522,10 +516,43 @@ document.addEventListener('DOMContentLoaded', () => {
         }
       }
 
+      window.carregarClientes = carregarClientes;
+
+      async function carregarAniversariantes(unidadeId) {
+        const bar = document.getElementById('bdayBar');
+        const msg = document.getElementById('bdayMsg');
+        if (!bar || !msg) return;
+
+        try {
+          const res = await fetch(`/api/clientes/aniversariantes/${unidadeId}`);
+          if (!res.ok) throw new Error('Erro ao buscar aniversariantes');
+
+          const aniversariantes = await res.json();
+
+          if (!aniversariantes.length) {
+            msg.textContent = "Aniversariantes de hoje: —";
+            return;
+          }
+
+          // Junta os nomes (se tiver mais de um aniversariante)
+          const nomes = aniversariantes.map(a => a.nome_cliente).join(', ');
+
+          // Atualiza o texto do span
+          msg.textContent = `Aniversariantes de hoje: ${nomes}`;
+        } catch (err) {
+          console.error('Erro ao carregar aniversariantes:', err);
+          msg.textContent = "Erro ao carregar aniversariantes";
+        }
+      }
+
+
       // Atualiza sempre que trocar unidade
       document.addEventListener('unit:change', (ev) => {
         const unidade = ev.detail;
-        if (unidade?.id) carregarClientes(unidade.id);
+        if (unidade?.id) {
+          carregarClientes(unidade.id);
+          carregarAniversariantes(unidade.id);
+        }
       });
     })();
 
@@ -563,20 +590,23 @@ document.addEventListener('DOMContentLoaded', () => {
             throw new Error(err.error || 'Erro desconhecido');
           }
 
-          alert('Cliente cadastrado com sucesso!');
-          try {
-            document.getElementById('cliModal').close();
-          } catch {
-            document.getElementById('cliModal').classList.remove('open');
+          const data = await resp.json().catch(() => ({}));
+          alert(data.message || 'Cliente cadastrado com sucesso!');
+
+          const modal = document.getElementById('cliModal');
+          if (modal) {
+            if (typeof modal.close === 'function') modal.close();
+            else modal.classList.remove('open');
           }
 
-          // recarrega a lista de clientes da unidade atual
-          carregarClientes(unidadeAtual.id);
+          await new Promise((resolve) => setTimeout(resolve, 300));
+
+          await carregarClientes(unidadeAtual.id);
           formCli.reset();
 
         } catch (err) {
           console.error('Erro ao cadastrar cliente:', err);
-          alert('Falha ao cadastrar');
+          alert('Falha ao cadastrar cliente.');
         }
       });
     }
