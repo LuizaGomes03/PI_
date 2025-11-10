@@ -36,7 +36,7 @@
         <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
         <nav class="shortcut-list" aria-label="Atalhos rápidos">
 
-          <a href="#atendimentos" class="shortcut-item">
+          <a href="#inicio" class="shortcut-item">
             <span class="shortcut-icon"><i class="fa-solid fa-house-chimney"></i></span>
             <span class="shortcut-label">Início (Dashboards)</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
@@ -49,25 +49,26 @@
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#atendimentos" class="shortcut-item">
+          <a href="#agenda" class="shortcut-item">
             <span class="shortcut-icon"><i class="fa-regular fa-calendar-check"></i></span>
             <span class="shortcut-label">Agenda</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#controle-login" class="shortcut-item">
+          <a href="#controle-login" class="shortcut-item" role="tab" data-view="controle-login" 
+            aria-controls="view-controle-login">
             <span class="shortcut-icon"><i class="fa-solid fa-user-lock"></i></span>
             <span class="shortcut-label">Controle de Login</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#controle-login" class="shortcut-item">
+          <a href="#equipe" class="shortcut-item" role="tab" data-view="equipe" aria-controls="view-equipe">
             <span class="shortcut-icon"><i class="fa-solid fa-user-group"></i></span>
             <span class="shortcut-label">Equipe</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
           </a>
 
-          <a href="#controle-login" class="shortcut-item">
+          <a href="#relatorio" class="shortcut-item">
             <span class="shortcut-icon"><i class="fa-solid fa-file-lines"></i></span>
             <span class="shortcut-label">Relatórios</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
@@ -386,6 +387,8 @@
       </div>
     </dialog>
 
+
+    <!-- AGENDA -->
     <section id="view-agenda" class="view" aria-labelledby="agendaTitle">
       <article class="card">
         <h2 class="card__title" id="agendaTitle"><i class="fa-regular fa-calendar"></i> Agenda</h2>
@@ -409,7 +412,9 @@
       </article>
     </section>
 
-    <section id="view-attendance" class="view" aria-labelledby="controleloginTitle">
+
+    <!-- CONTROLE DE LOGIN -->
+    <section id="view-controle-login" class="view" aria-labelledby="controleloginTitle">
       <article class="card">
         <h2 class="card__title" id="pontoTitle"><i class="fa-regular fa-clock" aria-hidden="true"></i> Controle Login
           (Recepção)</h2>
@@ -434,7 +439,8 @@
       </article>
     </section>
 
-    <section id="view-employees" class="view" aria-labelledby="empTitle">
+    <!-- EQUIPE -->
+    <section id="view-equipe" class="view" aria-labelledby="empTitle">
       <article class="card">
         <h2 class="card__title" id="empTitle"><i class="fa-solid fa-user-group" aria-hidden="true"></i> Equipe</h2>
         <div class="row row--gap-sm">
@@ -463,6 +469,7 @@
       </article>
     </section>
 
+    <!-- RELATÓRIOS -->
     <section id="view-reports" class="view" aria-labelledby="reportsTitle">
       <article class="card">
         <h2 class="card__title" id="reportsTitle"><i class="fa-solid fa-file-lines"></i> Relatórios</h2>
@@ -474,39 +481,8 @@
       </article>
     </section>
 
-    <section id="view-audit" class="view" aria-labelledby="auditTitle">
-      <article class="card">
-        <h2 class="card__title" id="auditTitle"><i class="fa-solid fa-calculator"></i> Auditoria</h2>
-        <div class="row row--gap-sm">
-          <input type="date" id="auditDate" class="input">
-          <select id="auditPeriod" class="input">
-            <option value="dia">Dia</option>
-            <option value="semana">Semana</option>
-            <option value="mes">Mês</option>
-          </select>
-          <button class="btn" id="btnMakeAudit">Gerar</button>
-        </div>
-        <table class="table" id="tblAudit">
-          <thead class="table__head">
-            <tr>
-              <th>Data</th>
-              <th>Qtd Atendimentos</th>
-              <th>Receita (R$)</th>
-              <th>Pontos</th>
-            </tr>
-          </thead>
-          <tbody class="table__body"></tbody>
-          <tfoot>
-            <tr>
-              <th>Total</th>
-              <th id="audTotalQtd">0</th>
-              <th id="audTotalReceita">0,00</th>
-              <th id="audTotalPontos">0</th>
-            </tr>
-          </tfoot>
-        </table>
-      </article>
-    </section>
+    <!--  -->
+
 
     </main>
   </div>

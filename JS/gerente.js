@@ -4,15 +4,15 @@ document.addEventListener("DOMContentLoaded", () => {
   const shortcuts = Array.from(document.querySelectorAll(".shortcut-item"));
 
   // mapa manual de palavras-chave -> id da view
-  const viewMap = [
-    { keys: ["início", "inicio", "dash", "dashboard"], id: "view-dashboard" },
-    { keys: ["cliente", "clientes"], id: "view-clientes" },
-    { keys: ["agenda", "agend"], id: "view-agenda" },
-    { keys: ["controle", "login", "ponto"], id: "view-attendance" },
-    { keys: ["equipe", "terapeutas"], id: "view-employees" },
-    { keys: ["relat", "relatórios", "relatorios"], id: "view-reports" },
-    { keys: ["auditoria", "audit"], id: "view-audit" }
-  ];
+const viewMap = [
+  { keys: ["início", "inicio", "dash", "dashboard"], id: "view-dashboard" },
+  { keys: ["cliente", "clientes"], id: "view-clientes" },
+  { keys: ["agenda", "agend"], id: "view-agenda" },
+  { keys: ["controle", "login", "ponto"], id: "view-controle-login" },
+  { keys: ["equipe", "terapeutas"], id: "view-equipe" },
+  { keys: ["relat", "relatórios", "relatorios"], id: "view-relatorio" },
+  { keys: ["auditoria", "audit"], id: "view-audit" }
+];
 
   // utilitário: encontra view por texto do link (label), href ou data-target
   function findTargetId(linkEl) {
