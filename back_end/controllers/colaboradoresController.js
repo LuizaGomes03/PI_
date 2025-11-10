@@ -37,6 +37,10 @@ export const criarColaborador = async (req, res) => {
         return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
     }
 
+    if (!user.toLowerCase().endsWith('@rokuzen.com')) {
+        return res.status(400).json({ error: 'Use um e-mail @rokuzen.com para acessar o sistema.' });
+    }
+
     try {
         const [result] = await db.query(
             `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
@@ -60,45 +64,45 @@ export const criarColaborador = async (req, res) => {
 };
 
 export const handleLogin = async (req, res) => {
-  try {
-    const { user, password } = req.body;
-    if (!user || !password) {
-      return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
-    }
+    try {
+        const { user, password } = req.body;
+        if (!user || !password) {
+            return res.status(400).json({ error: 'Usuário e senha são obrigatórios.' });
+        }
 
-    // Busca pelo usuário (usuário é o campo "usuario" na tabela)
-    const [rows] = await db.query(
-      `SELECT colaborador_id, nome_colaborador, tipo_id, usuario, senha, ativo
+        // Busca pelo usuário (usuário é o campo "usuario" na tabela)
+        const [rows] = await db.query(
+            `SELECT colaborador_id, nome_colaborador, tipo_id, usuario, senha, ativo
        FROM colaboradores
        WHERE usuario = ?
        LIMIT 1`,
-      [user]
-    );
+            [user]
+        );
 
-    if (!rows.length) {
-      return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+        if (!rows.length) {
+            return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+        }
+
+        const colaborador = rows[0];
+
+        // Se você usar bcrypt, substitua a verificação abaixo por compare.
+        if (colaborador.senha !== password) {
+            return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
+        }
+
+        if (colaborador.ativo !== 'S') {
+            return res.status(403).json({ error: 'Conta inativa. Contate o administrador.' });
+        }
+
+        // Sucesso: devolve tipo_id para o frontend direcionar a página
+        return res.json({
+            success: true,
+            colaborador_id: colaborador.colaborador_id,
+            nome_colaborador: colaborador.nome_colaborador,
+            tipo_id: colaborador.tipo_id
+        });
+    } catch (err) {
+        console.error('Erro no login:', err);
+        return res.status(500).json({ error: 'Erro interno no servidor.' });
     }
-
-    const colaborador = rows[0];
-
-    // Se você usar bcrypt, substitua a verificação abaixo por compare.
-    if (colaborador.senha !== password) {
-      return res.status(401).json({ error: 'Usuário ou senha inválidos.' });
-    }
-
-    if (colaborador.ativo !== 'S') {
-      return res.status(403).json({ error: 'Conta inativa. Contate o administrador.' });
-    }
-
-    // Sucesso: devolve tipo_id para o frontend direcionar a página
-    return res.json({
-      success: true,
-      colaborador_id: colaborador.colaborador_id,
-      nome_colaborador: colaborador.nome_colaborador,
-      tipo_id: colaborador.tipo_id
-    });
-  } catch (err) {
-    console.error('Erro no login:', err);
-    return res.status(500).json({ error: 'Erro interno no servidor.' });
-  }
 };
