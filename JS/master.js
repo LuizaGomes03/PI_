@@ -1589,3 +1589,27 @@ sobrenomeInput.addEventListener('blur', () => {
   gerarEmail();
   gerarSenha();
 });
+async function carregarAniversariantes(unidadeId) {
+  const bar = document.getElementById('bdayBar');
+  const msg = document.getElementById('bdayMsg');
+  if (!bar || !msg) return;
+
+  try {
+    // 🔥 CORRIGE AQUI 🔥
+    const res = await fetch(`http://localhost:3000/api/clientes/aniversariantes/${unidadeId}`);
+
+    if (!res.ok) throw new Error('Erro ao buscar aniversariantes');
+    const aniversariantes = await res.json();
+
+    if (!aniversariantes.length) {
+      msg.textContent = "Aniversariantes de hoje: —";
+      return;
+    }
+
+    const nomes = aniversariantes.map(a => a.nome_cliente).join(', ');
+    msg.textContent = `Aniversariantes de hoje: ${nomes}`;
+  } catch (err) {
+    console.error('Erro ao carregar aniversariantes:', err);
+    msg.textContent = "Erro ao carregar aniversariantes";
+  }
+}
