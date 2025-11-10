@@ -82,6 +82,7 @@
         if (!window.__ROKU_MODAL_SESSION) window.__ROKU_MODAL_SESSION = null;
 
         // abre modal para um cliente
+        // --- NOVA openSessionModal ---
         function openSessionModal(dateKey, client) {
             const sk = storageKeyFor(dateKey, client);
             modal.setAttribute('aria-hidden', 'false');
@@ -89,25 +90,29 @@
             document.body.style.overflow = 'hidden';
             modalClientName.textContent = client;
 
-            // carregar histórico e total
+            // carregar histórico e total (mantemos o histórico)
             const arr = loadSessions(sk);
             const total = sumRecordedSeconds(arr);
             modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(total)}`;
-            modalTimer.textContent = formatSeconds(total);
 
-            // popular histórico
+            // Mostrar histórico (sem removê-lo)
             renderModalHistory(arr);
 
-            // desligar botões conforme estado
+            // O ponto importante: exibimos o timer zerado, pronto para nova sessão.
+            modalTimer.textContent = formatSeconds(0);
+
+            // desligar botões conforme estado inicial
             modalStart.disabled = false;
             modalPause.disabled = true;
             modalStop.disabled = true;
 
-            // anexar referência atual
-            window.__ROKU_MODAL_SESSION = window.__ROKU_MODAL_SESSION || null;
+            // anexar referência atual — mas setamos elapsedBefore = 0 para que a nova sessão comece do zero
             window.__ROKU_MODAL_SESSION = window.__ROKU_MODAL_SESSION && window.__ROKU_MODAL_SESSION.storageKey === sk
                 ? window.__ROKU_MODAL_SESSION
-                : { storageKey: sk, client, startedAt: null, elapsedBefore: total, intervalId: null };
+                : { storageKey: sk, client, startedAt: null, elapsedBefore: 0, intervalId: null };
+
+            // se havia uma sessão global rodando de outro cliente, não alteramos o storage/histórico aqui,
+            // a checagem ao iniciar ainda vai impedir múltiplas sessões simultâneas.
         }
 
         function closeSessionModal() {
@@ -185,55 +190,48 @@
         function stopModalTimer() {
             if (!window.__ROKU_MODAL_SESSION) return;
 
-            // total já gravado antes desta parada
-            const prevArr = loadSessions(window.__ROKU_MODAL_SESSION.storageKey);
-            const prevTotal = sumRecordedSeconds(prevArr);
+            // calcular duração desta sessão (segundos)
+            let thisSessionSeconds = window.__ROKU_MODAL_SESSION.elapsedBefore || 0;
 
-            // calcular duração total acumulada (em segundos) até o momento atual
-            let totalSec = window.__ROKU_MODAL_SESSION.elapsedBefore || 0;
             if (window.__ROKU_MODAL_SESSION.intervalId) {
                 clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
                 const now = Date.now();
                 const elapsed = Math.floor((now - window.__ROKU_MODAL_SESSION.startedAt) / 1000);
-                totalSec = (window.__ROKU_MODAL_SESSION.elapsedBefore || 0) + elapsed;
+                thisSessionSeconds = (window.__ROKU_MODAL_SESSION.elapsedBefore || 0) + elapsed;
             }
 
-            // duração desta sessão (apenas o período que acabou de correr)
-            let thisSessionDuration = totalSec - prevTotal;
-            if (thisSessionDuration <= 0) {
-                // fallback: se algo estranho ocorrer, registra totalSec como duração
-                thisSessionDuration = totalSec;
-            }
-
-            // montar objeto registro desta sessão
+            // montar registro da sessão atual
             const record = {
-                startedAt: window.__ROKU_MODAL_SESSION.startedAt ? new Date(window.__ROKU_MODAL_SESSION.startedAt).toISOString() : new Date().toISOString(),
+                startedAt: window.__ROKU_MODAL_SESSION.startedAt
+                    ? new Date(window.__ROKU_MODAL_SESSION.startedAt).toISOString()
+                    : new Date().toISOString(),
                 endedAt: new Date().toISOString(),
-                duration: thisSessionDuration
+                duration: thisSessionSeconds
             };
 
-            // salvar no storage (append)
+            // salvar no storage (mantendo histórico anterior)
             const arr = loadSessions(window.__ROKU_MODAL_SESSION.storageKey);
             arr.push(record);
             saveSessions(window.__ROKU_MODAL_SESSION.storageKey, arr);
 
-            // atualizar UI (total gravado)
+            // atualizar total e histórico na tela
             const totalNow = sumRecordedSeconds(arr);
             modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(totalNow)}`;
+            renderModalHistory(arr); // 👈 agora o histórico atualiza imediatamente
 
-            // --- AQUI: reiniciar o timer na interface para 00:00:00, pronto para nova sessão ---
+            // zerar o cronômetro na interface
             modalTimer.textContent = formatSeconds(0);
 
-            // resetar estado de contagem local para permitir nova sessão do zero
+            // resetar o estado interno da sessão
             if (window.__ROKU_MODAL_SESSION.intervalId) {
                 clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
             }
             window.__ROKU_MODAL_SESSION.startedAt = null;
-            window.__ROKU_MODAL_SESSION.elapsedBefore = 0; // <-- zera o acumulado para a próxima sessão
+            window.__ROKU_MODAL_SESSION.elapsedBefore = 0;
             window.__ROKU_MODAL_SESSION.intervalId = null;
             window.__ROKU_GLOBAL_RUNNING = null;
 
-            // ajustar botões: permitir iniciar (pronto), desabilitar pausa/encerrar
+            // restaurar botões
             modalStart.disabled = false;
             modalPause.disabled = true;
             modalStop.disabled = true;
