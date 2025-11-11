@@ -38,7 +38,7 @@
         <div class="sb-title"><i class="fa-solid fa-compass-drafting"></i> Atalhos</div>
         <nav class="shortcut-list" aria-label="Atalhos rápidos">
 
-          <a href="#inicio" class="shortcut-item">
+          <a href="#inicio" class="shortcut-item" data-view="dashboard">
             <span class="shortcut-icon"><i class="fa-solid fa-house-chimney"></i></span>
             <span class="shortcut-label">Início (Dashboards)</span>
             <span class="shortcut-arrow"><i class="fa-solid fa-chevron-right"></i></span>
@@ -123,50 +123,78 @@
 
       <div style="text-align:center;opacity:.8;font-size:12px">© 2025 Rokuzen – Massagista</div>
     </aside>
-
+    <!-- ========== DASHBOARD (INÍCIO) ========== -->
     <section id="view-dashboard" class="view is-active" aria-labelledby="dashTitle">
       <div class="cards-grid">
+
+        <!-- CARD: RESUMO DO DIA -->
         <article class="card">
-          <h2 class="card__title" id="dashTitle"><i class="fa-solid fa-chart-simple" aria-hidden="true"></i> Resumo do
-            Dia (unidade)</h2>
+          <h2 class="card__title" id="dashTitle">
+            <i class="fa-solid fa-chart-simple" aria-hidden="true"></i>
+            Resumo do Dia (unidade)
+          </h2>
+
           <div class="grid grid--2">
             <div class="side-card">
-              <div class="side-card__title">Atendimentos</div>
-              <div class="row">
-                <div class="chip"><i class="fa-solid fa-calendar-day"></i> Hoje: <b id="kpiToday">0</b></div>
-                <div class="chip"><i class="fa-solid fa-user-check"></i> Terapeutas ativos: <b
-                    id="kpiActiveTherapists">0</b></div>
-              </div>
+              <h3>Total de Atendimentos</h3>
+              <p class="big">24</p>
             </div>
+
             <div class="side-card">
-              <div class="side-card__title">Ponto</div>
-              <div class="row">
-                <div class="chip"><i class="fa-solid fa-door-open"></i> Entradas: <b id="kpiIns">0</b></div>
-                <div class="chip"><i class="fa-solid fa-door-closed"></i> Saídas: <b id="kpiOuts">0</b></div>
-                <div class="chip"><i class="fa-regular fa-pause-circle"></i> Em intervalo: <b id="kpiBreaks">0</b>
-                </div>
-              </div>
+              <h3>Novos Clientes</h3>
+              <p class="big">3</p>
+            </div>
+
+            <div class="side-card">
+              <h3>Terapeutas Ativos</h3>
+              <p class="big">5</p>
             </div>
           </div>
         </article>
 
+        <!-- CARD: PRÓXIMOS ATENDIMENTOS -->
         <article class="card">
-          <h2 class="card__title"><i class="fa-solid fa-clipboard-list" aria-hidden="true"></i> Próximos Atendimentos
+          <h2 class="card__title">
+            <i class="fa-regular fa-calendar-check" aria-hidden="true"></i>
+            Próximos Atendimentos
           </h2>
-          <table class="table" id="tblNextAppts">
-            <caption class="sr-only">Próximos atendimentos da unidade selecionada</caption>
-            <thead class="table__head">
+
+          <table class="table">
+            <thead>
               <tr>
                 <th>Hora</th>
                 <th>Cliente</th>
-                <th>Serviço</th>
                 <th>Terapeuta</th>
+                <th>Serviço</th>
                 <th>Sala</th>
               </tr>
             </thead>
-            <tbody class="table__body"></tbody>
+            <tbody>
+              <tr>
+                <td>09:00</td>
+                <td>Maria Souza</td>
+                <td>Luana</td>
+                <td>Quick Massage</td>
+                <td>01</td>
+              </tr>
+              <tr>
+                <td>10:30</td>
+                <td>João Pereira</td>
+                <td>Rafael</td>
+                <td>Reflexologia Podal</td>
+                <td>02</td>
+              </tr>
+              <tr>
+                <td>11:15</td>
+                <td>Fernanda Lima</td>
+                <td>Marina</td>
+                <td>Macaterapia</td>
+                <td>03</td>
+              </tr>
+            </tbody>
           </table>
         </article>
+
       </div>
     </section>
 
