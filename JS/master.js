@@ -917,6 +917,131 @@ document.addEventListener('DOMContentLoaded', () => {
     })();
   })();
 
+/* =========================
+   AGENDA / CRONOGRAMA COM MODAL
+   ========================= */
+(function () {
+  const dateInput = document.getElementById('agendaDate');
+  const btnNew = document.getElementById('btnNewAppt');
+  const tblBody = document.querySelector('#tblAgenda tbody');
+
+  const modal = document.getElementById('agendaModal');
+  const form = document.getElementById('agendaForm');
+  const btnClose = document.getElementById('agendaClose');
+
+  const fData = document.getElementById('fAgData');
+  const fHora = document.getElementById('fAgHora');
+  const fCliente = document.getElementById('fAgCliente');
+  const fServico = document.getElementById('fAgServico');
+  const fTerapeuta = document.getElementById('fAgTerapeuta');
+  const fSala = document.getElementById('fAgSala');
+
+  if (!dateInput || !tblBody) return;
+
+  let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+  let agenda = [];
+
+  const keyFor = (unitId) => `rokuzen.agenda.${unitId || 'default'}`;
+
+  const load = () => {
+    try {
+      const raw = localStorage.getItem(keyFor(currentUnit?.id));
+      agenda = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+    } catch {
+      agenda = [];
+    }
+  };
+  const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(agenda));
+
+  const render = () => {
+    if (!dateInput.value) return;
+    const selDate = dateInput.value;
+    const items = agenda.filter(a => a.data === selDate).sort((a, b) => a.hora.localeCompare(b.hora));
+
+    tblBody.innerHTML = '';
+    if (!items.length) {
+      tblBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#999;">Nenhum agendamento</td></tr>`;
+      return;
+    }
+
+    for (const it of items) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${it.hora}</td>
+        <td>${it.cliente}</td>
+        <td>${it.servico}</td>
+        <td>${it.terapeuta}</td>
+        <td>${it.sala}</td>
+        <td><button class="btn ghost btn-sm js-del" data-id="${it.id}"><i class="fa-solid fa-trash"></i></button></td>
+      `;
+      tblBody.appendChild(tr);
+    }
+  };
+
+  const abrirModal = () => {
+    if (!dateInput.value) return alert('Selecione uma data primeiro!');
+    fData.value = dateInput.value;
+    fHora.value = '';
+    fCliente.value = '';
+    fServico.value = '';
+    fTerapeuta.value = '';
+    fSala.value = '';
+    try { modal.showModal(); } catch { modal.classList.add('open'); }
+  };
+
+  const fecharModal = () => {
+    try { modal.close(); } catch { modal.classList.remove('open'); }
+  };
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const novo = {
+      id: crypto.randomUUID?.() || Date.now(),
+      data: fData.value,
+      hora: fHora.value,
+      cliente: fCliente.value.trim(),
+      servico: fServico.value.trim(),
+      terapeuta: fTerapeuta.value.trim(),
+      sala: fSala.value.trim() || '—'
+    };
+
+    if (!novo.data || !novo.hora || !novo.cliente || !novo.servico || !novo.terapeuta) {
+      return alert('Preencha todos os campos obrigatórios.');
+    }
+
+    agenda.push(novo);
+    save();
+    fecharModal();
+    render();
+  });
+
+  btnClose?.addEventListener('click', fecharModal);
+  btnNew?.addEventListener('click', abrirModal);
+  dateInput?.addEventListener('change', render);
+
+  tblBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-del');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (!confirm('Remover este agendamento?')) return;
+    agenda = agenda.filter(a => a.id != id);
+    save();
+    render();
+  });
+
+  document.addEventListener('unit:change', (ev) => {
+    currentUnit = ev.detail || {};
+    load();
+    render();
+  });
+
+  // inicial
+  load();
+  if (!dateInput.value) dateInput.valueAsDate = new Date();
+  render();
+})();
+
+
   /* =========================
      CALENDÁRIO (FullCalendar-ready + lazy render)
      ========================= */
