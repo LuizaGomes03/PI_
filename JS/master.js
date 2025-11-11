@@ -1042,6 +1042,120 @@ document.addEventListener('DOMContentLoaded', () => {
 })();
 
 
+/* =========================
+   MODAL DE NOVO COLABORADOR (EQUIPE)
+   ========================= */
+(function () {
+  const btnAdd = document.getElementById('btnAddEmp');
+  const modal = document.getElementById('colabModal');
+  const form = document.getElementById('colabForm');
+  const btnClose = document.getElementById('colabClose');
+  const tblBody = document.querySelector('#tblEmployees tbody');
+  const empty = document.createElement('p');
+  empty.textContent = 'Nenhum colaborador cadastrado.';
+  empty.classList.add('muted');
+
+  const fNome = document.getElementById('fColabNome');
+  const fFuncao = document.getElementById('fColabFuncao');
+  const fFone = document.getElementById('fColabFone');
+  const fStatus = document.getElementById('fColabStatus');
+
+  if (!btnAdd || !modal || !form || !tblBody) return;
+
+  let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+  let equipe = [];
+
+  const keyFor = (unitId) => `rokuzen.equipe.${unitId || 'default'}`;
+
+  const load = () => {
+    try {
+      const raw = localStorage.getItem(keyFor(currentUnit?.id));
+      equipe = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+    } catch {
+      equipe = [];
+    }
+  };
+
+  const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(equipe));
+
+  const render = () => {
+    tblBody.innerHTML = '';
+    if (!equipe.length) {
+      tblBody.appendChild(empty);
+      return;
+    }
+
+    for (const c of equipe) {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td>${c.nome}</td>
+        <td>${c.funcao}</td>
+        <td>${currentUnit?.name || '—'}</td>
+        <td>${c.telefone || '—'}</td>
+        <td>${c.status}</td>
+        <td><button class="btn ghost btn-sm js-del" data-id="${c.id}"><i class="fa-solid fa-trash"></i></button></td>
+      `;
+      tblBody.appendChild(tr);
+    }
+  };
+
+  const abrirModal = () => {
+    fNome.value = '';
+    fFuncao.value = '';
+    fFone.value = '';
+    fStatus.value = 'Ativo';
+    try { modal.showModal(); } catch { modal.classList.add('open'); }
+  };
+
+  const fecharModal = () => {
+    try { modal.close(); } catch { modal.classList.remove('open'); }
+  };
+
+  // salvar colaborador
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const novo = {
+      id: crypto.randomUUID?.() || Date.now(),
+      nome: fNome.value.trim(),
+      funcao: fFuncao.value,
+      telefone: fFone.value.trim(),
+      status: fStatus.value
+    };
+    if (!novo.nome || !novo.funcao) {
+      alert('Preencha todos os campos obrigatórios!');
+      return;
+    }
+    equipe.push(novo);
+    save();
+    fecharModal();
+    render();
+  });
+
+  // remover colaborador
+  tblBody.addEventListener('click', (e) => {
+    const btn = e.target.closest('.js-del');
+    if (!btn) return;
+    const id = btn.dataset.id;
+    if (!confirm('Remover este colaborador?')) return;
+    equipe = equipe.filter(c => c.id != id);
+    save();
+    render();
+  });
+
+  btnAdd?.addEventListener('click', abrirModal);
+  btnClose?.addEventListener('click', fecharModal);
+  document.addEventListener('unit:change', (ev) => {
+    currentUnit = ev.detail || {};
+    load();
+    render();
+  });
+
+  // inicial
+  load();
+  render();
+})();
+
+
   /* =========================
      CALENDÁRIO (FullCalendar-ready + lazy render)
      ========================= */

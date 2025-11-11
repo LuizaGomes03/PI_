@@ -596,6 +596,62 @@
       </article>
     </section>
 
+    <!-- MODAL DE NOVO COLABORADOR -->
+<dialog id="colabModal">
+  <div class="cli-sheet" role="dialog" aria-labelledby="colabFormTitle">
+    <header class="cli-sheet-head">
+      <strong id="colabFormTitle">
+        <i class="fa-solid fa-user-plus"></i>
+        Novo Colaborador
+      </strong>
+      <button class="btn ghost" id="colabClose" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+
+    <form id="colabForm">
+      <div class="cli-sheet-body">
+        <div class="cli-grid">
+          <label class="cli-field">
+            <span class="cli-label">Nome completo</span>
+            <input type="text" id="fColabNome" required placeholder="Ex.: Ana Costa" />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Função</span>
+            <select id="fColabFuncao" required>
+              <option value="">Selecione…</option>
+              <option value="Massagista">Massagista</option>
+              <option value="Recepção">Recepção</option>
+              <option value="Gerente">Gerente</option>
+            </select>
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Telefone</span>
+            <input type="tel" id="fColabFone" placeholder="(11) 9 9999-9999" />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Status</span>
+            <select id="fColabStatus" required>
+              <option value="Ativo">Ativo</option>
+              <option value="Inativo">Inativo</option>
+            </select>
+          </label>
+        </div>
+      </div>
+
+      <footer class="cli-sheet-foot">
+        <button type="submit" class="btn primary">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar
+        </button>
+      </footer>
+    </form>
+  </div>
+</dialog>
+
+
     <!-- ========== RELATÓRIO ========== -->
     <section id="view-relatorio" class="view" aria-labelledby="relTitle">
       <div class="card colaboradores-card">
