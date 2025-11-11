@@ -13,7 +13,33 @@ document.addEventListener("DOMContentLoaded", () => {
     { keys: ["relat", "relatórios", "relatorios"], id: "view-relatorio" },
     { keys: ["posto", "postos", "postos de trabalho"], id: "view-postos-trabalho" }, // 👈 NOVO
     { keys: ["auditoria", "audit"], id: "view-audit" }
+    
   ];
+  // --- LIGAR OS BOTÕES DO RELATÓRIO (.colab-item) ---
+  const relButtons = document.querySelectorAll(".colab-item[data-view]");
+
+  relButtons.forEach(btn => {
+    btn.addEventListener("click", (ev) => {
+      ev.preventDefault();
+
+      const targetId = btn.getAttribute("data-view"); // ex: "rel-pagamentos"
+
+      if (targetId && document.getElementById(targetId)) {
+        // Usa o mesmo sistema de views da página
+        activateView(targetId);
+      } else {
+        console.warn("View não encontrada para:", targetId);
+      }
+    });
+
+    // Acessibilidade: Enter/Space
+    btn.addEventListener("keydown", (ev) => {
+      if (ev.key === "Enter" || ev.key === " ") {
+        ev.preventDefault();
+        btn.click();
+      }
+    });
+  });
 
 
 
