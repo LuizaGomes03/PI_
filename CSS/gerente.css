@@ -29,3 +29,43 @@
   font-size: 2rem;
   font-weight: 700;
 }
+
+/* ===== MODAL DE AGENDA ===== */
+#agendaModal {
+  border: none;
+  border-radius: 12px;
+  padding: 0;
+  background: transparent;
+  width: 100%;
+  max-width: 580px;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 9999; /* acima do sidebar */
+}
+
+#agendaModal::backdrop {
+  background: rgba(0, 0, 0, 0.6); /* fundo escurecido */
+  backdrop-filter: blur(3px);
+}
+
+/* compatibilidade com fallback (.open) */
+#agendaModal.open {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 9999;
+}
+
+#agendaModal.open .cli-sheet {
+  margin: auto;
+  border-radius: 12px;
+  background: var(--surface, #fff);
+  max-width: 580px;
+  width: 90%;
+  box-shadow: 0 0 30px rgba(0,0,0,0.3);
+}

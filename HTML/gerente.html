@@ -462,6 +462,62 @@
       </article>
     </section>
 
+    <!-- MODAL DE NOVO AGENDAMENTO -->
+<dialog id="agendaModal">
+  <div class="cli-sheet" role="dialog" aria-labelledby="agendaFormTitle">
+    <header class="cli-sheet-head">
+      <strong id="agendaFormTitle">
+        <i class="fa-regular fa-calendar-plus"></i>
+        Novo Agendamento
+      </strong>
+      <button class="btn ghost" id="agendaClose" type="button">
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+    </header>
+
+    <form id="agendaForm">
+      <div class="cli-sheet-body">
+        <div class="cli-grid">
+          <label class="cli-field">
+            <span class="cli-label">Data</span>
+            <input type="date" id="fAgData" required />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Hora</span>
+            <input type="time" id="fAgHora" required />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Cliente</span>
+            <input type="text" id="fAgCliente" required placeholder="Ex.: Maria Souza" />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Serviço</span>
+            <input type="text" id="fAgServico" required placeholder="Ex.: Quick Massage" />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Terapeuta</span>
+            <input type="text" id="fAgTerapeuta" required placeholder="Ex.: Luana" />
+          </label>
+
+          <label class="cli-field">
+            <span class="cli-label">Sala</span>
+            <input type="text" id="fAgSala" placeholder="01" />
+          </label>
+        </div>
+      </div>
+
+      <footer class="cli-sheet-foot">
+        <button type="submit" class="btn primary">
+          <i class="fa-solid fa-floppy-disk"></i> Salvar
+        </button>
+      </footer>
+    </form>
+  </div>
+</dialog>
 
     <!-- CONTROLE DE LOGIN -->
     <section id="view-controle-login" class="view" aria-labelledby="pontoMasterTitle">
