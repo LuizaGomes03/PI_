@@ -113,3 +113,37 @@ export const handleLogin = async (req, res) => {
         return res.status(500).json({ error: 'Erro interno no servidor.' });
     }
 };
+
+export const listarEscalaCompartilhada = async (req, res) => {
+  const { unidadeId } = req.params;
+
+  try {
+    const [rows] = await db.query(`
+      SELECT 
+        e.id_escala,
+        e.dia,
+        e.hora_inicio,
+        e.hora_fim,
+        c.nome_colaborador AS terapeuta,
+        u.unidade_id,
+        u.nome_unidade AS unidade
+      FROM colaboradores c
+      JOIN escala e ON c.id_escala = e.id_escala
+      JOIN colab_unidade cu ON cu.colab_id = c.colaborador_id
+      JOIN unidades u ON cu.unidade_id = u.unidade_id
+      WHERE cu.unidade_id = ?
+      ORDER BY 
+        FIELD(e.dia, 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado', 'Domingo'),
+        e.hora_inicio;
+    `, [unidadeId]);
+
+    if (!rows.length) {
+      return res.status(404).json({ message: 'Nenhuma escala encontrada para esta unidade.' });
+    }
+
+    res.json(rows);
+  } catch (err) {
+    console.error('Erro ao buscar escala compartilhada:', err);
+    res.status(500).json({ error: 'Erro ao buscar escala compartilhada.' });
+  }
+};

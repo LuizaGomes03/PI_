@@ -109,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
   document.querySelectorAll('.shortcut-item, .colab-item, .btn-voltar, [data-view]').forEach(el => {
     el.addEventListener('click', (ev) => {
       try {
-        const dv = el.getAttribute('data-view') || el.getAttribute('aria-controls') || (el.getAttribute('href') || '').replace('#','');
+        const dv = el.getAttribute('data-view') || el.getAttribute('aria-controls') || (el.getAttribute('href') || '').replace('#', '');
         const target = normToSectionId(dv);
         if (!target) return;
         if (!document.getElementById(target)) return;
@@ -917,58 +917,110 @@ document.addEventListener('DOMContentLoaded', () => {
       // init
       render(loadFolha()); // tenta carregar se já existir
     })();
+
+    // ===================== ESCALA COMPARTILHADA =====================
+    async function carregarEscalaCompartilhada(unidadeId) {
+      const tbody = document.getElementById("escalaTableBody");
+      const empty = document.getElementById("escalaEmpty");
+
+      if (!tbody) return;
+
+      tbody.innerHTML = `
+    <tr><td colspan="3" class="muted">Carregando...</td></tr>
+  `;
+
+      try {
+        const resp = await fetch(`http://localhost:3000/api/escala/unidade/${unidadeId}`);
+        if (!resp.ok) throw new Error("Erro ao carregar dados da escala");
+        const data = await resp.json();
+
+        tbody.innerHTML = "";
+
+        if (!data || data.length === 0) {
+          empty.hidden = false;
+          return;
+        }
+
+        empty.hidden = true;
+
+        data.forEach(item => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+        <td>${item.dia}</td>
+        <td>${item.hora_inicio.slice(0, 5)} - ${item.hora_fim.slice(0, 5)}</td>
+        <td>${item.terapeuta}</td>
+      `;
+          tbody.appendChild(tr);
+        });
+      } catch (err) {
+        console.error("Erro ao carregar escala compartilhada:", err);
+        tbody.innerHTML = `
+      <tr><td colspan="3" class="muted">Erro ao carregar escala.</td></tr>
+    `;
+      }
+    }
+
+    // Sempre que a unidade mudar
+    document.addEventListener("unit:change", ev => {
+      const unidade = ev.detail;
+      if (unidade?.id) carregarEscalaCompartilhada(unidade.id);
+    });
+
+    // Se já houver unidade salva no localStorage
+    const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+    if (unidadeAtual?.id) carregarEscalaCompartilhada(unidadeAtual.id);
   })();
 
-/* =========================
-   AGENDA / CRONOGRAMA COM MODAL
-   ========================= */
-(function () {
-  const dateInput = document.getElementById('agendaDate');
-  const btnNew = document.getElementById('btnNewAppt');
-  const tblBody = document.querySelector('#tblAgenda tbody');
+  /* =========================
+     AGENDA / CRONOGRAMA COM MODAL
+     ========================= */
+  (function () {
+    const dateInput = document.getElementById('agendaDate');
+    const btnNew = document.getElementById('btnNewAppt');
+    const tblBody = document.querySelector('#tblAgenda tbody');
 
-  const modal = document.getElementById('agendaModal');
-  const form = document.getElementById('agendaForm');
-  const btnClose = document.getElementById('agendaClose');
+    const modal = document.getElementById('agendaModal');
+    const form = document.getElementById('agendaForm');
+    const btnClose = document.getElementById('agendaClose');
 
-  const fData = document.getElementById('fAgData');
-  const fHora = document.getElementById('fAgHora');
-  const fCliente = document.getElementById('fAgCliente');
-  const fServico = document.getElementById('fAgServico');
-  const fTerapeuta = document.getElementById('fAgTerapeuta');
-  const fSala = document.getElementById('fAgSala');
+    const fData = document.getElementById('fAgData');
+    const fHora = document.getElementById('fAgHora');
+    const fCliente = document.getElementById('fAgCliente');
+    const fServico = document.getElementById('fAgServico');
+    const fTerapeuta = document.getElementById('fAgTerapeuta');
+    const fSala = document.getElementById('fAgSala');
 
-  if (!dateInput || !tblBody) return;
+    if (!dateInput || !tblBody) return;
 
-  let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
-  let agenda = [];
+    let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+    let agenda = [];
 
-  const keyFor = (unitId) => `rokuzen.agenda.${unitId || 'default'}`;
+    const keyFor = (unitId) => `rokuzen.agenda.${unitId || 'default'}`;
 
-  const load = () => {
-    try {
-      const raw = localStorage.getItem(keyFor(currentUnit?.id));
-      agenda = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
-    } catch {
-      agenda = [];
-    }
-  };
-  const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(agenda));
+    const load = () => {
+      try {
+        const raw = localStorage.getItem(keyFor(currentUnit?.id));
+        agenda = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+      } catch {
+        agenda = [];
+      }
+    };
+    const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(agenda));
 
-  const render = () => {
-    if (!dateInput.value) return;
-    const selDate = dateInput.value;
-    const items = agenda.filter(a => a.data === selDate).sort((a, b) => a.hora.localeCompare(b.hora));
+    const render = () => {
+      if (!dateInput.value) return;
+      const selDate = dateInput.value;
+      const items = agenda.filter(a => a.data === selDate).sort((a, b) => a.hora.localeCompare(b.hora));
 
-    tblBody.innerHTML = '';
-    if (!items.length) {
-      tblBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#999;">Nenhum agendamento</td></tr>`;
-      return;
-    }
+      tblBody.innerHTML = '';
+      if (!items.length) {
+        tblBody.innerHTML = `<tr><td colspan="6" style="text-align:center;color:#999;">Nenhum agendamento</td></tr>`;
+        return;
+      }
 
-    for (const it of items) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
+      for (const it of items) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
         <td>${it.hora}</td>
         <td>${it.cliente}</td>
         <td>${it.servico}</td>
@@ -976,120 +1028,120 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${it.sala}</td>
         <td><button class="btn ghost btn-sm js-del" data-id="${it.id}"><i class="fa-solid fa-trash"></i></button></td>
       `;
-      tblBody.appendChild(tr);
-    }
-  };
-
-  const abrirModal = () => {
-    if (!dateInput.value) return alert('Selecione uma data primeiro!');
-    fData.value = dateInput.value;
-    fHora.value = '';
-    fCliente.value = '';
-    fServico.value = '';
-    fTerapeuta.value = '';
-    fSala.value = '';
-    try { modal.showModal(); } catch { modal.classList.add('open'); }
-  };
-
-  const fecharModal = () => {
-    try { modal.close(); } catch { modal.classList.remove('open'); }
-  };
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const novo = {
-      id: crypto.randomUUID?.() || Date.now(),
-      data: fData.value,
-      hora: fHora.value,
-      cliente: fCliente.value.trim(),
-      servico: fServico.value.trim(),
-      terapeuta: fTerapeuta.value.trim(),
-      sala: fSala.value.trim() || '—'
+        tblBody.appendChild(tr);
+      }
     };
 
-    if (!novo.data || !novo.hora || !novo.cliente || !novo.servico || !novo.terapeuta) {
-      return alert('Preencha todos os campos obrigatórios.');
-    }
+    const abrirModal = () => {
+      if (!dateInput.value) return alert('Selecione uma data primeiro!');
+      fData.value = dateInput.value;
+      fHora.value = '';
+      fCliente.value = '';
+      fServico.value = '';
+      fTerapeuta.value = '';
+      fSala.value = '';
+      try { modal.showModal(); } catch { modal.classList.add('open'); }
+    };
 
-    agenda.push(novo);
-    save();
-    fecharModal();
-    render();
-  });
+    const fecharModal = () => {
+      try { modal.close(); } catch { modal.classList.remove('open'); }
+    };
 
-  btnClose?.addEventListener('click', fecharModal);
-  btnNew?.addEventListener('click', abrirModal);
-  dateInput?.addEventListener('change', render);
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const novo = {
+        id: crypto.randomUUID?.() || Date.now(),
+        data: fData.value,
+        hora: fHora.value,
+        cliente: fCliente.value.trim(),
+        servico: fServico.value.trim(),
+        terapeuta: fTerapeuta.value.trim(),
+        sala: fSala.value.trim() || '—'
+      };
 
-  tblBody.addEventListener('click', (e) => {
-    const btn = e.target.closest('.js-del');
-    if (!btn) return;
-    const id = btn.dataset.id;
-    if (!confirm('Remover este agendamento?')) return;
-    agenda = agenda.filter(a => a.id != id);
-    save();
-    render();
-  });
+      if (!novo.data || !novo.hora || !novo.cliente || !novo.servico || !novo.terapeuta) {
+        return alert('Preencha todos os campos obrigatórios.');
+      }
 
-  document.addEventListener('unit:change', (ev) => {
-    currentUnit = ev.detail || {};
+      agenda.push(novo);
+      save();
+      fecharModal();
+      render();
+    });
+
+    btnClose?.addEventListener('click', fecharModal);
+    btnNew?.addEventListener('click', abrirModal);
+    dateInput?.addEventListener('change', render);
+
+    tblBody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.js-del');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      if (!confirm('Remover este agendamento?')) return;
+      agenda = agenda.filter(a => a.id != id);
+      save();
+      render();
+    });
+
+    document.addEventListener('unit:change', (ev) => {
+      currentUnit = ev.detail || {};
+      load();
+      render();
+    });
+
+    // inicial
     load();
+    if (!dateInput.value) dateInput.valueAsDate = new Date();
     render();
-  });
-
-  // inicial
-  load();
-  if (!dateInput.value) dateInput.valueAsDate = new Date();
-  render();
-})();
+  })();
 
 
-/* =========================
-   MODAL DE NOVO COLABORADOR (EQUIPE)
-   ========================= */
-(function () {
-  const btnAdd = document.getElementById('btnAddEmp');
-  const modal = document.getElementById('colabModal');
-  const form = document.getElementById('colabForm');
-  const btnClose = document.getElementById('colabClose');
-  const tblBody = document.querySelector('#tblEmployees tbody');
-  const empty = document.createElement('p');
-  empty.textContent = 'Nenhum colaborador cadastrado.';
-  empty.classList.add('muted');
+  /* =========================
+     MODAL DE NOVO COLABORADOR (EQUIPE)
+     ========================= */
+  (function () {
+    const btnAdd = document.getElementById('btnAddEmp');
+    const modal = document.getElementById('colabModal');
+    const form = document.getElementById('colabForm');
+    const btnClose = document.getElementById('colabClose');
+    const tblBody = document.querySelector('#tblEmployees tbody');
+    const empty = document.createElement('p');
+    empty.textContent = 'Nenhum colaborador cadastrado.';
+    empty.classList.add('muted');
 
-  const fNome = document.getElementById('fColabNome');
-  const fFuncao = document.getElementById('fColabFuncao');
-  const fFone = document.getElementById('fColabFone');
-  const fStatus = document.getElementById('fColabStatus');
+    const fNome = document.getElementById('fColabNome');
+    const fFuncao = document.getElementById('fColabFuncao');
+    const fFone = document.getElementById('fColabFone');
+    const fStatus = document.getElementById('fColabStatus');
 
-  if (!btnAdd || !modal || !form || !tblBody) return;
+    if (!btnAdd || !modal || !form || !tblBody) return;
 
-  let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
-  let equipe = [];
+    let currentUnit = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+    let equipe = [];
 
-  const keyFor = (unitId) => `rokuzen.equipe.${unitId || 'default'}`;
+    const keyFor = (unitId) => `rokuzen.equipe.${unitId || 'default'}`;
 
-  const load = () => {
-    try {
-      const raw = localStorage.getItem(keyFor(currentUnit?.id));
-      equipe = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
-    } catch {
-      equipe = [];
-    }
-  };
+    const load = () => {
+      try {
+        const raw = localStorage.getItem(keyFor(currentUnit?.id));
+        equipe = Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : [];
+      } catch {
+        equipe = [];
+      }
+    };
 
-  const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(equipe));
+    const save = () => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(equipe));
 
-  const render = () => {
-    tblBody.innerHTML = '';
-    if (!equipe.length) {
-      tblBody.appendChild(empty);
-      return;
-    }
+    const render = () => {
+      tblBody.innerHTML = '';
+      if (!equipe.length) {
+        tblBody.appendChild(empty);
+        return;
+      }
 
-    for (const c of equipe) {
-      const tr = document.createElement('tr');
-      tr.innerHTML = `
+      for (const c of equipe) {
+        const tr = document.createElement('tr');
+        tr.innerHTML = `
         <td>${c.nome}</td>
         <td>${c.funcao}</td>
         <td>${currentUnit?.name || '—'}</td>
@@ -1097,65 +1149,65 @@ document.addEventListener('DOMContentLoaded', () => {
         <td>${c.status}</td>
         <td><button class="btn ghost btn-sm js-del" data-id="${c.id}"><i class="fa-solid fa-trash"></i></button></td>
       `;
-      tblBody.appendChild(tr);
-    }
-  };
-
-  const abrirModal = () => {
-    fNome.value = '';
-    fFuncao.value = '';
-    fFone.value = '';
-    fStatus.value = 'Ativo';
-    try { modal.showModal(); } catch { modal.classList.add('open'); }
-  };
-
-  const fecharModal = () => {
-    try { modal.close(); } catch { modal.classList.remove('open'); }
-  };
-
-  // salvar colaborador
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const novo = {
-      id: crypto.randomUUID?.() || Date.now(),
-      nome: fNome.value.trim(),
-      funcao: fFuncao.value,
-      telefone: fFone.value.trim(),
-      status: fStatus.value
+        tblBody.appendChild(tr);
+      }
     };
-    if (!novo.nome || !novo.funcao) {
-      alert('Preencha todos os campos obrigatórios!');
-      return;
-    }
-    equipe.push(novo);
-    save();
-    fecharModal();
-    render();
-  });
 
-  // remover colaborador
-  tblBody.addEventListener('click', (e) => {
-    const btn = e.target.closest('.js-del');
-    if (!btn) return;
-    const id = btn.dataset.id;
-    if (!confirm('Remover este colaborador?')) return;
-    equipe = equipe.filter(c => c.id != id);
-    save();
-    render();
-  });
+    const abrirModal = () => {
+      fNome.value = '';
+      fFuncao.value = '';
+      fFone.value = '';
+      fStatus.value = 'Ativo';
+      try { modal.showModal(); } catch { modal.classList.add('open'); }
+    };
 
-  btnAdd?.addEventListener('click', abrirModal);
-  btnClose?.addEventListener('click', fecharModal);
-  document.addEventListener('unit:change', (ev) => {
-    currentUnit = ev.detail || {};
+    const fecharModal = () => {
+      try { modal.close(); } catch { modal.classList.remove('open'); }
+    };
+
+    // salvar colaborador
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const novo = {
+        id: crypto.randomUUID?.() || Date.now(),
+        nome: fNome.value.trim(),
+        funcao: fFuncao.value,
+        telefone: fFone.value.trim(),
+        status: fStatus.value
+      };
+      if (!novo.nome || !novo.funcao) {
+        alert('Preencha todos os campos obrigatórios!');
+        return;
+      }
+      equipe.push(novo);
+      save();
+      fecharModal();
+      render();
+    });
+
+    // remover colaborador
+    tblBody.addEventListener('click', (e) => {
+      const btn = e.target.closest('.js-del');
+      if (!btn) return;
+      const id = btn.dataset.id;
+      if (!confirm('Remover este colaborador?')) return;
+      equipe = equipe.filter(c => c.id != id);
+      save();
+      render();
+    });
+
+    btnAdd?.addEventListener('click', abrirModal);
+    btnClose?.addEventListener('click', fecharModal);
+    document.addEventListener('unit:change', (ev) => {
+      currentUnit = ev.detail || {};
+      load();
+      render();
+    });
+
+    // inicial
     load();
     render();
-  });
-
-  // inicial
-  load();
-  render();
-})();
+  })();
 
 
   /* =========================
@@ -1724,3 +1776,4 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   })
 })
+

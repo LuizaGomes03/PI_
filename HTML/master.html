@@ -896,36 +896,12 @@
                                 <th>Dia</th>
                                 <th>Horário</th>
                                 <th>Terapeuta</th>
-                                <th>Sala</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr>
-                                <td>Segunda-feira</td>
-                                <td>08:00 - 12:00</td>
-                                <td>Mariana Costa</td>
-                                <td>Sala 1</td>
-                            </tr>
-                            <tr>
-                                <td>Segunda-feira</td>
-                                <td>13:00 - 17:00</td>
-                                <td>Lucas Andrade</td>
-                                <td>Sala 2</td>
-                            </tr>
-                            <tr>
-                                <td>Terça-feira</td>
-                                <td>08:00 - 12:00</td>
-                                <td>Camila Rocha</td>
-                                <td>Sala 3</td>
-                            </tr>
-                            <tr>
-                                <td>Terça-feira</td>
-                                <td>13:00 - 17:00</td>
-                                <td>Pedro Lima</td>
-                                <td>Sala 1</td>
-                            </tr>
-                        </tbody>
+                        <tbody id="escalaTableBody"></tbody>
                     </table>
+
+                    <p id="escalaEmpty" class="muted" hidden>Nenhuma escala cadastrada para esta unidade.</p>
                 </div>
             </section>
 
@@ -2015,7 +1991,6 @@
                         <table class="table" id="tblPostos">
                             <thead>
                                 <tr>
-                                    <th>Unidade</th>
                                     <th>Tipo</th>
                                     <th>Total</th>
                                     <th>Ocupados</th>
