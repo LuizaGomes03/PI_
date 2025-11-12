@@ -88,7 +88,7 @@ export const listarPontos = async (req, res) => {
         p.saida
       FROM ponto_eletronico p
       JOIN colaboradores c ON p.colaborador_id = c.colaborador_id
-      LEFT JOIN tipo_colaborador t ON c.tipo_id = t.tipo_id
+      LEFT JOIN tipos_colaboradores t ON c.tipo_id = t.tipo_id
     `;
 
     const params = [];

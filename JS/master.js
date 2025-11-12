@@ -671,6 +671,7 @@ document.addEventListener('DOMContentLoaded', () => {
       if (unidade?.id) carregarColaboradores(unidade.id);
     });
 
+
     /// ===== cadastro colab =====
     (function initCadastroColab() {
       // pega o form CERTO (id = colabForm)
@@ -1737,7 +1738,8 @@ document.addEventListener('DOMContentLoaded', () => {
 // === GERAÇÃO AUTOMÁTICA DE E-MAIL E SENHA ===
 document.addEventListener('DOMContentLoaded', () => {
   document.addEventListener('view:activated', (ev) => {
-    if (ev.detail !== 'view-colab-novo') return; // só ativa quando abre "Novo Colaborador"
+    // Só ativa quando a view "Novo Colaborador" for aberta
+    if (ev.detail !== 'view-colab-novo') return;
 
     const nomeInput = document.getElementById('colabNome');
     const sobrenomeInput = document.getElementById('colabSobrenome');
@@ -1751,11 +1753,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function gerarEmail() {
       const nome = nomeInput.value.trim().toLowerCase();
+      const sobrenome = sobrenomeInput?.value?.trim().toLowerCase() || '';
+
       if (!nome) return;
 
-      const email = nome
+      const email = `${nome}.${sobrenome}`
         .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '') // tira acentos
+        .replace(/[\u0300-\u036f]/g, '') // remove acentos
         .replace(/\s+/g, '.');           // troca espaços por ponto
 
       emailInput.value = `${email}@rokuzen.com`;
@@ -1770,10 +1774,91 @@ document.addEventListener('DOMContentLoaded', () => {
       gerarEmail();
       gerarSenha();
     });
+
     sobrenomeInput.addEventListener('blur', () => {
       gerarEmail();
       gerarSenha();
     });
-  })
-})
+  });
+});
 
+// === CONTROLE DE LOGIN ===
+(async function initControleLogin() {
+  const tabela = document.querySelector("#pontoMasterBody");
+  const vazio = document.getElementById("pontoMasterEmpty");
+
+  async function carregarPontos() {
+    if (!tabela) return;
+    tabela.innerHTML = `<tr><td colspan="5">Carregando...</td></tr>`;
+
+    try {
+      // Pega unidade atual ou usa 1 como padrão
+      const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+      const unidadeId = unidadeAtual?.id || 1;
+
+      const resp = await fetch(`http://localhost:3000/api/ponto?unidade_id=${encodeURIComponent(unidadeId)}`);
+      if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+
+      const data = await resp.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        tabela.innerHTML = "";
+        if (vazio) vazio.hidden = false;
+        return;
+      }
+
+      if (vazio) vazio.hidden = true;
+      tabela.innerHTML = "";
+
+      data.forEach(p => {
+        const entrada = p.entrada
+          ? new Date(new Date(p.entrada).getTime() - 3 * 60 * 60 * 1000).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+          : "-";
+        const saida = p.saida
+          ? new Date(new Date(p.saida).getTime() - 3 * 60 * 60 * 1000).toLocaleTimeString("pt-BR", { hour: "2-digit", minute: "2-digit", second: "2-digit" })
+          : "-";
+
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.nome_colaborador || "-"}</td>
+          <td>${p.funcao || "-"}</td>
+          <td>${p.email_colaborador || "-"}</td>
+          <td>${entrada}</td>
+          <td>${saida}</td>
+        `;
+        tabela.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Erro ao carregar pontos:", err);
+      tabela.innerHTML = `<tr><td colspan="5">Erro ao carregar pontos.</td></tr>`;
+    }
+  }
+
+  // Atualiza quando trocar unidade
+  document.addEventListener("unit:change", e => {
+    if (e.detail?.id) {
+      try { localStorage.setItem("rokuzen.currentUnit", JSON.stringify(e.detail)); } catch { }
+      carregarPontos();
+    }
+  });
+
+  // Atualiza quando abrir a view Controle de Login
+  document.addEventListener("view:activated", e => {
+    if (e.detail === "view-controle-login" || e.detail === "controle-login") {
+      carregarPontos();
+    }
+  });
+
+  // Atualização automática a cada 15 segundos enquanto a view estiver ativa
+  let intervalId = null;
+  document.addEventListener("view:activated", e => {
+    if (e.detail === "view-controle-login") {
+      if (!intervalId) intervalId = setInterval(carregarPontos, 15000);
+    } else {
+      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+    }
+  });
+
+  // Primeira carga
+  carregarPontos();
+})();
