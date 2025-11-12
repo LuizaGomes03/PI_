@@ -687,6 +687,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const usuario = document.getElementById('colabEmail').value.trim();
         const senha = document.getElementById('colabSenha').value.trim();
         const funcao = document.getElementById('colabFuncao').value.trim();
+        const id_escala = document.getElementById('colabEscala').value.trim();
 
         // mapeia função -> tipo_id (de acordo com os values do select)
         const tipoMap = {
@@ -715,6 +716,7 @@ document.addEventListener('DOMContentLoaded', () => {
               usuario,
               senha,
               unidade_id: unidadeAtual.id,
+              id_escala,
             }),
           });
           const data = await resp.json().catch(() => ({}));

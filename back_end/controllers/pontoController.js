@@ -6,7 +6,7 @@ export const registrarEntrada = async (req, res) => {
     return res.status(400).json({ error: "colaborador_id obrigatório" });
 
   try {
-    // Busca a unidade do colaborador (agora via colab_unidade)
+    // Busca a unidade do colaborador
     const [colab] = await db.query(
       `SELECT cu.unidade_id 
        FROM colab_unidade cu

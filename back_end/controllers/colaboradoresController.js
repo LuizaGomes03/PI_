@@ -31,7 +31,7 @@ export const listarColaboradoresPorUnidade = async (req, res) => {
 
 export const criarColaborador = async (req, res) => {
     console.log("📩 Dados recebidos no POST /api/colaboradores:", req.body);
-    const { nome_colaborador, tipo_id, usuario, senha, unidade_id } = req.body;
+    const { nome_colaborador, tipo_id, usuario, senha, unidade_id, id_escala } = req.body;
 
     if (!nome_colaborador || !tipo_id || !usuario || !senha || !unidade_id) {
         return res.status(400).json({ error: 'Preencha todos os campos obrigatórios.' });
@@ -46,9 +46,9 @@ export const criarColaborador = async (req, res) => {
     await conn.beginTransaction();
     try {
         const [result] = await conn.query(
-            `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo)
-             VALUES (?, ?, ?, ?, 'S')`,
-            [nome_colaborador, tipo_id, usuario, senha]
+            `INSERT INTO colaboradores (nome_colaborador, tipo_id, usuario, senha, ativo, id_escala)
+             VALUES (?, ?, ?, ?, 'S', ?)`,
+            [nome_colaborador, tipo_id, usuario, senha, id_escala]
         );
 
         const colaboradorId = result.insertId;
