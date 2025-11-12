@@ -580,7 +580,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // O listener DEVE ficar DEPOIS da definição da função async
-    punchBtn?.addEventListener('click', markPunch); F
+    punchBtn?.addEventListener('click', markPunch); 
 
 
     function openLoginCard() {
