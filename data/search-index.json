@@ -1,0 +1,15 @@
+[
+  { "title": "Agende seu horário", "url": "agendamento_unidades.html", "tags": ["agendamento", "unidades", "horário"] },
+  { "title": "Gift Card", "url": "giftcard.html", "tags": ["presente", "voucher", "cartão"] },
+  { "title": "Quem somos", "url": "quem_somos.html", "tags": ["sobre", "equipe", "história"] },
+  { "title": "Unidades", "url": "onde_estamos.html", "tags": ["endereços", "mapa", "onde estamos"] },
+  { "title": "Serviços", "url": "o_que_fazemos.html", "tags": ["massagem", "shiatsu", "terapias"] },
+  { "title": "Contato", "url": "faleconosco_contato.html", "tags": ["telefone", "email", "whatsapp"] },
+  { "title": "Trabalhe conosco", "url": "faleconosco_trabalheconosco.html", "tags": ["vaga", "currículo", "emprego"] },
+  { "title": "Seja um franqueado", "url": "faleconosco_sejaumfranqueado.html", "tags": ["franquia", "investimento"] },
+
+  { "title": "Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?", "url": "ficardolorido.html", "tags": ["post", "massagem", "shiatsu"] },
+  { "title": "Descubra o novo conceito terapêutico do nosso espaço Rokuzen.", "url": "novoconceito.html", "tags": ["post", "conceito", "terapêutico"] },
+  { "title": "Mudança Climática e sua Influência na Imunidade: O Papel Benéfico", "url": "clima.html", "tags": ["post", "imunidade", "clima"] },
+  { "title": "Massagem não é sacanagem", "url": "massagemnao.html", "tags": ["post", "ética", "massagem"] }
+]

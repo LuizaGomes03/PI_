@@ -1,30 +1,21 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rokuzen</title>
 
-  <!-- Bootstrap core CSS (utilitários: d-flex, gap, etc.) -->
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-
-  <!-- Fonte Amatic SC (usada no CSS) -->
   <link href="https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&display=swap" rel="stylesheet">
-
-  <!-- Font Awesome (para .fa-solid ...) -->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
-
-  <!-- Fontes e CSS -->
   <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="../CSS/menu.css" />
   <link rel="stylesheet" href="../CSS/rodape.css" />
   <link rel="stylesheet" href="../CSS/homepage.css" />
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" />
-
 </head>
-
 <body>
+  <!-- menu vai ser injetado -->
   <div id="menu"></div>
 
   <section class="features">
@@ -51,19 +42,16 @@
     <h2 id="postsHeading">Nossos Posts</h2>
 
     <div class="posts-container" role="region" aria-label="Carrossel de posts">
-      <!-- Botão anterior -->
       <button class="posts-btn" id="postsPrev" type="button" aria-controls="postsRow" aria-label="Anterior">
         <i class="fa-solid fa-arrow-left" aria-hidden="true"></i>
       </button>
 
-      <!-- Faixa -->
       <div class="posts-row" id="postsRow" tabindex="0">
         <article class="post">
           <a href="ficardolorido.html" class="text-decoration-none text-dark">
             <img src="../imagens/Rectangle 16.png" alt="Ficar Dolorido Após Massagem..." loading="lazy">
             <div class="post-body mt-2">
-              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?
-              </p>
+              <p class="post-title">Ficar Dolorido Após Massagem Terapêutica, Liberação Miofascial ou Shiatsu é normal?</p>
             </div>
           </a>
         </article>
@@ -96,121 +84,16 @@
         </article>
       </div>
 
-      <!-- Botão próximo -->
       <button class="posts-btn" id="postsNext" type="button" aria-controls="postsRow" aria-label="Próximo">
         <i class="fa-solid fa-arrow-right" aria-hidden="true"></i>
       </button>
     </div>
   </section>
 
+  <!-- rodapé vai ser injetado -->
+  <div id="rodape"></div>
 
-  </div> <!-- fecha #postsRow -->
-
-  <!-- botão próximo -->
-
-  </div> <!-- fecha .posts-container -->
-  </section>
-
-  <!-- Carregar só o menu -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      fetch("menu.html")
-        .then(r => r.text())
-        .then(h => {
-          document.getElementById("menu").innerHTML = h;
-        });
-    });
-  </script>
-
-  <!-- Carrossel -->
-  <script>
-    document.addEventListener('DOMContentLoaded', () => {
-      const track = document.getElementById('postsRow');
-      const prev = document.getElementById('postsPrev');
-      const next = document.getElementById('postsNext');
-
-      if (!track) return;
-
-      const step = () => Math.round(track.clientWidth * 0.8);
-
-      next?.addEventListener('click', (e) => {
-        e.preventDefault();
-        track.scrollBy({ left: step(), behavior: 'smooth' });
-      });
-
-      prev?.addEventListener('click', (e) => {
-        e.preventDefault();
-        track.scrollBy({ left: -step(), behavior: 'smooth' });
-      });
-
-      track.addEventListener('keydown', (e) => {
-        if (e.key === 'ArrowRight') {
-          e.preventDefault();
-          track.scrollBy({ left: step(), behavior: 'smooth' });
-        }
-        if (e.key === 'ArrowLeft') {
-          e.preventDefault();
-          track.scrollBy({ left: -step(), behavior: 'smooth' });
-        }
-      });
-
-      let t;
-      window.addEventListener('resize', () => {
-        clearTimeout(t);
-        t = setTimeout(() => step(), 120);
-      });
-    });
-  </script>
-  </main>
-
-  <!-- VLibras -->
-  <div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-      <div class="vw-plugin-top-wrapper"></div>
-    </div>
-  </div>
-  <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-  <script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-  </script>
-
-
-
-  <footer>
-    <div id="rodape"></div>
-    <script>
-      fetch("menu.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("menu").innerHTML = data;
-        });
-
-      fetch("rodape.html")
-        .then((response) => response.text())
-        .then((data) => {
-          document.getElementById("rodape").innerHTML = data;
-        });
-    </script>
-  </footer>
-    <!-- login discreto -->
-   <div style="text-align: center;">
-  <a href="login.html" class="login-link" aria-label="Área de login">
-    <i class="bi bi-person"></i>
-    <span class="login-text">Entrar</span>
-  </a>
-</div>
-
-  <script>
-    const hamburger = document.querySelector('.hamburger');
-    const menu = document.querySelector('nav ul');
-
-    hamburger.addEventListener('click', () => {
-      menu.classList.toggle('active');
-      hamburger.classList.toggle('open');
-    });
-  </script>
-  <script src="https://app.embed.im/accessibility.js" defer></script>
+  <!-- carrega tudo via JS -->
+  <script src="../JS/homepage.js" defer></script>
 </body>
-
 </html>

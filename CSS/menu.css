@@ -242,3 +242,19 @@ nav ul.active {
     max-height: 1000px;
     /* altura suficiente para mostrar todos os links */
 }
+
+.search-container { position: relative; }
+.search-suggestions {
+  position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+  margin-top: 6px; background: #fff;
+  border: 1px solid #d9e0b6; border-radius: 10px;
+  box-shadow: 0 6px 18px rgba(0,0,0,.08);
+  max-height: 280px; overflow: auto;
+}
+.search-suggestions .suggestion {
+  display: block; width: 100%; text-align: left;
+  border: 0; background: transparent; padding: 10px 14px; cursor: pointer;
+  font: 500 14px/1.3 "Raleway", sans-serif;
+}
+.search-suggestions .suggestion .title mark { background: #e9f2c9; border-radius: 4px; padding: 0 2px; }
+.search-suggestions .suggestion:hover, .search-suggestions .suggestion.active { background: #f6f9ec; }
