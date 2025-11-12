@@ -1,3 +1,52 @@
+// ==== LOGOUT ==== 
+document.addEventListener("DOMContentLoaded", () => {
+    const logoutBtn = document.getElementById("logoutBtn");
+    const popup = document.getElementById("logoutPopup");
+    const confirmBtn = document.getElementById("confirmLogout");
+    const cancelBtn = document.getElementById("cancelLogout");
+
+    if (!logoutBtn || !popup) return;
+
+    // Abre o popup ao clicar no botão de sair
+    logoutBtn.addEventListener("click", () => {
+        popup.classList.add("active");
+        document.body.style.overflow = "hidden"; // bloqueia o scroll de fundo
+    });
+
+    // Fecha o popup ao clicar em "Cancelar"
+    cancelBtn.addEventListener("click", () => {
+        popup.classList.remove("active");
+        document.body.style.overflow = "";
+    });
+
+    // Confirma o logout
+    confirmBtn.addEventListener("click", () => {
+        popup.classList.remove("active");
+        document.body.style.overflow = "";
+        setTimeout(() => {
+            localStorage.clear();
+            sessionStorage.clear();
+            window.location.href = "login.html"; // redireciona para tela de login
+        }, 200);
+    });
+
+    // Fecha o popup se clicar fora da caixa
+    popup.addEventListener("click", (e) => {
+        if (e.target === popup) {
+            popup.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    });
+
+    // Fecha com tecla ESC
+    document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape" && popup.classList.contains("active")) {
+            popup.classList.remove("active");
+            document.body.style.overflow = "";
+        }
+    });
+});
+
 // AGENDA — calendário alinhado por dia da semana (insere slots vazios antes do dia 1)
 // Mantém destaques, navegação entre meses e painel de atendimentos
 (() => {
@@ -498,8 +547,40 @@
         }
     }
 
+    function openLoginCard() {
+        // Fecha outros cards ativos
+        document.querySelectorAll('.card[aria-hidden="false"]').forEach(c => {
+            c.setAttribute('aria-hidden', 'true');
+        });
+
+        loginCard.setAttribute('aria-hidden', 'false');
+        loginCard.classList.add('fade-in');
+        document.body.style.overflow = 'hidden'; // bloqueia o fundo se quiser
+    }
+
+    function closeLoginCard() {
+        loginCard.setAttribute('aria-hidden', 'true');
+        loginCard.classList.remove('fade-in');
+        document.body.style.overflow = '';
+    }
+
+    if (loginShortcut) {
+        loginShortcut.addEventListener('click', e => {
+            e.preventDefault();
+            openLoginCard();
+        });
+    }
+
+    closeLoginBtn?.addEventListener('click', () => {
+        closeLoginCard();
+    });
+
+    document.addEventListener('keydown', e => {
+        if (e.key === 'Escape') closeLoginCard();
+    });
+
     // O listener DEVE ficar DEPOIS da definição da função async
-    punchBtn?.addEventListener('click', markPunch);F
+    punchBtn?.addEventListener('click', markPunch); F
 
 
     function openLoginCard() {
@@ -528,56 +609,6 @@
         close: closeLoginCard
     };
 })();
-
-// ==== LOGOUT ==== 
-document.addEventListener("DOMContentLoaded", () => {
-    const logoutBtn = document.getElementById("logoutBtn");
-    const popup = document.getElementById("logoutPopup");
-    const confirmBtn = document.getElementById("confirmLogout");
-    const cancelBtn = document.getElementById("cancelLogout");
-
-    if (!logoutBtn || !popup) return;
-
-    // Abre o popup ao clicar no botão de sair
-    logoutBtn.addEventListener("click", () => {
-        popup.classList.add("active");
-        document.body.style.overflow = "hidden"; // bloqueia o scroll de fundo
-    });
-
-    // Fecha o popup ao clicar em "Cancelar"
-    cancelBtn.addEventListener("click", () => {
-        popup.classList.remove("active");
-        document.body.style.overflow = "";
-    });
-
-    // Confirma o logout
-    confirmBtn.addEventListener("click", () => {
-        popup.classList.remove("active");
-        document.body.style.overflow = "";
-        setTimeout(() => {
-            localStorage.clear();
-            sessionStorage.clear();
-            window.location.href = "login.html"; // redireciona para tela de login
-        }, 200);
-    });
-
-    // Fecha o popup se clicar fora da caixa
-    popup.addEventListener("click", (e) => {
-        if (e.target === popup) {
-            popup.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-    });
-
-    // Fecha com tecla ESC
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape" && popup.classList.contains("active")) {
-            popup.classList.remove("active");
-            document.body.style.overflow = "";
-        }
-    });
-});
-
 
 
 
