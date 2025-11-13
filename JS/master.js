@@ -1914,3 +1914,73 @@ document.addEventListener('DOMContentLoaded', () => {
   // Primeira carga
   carregarPrecos();
 })();
+
+// === POSTOS DE TRABALHO ===
+(async function initPostosTrabalho() {
+  console.log("⚙️ initPostosTrabalho carregado");
+
+  const tabela = document.querySelector("#tblPostos tbody");
+  const vazio = document.getElementById("postosEmpty");
+  const stamp = document.getElementById("postosStamp");
+
+  async function carregarPostos() {
+    if (!tabela) return;
+    tabela.innerHTML = `<tr><td colspan="4">Carregando...</td></tr>`;
+
+    try {
+      const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+      const unidadeId = unidadeAtual?.id || 1;
+      console.log("📦 Buscando postos da unidade:", unidadeId);
+
+      const resp = await fetch(`http://localhost:3000/api/postos?unidade_id=${encodeURIComponent(unidadeId)}`);
+      if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+
+      const data = await resp.json();
+      console.log("📊 Postos recebidos:", data);
+
+      tabela.innerHTML = "";
+
+      if (!Array.isArray(data) || data.length === 0) {
+        vazio.style.display = "block";
+        return;
+      }
+
+      vazio.style.display = "none";
+
+      data.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.tipo}</td>
+          <td>${p.total}</td>
+          <td>${p.ocupados}</td>
+          <td>${p.livres}</td>
+        `;
+        tabela.appendChild(tr);
+      });
+
+      stamp.textContent = `Atualizado em ${new Date().toLocaleString("pt-BR")}`;
+      console.log("✅ Tabela de postos atualizada com sucesso.");
+
+    } catch (err) {
+      console.error("❌ Erro ao carregar postos:", err);
+      tabela.innerHTML = `<tr><td colspan="4">Erro ao carregar postos.</td></tr>`;
+      vazio.style.display = "none";
+    }
+  }
+
+  // Atualiza quando muda unidade
+  document.addEventListener("unit:change", (e) => {
+    console.log("🟠 Unidade alterada:", e.detail);
+    carregarPostos();
+  });
+
+  // Atualiza quando abre a aba
+  document.addEventListener("view:activated", (e) => {
+    if (e.detail === "view-postos") {
+      console.log("🟢 View 'Postos de Trabalho' aberta");
+      carregarPostos();
+    }
+  });
+
+  carregarPostos();
+})();
