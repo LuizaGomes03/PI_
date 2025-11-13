@@ -283,139 +283,137 @@ document.addEventListener('DOMContentLoaded', () => {
   })();
 
   /* =========================
-     TABELA DE PREÇOS (CRUD por unidade)
+     TABELA DE PREÇOS (CRUD)
      ========================= */
-  (function () {
-    const form = document.getElementById('priceForm');
-    const nameEl = document.getElementById('svcNome');
-    const durEl = document.getElementById('svcDur');
-    const valEl = document.getElementById('svcPreco');
-    const tbl = document.getElementById('tblPrecos')?.querySelector('tbody');
-    const empty = document.getElementById('priceEmpty');
-    const unitNameEl = document.getElementById('priceUnitName');
+  (async function initTabelaPrecos() {
+    const form = document.getElementById("priceForm");
+    const nomeEl = document.getElementById("svcNome");
+    const durEl = document.getElementById("svcDur");
+    const valEl = document.getElementById("svcPreco");
+    const tbl = document.querySelector("#tblPrecos tbody");
+    const vazio = document.getElementById("priceEmpty");
+    const unidadeNome = document.getElementById("priceUnitName");
+    const actionLabel = document.getElementById("priceFormAction");
+
     if (!form || !tbl) return;
 
-    let currentUnit = null;   // {id, name}
     let editingId = null;
 
-    const keyFor = (unitId) => `rokuzen.prices.${unitId || 'default'}`;
+    async function carregarPrecos() {
+      tbl.innerHTML = `<tr><td colspan="4">Carregando...</td></tr>`;
+      try {
+        const resp = await fetch("http://localhost:3000/api/servicos/precos");
+        if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
 
-    const brl = (n) => (Number(n) || 0).toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
-    const mins = (m) => `${Number(m) || 0} min`;
+        const data = await resp.json();
+        if (!Array.isArray(data) || data.length === 0) {
+          tbl.innerHTML = "";
+          vazio.style.display = "block";
+          return;
+        }
 
-    const load = () => {
-      const raw = localStorage.getItem(keyFor(currentUnit?.id));
-      try { return Array.isArray(JSON.parse(raw)) ? JSON.parse(raw) : []; } catch { return []; }
-    };
-    const save = (arr) => localStorage.setItem(keyFor(currentUnit?.id), JSON.stringify(arr));
+        vazio.style.display = "none";
+        tbl.innerHTML = "";
+        data.forEach((p) => {
+          const tr = document.createElement("tr");
+          tr.innerHTML = `
+          <td>${p.nome_servico}</td>
+          <td>${p.duracao_min} min</td>
+          <td>R$ ${parseFloat(p.valor).toFixed(2).replace(".", ",")}</td>
+          <td class="actions-col">
+            <button class="btn small edit" data-id="${p.preco_id}"><i class="fa-solid fa-pen"></i></button>
+            <button class="btn small danger remove" data-id="${p.preco_id}"><i class="fa-solid fa-trash"></i></button>
+          </td>
+        `;
+          tbl.appendChild(tr);
+        });
+      } catch (err) {
+        console.error("Erro ao carregar preços:", err);
+        tbl.innerHTML = `<tr><td colspan="4">Erro ao carregar preços.</td></tr>`;
+      }
+    }
 
-    const ensureSeeds = () => {
-      const data = load();
-      if (data.length) return;
-      const seeds = [
-        { id: crypto.randomUUID?.() || String(Date.now()) + 'a', nome: 'Quick Massage', dur: 15, preco: 38 },
-        { id: crypto.randomUUID?.() || String(Date.now()) + 'b', nome: 'Reflexologia', dur: 30, preco: 100 },
-      ];
-      save(seeds);
-    };
+    // === Adicionar ou editar ===
+    form.addEventListener("submit", async (e) => {
+      e.preventDefault();
 
-    const render = () => {
-      if (!currentUnit) return;
-      const items = load();
-      tbl.innerHTML = '';
-      if (!items.length) {
-        empty.style.display = '';
+      const payload = {
+        nome_servico: nomeEl.value.trim(),
+        duracao_min: durEl.value,
+        valor: valEl.value,
+      };
+
+      if (!payload.nome_servico || !payload.duracao_min || !payload.valor) {
+        alert("Preencha todos os campos!");
         return;
       }
-      empty.style.display = 'none';
-      const frag = document.createDocumentFragment();
-      items.forEach(it => {
-        const tr = document.createElement('tr');
-        tr.innerHTML = `
-            <td data-label="Serviço">${it.nome}</td>
-            <td data-label="Duração">${mins(it.dur)}</td>
-            <td data-label="Preço">${brl(it.preco)}</td>
-            <td data-actions>
-              <button class="btn ghost btn-sm js-edit" data-id="${it.id}"><i class="fa-solid fa-pen"></i> Editar</button>
-              <button class="btn ghost btn-sm js-del"  data-id="${it.id}"><i class="fa-solid fa-trash"></i> Remover</button>
-            </td>`;
-        frag.appendChild(tr);
-      });
-      tbl.appendChild(frag);
-    };
 
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      if (!currentUnit) return;
+      const url = editingId
+        ? `http://localhost:3000/api/precos/${editingId}`
+        : "http://localhost:3000/api/precos";
 
-      const nome = nameEl.value.trim();
-      const dur = Number(durEl.value);
-      const preco = Number(valEl.value);
-      if (!nome || isNaN(dur) || isNaN(preco)) return;
+      const method = editingId ? "PUT" : "POST";
 
-      const items = load();
-      if (editingId) {
-        const i = items.findIndex(x => x.id === editingId);
-        if (i >= 0) items[i] = { ...items[i], nome, dur, preco };
+      try {
+        const resp = await fetch(url, {
+          method,
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload),
+        });
+
+        if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+
+        alert(editingId ? "Preço atualizado!" : "Preço adicionado!");
+        form.reset();
+        actionLabel.textContent = "Adicionar";
         editingId = null;
-        const act = document.getElementById('priceFormAction');
-        if (act) act.textContent = 'Adicionar';
-      } else {
-        items.push({ id: crypto.randomUUID?.() || String(Date.now()), nome, dur, preco });
+        carregarPrecos();
+      } catch (err) {
+        console.error("Erro ao salvar preço:", err);
+        alert("Erro ao salvar preço.");
       }
-      save(items);
-      form.reset();
-      render();
     });
 
-    document.addEventListener('click', (e) => {
-      const editBtn = e.target.closest('.js-edit');
-      const delBtn = e.target.closest('.js-del');
+    // === Editar ou remover linha ===
+    tbl.addEventListener("click", async (e) => {
+      const btn = e.target.closest("button");
+      if (!btn) return;
+      const id = btn.dataset.id;
 
-      if (!editBtn && !delBtn) return;
-
-      const id = (editBtn || delBtn).dataset.id;
-      const items = load();
-
-      if (editBtn) {
-        const it = items.find(x => x.id === id);
-        if (!it) return;
-        nameEl.value = it.nome;
-        durEl.value = it.dur;
-        valEl.value = it.preco;
+      if (btn.classList.contains("edit")) {
+        const tr = btn.closest("tr");
+        nomeEl.value = tr.children[0].textContent.trim();
+        durEl.value = parseInt(tr.children[1].textContent);
+        valEl.value = parseFloat(tr.children[2].textContent.replace("R$", "").replace(",", "."));
+        actionLabel.textContent = "Salvar";
         editingId = id;
-        const act = document.getElementById('priceFormAction');
-        if (act) act.textContent = 'Salvar';
-        nameEl.focus();
+        console.log("✏️ Editando preço ID:", id);
       }
 
-      if (delBtn) {
-        if (!confirm('Remover este serviço da tabela?')) return;
-        const next = items.filter(x => x.id !== id);
-        save(next);
-        render();
+      if (btn.classList.contains("remove")) {
+        if (!confirm("Remover este serviço?")) return;
+        try {
+          const resp = await fetch(`http://localhost:3000/api/precos/${id}`, { method: "DELETE" });
+          if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+          alert("Serviço removido!");
+          carregarPrecos();
+        } catch (err) {
+          console.error("Erro ao remover preço:", err);
+          alert("Erro ao remover preço.");
+        }
       }
     });
 
-    // integra com seletor de unidade
-    document.addEventListener('unit:change', (ev) => {
-      currentUnit = ev.detail || null;
-      if (unitNameEl) unitNameEl.textContent = currentUnit?.name || '—';
-      ensureSeeds();
-      render();
+    // Carrega ao abrir view
+    document.addEventListener("view:activated", (e) => {
+      if (e.detail === "view-tabela-precos" || e.detail === "tabela-precos") {
+        carregarPrecos();
+      }
     });
 
-    // fallback inicial (caso a view seja aberta direto e ainda não houve unit:change)
-    try {
-      const last = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || 'null');
-      if (last && last.id) {
-        currentUnit = last;
-        if (unitNameEl) unitNameEl.textContent = currentUnit?.name || '—';
-        ensureSeeds();
-        render();
-      }
-    } catch { }
+    carregarPrecos();
   })();
+
 
   (function () {
 
@@ -1849,16 +1847,70 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
-  // Atualização automática a cada 15 segundos enquanto a view estiver ativa
-  let intervalId = null;
-  document.addEventListener("view:activated", e => {
-    if (e.detail === "view-controle-login") {
-      if (!intervalId) intervalId = setInterval(carregarPontos, 15000);
-    } else {
-      if (intervalId) { clearInterval(intervalId); intervalId = null; }
+  // Primeira carga
+  carregarPontos();
+})();
+
+// === TABELA DE PREÇOS ===
+(async function initTabelaPrecos() {
+  const tabela = document.querySelector("#tblPrecos tbody");
+  const vazio = document.getElementById("priceEmpty");
+  const unidadeNome = document.getElementById("priceUnitName");
+
+  async function carregarPrecos() {
+    if (!tabela) return;
+    tabela.innerHTML = `<tr><td colspan="4">Carregando...</td></tr>`;
+
+    try {
+      const resp = await fetch("http://localhost:3000/api/servicos/precos");
+      if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+
+      const data = await resp.json();
+
+      if (!Array.isArray(data) || data.length === 0) {
+        tabela.innerHTML = "";
+        vazio.style.display = "block";
+        return;
+      }
+
+      vazio.style.display = "none";
+      tabela.innerHTML = "";
+
+      data.forEach(p => {
+        const tr = document.createElement("tr");
+        tr.innerHTML = `
+          <td>${p.nome_servico}</td>
+          <td>${p.duracao_min} min</td>
+          <td>R$ ${parseFloat(p.valor).toFixed(2).replace(".", ",")}</td>
+          <td class="actions-col">
+            <button class="btn small edit" data-id="${p.preco_id}">
+              <i class="fa-solid fa-pen"></i>
+            </button>
+            <button class="btn small danger" data-id="${p.preco_id}">
+              <i class="fa-solid fa-trash"></i>
+            </button>
+          </td>
+        `;
+        tbl.appendChild(tr);
+      });
+    } catch (err) {
+      console.error("Erro ao carregar preços:", err);
+      tabela.innerHTML = `<tr><td colspan="4">Erro ao carregar preços.</td></tr>`;
+    }
+  }
+
+  // Atualiza o nome da unidade atual (só estética)
+  document.addEventListener("unit:change", (e) => {
+    if (unidadeNome && e.detail?.name) unidadeNome.textContent = e.detail.name;
+  });
+
+  // Recarrega quando abrir a view "Tabela de Preços"
+  document.addEventListener("view:activated", (e) => {
+    if (e.detail === "view-tabela-precos" || e.detail === "tabela-precos") {
+      carregarPrecos();
     }
   });
 
   // Primeira carga
-  carregarPontos();
+  carregarPrecos();
 })();

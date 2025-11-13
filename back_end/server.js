@@ -5,6 +5,8 @@ import clientesRoutes from './routes/clientes.js';
 import colaboradoresRoutes from './routes/colaboradores.js';
 import giftcardRoutes from './routes/giftcard.js';
 import pontoRoutes from "./routes/ponto.js";
+import servicoRoutes from "./routes/servico.js";
+import precosRoutes from "./routes/precos.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -26,6 +28,8 @@ app.use('/api/clientes', clientesRoutes);
 app.use('/api', colaboradoresRoutes);
 app.use('/api/giftcards', giftcardRoutes);
 app.use("/api", pontoRoutes);
+app.use("/api", servicoRoutes);
+app.use("/api/precos", precosRoutes);
 
 (async () => {
   try {
