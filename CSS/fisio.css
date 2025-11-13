@@ -884,3 +884,7 @@ h1 {
     align-items: center;
     justify-content: center;
   }
+
+  .modal-close {
+    display: none !important;
+}
