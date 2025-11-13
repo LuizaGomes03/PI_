@@ -162,11 +162,14 @@
           <table class="table">
             <thead>
               <tr>
-                <th>Hora</th>
+                <th>Data/Hora</th>
                 <th>Cliente</th>
+                <th>Celular</th>
                 <th>Terapeuta</th>
                 <th>Serviço</th>
-                <th>Sala</th>
+                <th>Tempo</th>
+                <th>Preço</th>
+                <th>Onde</th>
               </tr>
             </thead>
             <tbody>
@@ -463,61 +466,61 @@
     </section>
 
     <!-- MODAL DE NOVO AGENDAMENTO -->
-<dialog id="agendaModal">
-  <div class="cli-sheet" role="dialog" aria-labelledby="agendaFormTitle">
-    <header class="cli-sheet-head">
-      <strong id="agendaFormTitle">
-        <i class="fa-regular fa-calendar-plus"></i>
-        Novo Agendamento
-      </strong>
-      <button class="btn ghost" id="agendaClose" type="button">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </header>
+    <dialog id="agendaModal">
+      <div class="cli-sheet" role="dialog" aria-labelledby="agendaFormTitle">
+        <header class="cli-sheet-head">
+          <strong id="agendaFormTitle">
+            <i class="fa-regular fa-calendar-plus"></i>
+            Novo Agendamento
+          </strong>
+          <button class="btn ghost" id="agendaClose" type="button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </header>
 
-    <form id="agendaForm">
-      <div class="cli-sheet-body">
-        <div class="cli-grid">
-          <label class="cli-field">
-            <span class="cli-label">Data</span>
-            <input type="date" id="fAgData" required />
-          </label>
+        <form id="agendaForm">
+          <div class="cli-sheet-body">
+            <div class="cli-grid">
+              <label class="cli-field">
+                <span class="cli-label">Data</span>
+                <input type="date" id="fAgData" required />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Hora</span>
-            <input type="time" id="fAgHora" required />
-          </label>
+              <label class="cli-field">
+                <span class="cli-label">Hora</span>
+                <input type="time" id="fAgHora" required />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Cliente</span>
-            <input type="text" id="fAgCliente" required placeholder="Ex.: Maria Souza" />
-          </label>
+              <label class="cli-field">
+                <span class="cli-label">Cliente</span>
+                <input type="text" id="fAgCliente" required placeholder="Ex.: Maria Souza" />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Serviço</span>
-            <input type="text" id="fAgServico" required placeholder="Ex.: Quick Massage" />
-          </label>
+              <label class="cli-field">
+                <span class="cli-label">Serviço</span>
+                <input type="text" id="fAgServico" required placeholder="Ex.: Quick Massage" />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Terapeuta</span>
-            <input type="text" id="fAgTerapeuta" required placeholder="Ex.: Luana" />
-          </label>
+              <label class="cli-field">
+                <span class="cli-label">Terapeuta</span>
+                <input type="text" id="fAgTerapeuta" required placeholder="Ex.: Luana" />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Sala</span>
-            <input type="text" id="fAgSala" placeholder="01" />
-          </label>
-        </div>
+              <label class="cli-field">
+                <span class="cli-label">Sala</span>
+                <input type="text" id="fAgSala" placeholder="01" />
+              </label>
+            </div>
+          </div>
+
+          <footer class="cli-sheet-foot">
+            <button type="submit" class="btn primary">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+          </footer>
+        </form>
       </div>
-
-      <footer class="cli-sheet-foot">
-        <button type="submit" class="btn primary">
-          <i class="fa-solid fa-floppy-disk"></i> Salvar
-        </button>
-      </footer>
-    </form>
-  </div>
-</dialog>
+    </dialog>
 
     <!-- CONTROLE DE LOGIN -->
     <section id="view-controle-login" class="view" aria-labelledby="pontoMasterTitle">
@@ -539,12 +542,6 @@
             <input type="text" id="pontoBusca" placeholder="Nome, função ou e-mail">
           </div>
           <button id="pontoLimpar" class="btn ghost">Limpar</button>
-          <div class="summary">
-            <span id="sumTotal">0</span> funcionários •
-            <span id="sumAtivos">0</span> em serviço •
-            <span id="sumIntervalo">0</span> em intervalo •
-            <span id="sumSaida">0</span> já saíram
-          </div>
         </div>
 
         <!-- Tabela -->
@@ -584,10 +581,10 @@
           <thead class="table__head">
             <tr>
               <th>Nome</th>
-              <th>Papel</th>
-              <th>Unidade</th>
-              <th>Telefone</th>
-              <th>Status</th>
+              <th>Função</th>
+              <th>E-mail</th>
+              <th>Senha</th>
+              <th>Ativo</th>
               <th></th>
             </tr>
           </thead>
@@ -597,59 +594,76 @@
     </section>
 
     <!-- MODAL DE NOVO COLABORADOR -->
-<dialog id="colabModal">
-  <div class="cli-sheet" role="dialog" aria-labelledby="colabFormTitle">
-    <header class="cli-sheet-head">
-      <strong id="colabFormTitle">
-        <i class="fa-solid fa-user-plus"></i>
-        Novo Colaborador
-      </strong>
-      <button class="btn ghost" id="colabClose" type="button">
-        <i class="fa-solid fa-xmark"></i>
-      </button>
-    </header>
+    <dialog id="colabModal">
+      <div class="cli-sheet" role="dialog" aria-labelledby="colabFormTitle">
+        <header class="cli-sheet-head">
+          <strong id="colabFormTitle">
+            <i class="fa-solid fa-user-plus"></i>
+            Novo Colaborador
+          </strong>
+          <button class="btn ghost" id="colabClose" type="button">
+            <i class="fa-solid fa-xmark"></i>
+          </button>
+        </header>
 
-    <form id="colabForm">
-      <div class="cli-sheet-body">
-        <div class="cli-grid">
-          <label class="cli-field">
-            <span class="cli-label">Nome completo</span>
-            <input type="text" id="fColabNome" required placeholder="Ex.: Ana Costa" />
-          </label>
+        <form id="colabForm">
+          <div class="cli-sheet-body">
+            <div class="cli-grid">
+              <label class="cli-field">
+                <span class="cli-label">Nome completo</span>
+                <input type="text" id="fColabNome" required placeholder="Ex.: Ana Costa" />
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Função</span>
-            <select id="fColabFuncao" required>
-              <option value="">Selecione…</option>
-              <option value="Massagista">Massagista</option>
-              <option value="Recepção">Recepção</option>
-              <option value="Gerente">Gerente</option>
-            </select>
-          </label>
+              <label class="cli-field">
+                <label class="cli-field">
+                  <span class="cli-label">Escala</span>
+                  <select id="fColabEscla" required>
+                    <option value="">Selecione…</option>
+                    <option value="1">Segunda 8h - 13h</option>
+                    <option value="2">Segunda 13h - 18h</option>
+                    <option value="3">Terça 8h - 13h</option>
+                    <option value="4">Terça 13h - 18h</option>
+                    <option value="5">Quarta 8h - 13h</option>
+                    <option value="6">Quarta 13h - 18h</option>
+                    <option value="7">Quinta 8h - 13h</option>
+                    <option value="8">Quinta 13h - 18h</option>
+                    <option value="9">Sexta 8h - 13h</option>
+                    <option value="10">Sexta 13h - 18h</option>
+                  </select>
+                </label>
+                <span class="cli-label">Função</span>
+                <select id="fColabFuncao" required>
+                  <option value="">Selecione…</option>
+                  <option value="Massagista">Massagista</option>
+                  <option value="Recepção">Recepção</option>
+                  <option value="Gerente">Gerente</option>
+                </select>
+              </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Telefone</span>
-            <input type="tel" id="fColabFone" placeholder="(11) 9 9999-9999" />
-          </label>
 
-          <label class="cli-field">
-            <span class="cli-label">Status</span>
-            <select id="fColabStatus" required>
-              <option value="Ativo">Ativo</option>
-              <option value="Inativo">Inativo</option>
-            </select>
-          </label>
-        </div>
+              <label class="cli-field">
+                <span class="cli-label">Telefone</span>
+                <input type="tel" id="fColabFone" placeholder="(11) 9 9999-9999" />
+              </label>
+
+              <label class="cli-field">
+                <span class="cli-label">Status</span>
+                <select id="fColabStatus" required>
+                  <option value="Ativo">Ativo</option>
+                  <option value="Inativo">Inativo</option>
+                </select>
+              </label>
+            </div>
+          </div>
+
+          <footer class="cli-sheet-foot">
+            <button type="submit" class="btn primary">
+              <i class="fa-solid fa-floppy-disk"></i> Salvar
+            </button>
+          </footer>
+        </form>
       </div>
-
-      <footer class="cli-sheet-foot">
-        <button type="submit" class="btn primary">
-          <i class="fa-solid fa-floppy-disk"></i> Salvar
-        </button>
-      </footer>
-    </form>
-  </div>
-</dialog>
+    </dialog>
 
 
     <!-- ========== RELATÓRIO ========== -->
