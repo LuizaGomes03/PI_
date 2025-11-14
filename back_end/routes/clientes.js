@@ -5,7 +5,9 @@ import {
   cadastrarCliente,
   atualizarCliente,
   removerCliente,
-  listarAniversariantesDoDia
+  listarAniversariantesDoDia,
+  buscarClientesPorNome,
+  buscarClientesPorTelefone
 } from '../controllers/clientesController.js'; // Mantém o .js obrigatório no ESM
 
 router.get('/unidade/:unidadeId', listarClientesPorUnidade);
@@ -13,5 +15,7 @@ router.post('/', cadastrarCliente);
 router.put('/:id', atualizarCliente);
 router.delete('/:id', removerCliente);
 router.get('/aniversariantes/:unidadeId', listarAniversariantesDoDia);
+router.get("/buscar", buscarClientesPorNome);
+router.get("/buscarTelefone", buscarClientesPorTelefone);
 
 export default router;

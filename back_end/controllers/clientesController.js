@@ -145,3 +145,34 @@ export const listarAniversariantesDoDia = async (req, res) => {
     res.status(500).json({ error: 'Erro ao buscar aniversariantes.' });
   }
 };
+
+export const buscarClientesPorNome = async (req, res) => {
+  const q = (req.query.nome || "").trim();
+  if (!q) return res.json([]);
+  try {
+    const [rows] = await db.query(
+      `SELECT cliente_id, nome_cliente, telefone FROM clientes WHERE nome_cliente LIKE ? LIMIT 20`,
+      [`%${q}%`]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro buscarClientesPorNome:", err);
+    res.status(500).json({ error: "Erro interno" });
+  }
+};
+
+// GET /api/clientes/buscarTelefone?telefone=...
+export const buscarClientesPorTelefone = async (req, res) => {
+  const q = (req.query.telefone || "").trim();
+  if (!q) return res.json([]);
+  try {
+    const [rows] = await db.query(
+      `SELECT cliente_id, nome_cliente, telefone FROM clientes WHERE telefone LIKE ? LIMIT 20`,
+      [`%${q}%`]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro buscarClientesPorTelefone:", err);
+    res.status(500).json({ error: "Erro interno" });
+  }
+};
