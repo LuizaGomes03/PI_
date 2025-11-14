@@ -4,6 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
   const agendamentoShortcut = document.querySelector('a[href="#atendimentos"]');
   const calendarGrid = document.getElementById("calendarGrid");
   const monthYear = document.getElementById("monthYear");
+  const unidadeAtual = JSON.parse(localStorage.getItem('rokuzen.currentUnit') || '{}');
+  const unidadeId = unidadeAtual.id || 1; // fallback
+
+  // elementos do modal / form
+  const clienteNomeInput = document.getElementById('clienteNome'); // seu campo
+  const clienteTelInput = document.getElementById('clienteTel'); // seu campo
+  const servicoSelect = document.getElementById('servicoSelect'); // id do select de serviços no form
+  const tempoSelect = document.getElementById('tempoSelect'); // select de tempos
+  const precoInput = document.getElementById('precoInput'); // campo preço
+  const confirmarBtn = document.getElementById('confirmarAgendamento'); // botão confirmar
+
 
   const servicesShortcut = document.getElementById('shortcut-servicos-novos') || document.querySelector('a[href="#servicos-novos"]');
 
@@ -131,56 +142,12 @@ document.addEventListener("DOMContentLoaded", () => {
   bookingDetails.id = "bookingDetails";
   calendarScreen.appendChild(bookingDetails);
 
-  // === EXEMPLOS DE AGENDAMENTOS EXISTENTES ===
-  const fakeBookings = {
-    "2025-11-07": [
-      { horario: "10:00", cliente: "João Silva", servico: "Quick Massage (25 min)" },
-      { horario: "14:30", cliente: "Maria Souza", servico: "Macaterapia (60 min)" },
-      { horario: "16:00", cliente: "Carlos Lima", servico: "Reflexologia Podal (40 min)" },
-    ],
-    "2025-11-10": [
-      { horario: "09:00", cliente: "Ana Costa", servico: "Reflexologia Podal (40 min)" },
-    ],
-  };
+  async function carregarAgendamentos(unidadeId, ano, mes) {
+    const resp = await fetch(`http://localhost:3000/api/atendimentos/mensal?unidade_id=${unidadeId}&ano=${ano}&mes=${mes}`);
+    if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+    return await resp.json();
+  }
 
-  // === EXEMPLOS DE HORÁRIOS E PROFISSIONAIS DISPONÍVEIS ===
-  const disponibilidades = {
-    segunda: [
-      { horario: "09:00", profissional: "Clara" },
-      { horario: "10:30", profissional: "Lúcia" },
-      { horario: "14:00", profissional: "Marcos" },
-    ],
-    terça: [
-      { horario: "09:30", profissional: "Rafael" },
-      { horario: "11:00", profissional: "Sofia" },
-      { horario: "15:00", profissional: "Clara" },
-    ],
-    quarta: [
-      { horario: "10:00", profissional: "Lúcia" },
-      { horario: "13:00", profissional: "Marcos" },
-      { horario: "16:00", profissional: "Rafael" },
-    ],
-    quinta: [
-      { horario: "09:00", profissional: "Sofia" },
-      { horario: "11:30", profissional: "Clara" },
-      { horario: "14:30", profissional: "Marcos" },
-    ],
-    sexta: [
-      { horario: "09:00", profissional: "Rafael" },
-      { horario: "10:30", profissional: "Lúcia" },
-      { horario: "15:00", profissional: "Sofia" },
-    ],
-    sábado: [
-      { horario: "09:00", profissional: "Rafael" },
-      { horario: "10:30", profissional: "Lúcia" },
-      { horario: "15:00", profissional: "Sofia" },
-    ],
-    domingo: [
-      { horario: "09:00", profissional: "Rafael" },
-      { horario: "10:30", profissional: "Lúcia" },
-      { horario: "15:00", profissional: "Sofia" },
-    ],
-  };
 
   // === NAVEGAÇÃO ENTRE TELAS ===
 
@@ -226,9 +193,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   let currentDate = new Date();
 
-  function renderCalendar() {
+  async function renderCalendar() {
     const year = currentDate.getFullYear();
     const month = currentDate.getMonth();
+
+    // 🔹 Pega a unidade logada (igual aos outros módulos)
+    const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+    const unidadeId = unidadeAtual?.id || 1;
+
+    // 🔹 Busca no backend os agendamentos e define dias lotados
+    const agendamentos = await carregarAgendamentos(unidadeId, year, month + 1);
+    const diasLotados = new Set(agendamentos.filter(a => a.lotado).map(a => a.data));
 
     const firstDay = new Date(year, month, 1).getDay();
     const lastDay = new Date(year, month + 1, 0).getDate();
@@ -250,19 +225,28 @@ document.addEventListener("DOMContentLoaded", () => {
       dayEl.classList.add("calendar-day");
       dayEl.textContent = day;
 
-      if (fakeBookings[fullDate]) {
-        dayEl.classList.add("full");
+      if (diasLotados.has(fullDate)) {
+        dayEl.classList.add("full"); // vermelho
       } else {
-        dayEl.classList.add("available");
+        dayEl.classList.add("available"); // verde
       }
 
-      dayEl.addEventListener("click", () => {
-        if (fakeBookings[fullDate]) {
-          showBookings(fullDate);
-        } else {
-          showAvailableOptions(fullDate);
+      dayEl.addEventListener("click", async () => {
+        const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+        const unidadeId = unidadeAtual?.id || 1;
+        const fullDate = `${year}-${String(month + 1).padStart(2, "0")}-${String(day).padStart(2, "0")}`;
+
+        try {
+          const resp = await fetch(`http://localhost:3000/api/atendimentos/disponiveis?unidade_id=${unidadeId}&data=${fullDate}`);
+          if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+          const horarios = await resp.json();
+          showAvailableOptions(fullDate, horarios);
+        } catch (err) {
+          console.error("Erro ao carregar horários:", err);
+          bookingDetails.innerHTML = `<div class="booking-card"><p>Erro ao carregar horários disponíveis.</p></div>`;
         }
       });
+
 
       calendarGrid.appendChild(dayEl);
     }
@@ -288,44 +272,26 @@ document.addEventListener("DOMContentLoaded", () => {
     `;
   }
 
-  function showAvailableOptions(date) {
+  function showAvailableOptions(date, horarios = []) {
     const dataObj = new Date(date + "T00:00");
-    const diaSemana = dataObj
-      .toLocaleDateString("pt-BR", { weekday: "long" })
-      .toLowerCase()
-      .replace("-feira", "")
-      .trim();
-
-    const opcoes = disponibilidades[diaSemana];
     const dataFormatada = dataObj.toLocaleDateString("pt-BR");
 
-    if (!opcoes) {
-      bookingDetails.innerHTML = `
-        <div class="booking-card">
-          <h3>${dataFormatada}</h3>
-          <p>❌ Não há horários disponíveis neste dia.</p>
-        </div>
-      `;
+    if (!horarios.length) {
+      bookingDetails.innerHTML = `<p>Sem horários disponíveis em ${dataFormatada}</p>`;
       return;
     }
 
     bookingDetails.innerHTML = `
-      <div class="booking-card">
-        <h3>Disponíveis - ${dataFormatada}</h3>
-        ${opcoes
-        .map(
-          (opt) => `
-            <div class="booking-item">
-              <strong>${opt.horario}</strong> — ${opt.profissional}
-              <button class="btn-agendar" data-horario="${opt.horario}" data-prof="${opt.profissional}">
-                Agendar
-              </button>
-            </div>`
-        )
-        .join("")}
-      </div>
+      <h3>Horários disponíveis — ${dataFormatada}</h3>
+      ${horarios.map(h => `
+        <div>
+          <strong>${h.horario}</strong> — ${h.profissional}
+          <button class="btn-agendar" data-horario="${h.horario}" data-prof="${h.profissional}" data-colab="${h.colaborador_id}">Agendar</button>
+        </div>`).join("")}
     `;
   }
+
+
 
   document.getElementById("prevMonth").addEventListener("click", () => {
     currentDate.setMonth(currentDate.getMonth() - 1);
@@ -407,18 +373,107 @@ cancelarAg.addEventListener("click", () => {
   formOverlay.classList.remove("active");
 });
 
-// Envio do formulário
-formAgendamento.addEventListener("submit", (e) => {
-  e.preventDefault();
-  alert("✅ Agendamento realizado com sucesso!");
-  formOverlay.classList.remove("active");
-});
+// // Envio do formulário
+// formAgendamento.addEventListener("submit", async (e) => {
+//   e.preventDefault();
+
+//   try {
+//     const dataISO = document.getElementById('dataAg').value; // "YYYY-MM-DD"
+//     const hora = document.getElementById('horaAg').value;    // "09:00"
+//     const profNome = document.getElementById('profAg').value;
+//     const clienteNome = document.getElementById('clienteAg').value.trim();
+//     const telefone = document.getElementById('telAg').value.trim();
+//     const servicoId = document.getElementById('servicoAg').value;
+//     const tempoMin = parseInt(document.getElementById('tempoAg').value, 10);
+
+//     if (!clienteNome || !telefone || !servicoId || !tempoMin) {
+//       alert('Preencha todos os campos.');
+//       return;
+//     }
+
+//     // 1) procurar cliente por telefone (ajuste a rota se precisar)
+//     let clienteId = null;
+//     let resp = await fetch(`http://localhost:3000/api/clientes/search?term=${encodeURIComponent(telefone)}`);
+//     if (resp.ok) {
+//       const found = await resp.json();
+//       if (found && found.length > 0) clienteId = found[0].cliente_id;
+//     }
+
+//     // 2) se não achou, cria cliente
+//     if (!clienteId) {
+//       resp = await fetch('http://localhost:3000/api/clientes', {
+//         method: 'POST',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify({ nome: clienteNome, telefone })
+//       });
+//       if (!resp.ok) throw new Error('Erro ao criar cliente');
+//       const created = await resp.json();
+//       clienteId = created.cliente_id || created.insertId || created.id;
+//     }
+
+//     // 3) buscar colaborador_id pelo nome do profissional (ou, melhor, passar id quando gerar slots)
+//     // aqui eu tento procurar pelo nome (melhor alterar o retorno de /disponiveis pra trazer colaborador_id)
+//     let colaboradorId = null;
+//     resp = await fetch(`http://localhost:3000/api/colaboradores?nome=${encodeURIComponent(profNome)}`);
+//     if (resp.ok) {
+//       const arr = await resp.json();
+//       if (arr.length) colaboradorId = arr[0].colaborador_id;
+//     }
+
+//     if (!colaboradorId) {
+//       alert('Erro: não foi possível identificar o profissional selecionado.');
+//       return;
+//     }
+
+//     // 4) calcular hora_fim (hora + tempoMin)
+//     function addMinutesToTime(timeStr, minutesToAdd) {
+//       const [hh, mm] = timeStr.split(':').map(Number);
+//       const date = new Date(0, 0, 0, hh, mm);
+//       date.setMinutes(date.getMinutes() + minutesToAdd);
+//       return `${String(date.getHours()).padStart(2, '0')}:${String(date.getMinutes()).padStart(2, '0')}:00`;
+//     }
+//     const hora_inicio = `${hora}:00`;
+//     const hora_fim = addMinutesToTime(hora, tempoMin);
+
+//     // 5) unidade: pega do localStorage (mesmo padrão usado quando listar)
+//     const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+//     const unidadeId = unidadeAtual?.id || 1;
+
+//     // 6) POST /api/atendimentos
+//     resp = await fetch('http://localhost:3000/api/atendimentos', {
+//       method: 'POST',
+//       headers: { 'Content-Type': 'application/json' },
+//       body: JSON.stringify({
+//         cliente_id: clienteId,
+//         colaborador_id: colaboradorId,
+//         servico_id: servicoId,
+//         unidade_id: unidadeId,
+//         data_atendimento: dataISO,
+//         hora_inicio,
+//         hora_fim,
+//         observacoes: ''
+//       })
+//     });
+//     if (!resp.ok) throw new Error(`Erro HTTP ${resp.status}`);
+//     const result = await resp.json();
+
+//     alert('✅ Agendamento realizado com sucesso!');
+//     formOverlay.classList.remove('active');
+//     renderCalendar(); // atualiza calendário
+//   } catch (err) {
+//     console.error('Erro ao criar agendamento:', err);
+//     alert('Erro ao salvar agendamento: ' + err.message);
+//   }
+// });
+
 
 // ======== CONECTAR AO CALENDÁRIO ========
 document.addEventListener("click", (e) => {
   if (e.target.classList.contains("btn-agendar")) {
-    const data = e.target.closest(".booking-card").querySelector("h3").textContent.replace("Disponíveis - ", "");
-    const dataISO = new Date(data.split("/").reverse().join("-")).toISOString().split("T")[0];
+    const container = e.target.closest("#bookingDetails");
+    const titulo = container.querySelector("h3").textContent;
+    const dataTexto = titulo.replace("Horários disponíveis — ", "").trim();
+    const dataISO = new Date(dataTexto.split("/").reverse().join("-")).toISOString().split("T")[0];
     const hora = e.target.dataset.horario;
     const prof = e.target.dataset.prof;
 
@@ -525,6 +580,170 @@ document.querySelectorAll('.checkbox-list').forEach(group => {
   });
 });
 
+let clienteSelecionado = null;
 
+async function buscarClientesPorNome(q) {
+  if (!q || q.length < 2) return [];
+  const resp = await fetch(`/api/clientes/buscar?nome=${encodeURIComponent(q)}`);
+  return await resp.json();
+}
 
+async function buscarClientesPorTelefone(q) {
+  if (!q || q.length < 2) return [];
+  const resp = await fetch(`/api/clientes/buscarTelefone?telefone=${encodeURIComponent(q)}`);
+  return await resp.json();
+}
 
+// Exemplo simples de dropdown de sugestoes (pode usar um datalist ou sua UI)
+function mostrarSugestoes(inputEl, items, onSelect) {
+  // remove dropdown antigo
+  let cont = inputEl.nextElementSibling;
+  if (cont && cont.classList.contains('autocomplete')) cont.remove();
+
+  const div = document.createElement('div');
+  div.className = 'autocomplete';
+  div.style.position = 'absolute';
+  div.style.background = '#fff';
+  div.style.zIndex = 2000;
+  items.forEach(it => {
+    const r = document.createElement('div');
+    r.className = 'item';
+    r.style.padding = '8px';
+    r.textContent = `${it.nome_cliente} — ${it.telefone || ''}`;
+    r.addEventListener('click', () => onSelect(it));
+    div.appendChild(r);
+  });
+  inputEl.parentNode.insertBefore(div, inputEl.nextSibling);
+}
+
+clienteNomeInput.addEventListener('input', async (e) => {
+  const q = e.target.value;
+  const list = await buscarClientesPorNome(q);
+  mostrarSugestoes(clienteNomeInput, list, (item) => {
+    clienteSelecionado = item;
+    clienteNomeInput.value = item.nome_cliente;
+    clienteTelInput.value = item.telefone || "";
+    // remove sugestoes
+    const el = clienteNomeInput.nextElementSibling;
+    if (el && el.classList.contains('autocomplete')) el.remove();
+  });
+});
+
+clienteTelInput.addEventListener('input', async (e) => {
+  const q = e.target.value;
+  const list = await buscarClientesPorTelefone(q);
+  mostrarSugestoes(clienteTelInput, list, (item) => {
+    clienteSelecionado = item;
+    clienteNomeInput.value = item.nome_cliente;
+    clienteTelInput.value = item.telefone || "";
+    const el = clienteTelInput.nextElementSibling;
+    if (el && el.classList.contains('autocomplete')) el.remove();
+  });
+});
+
+async function carregarServicos() {
+  const resp = await fetch('/api/servicos');
+  const servicos = await resp.json();
+  servicos.forEach(s => {
+    const opt = document.createElement('option');
+    opt.value = s.servico_id;
+    opt.textContent = s.nome_servico;
+    servicoSelect.appendChild(opt);
+  });
+}
+carregarServicos();
+
+servicoSelect.addEventListener('change', async (e) => {
+  const servicoId = e.target.value;
+  tempoSelect.innerHTML = '<option value="">Selecione</option>';
+  precoInput.value = '';
+
+  if (!servicoId) return;
+
+  const resp = await fetch(`/api/servicos/${servicoId}/precos`);
+  const precos = await resp.json();
+  precos.forEach(p => {
+    const opt = document.createElement('option');
+    opt.value = p.preco_id;
+    opt.textContent = `${p.duracao_min} min — R$ ${Number(p.valor).toFixed(2)}`;
+    opt.dataset.valor = p.valor;
+    opt.dataset.duracao = p.duracao_min;
+    tempoSelect.appendChild(opt);
+  });
+});
+
+tempoSelect.addEventListener('change', (e) => {
+  const selected = e.target.selectedOptions[0];
+  if (!selected) {
+    precoInput.value = '';
+    return;
+  }
+  precoInput.value = Number(selected.dataset.valor).toFixed(2);
+});
+
+// ao clicar "Agendar" nos horários já listados:
+document.addEventListener('click', (e) => {
+  if (e.target.classList.contains('btn-agendar')) {
+    const hora = e.target.dataset.horario; // "08:00"
+    const prof = e.target.dataset.prof; // "Ana Souza"
+    const colabId = e.target.dataset.colab; // id numérico
+    // preencher campos no modal:
+    document.getElementById('dataAg').value = dataTexto; // formato dd/mm/aaaa se necessário
+    document.getElementById('horaAg').value = hora;
+    document.getElementById('profAg').value = prof;
+    document.getElementById('colabIdAg').value = colabId; // hidden input
+    // abrir modal etc...
+  }
+});
+
+confirmarBtn.addEventListener('click', async (e) => {
+  e.preventDefault();
+
+  // garantir cliente selecionado (ou buscar por fields)
+  if (!clienteSelecionado) {
+    alert("Selecione um cliente válido pelo nome ou telefone (ou cadastre novo).");
+    return;
+  }
+
+  const cliente_id = clienteSelecionado.cliente_id;
+  const colaborador_id = Number(document.getElementById('colabIdAg').value);
+  const servico_id = Number(servicoSelect.value);
+  const preco_id = Number(tempoSelect.value);
+  const dataText = document.getElementById('dataAg').value; // ex '11/11/2025'
+  const horaText = document.getElementById('horaAg').value; // '08:00'
+
+  // montar ISO datetime (assume dataText dd/mm/yyyy)
+  const [d, m, y] = dataText.split('/');
+  const isoStart = `${y}-${m.padStart(2,'0')}-${d.padStart(2,'0')}T${horaText}:00`;
+
+  // opcional: criado_por (user id) do localStorage
+  const currentUser = JSON.parse(localStorage.getItem('rokuzen.currentUser') || '{}');
+  const criado_por = currentUser?.id || null;
+
+  try {
+    const resp = await fetch('/api/atendimentos', {
+      method: 'POST',
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({
+        unidade_id: unidadeId,
+        cliente_id,
+        colaborador_id,
+        servico_id,
+        preco_id,
+        data_inicio: isoStart,
+        criado_por
+      })
+    });
+    if (!resp.ok) {
+      const err = await resp.json();
+      throw new Error(err.error || 'Erro ao criar agendamento');
+    }
+    const result = await resp.json();
+    alert('Agendamento criado! ID: ' + result.atendimento_id);
+    // fecha modal, atualiza calendar/listas
+    // chamar recarregarAgendamentos() etc.
+  } catch (err) {
+    console.error(err);
+    alert('Erro: ' + err.message);
+  }
+});

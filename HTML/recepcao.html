@@ -191,27 +191,32 @@
 
           <label>Profissional:</label>
           <input type="text" id="profAg" readonly>
+          <input type="hidden" id="colabIdAg">
 
           <label>Nome do Cliente:</label>
-          <input type="text" id="clienteAg" required>
+          <input type="text" id="clienteNome" required autocomplete="off">
 
           <label>Telefone:</label>
-          <input type="tel" id="telAg" required placeholder="(11) 90000-0000">
+          <input type="tel" id="clienteTel" required placeholder="(11) 90000-0000" autocomplete="off">
 
           <label>Serviço:</label>
-          <select id="servicoAg" required>
+          <select id="servicoSelect" required>
             <option value="">Selecione</option>
-            <option>Quick Massage</option>
-            <option>Macaterapia</option>
-            <option>Reflexologia Podal</option>
-            <option>Auriculoterapia</option>
           </select>
+
+          <label>Tempo:</label>
+          <select id="tempoSelect" required>
+            <option value="">Selecione um serviço</option>
+          </select>
+
+          <label>Preço (R$):</label>
+          <input type="text" id="precoInput" readonly required placeholder="0.00">
 
           <div class="form-actions">
             <button type="button" id="cancelarAg">Cancelar</button>
-            <button type="submit" class="confirm">Confirmar</button>
+            <button type="submit" class="confirm" id="confirmarAgendamento">Confirmar</button>
           </div>
-          <!-- 🔹 Link de cadastro abaixo -->
+
           <p class="link-cadastro">
             <a href="#" id="novoCliente">Cadastrar novo cliente</a>
           </p>

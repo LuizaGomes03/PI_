@@ -8,6 +8,7 @@ import pontoRoutes from "./routes/ponto.js";
 import servicoRoutes from "./routes/servico.js";
 import precosRoutes from "./routes/precos.js";
 import postosRoutes from "./routes/postos.js";
+import atendimentosRoutes from "./routes/atendimentos.js";
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -32,6 +33,7 @@ app.use("/api", pontoRoutes);
 app.use("/api", servicoRoutes);
 app.use("/api/precos", precosRoutes);
 app.use("/api/postos", postosRoutes);
+app.use("/api/atendimentos", atendimentosRoutes);
 
 (async () => {
   try {

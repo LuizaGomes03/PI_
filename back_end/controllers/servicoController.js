@@ -18,3 +18,28 @@ export const listarPrecos = async (req, res) => {
     res.status(500).json({ error: "Erro ao buscar preços de serviços." });
   }
 };
+
+export const getServicos = async (req, res) => {
+  try {
+    const [rows] = await db.query(`SELECT servico_id, nome_servico FROM servicos ORDER BY nome_servico`);
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro getServicos:", err);
+    res.status(500).json({ error: "Erro interno" });
+  }
+};
+
+// GET /api/servicos/:servico_id/precos -> lista duracoes/valores (servico_precos)
+export const getPrecosDoServico = async (req, res) => {
+  const { servico_id } = req.params;
+  try {
+    const [rows] = await db.query(
+      `SELECT preco_id, duracao_min, valor FROM servico_precos WHERE servico_id = ? ORDER BY duracao_min`,
+      [servico_id]
+    );
+    res.json(rows);
+  } catch (err) {
+    console.error("Erro getPrecosDoServico:", err);
+    res.status(500).json({ error: "Erro interno" });
+  }
+};
