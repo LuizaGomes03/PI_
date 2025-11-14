@@ -255,76 +255,78 @@ export const getHorariosDisponiveis = async (req, res) => {
 };
 
 export const criarAgendamento = async (req, res) => {
-  try {
-    const {
-      unidade_id,
-      cliente_id,
-      colaborador_id,
-      servico_id,
-      preco_id,
-      // opcional: posto_id (se quiser forçar), caso contrário calculamos
-      posto_id: postoForcado,
-      data_inicio, // ISO string "2025-11-11T08:00:00"
-      criado_por
-    } = req.body;
+    try {
+        const {
+            unidade_id,
+            cliente_id,
+            colaborador_id,
+            servico_id,
+            preco_id,
+            // opcional: posto_id (se quiser forçar), caso contrário calculamos
+            posto_id: postoForcado,
+            data_inicio, // ISO string "2025-11-11T08:00:00"
+            criado_por
+        } = req.body;
 
-    if (!unidade_id || !cliente_id || !colaborador_id || !servico_id || !preco_id || !data_inicio) {
-      return res.status(400).json({ error: "Campos obrigatórios faltando." });
-    }
+        if (!unidade_id || !cliente_id || !colaborador_id || !servico_id || !preco_id || !data_inicio) {
+            return res.status(400).json({ error: "Campos obrigatórios faltando." });
+        }
 
-    // 1) pegar duracao do preco_id
-    const [[preco]] = await pool.query(`SELECT duracao_min, valor FROM servico_precos WHERE preco_id = ?`, [preco_id]);
-    if (!preco) return res.status(400).json({ error: "Preco inválido." });
+        // 1) pegar duracao do preco_id
+        const [[preco]] = await pool.query(`SELECT duracao_min, valor FROM servico_precos WHERE preco_id = ?`, [preco_id]);
+        if (!preco) return res.status(400).json({ error: "Preco inválido." });
 
-    const duracaoMin = Number(preco.duracao_min);
-    const dataInicio = new Date(data_inicio);
-    if (isNaN(dataInicio.getTime())) return res.status(400).json({ error: "data_inicio inválida." });
+        const duracaoMin = Number(preco.duracao_min);
 
-    const dataFim = new Date(dataInicio.getTime() + duracaoMin * 60000);
-    const dataInicioSQL = dataInicio.toISOString().slice(0, 19).replace("T", " ");
-    const dataFimSQL = dataFim.toISOString().slice(0, 19).replace("T", " ");
+        const dataInicio = new Date(data_inicio + 'Z');
+        if (isNaN(dataInicio.getTime())) return res.status(400).json({ error: "data_inicio inválida." });
 
-    // 2) decidir posto
-    let posto_id = null;
-    if (postoForcado) {
-      posto_id = postoForcado;
-    } else {
-      // pega quais tipos esse servico aceita (servico_locais)
-      const [tiposRows] = await pool.query(
-        `SELECT tipo FROM servico_locais WHERE servico_ref_id = ?`,
-        [servico_id]
-      );
-      const tipos = tiposRows.map(r => r.tipo);
-      if (tipos.length > 0) {
-        // montar placeholders
-        const placeholders = tipos.map(_ => "?").join(",");
-        const [postos] = await pool.query(
-          `SELECT posto_id FROM postos_trabalho WHERE unidade_id = ? AND tipo IN (${placeholders}) AND (total - ocupados) > 0 LIMIT 1`,
-          [unidade_id, ...tipos]
-        );
-        if (postos.length > 0) posto_id = postos[0].posto_id;
-      }
-    }
+        const dataFim = new Date(dataInicio.getTime() + duracaoMin * 60000);
 
-    // 3) inserir no banco
-    const [insertRes] = await pool.query(
-      `INSERT INTO atendimentos 
+        const dataInicioSQL = dataInicio.toISOString().slice(0, 19).replace('T', ' ');
+        const dataFimSQL = dataFim.toISOString().slice(0, 19).replace('T', ' ');
+        
+        // 2) decidir posto
+        let posto_id = null;
+        if (postoForcado) {
+            posto_id = postoForcado;
+        } else {
+            // pega quais tipos esse servico aceita (servico_locais)
+            const [tiposRows] = await pool.query(
+                `SELECT tipo FROM servico_locais WHERE servico_ref_id = ?`,
+                [servico_id]
+            );
+            const tipos = tiposRows.map(r => r.tipo);
+            if (tipos.length > 0) {
+                // montar placeholders
+                const placeholders = tipos.map(_ => "?").join(",");
+                const [postos] = await pool.query(
+                    `SELECT posto_id FROM postos_trabalho WHERE unidade_id = ? AND tipo IN (${placeholders}) AND (total - ocupados) > 0 LIMIT 1`,
+                    [unidade_id, ...tipos]
+                );
+                if (postos.length > 0) posto_id = postos[0].posto_id;
+            }
+        }
+
+        // 3) inserir no banco
+        const [insertRes] = await pool.query(
+            `INSERT INTO atendimentos 
        (unidade_id, cliente_id, colaborador_id, servico_id, preco_id, posto_id, data_inicio, data_fim, status, criado_por)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'agendado', ?)`,
-      [unidade_id, cliente_id, colaborador_id, servico_id, preco_id, posto_id, dataInicioSQL, dataFimSQL, criado_por || null]
-    );
+            [unidade_id, cliente_id, colaborador_id, servico_id, preco_id, posto_id, dataInicioSQL, dataFimSQL, criado_por || null]
+        );
 
-    const novoId = insertRes.insertId;
+        const novoId = insertRes.insertId;
 
-    // 4) atualizar posto ocupado (se alocado)
-    if (posto_id) {
-      await pool.query(`UPDATE postos_trabalho SET ocupados = ocupados + 1 WHERE posto_id = ?`, [posto_id]);
+        // 4) atualizar posto ocupado (se alocado)
+        if (posto_id) {
+            await pool.query(`UPDATE postos_trabalho SET ocupados = ocupados + 1 WHERE posto_id = ?`, [posto_id]);
+        }
+
+        // 5) retornar sucesso
+        res.json({ atendimento_id: novoId, posto_id, data_inicio: dataInicioSQL, data_fim: dataFimSQL });
+    } catch (err) {
+        console.error("Erro criarAgendamento:", err);
+        res.status(500).json({ error: "Erro interno ao criar agendamento." });
     }
-
-    // 5) retornar sucesso
-    res.json({ atendimento_id: novoId, posto_id, data_inicio: dataInicioSQL, data_fim: dataFimSQL });
-  } catch (err) {
-    console.error("Erro criarAgendamento:", err);
-    res.status(500).json({ error: "Erro interno ao criar agendamento." });
-  }
 };
