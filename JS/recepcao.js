@@ -306,7 +306,7 @@ document.addEventListener("DOMContentLoaded", () => {
     formOverlay && formOverlay.classList.remove("active");
   });
 
-  // Ao confirmar: envia /api/atendimentos (mantive sua lógica)
+  // Ao confirmar: envia /api/atendimentos
   confirmarBtn && confirmarBtn.addEventListener("click", async (e) => {
     e.preventDefault();
 
@@ -348,7 +348,25 @@ document.addEventListener("DOMContentLoaded", () => {
       });
       alert('Agendamento criado! ID: ' + (result.atendimento_id || result.id || ""));
       formOverlay && formOverlay.classList.remove("active");
+
+      // 1. Re-renderiza o calendário (se necessário)
       renderCalendar();
+
+      // 2. [NOVO] Recarrega os horários disponíveis para o dia agendado
+      const dataText = dataAgInput?.value;
+      if (dataText) {
+        const [d, m, y] = dataText.split('/');
+        const fullDate = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
+
+        try {
+          const resp = await safeFetchJson(`http://localhost:3000/api/atendimentos/disponiveis?unidade_id=${unidadeId}&data=${fullDate}`);
+          showAvailableOptions(fullDate, resp);
+        } catch (err) {
+          console.error("Erro ao recarregar horários:", err);
+          bookingDetails.innerHTML = `<div class="booking-card"><p>Erro ao recarregar horários.</p></div>`;
+        }
+      }
+
     } catch (err) {
       console.error(err);
       alert('Erro ao criar agendamento: ' + err.message);
