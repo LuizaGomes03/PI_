@@ -30,7 +30,7 @@ app.use('/api/clientes', clientesRoutes);
 app.use('/api', colaboradoresRoutes);
 app.use('/api/giftcards', giftcardRoutes);
 app.use("/api", pontoRoutes);
-app.use("/api", servicoRoutes);
+app.use("/api/servicos", servicoRoutes);
 app.use("/api/precos", precosRoutes);
 app.use("/api/postos", postosRoutes);
 app.use("/api/atendimentos", atendimentosRoutes);

@@ -151,7 +151,7 @@ export const buscarClientesPorNome = async (req, res) => {
   if (!q) return res.json([]);
   try {
     const [rows] = await db.query(
-      `SELECT cliente_id, nome_cliente, telefone FROM clientes WHERE nome_cliente LIKE ? LIMIT 20`,
+      `SELECT cliente_id, nome_cliente, telefone_cliente FROM clientes WHERE nome_cliente LIKE ? LIMIT 20`,
       [`%${q}%`]
     );
     res.json(rows);
@@ -167,7 +167,7 @@ export const buscarClientesPorTelefone = async (req, res) => {
   if (!q) return res.json([]);
   try {
     const [rows] = await db.query(
-      `SELECT cliente_id, nome_cliente, telefone FROM clientes WHERE telefone LIKE ? LIMIT 20`,
+      `SELECT cliente_id, nome_cliente, telefone_cliente FROM clientes WHERE telefone_cliente LIKE ? LIMIT 20`,
       [`%${q}%`]
     );
     res.json(rows);

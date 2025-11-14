@@ -9,7 +9,6 @@
     rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
   <link rel="stylesheet" href="../CSS/recepcao.css">
-  <script src="../JS/recepcao.js" defer></script>
 </head>
 
 <body>
@@ -194,10 +193,14 @@
           <input type="hidden" id="colabIdAg">
 
           <label>Nome do Cliente:</label>
-          <input type="text" id="clienteNome" required autocomplete="off">
+          <div class="input-wrapper" style="position: relative;">
+            <input type="text" id="clienteNome" required autocomplete="off">
+          </div>
 
           <label>Telefone:</label>
-          <input type="tel" id="clienteTel" required placeholder="(11) 90000-0000" autocomplete="off">
+          <div class="input-wrapper" style="position: relative;">
+            <input type="tel" id="clienteTel" required placeholder="11900001111" autocomplete="off">
+          </div>
 
           <label>Serviço:</label>
           <select id="servicoSelect" required>
@@ -326,7 +329,7 @@
       new window.VLibras.Widget('https://vlibras.gov.br/app');
     </script>
     <script src="https://app.embed.im/accessibility.js" defer></script>
-
 </body>
+<script src="../JS/recepcao.js" defer></script>
 
 </html>
