@@ -269,13 +269,66 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     bookingDetails.innerHTML = `
-      <h3>Horários disponíveis — ${dataFormatada}</h3>
-      ${horarios.map(h => `
-        <div class="horario-item">
-          <strong>${h.horario}</strong> — ${escapeHtml(h.profissional)}
-          <button class="btn-agendar" data-horario="${h.horario}" data-prof="${h.profissional}" data-colab="${h.colaborador_id}" data-data="${date}">Agendar</button>
-        </div>`).join("")}
-    `;
+    <h3>Horários disponíveis — ${dataFormatada}</h3>
+
+    ${horarios.map(h => `
+      <div class="horario-item" style="display:flex; align-items:center; gap:10px; margin-bottom:6px;">
+        
+        <strong>${h.horario}</strong> — ${escapeHtml(h.profissional)}
+
+        ${h.status === "ocupado"
+        ? `
+              <span style="
+                  background:#f1c40f;
+                  color:#000;
+                  padding:4px 8px;
+                  border-radius:6px;
+                  font-size:13px;
+                  font-weight:bold;
+              ">
+                AGENDADO
+              </span>
+
+              <button 
+                class="btn-cancelar-ag" 
+                data-id="${h.atendimento_id}"
+                data-horario="${h.horario}" 
+                data-colab="${h.colaborador_id}" 
+                data-data="${date}"
+                style="
+                  background:#e74c3c;
+                  color:white;
+                  border:none;
+                  padding:6px 10px;
+                  border-radius:6px;
+                  cursor:pointer;
+                ">
+                Cancelar
+              </button>
+            `
+        : `
+              <button 
+                class="btn-agendar" 
+                data-horario="${h.horario}" 
+                data-prof="${h.profissional}" 
+                data-colab="${h.colaborador_id}" 
+                data-data="${date}"
+                style="
+                  background:#8BC34A;
+                  color:white;
+                  border:none;
+                  padding:6px 10px;
+                  border-radius:6px;
+                  cursor:pointer;
+                ">
+                Agendar
+              </button>
+            `
+      }
+
+      </div>
+    `).join("")}
+  `;
   }
 
   // Delegation: escuta clicks em bookingDetails (para botões criados dinamicamente)
@@ -289,7 +342,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Preenche modal corretamente
     if (formOverlay) formOverlay.classList.add("active");
-    if (dataAgInput) dataAgInput.value = isoToDisplayDate(data); // dd/mm/yyyy
+    if (dataAgInput) dataAgInput.value = data;
     if (horaAgInput) horaAgInput.value = horario;
     if (profAgInput) profAgInput.value = prof;
     if (colabIdInput) colabIdInput.value = colab;
@@ -298,6 +351,41 @@ document.addEventListener("DOMContentLoaded", () => {
     if (tempoSelect) tempoSelect.innerHTML = `<option value="">Selecione um serviço</option>`;
     if (precoInput) precoInput.value = "";
   });
+
+  bookingDetails.addEventListener("click", async (e) => {
+    const btn = e.target.closest(".btn-cancelar-ag");
+    if (!btn) return;
+
+    const atendimento_id = btn.dataset.id;
+    console.log("DEBUG CANCELAR → id:", atendimento_id);
+    const horario = btn.dataset.horario;
+    const colab = btn.dataset.colab;
+    const data = btn.dataset.data;
+
+    if (!confirm(`Cancelar o atendimento das ${horario}?`)) return;
+
+    try {
+      const resp = await safeFetchJson(`/api/atendimentos/cancelar/${atendimento_id}`, {
+        method: "PUT"
+      });
+
+      alert("Agendamento cancelado!");
+
+      // Recarregar horários do dia
+      const resp2 = await safeFetchJson(
+        `/api/atendimentos/disponiveis?unidade_id=${unidadeId}&data=${data}`
+      );
+      showAvailableOptions(data, resp2);
+
+      // Atualiza calendário visual
+      renderCalendar();
+
+    } catch (err) {
+      console.error(err);
+      alert("Erro ao cancelar: " + err.message);
+    }
+  });
+
 
   /* ------------------------------
      Modal ações (confirmar / cancelar)
@@ -319,59 +407,67 @@ document.addEventListener("DOMContentLoaded", () => {
     const colaborador_id = Number(colabIdInput?.value || 0);
     const servico_id = Number(servicoSelect?.value || 0);
     const preco_id = Number(tempoSelect?.value || 0);
-    const dataText = dataAgInput?.value; // 'dd/mm/yyyy'
-    const horaText = horaAgInput?.value; // 'hh:mm'
+
+    const dataText = dataAgInput?.value;
+    console.log("DEBUG dataAgInput.value:", dataAgInput.value);
+    const horaText = horaAgInput?.value;
 
     if (!dataText || !horaText || !colaborador_id || !servico_id || !preco_id) {
-      alert("Preencha data, hora, profissional, serviço e tempo (preço).");
+      alert("Preencha data, hora, profissional, serviço e tempo.");
       return;
     }
 
-    const [d, m, y] = dataText.split('/');
-    const isoStart = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}T${horaText}:00`;
+    const isoStart = `${dataText} ${horaText}:00`;
+
     const currentUser = JSON.parse(localStorage.getItem('rokuzen.currentUser') || '{}');
     const criado_por = currentUser?.id || null;
 
+    // DEBUG VERDADEIRO
+    console.log("DEBUG FRONT → Enviando payload:", {
+      unidade_id: unidadeId,
+      cliente_id,
+      colaborador_id,
+      servico_id,
+      preco_id,
+      data_inicio: isoStart,
+      criado_por
+    });
+
     try {
+
+      const payload = {
+        unidade_id: unidadeId,
+        cliente_id,
+        colaborador_id,
+        servico_id,
+        preco_id,
+        data_inicio: isoStart,
+        criado_por
+      };
+
       const result = await safeFetchJson('/api/atendimentos', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          unidade_id: unidadeId,
-          cliente_id,
-          colaborador_id,
-          servico_id,
-          preco_id,
-          data_inicio: isoStart,
-          criado_por
-        })
+        body: JSON.stringify(payload)
       });
+
       alert('Agendamento criado! ID: ' + (result.atendimento_id || result.id || ""));
       formOverlay && formOverlay.classList.remove("active");
 
-      // 1. Re-renderiza o calendário (se necessário)
       renderCalendar();
 
-      // 2. [NOVO] Recarrega os horários disponíveis para o dia agendado
-      const dataText = dataAgInput?.value;
-      if (dataText) {
-        const [d, m, y] = dataText.split('/');
-        const fullDate = `${y}-${m.padStart(2, '0')}-${d.padStart(2, '0')}`;
-
-        try {
-          const resp = await safeFetchJson(`http://localhost:3000/api/atendimentos/disponiveis?unidade_id=${unidadeId}&data=${fullDate}`);
-          showAvailableOptions(fullDate, resp);
-        } catch (err) {
-          console.error("Erro ao recarregar horários:", err);
-          bookingDetails.innerHTML = `<div class="booking-card"><p>Erro ao recarregar horários.</p></div>`;
-        }
-      }
-
+      // RECARREGAR LISTA DE HORÁRIOS
+      const fullDate = dataText; // já está no formato YYYY-MM-DD
+      const resp = await safeFetchJson(
+        `/api/atendimentos/disponiveis?unidade_id=${unidadeId}&data=${fullDate}`
+      );
+      showAvailableOptions(fullDate, resp);
     } catch (err) {
-      console.error(err);
+      console.error("Erro ao criar agendamento:", err);
       alert('Erro ao criar agendamento: ' + err.message);
     }
   });
+
 
   /* ------------------------------
      Serviços / tempos (preços)
