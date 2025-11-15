@@ -1,4 +1,4 @@
-import pool from "../config/db.js";
+import db from "../config/db.js";
 
 function formatSQLLocal(dt) {
     const Y = dt.getFullYear();
@@ -10,59 +10,52 @@ function formatSQLLocal(dt) {
     return `${Y}-${M}-${D} ${h}:${m}:${s}`;
 }
 
-/* === LISTAR AGENDAMENTOS (com filtros opcionais) === */
-export const listarAtendimentos = async (req, res) => {
-    try {
-        const { unidade_id, colaborador_id, data } = req.query;
+export async function listarAtendimentos(req, res) {
+    const unidadeId = req.query.unidade_id;
 
-        let sql = `
+    try {
+        const [rows] = await db.query(`
       SELECT 
-        a.id AS atendimento_id,
-        c.nome_colaborador,
-        cli.nome_cliente,
-        s.nome_servico,
-        a.data_atendimento,
-        a.hora_inicio,
-        a.hora_fim,
+        a.atendimento_id,
+        a.data_inicio,
+        a.data_fim,
         a.status,
         a.inicio_atendimento,
-        a.fim_atendimento
+        a.fim_atendimento,
+
+        cli.nome_cliente,
+        cli.telefone_cliente,
+
+        c.nome_colaborador,
+
+        s.nome_servico,
+
+        sp.duracao_min,
+        sp.valor
+
       FROM atendimentos a
-      JOIN colaboradores c ON a.colaborador_id = c.colaborador_id
-      JOIN clientes cli ON a.cliente_id = cli.cliente_id
-      JOIN servicos s ON a.servico_id = s.servico_id
-      WHERE 1=1
-    `;
+      JOIN clientes cli ON cli.cliente_id = a.cliente_id
+      JOIN colaboradores c ON c.colaborador_id = a.colaborador_id
+      JOIN servicos s ON s.servico_id = a.servico_id
+      JOIN servico_precos sp ON sp.preco_id = a.preco_id
+      
+      WHERE a.unidade_id = ?
+      ORDER BY a.data_inicio DESC
+    `, [unidadeId]);
 
-        const params = [];
-        if (unidade_id) {
-            sql += " AND a.unidade_id = ?";
-            params.push(unidade_id);
-        }
-        if (colaborador_id) {
-            sql += " AND a.colaborador_id = ?";
-            params.push(colaborador_id);
-        }
-        if (data) {
-            sql += " AND DATE(a.data_atendimento) = ?";
-            params.push(data);
-        }
-
-        sql += " ORDER BY a.data_atendimento, a.hora_inicio";
-
-        const [rows] = await pool.query(sql, params);
         res.json(rows);
+
     } catch (err) {
         console.error("Erro ao listar atendimentos:", err);
-        res.status(500).json({ message: "Erro ao listar atendimentos" });
+        res.status(500).json({ error: err.sqlMessage, details: err });
     }
-};
+}
 
 export async function getAtendimentosMensal(req, res) {
     const { unidade_id, ano, mes } = req.query;
 
     try {
-        const [rows] = await pool.query(`
+        const [rows] = await db.query(`
         SELECT 
             DATE(data_inicio) AS data,
             COUNT(*) AS total_agendamentos,
@@ -103,7 +96,7 @@ export const getHorariosDisponiveis = async (req, res) => {
         const diaSemana = diasSemana[new Date(data).getDay()];
 
         // 1) Escalas do dia
-        const [colaboradores] = await pool.query(`
+        const [colaboradores] = await db.query(`
             SELECT 
                 c.colaborador_id,
                 c.nome_colaborador AS profissional,
@@ -122,7 +115,7 @@ export const getHorariosDisponiveis = async (req, res) => {
             return res.json([]);
 
         // 2) Agendamentos do dia
-        const [agendamentos] = await pool.query(`
+        const [agendamentos] = await db.query(`
             SELECT 
                 atendimento_id,
                 colaborador_id,
@@ -204,7 +197,7 @@ export const criarAgendamento = async (req, res) => {
         }
 
         // 1) pegar duracao do preco_id
-        const [[preco]] = await pool.query(`SELECT duracao_min, valor FROM servico_precos WHERE preco_id = ?`, [preco_id]);
+        const [[preco]] = await db.query(`SELECT duracao_min, valor FROM servico_precos WHERE preco_id = ?`, [preco_id]);
         if (!preco) return res.status(400).json({ error: "Preco inválido." });
 
         const duracaoMin = Number(preco.duracao_min);
@@ -254,7 +247,7 @@ export const criarAgendamento = async (req, res) => {
             posto_id = postoForcado;
         } else {
             // pega quais tipos esse servico aceita (servico_locais)
-            const [tiposRows] = await pool.query(
+            const [tiposRows] = await db.query(
                 `SELECT tipo FROM servico_locais WHERE servico_ref_id = ?`,
                 [servico_id]
             );
@@ -262,7 +255,7 @@ export const criarAgendamento = async (req, res) => {
             if (tipos.length > 0) {
                 // montar placeholders
                 const placeholders = tipos.map(_ => "?").join(",");
-                const [postos] = await pool.query(
+                const [postos] = await db.query(
                     `SELECT posto_id FROM postos_trabalho WHERE unidade_id = ? AND tipo IN (${placeholders}) AND (total - ocupados) > 0 LIMIT 1`,
                     [unidade_id, ...tipos]
                 );
@@ -271,7 +264,7 @@ export const criarAgendamento = async (req, res) => {
         }
 
         // 3) inserir no banco
-        const [insertRes] = await pool.query(
+        const [insertRes] = await db.query(
             `INSERT INTO atendimentos 
        (unidade_id, cliente_id, colaborador_id, servico_id, preco_id, posto_id, data_inicio, data_fim, status, criado_por)
        VALUES (?, ?, ?, ?, ?, ?, ?, ?, 'agendado', ?)`,
@@ -282,7 +275,7 @@ export const criarAgendamento = async (req, res) => {
 
         // 4) atualizar posto ocupado (se alocado)
         if (posto_id) {
-            await pool.query(`UPDATE postos_trabalho SET ocupados = ocupados + 1 WHERE posto_id = ?`, [posto_id]);
+            await db.query(`UPDATE postos_trabalho SET ocupados = ocupados + 1 WHERE posto_id = ?`, [posto_id]);
         }
 
         // 5) retornar sucesso
@@ -299,7 +292,7 @@ export const cancelarAtendimento = async (req, res) => {
         console.log("DEBUG SERVER → cancelarAtendimento ID recebido:", id);
 
         // 1. Verifica se existe
-        const [row] = await pool.query(
+        const [row] = await db.query(
             `SELECT atendimento_id, status 
        FROM atendimentos 
        WHERE atendimento_id = ? 
@@ -315,7 +308,7 @@ export const cancelarAtendimento = async (req, res) => {
         console.log("DEBUG SERVER → Registro encontrado:", row[0]);
 
         // 2. Atualiza status
-        const [result] = await pool.query(
+        const [result] = await db.query(
             `UPDATE atendimentos
        SET status = 'cancelado'
        WHERE atendimento_id = ?`,
@@ -350,7 +343,7 @@ export const getAtendimentosDoColaborador = async (req, res) => {
             return res.status(400).json({ error: "Parâmetros inválidos." });
         }
 
-        const [rows] = await pool.query(
+        const [rows] = await db.query(
             `SELECT 
           a.atendimento_id,
           a.data_inicio,
@@ -381,7 +374,7 @@ export async function getAgendamentosDoColaboradorNoDia(req, res) {
             return res.status(400).json({ error: "Parâmetros inválidos." });
         }
 
-        const [rows] = await pool.query(
+        const [rows] = await db.query(
             `SELECT 
                 a.atendimento_id,
                 a.cliente_id,
@@ -405,40 +398,76 @@ export async function getAgendamentosDoColaboradorNoDia(req, res) {
     }
 }
 
-export async function iniciarAtendimento(req, res) {
+export const iniciarAtendimento = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const [result] = await pool.query(
+        // pega posto do atendimento
+        const [[at]] = await db.query(
+            `SELECT posto_id FROM atendimentos WHERE atendimento_id = ?`,
+            [id]
+        );
+
+        if (!at) return res.status(404).json({ error: "Atendimento não encontrado." });
+
+        // marca inicio_atendimento
+        await db.query(
             `UPDATE atendimentos 
-             SET inicio_atendimento = NOW(), status = 'em_atendimento'
+             SET inicio_atendimento = NOW(), status = 'em_andamento'
              WHERE atendimento_id = ?`,
             [id]
         );
 
-        res.json({ success: true, message: "Atendimento iniciado." });
+        // ocupa o posto (se existir)
+        if (at.posto_id) {
+            await db.query(
+                `UPDATE postos_trabalho 
+                 SET ocupados = ocupados + 1 
+                 WHERE posto_id = ?`,
+                [at.posto_id]
+            );
+        }
 
-    } catch (error) {
-        console.error("Erro ao iniciar atendimento:", error);
-        res.status(500).json({ error: "Erro ao iniciar atendimento." });
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Erro iniciarAtendimento:", err);
+        res.status(500).json({ error: "Erro ao iniciar atendimento" });
     }
-}
+};
 
-export async function encerrarAtendimento(req, res) {
+export const encerrarAtendimento = async (req, res) => {
     try {
         const { id } = req.params;
 
-        const [result] = await pool.query(
+        // pega o posto do atendimento
+        const [[at]] = await db.query(
+            `SELECT posto_id FROM atendimentos WHERE atendimento_id = ?`,
+            [id]
+        );
+
+        if (!at) return res.status(404).json({ error: "Atendimento não encontrado." });
+
+        // marca fim_atendimento
+        await db.query(
             `UPDATE atendimentos 
              SET fim_atendimento = NOW(), status = 'finalizado'
              WHERE atendimento_id = ?`,
             [id]
         );
 
-        res.json({ success: true, message: "Atendimento encerrado." });
+        // libera o posto (se existir)
+        if (at.posto_id) {
+            await db.query(
+                `UPDATE postos_trabalho 
+                 SET ocupados = ocupados - 1 
+                 WHERE posto_id = ? AND ocupados > 0`,
+                [at.posto_id]
+            );
+        }
 
-    } catch (error) {
-        console.error("Erro ao encerrar atendimento:", error);
-        res.status(500).json({ error: "Erro ao encerrar atendimento." });
+        res.json({ success: true });
+    } catch (err) {
+        console.error("Erro encerrarAtendimento:", err);
+        res.status(500).json({ error: "Erro ao encerrar atendimento" });
     }
-}
+};
