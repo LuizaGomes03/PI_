@@ -6,7 +6,9 @@ import {
   getAtendimentosMensal,
   getHorariosDisponiveis,
   criarAgendamento,
-  cancelarAtendimento
+  cancelarAtendimento,
+  getAtendimentosDoColaborador,
+  getAgendamentosDoColaboradorNoDia
 } from "../controllers/atendimentosController.js";
 
 const router = express.Router();
@@ -23,4 +25,7 @@ router.put("/:id/encerrar", encerrarAtendimento);
 router.get("/mensal", getAtendimentosMensal);
 router.get("/disponiveis", getHorariosDisponiveis);
 router.post("/", criarAgendamento);
+router.get("/profissional/dia", getAtendimentosDoColaborador);
+router.get("/colaborador/:colaborador_id", getAgendamentosDoColaboradorNoDia);
+
 export default router;

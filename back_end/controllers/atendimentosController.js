@@ -387,3 +387,66 @@ export const cancelarAtendimento = async (req, res) => {
         res.status(500).json({ error: "Erro ao cancelar agendamento." });
     }
 };
+
+export const getAtendimentosDoColaborador = async (req, res) => {
+    try {
+        const { colaborador_id, data } = req.query;
+
+        if (!colaborador_id || !data) {
+            return res.status(400).json({ error: "Parâmetros inválidos." });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT 
+          a.atendimento_id,
+          a.data_inicio,
+          a.data_fim,
+          c.nome_cliente
+       FROM atendimentos a
+       JOIN clientes c ON c.cliente_id = a.cliente_id
+       WHERE a.colaborador_id = ?
+       AND DATE(a.data_inicio) = ?
+       AND a.status = 'agendado'
+       ORDER BY a.data_inicio ASC`,
+            [colaborador_id, data]
+        );
+
+        res.json(rows);
+    } catch (err) {
+        console.error(err);
+        res.status(500).json({ error: "Erro ao carregar atendimentos." });
+    }
+};
+
+export async function getAgendamentosDoColaboradorNoDia(req, res) {
+    try {
+        const { colaborador_id } = req.params;
+        const { data } = req.query;
+
+        if (!colaborador_id || !data) {
+            return res.status(400).json({ error: "Parâmetros inválidos." });
+        }
+
+        const [rows] = await pool.query(
+            `SELECT 
+                a.atendimento_id,
+                a.cliente_id,
+                c.nome_cliente,
+                DATE_FORMAT(a.data_inicio, '%Y-%m-%d %H:%i:%s') AS data_inicio,
+                DATE_FORMAT(a.data_fim,    '%Y-%m-%d %H:%i:%s') AS data_fim,
+                a.status
+             FROM atendimentos a
+             LEFT JOIN clientes c ON c.cliente_id = a.cliente_id
+             WHERE a.colaborador_id = ?
+               AND DATE(a.data_inicio) = ?
+               AND a.status = 'agendado'
+             ORDER BY a.data_inicio ASC`,
+            [colaborador_id, data]
+        );
+
+        res.json(rows);
+    } catch (error) {
+        console.error("Erro getAgendamentosDoColaboradorNoDia:", error);
+        res.status(500).json({ error: "Erro ao buscar agendamentos do colaborador." });
+    }
+}
