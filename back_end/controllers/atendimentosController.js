@@ -58,52 +58,6 @@ export const listarAtendimentos = async (req, res) => {
     }
 };
 
-/* === INICIAR ATENDIMENTO === */
-export const iniciarAtendimento = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const [result] = await pool.query(
-            `UPDATE atendimentos 
-       SET inicio_atendimento = NOW(), status = 'em_andamento'
-       WHERE id = ? AND status = 'agendado'`,
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Atendimento não encontrado ou já iniciado" });
-        }
-
-        res.json({ message: "Sessão iniciada com sucesso" });
-    } catch (err) {
-        console.error("Erro ao iniciar atendimento:", err);
-        res.status(500).json({ message: "Erro ao iniciar atendimento" });
-    }
-};
-
-/* === ENCERRAR ATENDIMENTO === */
-export const encerrarAtendimento = async (req, res) => {
-    try {
-        const { id } = req.params;
-
-        const [result] = await pool.query(
-            `UPDATE atendimentos 
-       SET fim_atendimento = NOW(), status = 'concluido'
-       WHERE id = ? AND status = 'em_andamento'`,
-            [id]
-        );
-
-        if (result.affectedRows === 0) {
-            return res.status(404).json({ message: "Atendimento não encontrado ou já encerrado" });
-        }
-
-        res.json({ message: "Sessão encerrada com sucesso" });
-    } catch (err) {
-        console.error("Erro ao encerrar atendimento:", err);
-        res.status(500).json({ message: "Erro ao encerrar atendimento" });
-    }
-};
-
 export async function getAtendimentosMensal(req, res) {
     const { unidade_id, ano, mes } = req.query;
 
@@ -448,5 +402,43 @@ export async function getAgendamentosDoColaboradorNoDia(req, res) {
     } catch (error) {
         console.error("Erro getAgendamentosDoColaboradorNoDia:", error);
         res.status(500).json({ error: "Erro ao buscar agendamentos do colaborador." });
+    }
+}
+
+export async function iniciarAtendimento(req, res) {
+    try {
+        const { id } = req.params;
+
+        const [result] = await pool.query(
+            `UPDATE atendimentos 
+             SET inicio_atendimento = NOW(), status = 'em_atendimento'
+             WHERE atendimento_id = ?`,
+            [id]
+        );
+
+        res.json({ success: true, message: "Atendimento iniciado." });
+
+    } catch (error) {
+        console.error("Erro ao iniciar atendimento:", error);
+        res.status(500).json({ error: "Erro ao iniciar atendimento." });
+    }
+}
+
+export async function encerrarAtendimento(req, res) {
+    try {
+        const { id } = req.params;
+
+        const [result] = await pool.query(
+            `UPDATE atendimentos 
+             SET fim_atendimento = NOW(), status = 'finalizado'
+             WHERE atendimento_id = ?`,
+            [id]
+        );
+
+        res.json({ success: true, message: "Atendimento encerrado." });
+
+    } catch (error) {
+        console.error("Erro ao encerrar atendimento:", error);
+        res.status(500).json({ error: "Erro ao encerrar atendimento." });
     }
 }

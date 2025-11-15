@@ -178,9 +178,19 @@ document.addEventListener("DOMContentLoaded", () => {
             modalStop.disabled = true;
 
             // anexar referência atual — mas setamos elapsedBefore = 0 para que a nova sessão comece do zero
-            window.__ROKU_MODAL_SESSION = window.__ROKU_MODAL_SESSION && window.__ROKU_MODAL_SESSION.storageKey === sk
-                ? window.__ROKU_MODAL_SESSION
-                : { storageKey: sk, client, startedAt: null, elapsedBefore: 0, intervalId: null };
+            window.__ROKU_MODAL_SESSION =
+                (window.__ROKU_MODAL_SESSION && window.__ROKU_MODAL_SESSION.storageKey === sk)
+                    ? {
+                        ...window.__ROKU_MODAL_SESSION,
+                        client // <-- garante que o client sempre é salvo
+                    }
+                    : {
+                        storageKey: sk,
+                        client,
+                        startedAt: null,
+                        elapsedBefore: 0,
+                        intervalId: null
+                    };
 
             // se havia uma sessão global rodando de outro cliente, não alteramos o storage/histórico aqui,
             // a checagem ao iniciar ainda vai impedir múltiplas sessões simultâneas.
@@ -213,6 +223,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // iniciar contagem no modal
         function startModalTimer() {
+            const clientName = window.__ROKU_MODAL_SESSION.client;
+            const item = list.find(x => x.client === clientName);
+            if (item?.atendimento_id) {
+                fetch(`/api/atendimentos/${item.atendimento_id}/iniciar`, {
+                    method: "PUT"
+                }).catch(err => console.error("Erro iniciar atendimento:", err));
+            }
+
             if (!window.__ROKU_MODAL_SESSION) return;
             // prevenir múltiplas sessões ativas em locais diferentes
             if (window.__ROKU_GLOBAL_RUNNING && window.__ROKU_GLOBAL_RUNNING.storageKey !== window.__ROKU_MODAL_SESSION.storageKey) {
@@ -259,9 +277,21 @@ document.addEventListener("DOMContentLoaded", () => {
         // encerrar -> salva registro definitivo
         // encerrar -> salva registro definitivo e reinicia o contador para nova sessão
         function stopModalTimer() {
+
+            // recuperar cliente salvo ao abrir o modal
+            const clientName = window.__ROKU_MODAL_SESSION.client;
+
+            // enviar fim_atendimento
+            const item = list.find(x => x.client === clientName);
+            if (item?.atendimento_id) {
+                fetch(`/api/atendimentos/${item.atendimento_id}/encerrar`, {
+                    method: "PUT"
+                }).catch(err => console.error("Erro encerrar atendimento:", err));
+            }
+
             if (!window.__ROKU_MODAL_SESSION) return;
 
-            // calcular duração desta sessão (segundos)
+            // calcular duração
             let thisSessionSeconds = window.__ROKU_MODAL_SESSION.elapsedBefore || 0;
 
             if (window.__ROKU_MODAL_SESSION.intervalId) {
@@ -271,7 +301,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 thisSessionSeconds = (window.__ROKU_MODAL_SESSION.elapsedBefore || 0) + elapsed;
             }
 
-            // montar registro da sessão atual
             const record = {
                 startedAt: window.__ROKU_MODAL_SESSION.startedAt
                     ? new Date(window.__ROKU_MODAL_SESSION.startedAt).toISOString()
@@ -280,33 +309,42 @@ document.addEventListener("DOMContentLoaded", () => {
                 duration: thisSessionSeconds
             };
 
-            // salvar no storage (mantendo histórico anterior)
             const arr = loadSessions(window.__ROKU_MODAL_SESSION.storageKey);
             arr.push(record);
             saveSessions(window.__ROKU_MODAL_SESSION.storageKey, arr);
 
-            // atualizar total e histórico na tela
-            const totalNow = sumRecordedSeconds(arr);
-            modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(totalNow)}`;
-            renderModalHistory(arr); // 👈 agora o histórico atualiza imediatamente
+            modalTotalRecorded.textContent = `Total gravado: ${formatSeconds(sumRecordedSeconds(arr))}`;
+            renderModalHistory(arr);
 
-            // zerar o cronômetro na interface
             modalTimer.textContent = formatSeconds(0);
 
-            // resetar o estado interno da sessão
             if (window.__ROKU_MODAL_SESSION.intervalId) {
                 clearInterval(window.__ROKU_MODAL_SESSION.intervalId);
             }
+
             window.__ROKU_MODAL_SESSION.startedAt = null;
             window.__ROKU_MODAL_SESSION.elapsedBefore = 0;
             window.__ROKU_MODAL_SESSION.intervalId = null;
             window.__ROKU_GLOBAL_RUNNING = null;
 
-            // restaurar botões
             modalStart.disabled = false;
             modalPause.disabled = true;
             modalStop.disabled = true;
+
+            // FECHAR
+            closeSessionModal();
+
+            // DESABILITAR BOTÃO
+            try {
+                const btn = document.querySelector(`button[data-client="${clientName}"]`);
+                if (btn) {
+                    btn.disabled = true;
+                    btn.textContent = "Finalizado";
+                    btn.classList.add("disabled-session-btn");
+                }
+            } catch (e) { console.warn(e); }
         }
+
 
         // ligar eventos do modal (apenas uma vez)
         if (!renderAppointmentsForKey.__modalInit) {
@@ -418,9 +456,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
                 // aplicar destaque ao dia clicado
                 cell.classList.add("selected-day");
-                
+
                 const colaborador_id = localStorage.getItem("colaborador_id");
-                
+
 
                 const rows = await loadAppointments(colaborador_id, key);
 
