@@ -50,12 +50,13 @@ document.addEventListener("DOMContentLoaded", () => {
 // AGENDA — calendário alinhado por dia da semana (insere slots vazios antes do dia 1)
 // Mantém destaques, navegação entre meses e painel de atendimentos
 (() => {
-    // --- dados de exemplo (substitua pela sua API/DB) ---
-    const appointments = {
-        "2025-10-28": [{ time: "09:00", client: "João Silva", notes: "Reavaliação" }, { time: "14:30", client: "Maria Costa" }],
-        "2025-10-30": [{ time: "11:00", client: "Ana Pereira" }],
-        "2025-11-03": [{ time: "08:30", client: "Lucas Ferreira" }],
-    };
+    let appointments = {};
+    //  API/DB ---
+    async function loadAppointments(colaborador_id, dateKey) {
+        const url = `/api/atendimentos/colaborador/${colaborador_id}?data=${dateKey}`;
+        const resp = await fetch(url);
+        return await resp.json();
+    }
 
     // Seletores / elementos do DOM (devem existir no HTML que você já tem)
     const shortcuts = document.querySelectorAll('.shortcut-item');
@@ -90,9 +91,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // Preenche painel lateral com atendimentos de uma chave YYYY-MM-DD
     // ----- substituir renderAppointmentsForKey -----
-    function renderAppointmentsForKey(key) {
-        appointmentsContent.innerHTML = '';
-        const list = appointments[key] || [];
+    function renderAppointmentsForKey(key, list) {
+        appointmentsContent.innerHTML = "";
+
+        // garantir que list sempre esteja no formato interno padronizado
+        if (list && Array.isArray(list)) {
+
+            list = list.map(a => ({
+                client: a.client || a.nome_cliente || `Cliente ${a.cliente_id}`,
+                time: a.time || (
+                    a.data_inicio ?
+                        new Date(a.data_inicio).toLocaleTimeString("pt-BR", {
+                            hour: "2-digit",
+                            minute: "2-digit"
+                        })
+                        : "--:--"
+                ),
+                notes: a.notes || "",
+                atendimento_id: a.atendimento_id
+            }));
+
+        } else {
+            list = appointments[key] || [];
+        }
+
         if (!list.length) {
             appointmentsContent.innerHTML = '<p class="empty">Nenhum atendimento para este dia.</p>';
             return;
@@ -388,10 +410,32 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
             // clique: abre painel com atendimentos daquele dia
-            cell.addEventListener('click', (e) => {
-                e.preventDefault();
-                renderAppointmentsForKey(key);
-                appointmentsPanel.scrollTop = 0;
+            cell.addEventListener("click", async () => {
+                // remover seleção anterior
+                document.querySelectorAll(".day.selected-day").forEach(el =>
+                    el.classList.remove("selected-day")
+                );
+
+                // aplicar destaque ao dia clicado
+                cell.classList.add("selected-day");
+                
+                const colaborador_id = localStorage.getItem("colaborador_id");
+                
+
+                const rows = await loadAppointments(colaborador_id, key);
+
+                appointments[key] = (rows || []).map(a => ({
+                    client: a.nome_cliente || `Cliente ${a.cliente_id}`,
+                    time: a.data_inicio ? new Date(a.data_inicio).toLocaleTimeString("pt-BR", {
+                        hour: "2-digit",
+                        minute: "2-digit"
+                    }) : "--:--",
+                    notes: "",
+                    atendimento_id: a.atendimento_id
+                }));
+
+                renderAppointmentsForKey(key, appointments[key]);
+
             });
 
             // keyboard accessibility (Enter / Space)
@@ -580,7 +624,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 
     // O listener DEVE ficar DEPOIS da definição da função async
-    punchBtn?.addEventListener('click', markPunch); 
+    punchBtn?.addEventListener('click', markPunch);
 
 
     function openLoginCard() {

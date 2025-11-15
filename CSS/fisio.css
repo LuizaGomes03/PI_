@@ -888,3 +888,10 @@ h1 {
   .modal-close {
     display: none !important;
 }
+
+.day.selected-day {
+    border: 2px solid #7aa524 !important;
+    background: rgba(154, 205, 50, 0.15) !important;
+    box-shadow: 0 0 8px rgba(154, 205, 50, 0.6);
+    transition: 0.2s ease-in-out;
+}
