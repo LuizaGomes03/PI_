@@ -1984,3 +1984,72 @@ document.addEventListener('DOMContentLoaded', () => {
 
   carregarPostos();
 })();
+
+/* =========================
+   ATENDIMENTOS — LISTAGEM
+   ========================= */
+(function initAtendimentos() {
+  const tbody = document.querySelector("#tblAtendimentos tbody");
+  const vazio = document.getElementById("atdEmpty"); // o aviso "sem atendimentos"
+  if (!tbody) return;
+
+  async function carregarAtendimentos(unidadeId) {
+    tbody.innerHTML = `<tr><td colspan="8" style="text-align:center;">Carregando...</td></tr>`;
+    vazio.hidden = true;
+
+    try {
+      const resp = await fetch(`http://localhost:3000/api/atendimentos?unidade_id=${unidadeId}`);
+      const data = await resp.json();
+
+      tbody.innerHTML = "";
+
+      if (!data.length) {
+        vazio.hidden = false;
+        return;
+      }
+
+      for (const a of data) {
+        const tr = document.createElement("tr");
+
+        const dataHora = new Date(a.data_inicio || a.data_atendimento).toLocaleString("pt-BR");
+        const preco = a.valor ? `R$ ${parseFloat(a.valor).toFixed(2).replace(".", ",")}` : "—";
+
+        tr.innerHTML = `
+          <td>${dataHora}</td>
+          <td>${a.nome_cliente}</td>
+          <td>${a.telefone_cliente || "—"}</td>
+          <td>${a.nome_colaborador}</td>
+          <td>${a.nome_servico}</td>
+          <td>${a.duracao_min || "—"}</td>
+          <td>${preco}</td>
+          <td>${a.status}</td>
+        `;
+
+        tbody.appendChild(tr);
+      }
+
+    } catch (err) {
+      console.error("Erro ao carregar atendimentos:", err);
+      tbody.innerHTML = `<tr><td colspan="8">Erro ao carregar atendimentos.</td></tr>`;
+    }
+  }
+
+  // sempre que trocar de unidade
+  document.addEventListener("unit:change", (ev) => {
+    const unidade = ev.detail;
+    if (unidade?.id) carregarAtendimentos(unidade.id);
+  });
+
+  // carrega na inicialização se já tiver unidade salva
+  const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+  if (unidadeAtual?.id) carregarAtendimentos(unidadeAtual.id);
+
+  // carrega quando abrir a view atendimentos
+  document.addEventListener("view:activated", (ev) => {
+    if (ev.detail === "view-atendimentos") {
+      const unidadeAtual = JSON.parse(localStorage.getItem("rokuzen.currentUnit") || "{}");
+      if (unidadeAtual?.id) carregarAtendimentos(unidadeAtual.id);
+    }
+  });
+
+})();
