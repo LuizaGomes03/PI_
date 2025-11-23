@@ -115,6 +115,13 @@
             } catch (e) { }
         });
 
+        function formatarDataISOparaBR(iso) {
+            if (!iso) return '';
+            const [ano, mes, dia] = iso.split('-');
+            if (ano && mes && dia) return `${dia}/${mes}/${ano}`;
+            return iso;
+        }
+
         // RESUMO DAS ESCOLHAS
         function getResumo() {
             // Recupera do localStorage
@@ -135,10 +142,10 @@
             if (tecnica) resumo.push(`<li><b>Técnica:</b> ${tecnica}</li>`);
             if (tempo) resumo.push(`<li><b>Tempo:</b> ${tempo} minutos</li>`);
             if (preco) resumo.push(`<li><b>Valor:</b> R$ ${preco}</li>`);
-            if (dia) resumo.push(`<li><b>Dia:</b> ${dia}</li>`);
+            if (dia) resumo.push(`<li><b>Dia:</b> ${formatarDataISOparaBR(dia)}</li>`);
             if (horario) resumo.push(`<li><b>Horário:</b> ${horario}</li>`);
             if (profissional) resumo.push(`<li><b>Profissional:</b> ${profissional}</li>`);
-            if (dataSelecionada) resumo.push(`<li><b>Data:</b> ${dataSelecionada}</li>`);
+            if (dataSelecionada) resumo.push(`<li><b>Data:</b> ${formatarDataISOparaBR(dataSelecionada)}</li>`);
             if (horarioSelecionado) resumo.push(`<li><b>Horário:</b> ${horarioSelecionado}</li>`);
             if (profissionalSelecionado) resumo.push(`<li><b>Profissional:</b> ${profissionalSelecionado}</li>`);
             // Só mostra condições médicas se NÃO for "Nenhuma das opções acima"
