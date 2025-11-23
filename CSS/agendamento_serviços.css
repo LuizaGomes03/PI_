@@ -26,7 +26,8 @@
 
 /* ===== SERVIÇOS — todos redondos e do mesmo tamanho ===== */
 .servicos-section {
-  --circle-size: 180px; /* 👉 mude aqui o diâmetro das fotos */
+  --circle-size: 180px;
+  /* 👉 mude aqui o diâmetro das fotos */
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -38,7 +39,8 @@
 
 /* cada card fica com uma largura fixa (evita "planetão") */
 .servico {
-  width: calc(var(--circle-size) + 40px); /* imagem + respiro p/ textos */
+  width: calc(var(--circle-size) + 40px);
+  /* imagem + respiro p/ textos */
   text-align: center;
   cursor: pointer;
   transition: transform .25s ease, box-shadow .25s ease;
@@ -61,7 +63,8 @@
 .servico img {
   width: 100%;
   height: 100%;
-  object-fit: cover; /* corta sem distorcer */
+  object-fit: cover;
+  /* corta sem distorcer */
   transition: transform .35s ease;
 }
 
@@ -149,3 +152,35 @@
   transform: scale(1.03);
 }
 
+.actions {
+  margin: 10px;
+  display: flex;
+  justify-content: flex-start;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+.btn-voltar {
+  margin-left: 220px;
+  appearance: none;
+  border: 1px solid var(--ring);
+  background: #fff;
+  color: #4b5563;
+  border: solid 1px gray;
+  padding: 10px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: .18s transform, .18s box-shadow;
+}
+
+.btn-voltar:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, .06);
+}
+
+.btn-voltar .primary {
+  background: var(--brand);
+  border-color: var(--brand);
+  color: #fff;
+}
