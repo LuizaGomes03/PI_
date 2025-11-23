@@ -31,7 +31,15 @@
   </section>
 
   <main class="container py-4 page-section">
-    <div class="rk-card">
+    <!-- RESUMO DO AGENDAMENTO -->
+    <div class="rk-card" id="resumoAgendamento" style="margin-bottom:28px;">
+      <h2 style="font-size:22px;margin-bottom:10px;">Resumo do Agendamento</h2>
+      <ul id="resumoLista" style="font-size:16px;color:#253041;padding-left:18px;">
+        <!-- Preenchido via JS -->
+      </ul>
+    </div>
+
+    <div class="rk-card" id="dadosAgendamento">
       <!-- Formulário de Dados -->
       <form id="formDados" class="needs-validation" novalidate>
         <div class="rk-grid">
@@ -79,6 +87,15 @@
             <button class="btn-voltar" onclick="history.back()">Voltar</button>
           </div>
       </form>
+      <!-- POPUP DE SUCESSO -->
+      <div id="mensagemConfirmacaoPopup" style="display:none;">
+        <div class="popup-overlay"></div>
+        <div class="popup-content">
+          <span class="popup-icon">✅</span>
+          <div class="popup-title">Agendamento realizado com sucesso!</div>
+          <div class="popup-text">Você será redirecionado para a tela inicial.</div>
+        </div>
+      </div>
     </div>
     </section>
 
@@ -99,15 +116,63 @@
 
     // validação Bootstrap vibe
     const form = document.getElementById('formDados');
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', function(e) {
       if (!form.checkValidity()) {
         e.preventDefault();
         e.stopPropagation();
+        form.classList.add('was-validated');
+        return;
       }
-      form.classList.add('was-validated');
+      e.preventDefault();
+      // Exibe popup de sucesso
+      document.getElementById('mensagemConfirmacaoPopup').style.display = 'flex';
+      form.style.display = 'none';
+      // Redireciona para tela inicial após 3 segundos
+      setTimeout(() => {
+        window.location.href = "homepage.html";
+      }, 3000);
     }, false);
 
 
+    function formatarDataISOparaBR(iso) {
+      if (!iso) return '';
+      const [ano, mes, dia] = iso.split('-');
+      if (ano && mes && dia) return `${dia}/${mes}/${ano}`;
+      return iso;
+    }
+
+    // Função para montar o resumo do agendamento
+    function getResumo() {
+      // Recupera do localStorage
+      const servico = localStorage.getItem('servico') || '';
+      const tempo = localStorage.getItem('tempo') || '';
+      const preco = localStorage.getItem('preco') || '';
+      const unidade = localStorage.getItem('unidade') || '';
+      const dia = localStorage.getItem('dia') || localStorage.getItem('dataSelecionada') || '';
+      const horario = localStorage.getItem('horario') || localStorage.getItem('horarioSelecionado') || '';
+      const profissional = localStorage.getItem('profissional') || localStorage.getItem('profissionalSelecionado') || '';
+      const condicoes = JSON.parse(localStorage.getItem('condicoesSelecionadas') || '[]');
+
+      const resumo = [];
+      if (unidade) resumo.push(`<li><b>Unidade:</b> ${unidade}</li>`);
+      if (servico) resumo.push(`<li><b>Serviço:</b> ${servico}</li>`);
+      if (tempo) resumo.push(`<li><b>Tempo:</b> ${tempo} minutos</li>`);
+      if (preco) resumo.push(`<li><b>Valor:</b> R$ ${preco}</li>`);
+      if (dia) resumo.push(`<li><b>Dia:</b> ${formatarDataISOparaBR(dia)}</li>`);
+      if (horario) resumo.push(`<li><b>Horário:</b> ${horario}</li>`);
+      if (profissional) resumo.push(`<li><b>Profissional:</b> ${profissional}</li>`);
+      if (condicoes.length > 0 && !(condicoes.length === 1 && condicoes[0].toLowerCase().includes("nenhuma"))) {
+        resumo.push(`<li><b>Condições médicas:</b> ${condicoes.join(', ')}</li>`);
+      }
+      return resumo.join('');
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      // Preenche o resumo do agendamento
+      document.getElementById('resumoLista').innerHTML = getResumo();
+
+      // ...existing code...
+    });
   </script>
   <!-- VLibras - Acessibilidade em Libras -->
   <div vw class="enabled">
