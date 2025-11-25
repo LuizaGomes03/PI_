@@ -92,10 +92,13 @@ small {
 /* Botão Comprar premium */
 
 .botao-container {
-    text-align: center; /* centraliza botões inline */
+    text-align: center;
+    /* centraliza botões inline */
     margin-top: 40px;
-    display: flex; /* flex opcional */
-    justify-content: center; /* centraliza horizontalmente */
+    display: flex;
+    /* flex opcional */
+    justify-content: center;
+    /* centraliza horizontalmente */
 }
 
 .btn-comprar {
@@ -104,7 +107,7 @@ small {
     font-size: 14px;
     font-weight: 700;
     letter-spacing: .6px;
-    padding: 14px 50px 14px 50px; 
+    padding: 14px 50px 14px 50px;
     border: none;
     border-radius: 12px;
     box-shadow: 0 6px 14px rgba(90, 160, 79, 0.25);
@@ -165,4 +168,36 @@ small {
     .linha {
         flex-direction: column;
     }
+}
+
+.actions {
+    margin: 10px;
+    display: inline;
+    justify-content: flex-start;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.btn-voltar {
+    appearance: none;
+    border: 1px solid var(--ring);
+    background: #fff;
+    color: #4b5563;
+    border: solid 1px gray;
+    padding: 10px 14px;
+    border-radius: 999px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: .18s transform, .18s box-shadow;
+}
+
+.btn-voltar:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, .06);
+}
+
+.btn-voltar .primary {
+    background: var(--brand);
+    border-color: var(--brand);
+    color: #fff;
 }
